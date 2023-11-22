@@ -22,6 +22,7 @@
   </label>
   <router-link v-bind:to="'/poll/'+id">{{uiLabels.participatePoll}}</router-link> -->
   <div>
+<<<<<<< HEAD
     <Title>
       About us 
     </Title>
@@ -31,6 +32,11 @@
   </div>
   <button class="button">{{ uiLabels.createGame }}</button>
   <button> {{ uiLabels.joinQuiz }}</button>
+=======
+    <button id="startbutton"> {{ uiLabels.createGame }}</button>
+    <button id="startbutton"> {{ uiLabels.joinQuiz }}</button>
+  </div>
+>>>>>>> a6b57ed083e319924070c431bf1157337e9a189b
 </template>
 
 <script>
@@ -139,7 +145,11 @@ header {
   .hide {
     left: -12em;
   }
-
 }
+  .button {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color:blueviolet;
+    background-color: aqua;
+  }
 
 </style>
