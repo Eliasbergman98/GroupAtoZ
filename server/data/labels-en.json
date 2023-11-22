@@ -5,6 +5,8 @@
 	"createPoll": "Create poll",
 	"participatePoll": "Participate in poll",
 	"question": "Question",
-	"changeLanguage": "Byt till japanska",
-	"about": "Nu testar vi att byta denna"
+	"changeLanguage": "Byt till svenska",
+	"about": "Nu testar vi att byta denna",
+	"createGame": "Create quiz",
+	"joinQuiz": "Join quiz"
 }
