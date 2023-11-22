@@ -21,8 +21,10 @@
     <input type="text" v-model="id">
   </label>
   <router-link v-bind:to="'/poll/'+id">{{uiLabels.participatePoll}}</router-link> -->
-  <button class="button">{{ uiLabels.createGame }}</button>
-  <button> {{ uiLabels.joinQuiz }}</button>
+  <div>
+    <button id="startbutton"> {{ uiLabels.createGame }}</button>
+    <button id="startbutton"> {{ uiLabels.joinQuiz }}</button>
+  </div>
 </template>
 
 <script>
@@ -131,7 +133,11 @@ header {
   .hide {
     left: -12em;
   }
-
 }
+  .button {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color:blueviolet;
+    background-color: aqua;
+  }
 
 </style>
