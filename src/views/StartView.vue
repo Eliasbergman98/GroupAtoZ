@@ -5,7 +5,7 @@
     <div class="logo">
       <img src="/img/brake.png">
       På Rälsen 
-      <img src="../../public/img/train.png">
+      <img src="/img/train.png">
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
