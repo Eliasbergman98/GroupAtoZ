@@ -3,9 +3,15 @@
     <div v-bind:class="['hamburger', { 'close': !hideNav }]" v-on:click="toggleNav">
     </div>
     <div class="logo">
+<<<<<<< HEAD
       <img src="/img/logo.png">
       Polly polling tool
       <img src="../assets/logo.svg">
+=======
+      <img src="../../public/img/brake.png">
+      På Rälsen 
+      <img src="../../public/img/train.png">
+>>>>>>> d9a1d12bdfb67f7212a37d1fea71d3a381fa0adc
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
@@ -21,10 +27,15 @@
     <input type="text" v-model="id">
   </label>
   <router-link v-bind:to="'/poll/'+id">{{uiLabels.participatePoll}}</router-link> -->
+<<<<<<< HEAD
   <div>
     <button id="startbutton"> {{ uiLabels.createGame }}</button>
     <button id="startbutton"> {{ uiLabels.joinQuiz }}</button>
   </div>
+=======
+  <button class="button">{{ uiLabels.createGame }}</button>
+  <button> {{ uiLabels.joinQuiz }}</button>
+>>>>>>> d9a1d12bdfb67f7212a37d1fea71d3a381fa0adc
 </template>
 
 <script>
@@ -133,7 +144,16 @@ header {
   .hide {
     left: -12em;
   }
+<<<<<<< HEAD
 
 }
+=======
+}
+  .button {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color:blueviolet;
+    background-color: aqua;
+  }
+>>>>>>> d9a1d12bdfb67f7212a37d1fea71d3a381fa0adc
 
 </style>
