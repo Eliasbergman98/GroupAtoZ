@@ -21,6 +21,14 @@
     <input type="text" v-model="id">
   </label>
   <router-link v-bind:to="'/poll/'+id">{{uiLabels.participatePoll}}</router-link> -->
+  <div>
+    <Title>
+      About us 
+    </Title>
+    <Div>
+      We are familiy
+    </Div>
+  </div>
   <button class="button">{{ uiLabels.createGame }}</button>
   <button> {{ uiLabels.joinQuiz }}</button>
 </template>

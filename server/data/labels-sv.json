@@ -8,5 +8,6 @@
 	"changeLanguage": "Change to English",
 	"about": "Om oss",
 	"createGame": "Skapa quiz",
-	"joinQuiz": "Gå med i quiz"
+	"joinQuiz": "Gå med i quiz",
+	"aboutText": ""
 }
