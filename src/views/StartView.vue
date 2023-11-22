@@ -4,9 +4,9 @@
          v-on:click="toggleNav">
     </div>
     <div class="logo">
-      <img src="/img/logo.png">
-      Polly polling tool 
-      <img src="../assets/logo.svg">
+      <img src="../../public/img/brake.png">
+      På Rälsen 
+      <img src="../../public/img/train.png">
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
