@@ -22,21 +22,9 @@
   </label>
   <router-link v-bind:to="'/poll/'+id">{{uiLabels.participatePoll}}</router-link> -->
   <div>
-<<<<<<< HEAD
-    <Title>
-      About us 
-    </Title>
-    <Div>
-      We are familiy
-    </Div>
-  </div>
-  <button class="button">{{ uiLabels.createGame }}</button>
-  <button> {{ uiLabels.joinQuiz }}</button>
-=======
     <button id="startbutton"> {{ uiLabels.createGame }}</button>
     <button id="startbutton"> {{ uiLabels.joinQuiz }}</button>
   </div>
->>>>>>> a6b57ed083e319924070c431bf1157337e9a189b
 </template>
 
 <script>
