@@ -9,7 +9,7 @@
     <div class="langimg">
       <img id="sweimg" src="/img/sweflag.png" style="width: 50px;" v-on:click="switchLanguage('sv')">
       <img id="ukimg" src="/img/ukflag.png" style="width: 50px;" v-on:click="switchLanguage('en')">
-    </div>
+      </div>
   </header>
   <main>
   <!-- <ResponsiveNav v-bind:hideNav="hideNav">
@@ -33,6 +33,7 @@
   <router-link v-bind:to="'/poll/'+id">{{uiLabels.participatePoll}}</router-link> -->
   <section class="button-container">
     <router-link to="/create/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
+    <router-link to="/howtoplay/"><button id="howtoplaybutton"> {{ uiLabels.about }}</button></router-link>
     <router-link to="/poll/"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
   </section>
 </main>
@@ -78,10 +79,7 @@ export default {
 <style scoped>
 
 header {
-  background-color: gray;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 2em auto;
+  background-color: rgb(163, 163, 243);
 }
 
 #section {
@@ -123,6 +121,10 @@ position: absolute;
   margin-right: 10px;
 }
 
+#createbutton:hover, #howtoplaybutton:hover,#joinbutton:hover, img[id=ukimg], img[id=sweimg]:hover  {
+  cursor: pointer;
+}
+
 .hamburger {
   color: white;
   width: 1em;
@@ -157,6 +159,17 @@ position: absolute;
   border-radius: 25px;
 }
 
+#howtoplaybutton {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 14pt;
+  color: white;
+  background-color: green;
+  border: 2px solid black;
+  padding: 20px;
+  margin-left: 50px;
+  border-radius: 25px;
+}
+
 #joinbutton {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 14pt;
@@ -167,6 +180,8 @@ position: absolute;
   margin-right: 250px;
   border-radius: 25px;
 }
+
+
 
 h1 {
   margin-top: 50px;
