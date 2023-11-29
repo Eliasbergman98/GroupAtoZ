@@ -33,7 +33,7 @@
   <router-link v-bind:to="'/poll/'+id">{{uiLabels.participatePoll}}</router-link> -->
   <section class="button-container">
     <router-link to="/create/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
-    <router-link to="/poll/"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
+    <router-link to="/poll/:id"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
   </section>
 </main>
 </template>
