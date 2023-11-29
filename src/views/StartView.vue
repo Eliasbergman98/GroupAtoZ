@@ -16,6 +16,11 @@
   </ResponsiveNav>
   <h1>{{ uiLabels["sales-pitch2"] }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
+  <div>
+    <Title>
+      {{uiLabels.aboutText}}
+    </Title>
+  </div>
   <!-- <label>
     Write poll id: 
     <input type="text" v-model="id">
