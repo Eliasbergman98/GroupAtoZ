@@ -7,9 +7,17 @@
 	"participatePoll": "Delta i röstning",
 	"question": "Fråga",
 	"changeLanguage": "Change to English",
-	"about": "Om oss",
+	"about": "Hur spelar man",
 	"createGame": "Skapa quiz",
 	"joinQuiz": "Gå med i quiz",
-	"aboutText": "Vi är skaparna av På rälsen",
-	"heading": "På Rälsen"
+	"heading": "På Rälsen",
+
+	"aboutText": "Hur man spelar",
+	"information1": "Välkomna till På rälsen - ett spel för familjen, kompisarna och kollegorna. Nu har du chansen att skapa din egna version av det omåttligt populära TV-programmet 'På Spåret'. Välj en plats, skapa ledtrådar och utmana varandra för att bli 'På rälsen'-mästare!",
+	"information2": "Spelet går ut på lista ut svaret på frågan med hjälp av så få ledtrådar som möjligt. Ju snabbare du svarar rätt, desto mer poäng får du. När tiden går ges fler ledtrådar och poängen för rätt svar minskar.",
+	"createGame1": "Hur man skapar ett spel",
+	"information3": "1. Fyll i svaret på frågan och fyll sedan i dina ledtrådar",
+	"information4": "2. Lägg till frågan i spelet och utforma fler frågor med ledtrådar om du vill",
+	"information5": "3. Klicka på 'Skapa Spel' och bjud in dina vänner med hjälp av länken.",
+	"information6": "4. Färdig! Nu kan du starta spelet och tävla med dina vänner"
 }

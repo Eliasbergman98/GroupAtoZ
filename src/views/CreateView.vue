@@ -1,11 +1,27 @@
 <template>
-  <div>
+  <div class="poll">
+    <div class="gameInfo a">
     Poll link: 
     <input type="text" v-model="pollId">
     <button v-on:click="createPoll">
-      Create poll
+      Save gameID 
+    </button> <br> <br>
+    Choose name for your quiz:
+    <input type="text" v-model="pollNameId">
+    <button v-on:click="addPollName">
+      Add name
     </button>
-    <div>
+    </div>
+    <div class="gameInfo b">
+    <br> <br>
+    Choose your avatar: <br>
+    <img class="avatar">
+    <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)" :class="{ 'selected': selectedAvatar === index }">
+      <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
+    </button>
+    </div>
+
+    <div class="gameInfo c">
       {{uiLabels.question}}:
       <input type="text" v-model="question">
       <div>
@@ -32,6 +48,7 @@
 
 <script>
 import io from 'socket.io-client';
+import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
 
 export default {
@@ -40,11 +57,14 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       pollId: "",
+      pollNameId:"",
       question: "",
       answers: ["", ""],
       questionNumber: 0,
       data: {},
-      uiLabels: {}
+      uiLabels: {},
+      selectedAvatar: null,
+      avatars:avatar
     }
   },
   created: function () {
@@ -63,6 +83,9 @@ export default {
     createPoll: function () {
       socket.emit("createPoll", {pollId: this.pollId, lang: this.lang })
     },
+    addPollName: function(){
+      this.pollNameId.push("");
+    },
     addQuestion: function () {
       socket.emit("addQuestion", {pollId: this.pollId, q: this.question, a: this.answers } )
     },
@@ -71,7 +94,51 @@ export default {
     },
     runQuestion: function () {
       socket.emit("runQuestion", {pollId: this.pollId, questionNumber: this.questionNumber})
+    },
+    selectAvatar(index) {
+      this.selectedAvatar = index;
     }
   }
-}
+
+  }
 </script>
+
+<style>
+
+.poll{
+  display: grid;
+  grid-gap: 3em;
+  background-color: aqua;
+}
+
+
+.gameInfo{
+  width: 50vw;
+  height: 1vw;
+  text-align: left;
+  position: left;
+
+}
+.a{
+  margin-top: 5vw;
+  margin-left: 5vw;
+
+}
+
+.b{
+  width: 15vw;
+  margin-top: 2vw;
+  margin-left: 5vw;
+}
+
+.c{
+  margin-top: 20vw;
+  margin-left: 5vw;
+}
+
+.selected {
+  background-color: black;
+ 
+}
+
+</style>

@@ -1,4 +1,10 @@
 <template>
+<div class="logo">
+      <img src="/img/brake.png">
+      På Rälsen 
+      <img src="/img/train.png">
+    </div>
+
   <div>
     {{question}}
   </div>
