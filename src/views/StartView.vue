@@ -1,35 +1,41 @@
 <template>
   <header>
-    <div v-bind:class="['hamburger', { 'close': !hideNav }]" v-on:click="toggleNav">
+    <!-- <div v-bind:class="['hamburger', { 'close': !hideNav }]" v-on:click="toggleNav">
     </div>
     <div class="logo">
       <img src="/img/brake.png">
-      På Rälsen 
       <img src="/img/train.png">
+    </div> -->
+    <div class="langimg">
+      <img id="sweimg" src="/img/sweflag.png" style="width: 50px;" v-on:click="switchLanguage('sv')">
+      <img id="ukimg" src="/img/ukflag.png" style="width: 50px;" v-on:click="switchLanguage('en')">
     </div>
   </header>
-  <ResponsiveNav v-bind:hideNav="hideNav">
+  <main>
+  <!-- <ResponsiveNav v-bind:hideNav="hideNav">
     <button v-on:click="switchLanguage">{{ uiLabels.changeLanguage }}</button>
-    <router-link to="/create/">{{ uiLabels.createPoll }}</router-link>
     <a href="">{{ uiLabels.about }}</a>
-    <a href="">FAQ</a>
-  </ResponsiveNav>
-  <h1>{{ uiLabels["sales-pitch2"] }}</h1>
-  <h2>{{ uiLabels.subHeading }}</h2>
-  <div>
-    <Title>
-      {{uiLabels.aboutText}}
-    </Title>
-  </div>
+  </ResponsiveNav> -->
+  <section id="section1">
+    <img src="/img/brake.png" style="width: 200px;">
+    <h1>{{ uiLabels.heading }}</h1>
+    <div>
+      <img id="map" src="/img/map.webp" style="width: 150px;">
+      <img id="earth" src="/img/earth.png" style="width: 180px;">
+      <img id="train" src="/img/train.gif" style="width: 150px;">
+    </div>
+    <h2>{{ uiLabels["sales-pitch2"] }}</h2>
+  </section>
   <!-- <label>
     Write poll id: 
     <input type="text" v-model="id">
   </label>
   <router-link v-bind:to="'/poll/'+id">{{uiLabels.participatePoll}}</router-link> -->
-  <div>
-    <button id="startbutton"> {{ uiLabels.createGame }}</button>
-    <button id="startbutton"> {{ uiLabels.joinQuiz }}</button>
-  </div>
+  <section class="button-container">
+    <router-link to="/create/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
+    <router-link to="/poll/"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
+  </section>
+</main>
 </template>
 
 <script>
@@ -47,7 +53,7 @@ export default {
       uiLabels: {},
       id: "",
       lang: localStorage.getItem("lang") || "en",
-      hideNav: true
+      hideNav: true,
     }
   },
   created: function () {
@@ -57,13 +63,8 @@ export default {
     })
   },
   methods: {
-    switchLanguage: function () {
-      if (this.lang === "en") {
-        this.lang = "sv"
-      }
-      else {
-        this.lang = "en"
-      }
+    switchLanguage: function (lang) {
+      this.lang = lang;
       localStorage.setItem("lang", this.lang);
       socket.emit("switchLanguage", this.lang)
     },
@@ -73,12 +74,23 @@ export default {
   }
 }
 </script>
+
 <style scoped>
+
 header {
   background-color: gray;
   width: 100%;
   display: grid;
   grid-template-columns: 2em auto;
+}
+
+#section {
+position: absolute;
+}
+
+#train, #map {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .logo {
@@ -95,6 +107,22 @@ header {
   margin-right: 0.5rem;
 }
 
+.langimg {
+  margin-top: 15px;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+}
+
+#sweimg {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+#ukimg {
+  margin-right: 10px;
+}
+
 .hamburger {
   color: white;
   width: 1em;
@@ -109,15 +137,51 @@ header {
   font-size: 1.5rem;
 }
 
-#startbutton {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 12;
-    color: blueviolet;
-    background-color: aqua;
-    border: 2px, black;
-    margin-top: 20%;
-    display: inline-block;
-  }
+.button-container {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2em;
+}
+
+#createbutton {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 14pt;
+  color: white;
+  background-color: green;
+  border: 2px solid black;
+  padding: 20px;
+  margin-left: 100px;
+  border-radius: 25px;
+}
+
+#joinbutton {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 14pt;
+  color: white;
+  background-color: green;
+  border: 2px solid black;
+  padding: 20px;
+  margin-right: 250px;
+  border-radius: 25px;
+}
+
+h1 {
+  margin-top: 50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+  font-size: 30pt;
+  font-style: italic;
+  color: rgb(177, 27, 27);
+}
+
+h2 {
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 15px;
+}
 
 @media screen and (max-width:50em) {
   .logo {
@@ -139,10 +203,9 @@ header {
     left: -12em;
   }
 }
-  .button {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color:blueviolet;
-    background-color: aqua;
-  }
+
+main {
+  background-color: rgb(163, 163, 243);
+}
 
 </style>
