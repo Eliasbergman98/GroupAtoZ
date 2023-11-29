@@ -1,14 +1,22 @@
 {
 	"sales-pitch": "Simply. Great. Polling.",
-	"sales-pitch2":"Unlock the door to knowledge and follow the tracks to victory",
+	"sales-pitch2": "Unlock the door to knowledge and follow the tracks to victory",
 	"subHeading": "A simple polling tool",
 	"invite": "Invite participants with this link:",
 	"createPoll": "Create poll",
 	"participatePoll": "Participate in poll",
 	"question": "Question",
 	"changeLanguage": "Byt till svenska",
-	"about": "Nu testar vi att byta denna",
+	"about": "How To Play",
 	"createGame": "Create quiz",
 	"joinQuiz": "Join quiz",
-	"aboutText": "We are the creators of"
+
+	"aboutText": "How To Play",
+	"information1": "Welcome to On the Rails - a game for family, friends, and colleagues. Now you have the chance to create your own version of the immensely popular TV show On the Track. Choose a location, create clues, and challenge each other to become the On the Rails champion!",
+	"information2": "The game is about figuring out the answer to the question using as few clues as possible. The faster you answer correctly, the more points you earn. As time passes, more clues are provided, and the points for the correct answer decrease",
+	"createGame1": "How To Create A Game",
+	"Information 3": "1. Fill in the answer to the question and then provide your clues.",
+	"Information 4": "2. Add the question to the game and create more questions with clues if you wish.",
+	"Information 5": "3. Click on 'Create Game' and invite your friends using the link.",
+	"Information 6": "4. Done! Now you can start the game and compete with your friends."
 }
