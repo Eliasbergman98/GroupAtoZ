@@ -1,23 +1,30 @@
 <template>
+  
+  <div class="arrow">
+    <button @click="goBack()">
+    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
+  </button>
+  </div>
   <div class="poll">
     <div class="gameInfo a">
-    <!--Poll link: 
+      <!--Poll link: 
     <input type="text" v-model="pollId">
     <button v-on:click="createPoll">
       Save gameID 
     </button> <br> <br> -->
-Choose a name for your quiz:<br>
-    <input type="text" v-model="pollNameId"> 
-    <button v-on:click="addPollName">
-      Add name
-    </button>
+      {{ uiLabels.chooseName }} <br>
+      <input type="text" v-model="pollNameId">
+      <button v-on:click="addPollName">
+        {{ uiLabels.addName }}
+      </button>
     </div>
     <div class="gameInfo b">
-    Choose your avatar: <br>
-    <img class="avatar">
-    <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)" :class="{ 'selected': selectedAvatar === index }">
-      <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
-    </button>
+      {{ uiLabels.chooseAvatar }} <br>
+      <img class="avatar">
+      <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
+        :class="{ 'selected': selectedAvatar === index }">
+        <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
+      </button>
     </div>
 
     <section class="button-container">
@@ -25,13 +32,11 @@ Choose a name for your quiz:<br>
     </section>
 
     <div class="gameInfo c">
-      {{uiLabels.question}}:
+      {{ uiLabels.question }}:
       <input type="text" v-model="question">
       <div>
         Answers:
-        <input v-for="(_, i) in answers" 
-               v-model="answers[i]" 
-               v-bind:key="'answer'+i">
+        <input v-for="(_, i) in answers" v-model="answers[i]" v-bind:key="'answer' + i">
         <button v-on:click="addAnswer">
           Add answer alternative
         </button>
@@ -44,8 +49,8 @@ Choose a name for your quiz:<br>
     <button v-on:click="runQuestion">
       Run question
     </button>
-    {{data}}
-    <router-link v-bind:to="'/result/'+pollId">Check result</router-link>
+    {{ data }}
+    <router-link v-bind:to="'/result/' + pollId">Check result</router-link>
   </div>
 </template>
 
@@ -60,19 +65,19 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       pollId: "",
-      pollNameId:"",
+      pollNameId: "",
       question: "",
       answers: ["", ""],
       questionNumber: 0,
       data: {},
       uiLabels: {},
       selectedAvatar: null,
-      avatars:avatar
+      avatars: avatar
     }
   },
   created: function () {
     this.id = this.$route.params.id;
-    
+
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
@@ -85,40 +90,42 @@ export default {
   },
   methods: {
     createPoll: function () {
-      socket.emit("createPoll", {pollId: this.pollId, lang: this.lang })
+      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
     },
-    addPollName: function(){
+    addPollName: function () {
       this.pollNameId.push("");
     },
     addQuestion: function () {
-      socket.emit("addQuestion", {pollId: this.pollId, q: this.question, a: this.answers } )
+      socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
     },
     addAnswer: function () {
       this.answers.push("");
     },
     runQuestion: function () {
-      socket.emit("runQuestion", {pollId: this.pollId, questionNumber: this.questionNumber})
+      socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
     },
     selectAvatar(index) {
       this.selectedAvatar = index;
     }
   }
 
-  }
+}
 </script>
 
 <style>
-
-.poll{
+.body{
+  background-color: rgb(163, 163, 243);
+}
+.poll {
   position: relative;
   display: grid;
-  grid-gap: 3vw;
   background-color: rgb(163, 163, 243);
+  grid-gap: 3vw;
   background-size: cover;
 }
 
 
-.gameInfo{
+.gameInfo {
   font-family: Georgia, 'Times New Roman', Times, serif;
   width: 50vw;
   height: 1vw;
@@ -126,7 +133,8 @@ export default {
   position: left;
 
 }
-.a{
+
+.a {
   padding: 10em auto 2em 2em;
   text-align: center;
   font-size: 2vw;
@@ -135,11 +143,10 @@ export default {
   background-size: cover;
   background-color: white;
   border: 0.5em solid black;
-  margin-top: 5vw;
   margin-left: 5vw;
 }
 
-.b{
+.b {
   text-align: center;
   font-size: 2vw;
   width: 50vw;
@@ -149,38 +156,48 @@ export default {
   border: 0.5em solid black;
   margin-top: 2vw;
   margin-left: 5vw;
-  padding-top: 4vw ;
+  padding-top: 2vw;
   padding-bottom: 4vw;
 }
 
-.c{
+.c button{
   margin-top: 20vw;
-  margin-left: 5vw;
+  width: 5vw;
+  align-items: left;
+  
 }
 
 .selected {
   background-color: green;
- 
+
 }
 
 .button-container {
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
-  padding: 2em;
+  
 }
 
 #createbutton {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 14pt;
+  font-size: 1.5vw;
   color: white;
   background-color: green;
   border: 2px solid black;
-  padding: 20px;
+  padding: 1vw;
   margin-left: 70vw;
-  border-radius: 25px;
+  border-radius: 2px;
 }
-
+.arrow{
+  background-color: rgb(163, 163, 243);
+  text-align: left;
+  padding: 1vw 0 0 1vw;
+}
+.arrow button{
+  background-color: rgb(163, 163, 243);
+  border: 1px solid rgb(163, 163, 243);
+}
 </style>
