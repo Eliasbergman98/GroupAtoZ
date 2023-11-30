@@ -6,7 +6,7 @@
         <br><br>
         <p>{{ uiLabels.information2 }}</p>
         <br><br>
-        <h1> {{ ui.createGame1 }} </h1>
+        <h1> {{ uiLabels.createGame1 }} </h1>
         <br><br>
         <p>{{ uiLabels.information3 }}</p>
         <br><br>

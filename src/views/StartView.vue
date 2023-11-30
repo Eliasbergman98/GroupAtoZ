@@ -78,9 +78,7 @@ export default {
 
 <style scoped>
 
-main, header {
-  background-color: rgb(163, 163, 243);
-}
+
 
 #section {
 position: absolute;
@@ -142,7 +140,7 @@ position: absolute;
 .button-container {
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - 4em);
   display: flex;
   justify-content: space-between;
   padding: 2em;
