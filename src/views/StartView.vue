@@ -34,7 +34,7 @@
   <section class="button-container">
     <router-link to="/create/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
     <router-link to="/howtoplay/"><button id="howtoplaybutton"> {{ uiLabels.about }}</button></router-link>
-    <router-link to="/poll/:id"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
+    <router-link to="/join/"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
   </section>
 </main>
 </template>
@@ -78,7 +78,7 @@ export default {
 
 <style scoped>
 
-header {
+main, header {
   background-color: rgb(163, 163, 243);
 }
 
@@ -125,7 +125,7 @@ position: absolute;
   cursor: pointer;
 }
 
-.hamburger {
+/* .hamburger {
   color: white;
   width: 1em;
   display: flex;
@@ -137,7 +137,7 @@ position: absolute;
   height: 2rem;
   cursor: pointer;
   font-size: 1.5rem;
-}
+} */
 
 .button-container {
   bottom: 0;
@@ -181,8 +181,6 @@ position: absolute;
   border-radius: 25px;
 }
 
-
-
 h1 {
   margin-top: 50px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -217,10 +215,6 @@ h2 {
   .hide {
     left: -12em;
   }
-}
-
-main {
-  background-color: rgb(163, 163, 243);
 }
 
 </style>
