@@ -11,7 +11,6 @@
 	"createGame": "Skapa quiz",
 	"joinQuiz": "Gå med i quiz",
 	"heading": "På Rälsen",
-
 	"aboutText": "Hur man spelar",
 	"information1": "Välkomna till På rälsen - ett spel för familjen, kompisarna och kollegorna. Nu har du chansen att skapa din egna version av det omåttligt populära TV-programmet 'På Spåret'. Välj en plats, skapa ledtrådar och utmana varandra för att bli 'På rälsen'-mästare!",
 	"information2": "Spelet går ut på lista ut svaret på frågan med hjälp av så få ledtrådar som möjligt. Ju snabbare du svarar rätt, desto mer poäng får du. När tiden går ges fler ledtrådar och poängen för rätt svar minskar.",
@@ -22,8 +21,10 @@
 	"information6": "4. Färdig! Nu kan du starta spelet och tävla med dina vänner",
 	"gameCode": "Spelkod",
 	"enterCode": "Skriv in din spelkod här",
-
 	"chooseName": "Välj namn för ditt spel:",
 	"addName": "Välj namn",
-	"chooseAvatar": "Välj din avatar"
+	"chooseAvatar": "Välj din avatar",
+	"yourName": "Namn",
+	"enterName": "Fyll i ditt namn här",
+	"doneButton": "Klar"
 }
