@@ -2,7 +2,7 @@
   
     <div class="arrow">
       <button @click="goBack()">
-      <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
+      <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
     </button>
     </div>
     <div class="poll">
@@ -20,9 +20,11 @@
       </div>
       <div>
         test
+        {{ this.quizName }}
+        {{ this.quizName }}
+        {{ this.quizName }}
+        {{ this.quizName }}
         
-        {{ quizName }}
-        {{ quizName }}
       </div>
       <div class="gameInfo b">
         {{ uiLabels.chooseAvatar }} <br>
@@ -34,10 +36,10 @@
       </div>
   
       <section class="button-container">
-        <router-link to="/create/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
+        <button id="createbutton"> {{ uiLabels.createGame }}</button>
       </section>
   
-      <div class="gameInfo c">
+      <!-- <div class="gameInfo c">
         {{ uiLabels.question }}:
         <input type="text" v-model="question">
         <div>
@@ -55,8 +57,8 @@
       <button v-on:click="runQuestion">
         Run question
       </button>
-      <!-- {{ data }} -->
-      <!-- <router-link v-bind:to="'/result/' + pollId">Check result</router-link> -->
+      {{ data }}
+      <router-link v-bind:to="'/result/' + pollId">Check result</router-link>  -->
     </div>
   </template>
   
@@ -90,7 +92,7 @@
       });
       socket.on("addQuizName", quizName => 
       this.quizName = quizName,
-      console.log("Updated quizName:", this.quizName)
+      console.log("Updated quizName:",this.quizName)
         
       );
       socket.on("dataUpdate", (data) =>

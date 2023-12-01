@@ -13,8 +13,8 @@
       Save gameID 
     </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
-      <input id="quizName" type="text" v-model="quizName">
-      <button v-on:click="addQuizName">
+      <input v-model="quizName" id="quizName" name="quizName" type="text" >
+      <button id="quizName" name="quizName" v-on:click="addQuizName">
         {{ uiLabels.addName }}
       </button>
     </div>
