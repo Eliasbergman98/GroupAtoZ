@@ -78,8 +78,6 @@ export default {
 
 <style scoped>
 
-
-
 #section {
 position: absolute;
 }
@@ -153,7 +151,7 @@ position: absolute;
   background-color: green;
   border: 2px solid black;
   padding: 20px;
-  margin-left: 100px;
+  margin-left: 15vw;
   border-radius: 25px;
 }
 
@@ -164,7 +162,8 @@ position: absolute;
   background-color: green;
   border: 2px solid black;
   padding: 20px;
-  margin-left: 50px;
+  margin-left: 2vw;
+  margin-right: 2vw;
   border-radius: 25px;
 }
 
@@ -175,7 +174,7 @@ position: absolute;
   background-color: green;
   border: 2px solid black;
   padding: 20px;
-  margin-right: 250px;
+  margin-right: 15vw;
   border-radius: 25px;
 }
 
@@ -194,7 +193,7 @@ h2 {
   font-size: 15px;
 }
 
-@media screen and (max-width:50em) {
+/* @media screen and (max-width:50em) {
   .logo {
     font-size: 5vw;
     display: flex;
@@ -213,6 +212,6 @@ h2 {
   .hide {
     left: -12em;
   }
-}
+} */
 
 </style>

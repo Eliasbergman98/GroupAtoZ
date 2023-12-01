@@ -1,4 +1,7 @@
 <template>
+  <div class="arrow">
+    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
+  </div>
   <main>
     <section>
       <img src="/img/brake.png" style="width: 200px;">
@@ -63,7 +66,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #section {
   position: absolute;
 }
@@ -82,16 +85,12 @@ export default {
   padding: 20px;
   border-radius: 20px;
   margin-top: 5vw;
-  margin-left: 40vw;
-}
-
-header {
-  background-color: rgb(163, 163, 243);
+  margin-left: 60vw;
 }
 
 #gamecode {
   padding: 20px;
-
+  font-weight: bold;
 }
 
 h1 {
@@ -102,8 +101,13 @@ h1 {
   font-style: italic;
   color: rgb(177, 27, 27);
 }
-
-body {
+.arrow{
   background-color: rgb(163, 163, 243);
+  text-align: left;
+  padding: 1vw 0 0 1vw;
+}
+.arrow button{
+  background-color: rgb(163, 163, 243);
+  border: 1px solid rgb(163, 163, 243);
 }
 </style>
