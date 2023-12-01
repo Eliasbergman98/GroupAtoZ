@@ -18,6 +18,9 @@
         {{ uiLabels.addName }}
       </button>
     </div>
+    <div class ="earth">
+      <img id="earth" src="/img/earth.png" style="width: 180px;">
+    </div>
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>
       <img class="avatar">
@@ -26,10 +29,9 @@
         <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
       </button>
     </div>
-
-    <section class="button-container">
-      <router-link to="/createquestions/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
-    </section>
+    <div>
+      <router-link to="/createquestions/"><button class="createbutton"> {{ uiLabels.createGame }}</button></router-link>
+    </div>
 
     <!--<div class="gameInfo c">
       {{ uiLabels.question }}:
@@ -119,7 +121,7 @@ export default {
   position: relative;
   display: grid;
   grid-template-columns: 50vw 50vw;
-  grid-template-rows: 5vw 15vw;
+  grid-template-rows: 5vw 15vw 25vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 3vw;
   background-size: cover;
@@ -165,39 +167,52 @@ export default {
   padding-bottom: 4vw;
 }
 
-.c button{
+.earth{
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+
+/* .c button{
   margin-top: 20vw;
   width: 5vw;
   align-items: left;
-  
+} */
+
+.createbutton:hover {
+  cursor: pointer;
+  background-color: green;
 }
+
+.createbutton {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 14pt;
+  color: white;
+  background-color: gray;
+  border: 2px solid black;
+  grid-column-start: 2;
+  grid-row-start: 3;
+  padding: 20px;
+  border-radius: 20px;
+  /* margin-top: 15vw; */
+  /* margin-top: 10vw;
+  margin-left: 60vw;  */
+}
+
 
 .selected {
   background-color: green;
 
 }
 
-.button-container {
+/* .button-container {
   grid-column-start: 2;
   grid-row-start: 2;
   bottom: 0;
   left: 0;
   display: flex;
   justify-content: space-between;
-  
-}
+} */
 
-#createbutton {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 1.5vw;
-  color: white;
-  background-color: green;
-  border: 2px solid black;
-  margin-left: 10vw;
-  margin-top: 10vw;
-  padding: 1vw;
-  border-radius: 2px;
-}
 .arrow{
   background-color: rgb(163, 163, 243);
   text-align: left;
