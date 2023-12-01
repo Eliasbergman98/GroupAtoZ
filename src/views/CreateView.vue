@@ -18,6 +18,9 @@
         {{ uiLabels.addName }}
       </button>
     </div>
+    <div class ="earth">
+      <img id="earth" src="/img/earth.png" style="width: 180px;">
+    </div>
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>
       <img class="avatar">
@@ -163,6 +166,11 @@ export default {
   margin-left: 5vw;
   padding-top: 2vw;
   padding-bottom: 4vw;
+}
+
+.earth{
+  grid-column-start: 2;
+  grid-row-start: 1;
 }
 
 .c button{
