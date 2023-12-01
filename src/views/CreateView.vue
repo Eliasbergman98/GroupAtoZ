@@ -31,7 +31,7 @@
       <router-link to="/createquestions/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
     </section>
 
-    <div class="gameInfo c">
+    <!--<div class="gameInfo c">
       {{ uiLabels.question }}:
       <input type="text" v-model="question">
       <div>
@@ -50,7 +50,7 @@
       Run question
     </button>
     {{ data }}
-    <router-link v-bind:to="'/result/' + pollId">Check result</router-link>
+    <router-link v-bind:to="'/result/' + pollId">Check result</router-link> -->
   </div>
 </template>
 
@@ -121,6 +121,8 @@ export default {
 .poll {
   position: relative;
   display: grid;
+  grid-template-columns: 50vw 50vw;
+  grid-template-rows: 5vw 15vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 3vw;
   background-size: cover;
@@ -137,6 +139,8 @@ export default {
 }
 
 .a {
+  grid-row-start: 1;
+  grid-column-start: 1;
   padding: 10em auto 2em 2em;
   text-align: center;
   font-size: 2vw;
@@ -149,6 +153,8 @@ export default {
 }
 
 .b {
+  grid-row-start: 2;
+  grid-column-start: 1;
   text-align: center;
   font-size: 2vw;
   width: 50vw;
@@ -175,9 +181,10 @@ export default {
 }
 
 .button-container {
+  grid-column-start: 2;
+  grid-row-start: 2;
   bottom: 0;
   left: 0;
-  width: 100vw;
   display: flex;
   justify-content: space-between;
   
@@ -189,8 +196,9 @@ export default {
   color: white;
   background-color: green;
   border: 2px solid black;
+  margin-left: 10vw;
+  margin-top: 10vw;
   padding: 1vw;
-  margin-left: 70vw;
   border-radius: 2px;
 }
 .arrow{
