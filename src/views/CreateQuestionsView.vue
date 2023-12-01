@@ -125,10 +125,7 @@
   }
   </script>
   
-  <style>
-  .body{
-    background-color: rgb(163, 163, 243);
-  }
+  <style scoped>
   .poll {
     position: relative;
     display: grid;
