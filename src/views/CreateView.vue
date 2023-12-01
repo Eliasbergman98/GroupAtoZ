@@ -13,8 +13,8 @@
       Save gameID 
     </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
-      <input type="text" v-model="pollNameId">
-      <button v-on:click="addPollName">
+      <input id="quizName" type="text" v-model="quizName">
+      <button v-on:click="addQuizName">
         {{ uiLabels.addName }}
       </button>
     </div>
@@ -65,7 +65,7 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       pollId: "",
-      pollNameId: "",
+      quizName: '',
       question: "",
       answers: ["", ""],
       questionNumber: 0,
@@ -92,8 +92,10 @@ export default {
     createPoll: function () {
       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
     },
-    addPollName: function () {
-      this.pollNameId.push("");
+    addQuizName: function () {
+      socket.emit("quizName",  this.quizName)
+      //this.quizName.push("");
+      console.log(this.quizName)
     },
     addQuestion: function () {
       socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })

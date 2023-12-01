@@ -12,11 +12,17 @@
       <button v-on:click="createPoll">
         Save gameID 
       </button> <br> <br> -->
-        {{ uiLabels.chooseName }} <br>
+        <!-- {{ uiLabels.chooseName }} <br>
         <input type="text" v-model="pollNameId">
         <button v-on:click="addPollName">
           {{ uiLabels.addName }}
-        </button>
+        </button> -->
+      </div>
+      <div>
+        test
+        
+        {{ quizName }}
+        {{ quizName }}
       </div>
       <div class="gameInfo b">
         {{ uiLabels.chooseAvatar }} <br>
@@ -49,8 +55,8 @@
       <button v-on:click="runQuestion">
         Run question
       </button>
-      {{ data }}
-      <router-link v-bind:to="'/result/' + pollId">Check result</router-link>
+      <!-- {{ data }} -->
+      <!-- <router-link v-bind:to="'/result/' + pollId">Check result</router-link> -->
     </div>
   </template>
   
@@ -65,14 +71,14 @@
       return {
         lang: localStorage.getItem("lang") || "en",
         pollId: "",
-        pollNameId: "",
         question: "",
         answers: ["", ""],
         questionNumber: 0,
         data: {},
         uiLabels: {},
         selectedAvatar: null,
-        avatars: avatar
+        avatars: avatar,
+        quizName: ''
       }
     },
     created: function () {
@@ -80,33 +86,40 @@
   
       socket.emit("pageLoaded", this.lang);
       socket.on("init", (labels) => {
-        this.uiLabels = labels
-      })
+        this.uiLabels = labels;
+      });
+      socket.on("addQuizName", quizName => 
+      this.quizName = quizName,
+      console.log("Updated quizName:", this.quizName)
+        
+      );
       socket.on("dataUpdate", (data) =>
         this.data = data
       )
       socket.on("pollCreated", (data) =>
         this.data = data)
+
     },
     methods: {
-      createPoll: function () {
-        socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
-      },
-      addPollName: function () {
-        this.pollNameId.push("");
-      },
-      addQuestion: function () {
-        socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
-      },
-      addAnswer: function () {
-        this.answers.push("");
-      },
-      runQuestion: function () {
-        socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
-      },
+      // createPoll: function () {
+      //   socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
+      // },
+      // // addPollName: function () {
+      // //   this.pollNameId.push("");
+      // // },
+      // addQuestion: function () {
+      //   socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
+      // },
+      // addAnswer: function () {
+      //   this.answers.push("");
+      // },
+      // runQuestion: function () {
+      //   socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
+      // },
       selectAvatar(index) {
         this.selectedAvatar = index;
       }
+      
     }
   
   }
