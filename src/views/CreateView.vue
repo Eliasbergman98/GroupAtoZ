@@ -28,7 +28,7 @@
     </div>
 
     <section class="button-container">
-      <router-link to="/create/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
+      <router-link to="/createquestions/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
     </section>
 
     <div class="gameInfo c">
