@@ -86,6 +86,17 @@ Data.prototype.getAnswers = function(pollId) {
   }
   return {}
 }
+
+// Method to store quiz names
+Data.prototype.addQuizName = function (pollId, quizName) {
+  this.quizNames[pollId] = quizName;
+  this.saveDataToFile(); // Optionally, save data to a file
+}
+
+// Method to get quiz names
+Data.prototype.getQuizName = function (pollId) {
+  return this.quizNames[pollId] || "";
+}
 export { Data };
 
 

@@ -20,11 +20,8 @@
       </div>
       <div>
         test
-        {{ this.quizName }}
-        {{ this.quizName }}
-        {{ this.quizName }}
-        {{ this.quizName }}
-        
+        {{ quizName }}
+       
       </div>
       <div class="gameInfo b">
         {{ uiLabels.chooseAvatar }} <br>
@@ -90,11 +87,16 @@
       socket.on("init", (labels) => {
         this.uiLabels = labels;
       });
-      socket.on("addQuizName", quizName => 
+      socket.emit("addQuizName", quizName => 
       this.quizName = quizName,
       console.log("Updated quizName:",this.quizName)
         
       );
+      socket.on("addQuizName", (data) => {
+  console.log("Updated quizName:", data);
+  const quizName = data.getQuizName(this.quizName); // Replace somePollId with the actual pollId
+  console.log("Retrieved quizName:", quizName);
+});
       socket.on("dataUpdate", (data) =>
         this.data = data
       )

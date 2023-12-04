@@ -5,10 +5,11 @@ function sockets(io, socket, data) {
     socket.emit('init', data.getUILabels(lang));
   });
 
-  socket.on("addQuizName", (quizName) => {
-    console.log("Received addQuizName on server:", quizName);
-    // Broadcast to other clients if needed
-    socket.emit("addQuizName", addQuizName());
+   socket.on("addQuizName", (quizName) => {
+   console.log("Received addQuizName on server:", quizName);
+  // Broadcast to other clients if needed
+  // data.addQuizName(PollId, quizName);
+   socket.emit("addQuizName", quizName);
   });
 
   socket.on('switchLanguage', function(lang) {

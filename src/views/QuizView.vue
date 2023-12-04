@@ -11,22 +11,26 @@
     </div> -->
     <main>
         <section class="player">
-            <div id="yourname">
+            <div class="gameInfo a" id="yourname">
                 {{ uiLabels.yourName }}:
                 <input type="text" id="yourname" v-model="yourname" :placeholder="uiLabels.enterName">
             </div>
-            <div class="player b">
-                {{ uiLabels.chooseAvatar }} <br>
-                <img class="avatar">
-                <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
-                    :class="{ 'selected': selectedAvatar === index }">
-                    <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
-                </button>
-            </div>
-        </section>
-        <div>
+            <div class ="earth">
+      <img id="earth" src="/img/earth.png" style="width: 180px;">
+    </div>
+            <div class="gameInfo b">
+      {{ uiLabels.chooseAvatar }} <br>
+      <img class="avatar">
+      <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
+        :class="{ 'selected': selectedAvatar === index }">
+        <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
+      </button>
+    </div>
+        
+        <div class="gameInfo c">
             <button id="donebutton"> {{ uiLabels.doneButton }}</button>
         </div>
+    </section>
     </main>
 </template>
   
@@ -84,6 +88,44 @@ export default {
 </script>
 
 <style scoped>
+
+
+.player {
+
+  position: relative;
+  display: grid;
+  grid-template-columns: 50vw 20vw 3vw;
+  grid-template-rows: 5vw 20vw 20vw 20vw;
+  background-color: rgb(163, 163, 243);
+  grid-gap: 3vw;
+  background-size: cover;
+
+    /* border: 2px solid black;
+    padding: 2vw;
+    margin-top: 10 vw;
+    margin-left: 5vw;
+    margin-right: 30vw;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 50vw;
+    height: 1vw;
+    text-align: left;
+    position: left; */
+}
+
+.a {
+  grid-row-start: 2;
+  grid-column-start: 1;
+  padding: 10em auto 2em 2em;
+  text-align: center;
+  font-size: 2vw;
+  width: 50vw;
+  height: 5vw;
+  background-size: cover;
+  background-color: white;
+  border: 3px solid black;
+  margin-left: 5vw;
+}
+
 #donebutton:hover {
     cursor: pointer;
     background-color: green;
@@ -95,10 +137,8 @@ export default {
     color: white;
     background-color: gray;
     border: 2px solid black;
-    padding: 20px;
+    padding: 30px;
     border-radius: 20px;
-    margin-top: 5vw;
-    margin-left: 60vw;
 }
 
 #yourname {
@@ -107,17 +147,32 @@ export default {
     margin-right: 10vw;
 }
 
-.player {
-    border: 2px solid black;
-    padding: 2vw;
-    margin-top: 10 vw;
-    margin-left: 5vw;
-    margin-right: 30vw;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    width: 50vw;
-    height: 1vw;
-    text-align: left;
-    position: left;
+.earth{
+  grid-column-start: 3;
+  grid-row-start: 1;
+}
+
+.b {
+  grid-row-start: 3;
+  grid-column-start: 1;
+  text-align: center;
+  font-size: 2vw;
+  width: 50vw;
+  height: 10vw;
+  background-size: cover;
+  background-color: white;
+  border: 3px solid black;
+  margin-top: 2vw;
+  margin-left: 5vw;
+  padding-top: 2vw;
+  padding-bottom: 4vw;
+}
+.c{
+  
+  grid-row-start: 4;
+  grid-column-start: 4;
+  justify-self: center;
+  
 }
 
 h1 {
@@ -140,18 +195,7 @@ h1 {
     border: 1px solid rgb(163, 163, 243);
 }
 
-.b {
-    text-align: center;
-    font-size: 2vw;
-    width: 50vw;
-    height: 10vw;
-    background-size: cover;
-    background-color: white;
-    border: 2px solid black;
-    margin-top: 2vw;
-    margin-left: 5vw;
-    padding-top: 2vw;
-    padding-bottom: 4vw;
-}
+
+
 </style>
   

@@ -13,8 +13,8 @@
       Save gameID 
     </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
-      <input v-model="quizName" id="quizName" name="quizName" type="text" >
-      <button id="quizName" name="quizName" v-on:click="addQuizName">
+      <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" >
+      <button id="addQuizName" name="addQuizName" v-on:click="addQuizName">
         {{ uiLabels.addName }}
       </button>
     </div>
@@ -29,7 +29,7 @@
         <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
       </button>
     </div>
-    <div>
+    <div class="gameInfo c">
       <router-link to="/createquestions/"><button class="createbutton"> {{ uiLabels.createGame }}</button></router-link>
     </div>
 
@@ -95,9 +95,11 @@ export default {
       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
     },
     addQuizName: function () {
-      socket.emit("quizName",  this.quizName)
+      socket.emit("addQuizName",  this.quizName)
       //this.quizName.push("");
       console.log(this.quizName)
+      socket.on("addQuizName",  (data) => console.log("hej"))
+      
     },
     addQuestion: function () {
       socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
@@ -120,8 +122,8 @@ export default {
 .poll {
   position: relative;
   display: grid;
-  grid-template-columns: 50vw 50vw;
-  grid-template-rows: 5vw 15vw 25vw;
+  grid-template-columns: 50vw 20vw 3vw;
+  grid-template-rows: 5vw 15vw 25vw 30vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 3vw;
   background-size: cover;
@@ -167,8 +169,16 @@ export default {
   padding-bottom: 4vw;
 }
 
+.c{
+  
+  grid-row-start: 4;
+  grid-column-start: 4;
+  justify-self: center;
+  
+}
+
 .earth{
-  grid-column-start: 2;
+  grid-column-start: 3;
   grid-row-start: 1;
 }
 
@@ -189,14 +199,10 @@ export default {
   color: white;
   background-color: gray;
   border: 2px solid black;
-  grid-column-start: 2;
-  grid-row-start: 3;
   padding: 20px;
   border-radius: 20px;
-  /* margin-top: 15vw; */
-  /* margin-top: 10vw;
-  margin-left: 60vw;  */
-}
+  /* margin-top: 15vw;*/
+} 
 
 
 .selected {
