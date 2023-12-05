@@ -29,5 +29,10 @@
 	"doneButton": "Klar",
 	"startGame": "Starta spel:",
 	"players": "Spelare:",
-	"gameTag": "Spel ID:"
+	"gameTag": "Spel ID:",
+	"city1": "Fyll i stad:",
+	"clue1": "Första ledtråden:",
+	"clue2": "Andra ledtråden:",
+	"clue3": "Tredje ledtråden:",
+	"saveButton": "Spara stad"
 }

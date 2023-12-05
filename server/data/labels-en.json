@@ -30,5 +30,10 @@
 	"doneButton": "Done",
 	"startGame": "Start game:",
 	"players": "Players:",
-	"gameTag": "Game-ID:"
+	"gameTag": "Game-ID:",
+	"city1": "Enter City:",
+	"clue1": "First clue:",
+	"clue2": "Second clue:",
+	"clue3": "Third clue:",
+	"saveButton": "Save city"
 }

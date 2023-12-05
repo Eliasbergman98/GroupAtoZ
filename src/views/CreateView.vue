@@ -8,6 +8,7 @@
   <div class="poll">
     <div class="gameInfo a">
       {{ uiLabels.chooseName }} <br>
+      <input v-model="pollId" id="addQuizName" name="addQuizName" type="text" > <br>  
       <input v-model="pollId" id="addQuizName" name="addQuizName" type="text" >
       <button id="addQuizName" name="addQuizName" v-on:click="createPoll">
         {{ uiLabels.addName }}
