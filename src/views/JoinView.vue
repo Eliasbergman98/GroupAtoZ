@@ -6,10 +6,10 @@
   <main>
     <section>
       <img src="/img/brake.png" style="width: 200px;">
-      <h1>
+      <h1 id="heading">
         {{ uiLabels.heading }}
       </h1>
-      <div id="gamecode">
+      <div id="gamecodeheading">
         {{ uiLabels.gameCode }}:
       </div>
       <div>
@@ -95,9 +95,17 @@ export default {
   margin-left: 60vw;
 }
 
-#gamecode {
+#gamecode, #gamecodeheading {
   padding: 20px;
   font-weight: bold;
+}
+
+#gamecode {
+  margin-bottom: 4vw;
+}
+
+#heading {
+  margin-bottom: 1vw;
 }
 
 </style>
