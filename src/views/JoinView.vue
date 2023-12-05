@@ -1,6 +1,7 @@
 <template>
   <div class="arrow">
-    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
+    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
+      </button></router-link>
   </div>
   <main>
     <section>
@@ -14,7 +15,7 @@
       </div>
     </section>
     <div>
-      <router-link to="/quiz/"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
+        <button id="joinbutton" v-on:click="addGameCode"> {{ uiLabels.joinQuiz }}</button>
     </div>
   </main>
 </template>
@@ -62,14 +63,22 @@ export default {
     submitAnswer: function (answer) {
       socket.emit("submitAnswer", { pollId: this.pollId, answer: answer })
     },
+    addGameCode: function () {
+      if (this.gamecode === '') {
+        alert('Please enter a game code');
+      }
+      else {
+        this.$router.push('/quiz/')
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
-#section {
+/* #section {
   position: absolute;
-}
+} */
 
 #joinbutton:hover {
   cursor: pointer;
@@ -101,13 +110,15 @@ h1 {
   font-style: italic;
   color: rgb(177, 27, 27);
 }
-.arrow{
+
+.arrow {
   background-color: rgb(163, 163, 243);
   text-align: left;
   padding: 1vw 0 0 1vw;
 }
-.arrow button{
+
+.arrow button {
   background-color: rgb(163, 163, 243);
   border: 1px solid rgb(163, 163, 243);
-}
-</style>
+  
+}</style>
