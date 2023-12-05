@@ -21,6 +21,7 @@
       <div class ="earth">
         <img id="earth" src="/img/earth.png" style="width: 180px;">
       </div>
+      
         <!--Poll link: 
       <input type="text" v-model="pollId">
       <button v-on:click="createPoll">
@@ -45,7 +46,7 @@
         <router-link to="/playerjoining/"> <button class="createbutton"> {{ uiLabels.createGame }}</button> </router-link>
       </div>
       <div class="gameInfo f"> 
-        <button class="addTown"> {{ uiLabels.addTown }}</button>
+        <button class="addTown" v-on:click="addQuestion"> {{ uiLabels.addTown }}</button>
       </div>
 
       <div class="infofromviewbefore">
@@ -111,11 +112,10 @@
         this.uiLabels = labels;
       });
       
-      // socket.on("dataUpdate", (data) =>
-      //   this.data = data
-      // )
+      socket.on("dataUpdate", (data) =>
+       this.data = data );
       // socket.emit("getPoll", this.pollId);
-
+      
       console.log("Updated quizName:",this.pollId)
       socket.emit("getPoll");
 

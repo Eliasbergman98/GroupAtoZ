@@ -32,7 +32,6 @@ Data.prototype.createPoll = function(pollId, lang="en") {
   return this.polls[pollId];
 }
 Data.prototype.getPoll = function (pollId) {
-  const poll = this.polls[pollId];
   console.log("in data getfunction:", pollId)
   return this.polls[pollId] || {};
 }

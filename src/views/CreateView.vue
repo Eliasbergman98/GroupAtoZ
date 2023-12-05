@@ -8,6 +8,7 @@
   <h1>
     {{ uiLabels.heading }}
   </h1>
+  {{ pollId }}
   <div class="poll">
     <div class="gameInfo a">
       <!--Poll link: 
@@ -33,7 +34,7 @@
       </button>
     </div>
     <div class="gameInfo c">
-      <router-link v-bind:to="'/createquestions/' + this.quizName"><button class="createbutton"> {{ uiLabels.createGame }}</button></router-link>
+      <router-link v-bind:to="'/createquestions/' + this.quizName"><button class="createbutton" v-bind:pollId=this.pollId > {{ uiLabels.createGame }}</button></router-link>
     </div>
   </div>
 </template>

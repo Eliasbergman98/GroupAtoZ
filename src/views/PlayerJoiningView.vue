@@ -5,6 +5,7 @@
                 </button></router-link>
         </button>
     </div>
+   
     <div class="poll">
         <div class="gameInfo a">
             {{ uiLabels.players }} <br>
