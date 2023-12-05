@@ -10,10 +10,10 @@
                 <span>{{submittedAnswers}}</span>
     </div> -->
     <main>
-        <div>
+        <h1>
             Quizname & PollID
-            <img src="/img/brake.png" style="width: 200px;">
-        </div>
+            <!--<img src="/img/brake.png" style="width: 200px;">-->
+        </h1>
         <section class="player">
             <div class="gameInfo a" id="name">
                 {{ uiLabels.yourName }}:
@@ -142,12 +142,15 @@ export default {
 }
 
 .c {
+    width: 10vw;
     grid-row-start: 3;
     grid-column-start: 4;
     justify-self: center;
 }
 
 .earth {
+    margin-top: 2vw;
+    width: 10vw;
     grid-column-start: 3;
     grid-row-start: 1;
 }

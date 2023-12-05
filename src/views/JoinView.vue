@@ -11,11 +11,13 @@
       </h1>
       <div id="gamecode">
         {{ uiLabels.gameCode }}:
+      </div>
+      <div>
         <input type="text" id="gamecode" v-model="gamecode" :placeholder="uiLabels.enterCode">
       </div>
     </section>
     <div>
-        <button id="joinbutton" v-on:click="addGameCode"> {{ uiLabels.joinQuiz }}</button>
+      <button id="joinbutton" v-on:click="addGameCode"> {{ uiLabels.joinQuiz }}</button>
     </div>
   </main>
 </template>
@@ -93,7 +95,7 @@ export default {
   border: 2px solid black;
   padding: 20px;
   border-radius: 20px;
-  margin-top: 5vw;
+  margin-bottom: 5vw;
   margin-left: 60vw;
 }
 
@@ -103,7 +105,8 @@ export default {
 }
 
 h1 {
-  margin-top: 10px;
+  margin-top: 3vw;
+  margin-bottom: 2vw;
   font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
   font-size: 60pt;
@@ -125,5 +128,6 @@ h1 {
 .arrow button {
   background-color: rgb(163, 163, 243);
   border: 1px solid rgb(163, 163, 243);
-  
-}</style>
+
+}
+</style>
