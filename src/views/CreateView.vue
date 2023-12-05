@@ -7,14 +7,9 @@
   </div>
   <div class="poll">
     <div class="gameInfo a">
-      <!--Poll link: 
-    <input type="text" v-model="pollId">
-    <button v-on:click="createPoll">
-      Save gameID 
-    </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
-      <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" >
-      <button id="addQuizName" name="addQuizName" v-on:click="addQuizName">
+      <input v-model="pollId" id="addQuizName" name="addQuizName" type="text" >
+      <button id="addQuizName" name="addQuizName" v-on:click="createPoll">
         {{ uiLabels.addName }}
       </button>
     </div>
@@ -30,29 +25,8 @@
       </button>
     </div>
     <div class="gameInfo c">
-      <router-link to="/createquestions/"><button class="createbutton"> {{ uiLabels.createGame }}</button></router-link>
+      <router-link v-bind:to="'/createquestions/' + this.pollId"><button class="createbutton"> {{ uiLabels.createGame }}</button></router-link>
     </div>
-
-    <!--<div class="gameInfo c">
-      {{ uiLabels.question }}:
-      <input type="text" v-model="question">
-      <div>
-        Answers:
-        <input v-for="(_, i) in answers" v-model="answers[i]" v-bind:key="'answer' + i">
-        <button v-on:click="addAnswer">
-          Add answer alternative
-        </button>
-      </div>
-    </div>
-    <button v-on:click="addQuestion">
-      Add question
-    </button>
-    <input type="number" v-model="questionNumber">
-    <button v-on:click="runQuestion">
-      Run question
-    </button>
-    {{ data }}
-    <router-link v-bind:to="'/result/' + pollId">Check result</router-link> -->
   </div>
 </template>
 
@@ -78,6 +52,7 @@ export default {
     }
   },
   created: function () {
+    
     this.id = this.$route.params.id;
 
     socket.emit("pageLoaded", this.lang);
@@ -87,20 +62,15 @@ export default {
     socket.on("dataUpdate", (data) =>
       this.data = data
     )
-    socket.on("pollCreated", (data) =>
-      this.data = data)
+    socket.on("pollCreated",  (data) => console.log("pollId created:", data))
   },
   methods: {
     createPoll: function () {
       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
-    },
-    addQuizName: function () {
-      socket.emit("addQuizName",  this.quizName)
-      //this.quizName.push("");
-      console.log(this.quizName)
-      socket.on("addQuizName",  (data) => console.log("hej"))
+      console.log("the pollId:",this.pollId)
       
     },
+   
     addQuestion: function () {
       socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
     },
@@ -182,11 +152,7 @@ export default {
   grid-row-start: 1;
 }
 
-/* .c button{
-  margin-top: 20vw;
-  width: 5vw;
-  align-items: left;
-} */
+
 
 .createbutton:hover {
   cursor: pointer;
@@ -201,7 +167,6 @@ export default {
   border: 2px solid black;
   padding: 20px;
   border-radius: 20px;
-  /* margin-top: 15vw;*/
 } 
 
 
@@ -210,14 +175,6 @@ export default {
 
 }
 
-/* .button-container {
-  grid-column-start: 2;
-  grid-row-start: 2;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-between;
-} */
 
 .arrow{
   background-color: rgb(163, 163, 243);
