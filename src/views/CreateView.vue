@@ -5,7 +5,6 @@
     <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
   </button>
   </div>
-  <img src="/img/brake.png" style="width: 200px;">
   <h1>
     {{ uiLabels.heading }}
   </h1>
@@ -29,7 +28,7 @@
       </button>
     </div>
     <div class="gameInfo c">
-      <router-link v-bind:to="'/createquestions/' + this.pollId"><button class="createbutton"> {{ uiLabels.createGame }}</button></router-link>
+      <router-link v-bind:to="'/createquestions/' + this.pollId"><button class="createbutton" v-on:click="addGameCode"> {{ uiLabels.createGame }}</button></router-link>
     </div>
   </div>
 </template>
@@ -74,7 +73,14 @@ export default {
       console.log("the pollId:",this.pollId)
       
     },
-   
+    addGameCode: function () {
+      if (this.gamecode === '') {
+        alert('Please enter a game code');
+      }
+      else {
+        this.$router.push('//')
+      }
+    },
     addQuestion: function () {
       socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
     },
@@ -110,6 +116,7 @@ export default {
   height: 1vw;
   text-align: left;
   position: left;
+  border-radius: 20px;
 
 }
 
@@ -118,33 +125,32 @@ export default {
   grid-column-start: 1;
   padding: 10em auto 2em 2em;
   text-align: center;
-  font-size: 2vw;
+  font-size:2vw;
   width: 50vw;
   height: 5vw;
   background-size: cover;
-  background-color: white;
-  border: 0.5em solid black;
-  margin-left: 5vw;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 10vw;
 }
 
 .b {
-  grid-row-start: 3;
+  grid-row-start: 2;
   grid-column-start: 1;
   text-align: center;
   font-size: 2vw;
   width: 50vw;
   height: 10vw;
   background-size: cover;
-  background-color: white;
-  border: 0.5em solid black;
-  margin-top: 2vw;
-  margin-left: 5vw;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 10vw;
   padding-top: 2vw;
   padding-bottom: 4vw;
 }
 
 .c{
-  grid-row-start: 3;
+  grid-row-start: 2;
   grid-column-start: 3;
   margin-top: 10vw;
   width: 10vw;
