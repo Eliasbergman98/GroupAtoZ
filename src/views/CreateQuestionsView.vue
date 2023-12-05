@@ -9,18 +9,18 @@
       <div class="gameInfo a"> {{uiLabels.city1}}
         <input type="text" v-model="city1">
         </div>
-        <div class="gameInfo a"> {{ uiLabels.clue1 }}
+        <div class="gameInfo b"> {{ uiLabels.clue1 }}
         <input type="text" v-model="clue1">
         </div>
-        <div class="gameInfo a"> {{ uiLabels.clue2 }}
+        <div class="gameInfo c"> {{ uiLabels.clue2 }}
         <input type="text" v-model="clue2">
       </div>
-      <div class="gameInfo a"> {{ uiLabels.clue3 }}
+      <div class="gameInfo d"> {{ uiLabels.clue3 }}
         <input type="text" v-model="clue3">
       </div>
-      <div>
-      <button v-on:click="addQuestion" id="saveButton"> {{uiLabels.saveButton}}</button>
-    </div>
+      <div class ="earth">
+        <img id="earth" src="/img/earth.png" style="width: 180px;">
+      </div>
         <!--Poll link: 
       <input type="text" v-model="pollId">
       <button v-on:click="createPoll">
@@ -31,13 +31,7 @@
         <button v-on:click="addPollName">
           {{ uiLabels.addName }}
         </button> -->
-      
-      <div>
-        test
-        {{ pollId}}
-        {{ data }}
-       
-      </div>
+    
       <!-- <div class="gameInfo b">
         {{ uiLabels.chooseAvatar }} <br>
         <img class="avatar">
@@ -47,10 +41,19 @@
         </button>
       </div> -->
   
-      <section class="button-container"> 
-        <router-link to="/playerjoining/"> <button id="createbutton"> {{ uiLabels.createGame }}</button> </router-link>
-      
-      </section>
+      <div class="gameInfo e"> 
+        <router-link to="/playerjoining/"> <button class="createbutton"> {{ uiLabels.createGame }}</button> </router-link>
+      </div>
+      <div class="gameInfo f"> 
+        <button class="addTown"> {{ uiLabels.addTown }}</button>
+      </div>
+
+      <div class="infofromviewbefore">
+        test
+        {{ pollId}}
+        {{ data }}
+       
+      </div>
   
       <!-- <div class="gameInfo c">
         {{ uiLabels.question }}:
@@ -161,8 +164,10 @@
   .poll {
     position: relative;
     display: grid;
+    grid-template-columns: 50vw 30vw 10vw;
+    grid-template-rows: 7vw 7vw 7vw 7vw 7vw 10vw;
     background-color: rgb(163, 163, 243);
-    grid-gap: 3vw;
+    grid-gap: 1vw;
     background-size: cover;
   }
   
@@ -173,66 +178,123 @@
     height: 1vw;
     text-align: left;
     position: left;
+    border-radius: 20px;
   
   }
   
   .a {
-    padding: 10em auto 2em 2em;
-    text-align: center;
-    font-size: 2vw;
-    width: 50vw;
-    height: 5vw;
-    background-size: cover;
-    background-color: white;
-    border: 0.5em solid black;
-    margin-left: 5vw;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  padding: 10em auto 2em 2em;
+  text-align: center;
+  font-size:2vw;
+  width: 50vw;
+  height: 5vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 10vw;
   }
   
   .b {
-    text-align: center;
-    font-size: 2vw;
-    width: 50vw;
-    height: 10vw;
-    background-size: cover;
-    background-color: white;
-    border: 0.5em solid black;
-    margin-top: 2vw;
-    margin-left: 5vw;
-    padding-top: 2vw;
-    padding-bottom: 4vw;
-  }
+  grid-row-start: 2;
+  grid-column-start: 1;
+  padding: 10em auto 2em 2em;
+  text-align: center;
+  font-size:2vw;
+  width: 50vw;
+  height: 5vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 10vw;
+}
   
-  .c button{
-    margin-top: 20vw;
-    width: 5vw;
-    align-items: left;
-    
+.c {
+  grid-row-start: 3;
+  grid-column-start: 1;
+  padding: 10em auto 2em 2em;
+  text-align: center;
+  font-size:2vw;
+  width: 50vw;
+  height: 5vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 10vw;
+}
+.d {
+  grid-row-start: 4;
+  grid-column-start: 1;
+  padding: 10em auto 2em 2em;
+  text-align: center;
+  font-size:2vw;
+  width: 50vw;
+  height: 5vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 10vw;
+}
+.e{
+  margin-bottom: 0;
+  grid-row-start: 4;
+  grid-column-start: 3;
+  width: 10vw;
+  
+}
+
+.f{
+  grid-row-start: 5;
+  grid-column-start: 1;
+  padding: 10em auto 2em 2em;
+  text-align: center;
+  font-size:3vw;
+  width: 50vw;
+  height: 5vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  margin-left: 10vw;
+}
+.infofromviewbefore{
+    grid-row-start:6 ;
+    grid-column-start: 1;
   }
   
   .selected {
     background-color: green;
   
   }
+.createbutton:hover {
+  cursor: pointer;
+  background-color: green;
+}
   
-  .button-container {
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    display: flex;
-    justify-content: space-between;
-    
-  }
-  
-  #createbutton {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 1.5vw;
-    color: white;
-    background-color: green;
-    border: 2px solid black;
-    padding: 1vw;
-    margin-left: 70vw;
-    border-radius: 2px;
-  }
+  .createbutton {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 14pt;
+  color: white;
+  background-color: gray;
+  border: 2px solid black;
+  padding: 20px;
+  border-radius: 20px;
+} 
+.addTown:hover {
+  cursor: pointer;
+  background-color: green;
+}
+.addTown{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size:2vw;
+  background-color:rgb(201, 241, 244) ;
+  border: 2px solid black;
+  padding: 20px;
+  border-radius: 20px;
+}
+
   .arrow{
     background-color: rgb(163, 163, 243);
     text-align: left;
@@ -242,4 +304,11 @@
     background-color: rgb(163, 163, 243);
     border: 1px solid rgb(163, 163, 243);
   }
+
+  .earth{
+  width: 10vw;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  
+}
   </style>
