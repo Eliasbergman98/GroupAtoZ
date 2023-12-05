@@ -6,10 +6,10 @@
   <main>
     <section>
       <img src="/img/brake.png" style="width: 200px;">
-      <h1>
+      <h1 id="heading">
         {{ uiLabels.heading }}
       </h1>
-      <div id="gamecode">
+      <div id="gamecodeheading">
         {{ uiLabels.gameCode }}:
       </div>
       <div>
@@ -78,12 +78,8 @@ export default {
 </script>
 
 <style scoped>
-/* #section {
-  position: absolute;
-} */
 
 #joinbutton:hover {
-  cursor: pointer;
   background-color: green;
 }
 
@@ -99,35 +95,17 @@ export default {
   margin-left: 60vw;
 }
 
-#gamecode {
+#gamecode, #gamecodeheading {
   padding: 20px;
   font-weight: bold;
 }
 
-h1 {
-  margin-top: 3vw;
-  margin-bottom: 2vw;
-  font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
-  text-transform: uppercase;
-  font-size: 60pt;
-  /*font-style: italic;*/
-  color: rgb(177, 27, 27);
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+#gamecode {
+  margin-bottom: 4vw;
 }
 
-.arrow {
-  background-color: rgb(163, 163, 243);
-  text-align: left;
-  padding: 1vw 0 0 1vw;
+#heading {
+  margin-bottom: 1vw;
 }
 
-.arrow button {
-  background-color: rgb(163, 163, 243);
-  border: 1px solid rgb(163, 163, 243);
-
-}
 </style>

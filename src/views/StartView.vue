@@ -20,9 +20,9 @@
       <img src="/img/brake.png" style="width: 200px;">
       <h1>{{ uiLabels.heading }}</h1>
       <div>
-        <img id="map" src="/img/map.webp" style="width: 150px;">
-        <img id="earth" src="/img/earth.png" style="width: 180px;">
-        <img id="train" src="/img/train.gif" style="width: 150px;">
+        <!--<img id="map" src="/img/map.webp" style="width: 150px;">-->
+        <img id="earth" src="/img/spinning_globe.gif" style="width: 300px;">
+        <!--<img id="train" src="/img/train.gif" style="width: 150px;"><-->
       </div>
       <h2>{{ uiLabels["sales-pitch2"] }}</h2>
     </section>
@@ -85,6 +85,11 @@ export default {
 #map {
   margin-left: 20px;
   margin-right: 20px;
+}
+
+#earth{
+  margin-top:-90px;
+  margin-bottom:-40px;
 }
 
 .logo {
