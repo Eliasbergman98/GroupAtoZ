@@ -8,21 +8,16 @@
       {{ uiLabels.heading }}
     </h1>
   </div>
-  <section id="howtoplay">
+  <section id="howtoplay" class="text">
     <h2>{{ uiLabels.aboutText }}</h2>
     <p>{{ uiLabels.information1 }}</p>
-    <br><br>
     <p>{{ uiLabels.information2 }}</p>
   </section>
-  <section id="howtocreate">
+  <section id="howtocreate" class="text">
     <h2> {{ uiLabels.createGame1 }} </h2>
-    <br><br>
     <p>{{ uiLabels.information3 }}</p>
-    <br><br>
     <p>{{ uiLabels.information4 }}</p>
-    <br><br>
     <p>{{ uiLabels.information5 }}</p>
-    <br><br>
     <p>{{ uiLabels.information6 }}</p>
   </section>
 </template>
@@ -51,12 +46,17 @@ export default {
 
 <style scoped>
 h1 {
-  margin-top: 5vw;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-top: 10px;
+  font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
-  font-size: 30pt;
-  font-style: italic;
+  font-size: 60pt;
+  /*font-style: italic;*/
   color: rgb(177, 27, 27);
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 h2 {
@@ -73,10 +73,19 @@ p {
   width: 50vw;
   border: 2px solid black;
   margin: 20px;
-  background-color: white;
+  color: white;
+  background-color: green;
   margin-left: 20vw;
   margin-right: 25vw;
   padding: 5vw;
+}
+/*Svart outline taget från Fred Meyer https://wpshout.com/quick-guides/create-text-outline-css/#gref */
+.text {
+	text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5x 0 #000,
+		0.5px 0.5px 0 #000;
 }
 .arrow{
   background-color: rgb(163, 163, 243);
