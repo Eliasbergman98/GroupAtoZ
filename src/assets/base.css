@@ -20,3 +20,18 @@ h1 {
     -1px 1px 0 #000,
     1px 1px 0 #000;
 }
+
+.arrow {
+  background-color: rgb(163, 163, 243);
+  text-align: left;
+  padding: 1vw 0 0 1vw;
+}
+
+.arrow button {
+  background-color: rgb(163, 163, 243);
+  border: 1px solid rgb(163, 163, 243);
+}
+
+#joinbutton:hover, #goBack:hover, #createbutton:hover, #howtoplaybutton:hover,#joinbutton:hover, img[id=ukimg], img[id=sweimg]:hover {
+  cursor: pointer;
+}
