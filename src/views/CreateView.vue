@@ -16,8 +16,7 @@
       Save gameID 
     </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
-      <input v-model="pollId" id="addQuizName" name="addQuizName" type="text" > <br>  
-      <input v-model="pollId" id="addQuizName" name="addQuizName" type="text" >
+      <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" >
       <button id="addQuizName" name="addQuizName" v-on:click="createPoll">
         {{ uiLabels.addName }}
       </button>
@@ -34,7 +33,7 @@
       </button>
     </div>
     <div class="gameInfo c">
-      <router-link v-bind:to="'/createquestions/' + this.pollId"><button class="createbutton" v-on:click="addGameCode"> {{ uiLabels.createGame }}</button></router-link>
+      <router-link v-bind:to="'/createquestions/' + this.quizName"><button class="createbutton"> {{ uiLabels.createGame }}</button></router-link>
     </div>
   </div>
 </template>
@@ -75,6 +74,7 @@ export default {
   },
   methods: {
     createPoll: function () {
+    this.pollId = Math.floor(Math.random()*10000);
       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
       console.log("the pollId:",this.pollId)
       

@@ -93,7 +93,7 @@
         uiLabels: {},
         selectedAvatar: null,
         avatars: avatar,
-        quizName: '',
+        quizName: "",
         city1: "",
         clue1: "",
         clue2: "",
@@ -101,7 +101,7 @@
       }
     },
     created: function () {
-      this.pollId = this.$route.params.pollId;
+      this.quizName = this.$route.params.quizName;
   
       socket.emit("pageLoaded", this.lang);
       socket.on("init", (labels) => {
@@ -111,12 +111,13 @@
       // socket.on("dataUpdate", (data) =>
       //   this.data = data
       // )
-      socket.emit("getPoll", this.pollId);
+      // socket.emit("getPoll", this.pollId);
 
       console.log("Updated quizName:",this.pollId)
-        
+      socket.emit("getPoll");
+
       socket.on("fullPole", (data) => {
-        console.log("in create")
+        console.log("in create", this.pollId)
         this.data = data;
       });
         
