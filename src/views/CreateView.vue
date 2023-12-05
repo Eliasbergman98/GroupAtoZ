@@ -7,6 +7,11 @@
   </div>
   <div class="poll">
     <div class="gameInfo a">
+      <!--Poll link: 
+    <input type="text" v-model="pollId">
+    <button v-on:click="createPoll">
+      Save gameID 
+    </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
       <input v-model="pollId" id="addQuizName" name="addQuizName" type="text" >
       <button id="addQuizName" name="addQuizName" v-on:click="createPoll">
