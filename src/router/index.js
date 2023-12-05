@@ -41,8 +41,13 @@ const router = createRouter({
     },
     {
       path: '/playerjoining/',
-      name: 'PlayerJoingingView',
+      name: 'PlayerJoiningView',
       component: () => import('../views/PlayerJoiningView.vue')
+    },
+    {
+      path: '/startingquiz/',
+      name: 'StartingQuizView',
+      component: () => import('../views/StartingQuizView.vue')
     }
   ]
 })

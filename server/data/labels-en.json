@@ -36,5 +36,6 @@
 	"clue1": "First clue:",
 	"clue2": "Second clue:",
 	"clue3": "Third clue:",
-	"saveButton": "Save city"
+	"saveButton": "Save city",
+	"whereTo": "Where are we going?"
 }
