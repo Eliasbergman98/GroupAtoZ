@@ -33,7 +33,8 @@
       </div>
   
       <section class="button-container">
-        <button id="createbutton"> {{ uiLabels.createGame }}</button>
+        <router-link to="/playerjoining/"> <button id="createbutton"> {{ uiLabels.createGame }}</button> </router-link>
+      
       </section>
   
       <!-- <div class="gameInfo c">
@@ -65,7 +66,7 @@
   const socket = io("localhost:3000");
   
   export default {
-    name: 'CreateView',
+    name: 'CreateQuestions',
     data: function () {
       return {
         lang: localStorage.getItem("lang") || "en",

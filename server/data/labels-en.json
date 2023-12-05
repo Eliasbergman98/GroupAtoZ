@@ -27,5 +27,8 @@
 	"chooseAvatar": "Choose your avatar:",
 	"yourName": "Name",
 	"enterName": "Enter your name here",
-	"doneButton": "Done"
+	"doneButton": "Done",
+	"startGame": "Start game:",
+	"players": "Players:",
+	"gameTag": "Game-ID:"
 }
