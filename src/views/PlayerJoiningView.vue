@@ -18,7 +18,7 @@
         </div>
 
         <div class="gameInfo c">
-            <router-link to="/createquestions/"><button class="createbutton"> {{uiLabels.startGame}}</button></router-link>
+            <router-link to="/startingquiz/"><button class="createbutton"> {{uiLabels.startGame}}</button></router-link>
         </div>
     </div>
 </template>
@@ -164,16 +164,5 @@ export default {
     padding: 20px;
     border-radius: 20px;
     margin-left: 20vw;
-}
-
-.arrow {
-    background-color: rgb(163, 163, 243);
-    text-align: left;
-    padding: 1vw 0 0 1vw;
-}
-
-.arrow button {
-    background-color: rgb(163, 163, 243);
-    border: 1px solid rgb(163, 163, 243);
 }
 </style>

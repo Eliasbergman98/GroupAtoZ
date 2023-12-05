@@ -32,6 +32,16 @@ h1 {
   border: 1px solid rgb(163, 163, 243);
 }
 
-#joinbutton:hover, #goBack:hover, #createbutton:hover, #howtoplaybutton:hover,#joinbutton:hover, img[id=ukimg], img[id=sweimg]:hover {
+#joinbutton:hover, #goBack:hover, #createbutton:hover, #donebutton:hover, #howtoplaybutton:hover,#joinbutton:hover, img[id=ukimg], img[id=sweimg]:hover {
   cursor: pointer;
+}
+
+#howtoplaybutton, #createbutton, #joinbutton {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 14pt;
+  color: white;
+  background-color: green;
+  border: 2px solid black;
+  border-radius: 25px;
+  padding: 20px;
 }

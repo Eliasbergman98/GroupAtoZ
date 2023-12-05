@@ -156,7 +156,6 @@ export default {
 }
 
 #donebutton:hover {
-    cursor: pointer;
     background-color: green;
 }
 
@@ -174,17 +173,6 @@ export default {
     margin-top: 1vw;
     padding: 1vw;
     font-weight: bold;
-}
-
-.arrow {
-    background-color: rgb(163, 163, 243);
-    text-align: left;
-    padding: 1vw 0 0 1vw;
-}
-
-.arrow button {
-    background-color: rgb(163, 163, 243);
-    border: 1px solid rgb(163, 163, 243);
 }
 
 .selected {
