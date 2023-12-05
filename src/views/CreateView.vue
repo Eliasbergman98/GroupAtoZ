@@ -5,6 +5,10 @@
     <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
   </button>
   </div>
+  <img src="/img/brake.png" style="width: 200px;">
+  <h1>
+    {{ uiLabels.heading }}
+  </h1>
   <div class="poll">
     <div class="gameInfo a">
       {{ uiLabels.chooseName }} <br>
@@ -92,8 +96,8 @@ export default {
 .poll {
   position: relative;
   display: grid;
-  grid-template-columns: 50vw 20vw 3vw;
-  grid-template-rows: 5vw 15vw 25vw 30vw;
+  grid-template-columns: 50vw 10vw 30w;
+  grid-template-rows: 5vw 5vw 25vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 3vw;
   background-size: cover;
@@ -124,7 +128,7 @@ export default {
 }
 
 .b {
-  grid-row-start: 2;
+  grid-row-start: 3;
   grid-column-start: 1;
   text-align: center;
   font-size: 2vw;
@@ -140,16 +144,18 @@ export default {
 }
 
 .c{
-  
-  grid-row-start: 4;
-  grid-column-start: 4;
-  justify-self: center;
+  grid-row-start: 3;
+  grid-column-start: 3;
+  margin-top: 10vw;
+  width: 10vw;
   
 }
 
 .earth{
+  width: 10vw;
   grid-column-start: 3;
   grid-row-start: 1;
+  
 }
 
 
