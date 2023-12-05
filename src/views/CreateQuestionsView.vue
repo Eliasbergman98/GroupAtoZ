@@ -6,7 +6,21 @@
     </button>
     </div>
     <div class="poll">
-      <div class="gameInfo a">
+      <div class="gameInfo a"> {{uiLabels.city1}}
+        <input type="text" v-model="city1">
+        </div>
+        <div class="gameInfo a"> {{ uiLabels.clue1 }}
+        <input type="text" v-model="clue1">
+        </div>
+        <div class="gameInfo a"> {{ uiLabels.clue2 }}
+        <input type="text" v-model="clue2">
+      </div>
+      <div class="gameInfo a"> {{ uiLabels.clue3 }}
+        <input type="text" v-model="clue3">
+      </div>
+      <div>
+      <button v-on:click="addQuestion" id="saveButton"> {{uiLabels.saveButton}}</button>
+    </div>
         <!--Poll link: 
       <input type="text" v-model="pollId">
       <button v-on:click="createPoll">
@@ -17,23 +31,23 @@
         <button v-on:click="addPollName">
           {{ uiLabels.addName }}
         </button> -->
-      </div>
+      
       <div>
         test
         {{ pollId}}
         {{ data }}
        
       </div>
-      <div class="gameInfo b">
+      <!-- <div class="gameInfo b">
         {{ uiLabels.chooseAvatar }} <br>
         <img class="avatar">
         <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
           :class="{ 'selected': selectedAvatar === index }">
           <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
         </button>
-      </div>
+      </div> -->
   
-      <section class="button-container">
+      <section class="button-container"> 
         <router-link to="/playerjoining/"> <button id="createbutton"> {{ uiLabels.createGame }}</button> </router-link>
       
       </section>
@@ -79,7 +93,11 @@
         uiLabels: {},
         selectedAvatar: null,
         avatars: avatar,
-        quizName: ''
+        quizName: '',
+        city1: "",
+        clue1: "",
+        clue2: "",
+        clue3: ""
       }
     },
     created: function () {
@@ -112,7 +130,7 @@
         this.pollNameId.push("");
        },
        addQuestion: function () {
-       socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
+       socket.emit("addQuestion", { pollId: this.pollId, q: this.city1, a: this.clue1, b: this.clue2, c: this.clue3 })
       },
       addAnswer: function () {
         this.answers.push("");
@@ -130,6 +148,16 @@
   </script>
   
   <style scoped>
+
+  #saveButton{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.5vw;
+    color: white;
+    background-color: green;
+    border: 2px solid black;
+    padding: 1vw;
+    border-radius: 2px;
+  }
   .poll {
     position: relative;
     display: grid;
