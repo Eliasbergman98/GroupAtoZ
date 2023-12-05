@@ -20,7 +20,8 @@
       </div>
       <div>
         test
-        {{ quizName }}
+        {{ pollId}}
+        {{ data }}
        
       </div>
       <div class="gameInfo b">
@@ -33,7 +34,8 @@
       </div>
   
       <section class="button-container">
-        <button id="createbutton"> {{ uiLabels.createGame }}</button>
+        <router-link to="/playerjoining/"> <button id="createbutton"> {{ uiLabels.createGame }}</button> </router-link>
+      
       </section>
   
       <!-- <div class="gameInfo c">
@@ -65,7 +67,7 @@
   const socket = io("localhost:3000");
   
   export default {
-    name: 'CreateView',
+    name: 'CreateQuestions',
     data: function () {
       return {
         lang: localStorage.getItem("lang") || "en",
@@ -81,45 +83,43 @@
       }
     },
     created: function () {
-      this.id = this.$route.params.id;
+      this.pollId = this.$route.params.pollId;
   
       socket.emit("pageLoaded", this.lang);
       socket.on("init", (labels) => {
         this.uiLabels = labels;
       });
-      socket.emit("addQuizName", quizName => 
-      this.quizName = quizName,
-      console.log("Updated quizName:",this.quizName)
+      
+      // socket.on("dataUpdate", (data) =>
+      //   this.data = data
+      // )
+      socket.emit("getPoll", this.pollId);
+
+      console.log("Updated quizName:",this.pollId)
         
-      );
-      socket.on("addQuizName", (data) => {
-  console.log("Updated quizName:", data);
-  const quizName = data.getQuizName(this.quizName); // Replace somePollId with the actual pollId
-  console.log("Retrieved quizName:", quizName);
-});
-      socket.on("dataUpdate", (data) =>
-        this.data = data
-      )
-      socket.on("pollCreated", (data) =>
-        this.data = data)
+      socket.on("fullPole", (data) => {
+        console.log("in create")
+        this.data = data;
+      });
+        
 
     },
     methods: {
-      // createPoll: function () {
-      //   socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
-      // },
-      // // addPollName: function () {
-      // //   this.pollNameId.push("");
-      // // },
-      // addQuestion: function () {
-      //   socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
-      // },
-      // addAnswer: function () {
-      //   this.answers.push("");
-      // },
-      // runQuestion: function () {
-      //   socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
-      // },
+      createPoll: function () {
+       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
+      },
+       addPollName: function () {
+        this.pollNameId.push("");
+       },
+       addQuestion: function () {
+       socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
+      },
+      addAnswer: function () {
+        this.answers.push("");
+       },
+       runQuestion: function () {
+       socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
+       },
       selectAvatar(index) {
         this.selectedAvatar = index;
       }

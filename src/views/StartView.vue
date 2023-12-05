@@ -9,34 +9,34 @@
     <div class="langimg">
       <img id="sweimg" src="/img/sweflag.png" style="width: 50px;" v-on:click="switchLanguage('sv')">
       <img id="ukimg" src="/img/ukflag.png" style="width: 50px;" v-on:click="switchLanguage('en')">
-      </div>
+    </div>
   </header>
   <main>
-  <!-- <ResponsiveNav v-bind:hideNav="hideNav">
+    <!-- <ResponsiveNav v-bind:hideNav="hideNav">
     <button v-on:click="switchLanguage">{{ uiLabels.changeLanguage }}</button>
     <a href="">{{ uiLabels.about }}</a>
   </ResponsiveNav> -->
-  <section id="section1">
-    <img src="/img/brake.png" style="width: 200px;">
-    <h1>{{ uiLabels.heading }}</h1>
-    <div>
-      <img id="map" src="/img/map.webp" style="width: 150px;">
-      <img id="earth" src="/img/earth.png" style="width: 180px;">
-      <img id="train" src="/img/train.gif" style="width: 150px;">
-    </div>
-    <h2>{{ uiLabels["sales-pitch2"] }}</h2>
-  </section>
-  <!-- <label>
+    <section id="section1">
+      <img src="/img/brake.png" style="width: 200px;">
+      <h1>{{ uiLabels.heading }}</h1>
+      <div>
+        <img id="map" src="/img/map.webp" style="width: 150px;">
+        <img id="earth" src="/img/earth.png" style="width: 180px;">
+        <img id="train" src="/img/train.gif" style="width: 150px;">
+      </div>
+      <h2>{{ uiLabels["sales-pitch2"] }}</h2>
+    </section>
+    <!-- <label>
     Write poll id: 
     <input type="text" v-model="id">
   </label>
   <router-link v-bind:to="'/poll/'+id">{{uiLabels.participatePoll}}</router-link> -->
-  <section class="button-container">
-    <router-link to="/create/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
-    <router-link to="/howtoplay/"><button id="howtoplaybutton"> {{ uiLabels.about }}</button></router-link>
-    <router-link to="/join/"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
-  </section>
-</main>
+    <section class="button-container">
+      <router-link to="/create/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
+      <router-link to="/howtoplay/"><button id="howtoplaybutton"> {{ uiLabels.about }}</button></router-link>
+      <router-link to="/join/"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
+    </section>
+  </main>
 </template>
 
 <script>
@@ -77,12 +77,12 @@ export default {
 </script>
 
 <style scoped>
-
 #section {
-position: absolute;
+  position: absolute;
 }
 
-#train, #map {
+#train,
+#map {
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -117,7 +117,11 @@ position: absolute;
   margin-right: 10px;
 }
 
-#createbutton:hover, #howtoplaybutton:hover,#joinbutton:hover, img[id=ukimg], img[id=sweimg]:hover  {
+#createbutton:hover,
+#howtoplaybutton:hover,
+#joinbutton:hover,
+img[id=ukimg],
+img[id=sweimg]:hover {
   cursor: pointer;
 }
 
@@ -179,12 +183,17 @@ position: absolute;
 }
 
 h1 {
-  margin-top: 50px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-top: 10px;
+  font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
-  font-size: 30pt;
-  font-style: italic;
+  font-size: 60pt;
+  /*font-style: italic;*/
   color: rgb(177, 27, 27);
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 h2 {
@@ -213,5 +222,4 @@ h2 {
     left: -12em;
   }
 } */
-
 </style>

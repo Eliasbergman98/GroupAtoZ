@@ -26,9 +26,14 @@ Data.prototype.createPoll = function(pollId, lang="en") {
     poll.answers = [];
     poll.currentQuestion = 0;              
     this.polls[pollId] = poll;
-    console.log("poll created", pollId, poll);
+    console.log("poll created in data", pollId, poll);
   }
+  console.log("poll created before return", pollId);
   return this.polls[pollId];
+}
+Data.prototype.getPoll = function (pollId) {
+  console.log("in data getfunction:")
+  return this.polls[pollId] || {};
 }
 
 Data.prototype.addQuestion = function(pollId, q) {
@@ -85,17 +90,6 @@ Data.prototype.getAnswers = function(pollId) {
     }
   }
   return {}
-}
-
-// Method to store quiz names
-Data.prototype.addQuizName = function (pollId, quizName) {
-  this.quizNames[pollId] = quizName;
-  this.saveDataToFile(); // Optionally, save data to a file
-}
-
-// Method to get quiz names
-Data.prototype.getQuizName = function (pollId) {
-  return this.quizNames[pollId] || "";
 }
 export { Data };
 

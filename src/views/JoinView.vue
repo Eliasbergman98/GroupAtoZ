@@ -103,12 +103,17 @@ export default {
 }
 
 h1 {
-  margin-top: 50px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-top: 10px;
+  font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
-  font-size: 30pt;
-  font-style: italic;
+  font-size: 60pt;
+  /*font-style: italic;*/
   color: rgb(177, 27, 27);
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .arrow {
