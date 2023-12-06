@@ -34,18 +34,21 @@
       </button>
     </div>
     <div class="gameInfo c">
-      <router-link v-bind:to="'/createquestions/' + this.quizName"><button class="createbutton" v-bind:pollId=this.pollId > {{ uiLabels.createGame }}</button></router-link>
+      <button class="createbutton" v-on:click="createPoll" > {{ uiLabels.createGame }}</button>
     </div>
   </div>
 </template>
 
 <script>
+import QuestionComponent from '@/components/QuestionComponent.vue';
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
-
 export default {
   name: 'CreateView',
+  components: {
+    QuestionComponent
+  },
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
@@ -62,22 +65,24 @@ export default {
   },
   created: function () {
     
-    this.id = this.$route.params.id;
 
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
-    socket.on("dataUpdate", (data) =>
-      this.data = data
-    )
+    // socket.on("dataUpdate", (data) =>
+    //   this.data = data
+    // )
     socket.on("pollCreated",  (data) => console.log("pollId created:", data))
   },
   methods: {
+    
     createPoll: function () {
-    this.pollId = Math.floor(Math.random()*10000);
-      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
+    this.pollId = '' + Math.floor(Math.random()*10000);
+      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName })
       console.log("the pollId:",this.pollId)
+      this.$router.push('/createquestions/' + this.pollId);
+      
       
     },
     addGameCode: function () {

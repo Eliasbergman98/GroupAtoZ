@@ -51,8 +51,9 @@
 
       <div class="infofromviewbefore">
         test
-        {{ pollId}}
-        {{ data }}
+        PollId: {{ pollId}}
+        Data: {{ data }}
+        QuizName: {{data.quizName}}
        
       </div>
   
@@ -80,12 +81,14 @@
   </template>
   
   <script>
+  
   import io from 'socket.io-client';
   import avatar from '../assets/avatar.json';
   const socket = io("localhost:3000");
   
   export default {
     name: 'CreateQuestions',
+  
     data: function () {
       return {
         lang: localStorage.getItem("lang") || "en",
@@ -105,7 +108,7 @@
       }
     },
     created: function () {
-      this.quizName = this.$route.params.quizName;
+      this.pollId = this.$route.params.pollId;
   
       socket.emit("pageLoaded", this.lang);
       socket.on("init", (labels) => {
@@ -114,13 +117,12 @@
       
       socket.on("dataUpdate", (data) =>
        this.data = data );
-      // socket.emit("getPoll", this.pollId);
       
       console.log("Updated quizName:",this.pollId)
-      socket.emit("getPoll");
-
+      socket.emit("getPoll", this.pollId);
+      socket.on("pollCreated",  (data) => console.log("pollId created in createquestio:", data));
       socket.on("fullPole", (data) => {
-        console.log("in create", this.pollId)
+        console.log("in createquest", this.pollId)
         this.data = data;
       });
         
