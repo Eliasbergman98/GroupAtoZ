@@ -5,22 +5,35 @@
       <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
     </button>
     </div>
+    
     <div class="poll">
+      
       <div class="gameInfo a"> {{uiLabels.city1}}
         <input type="text" v-model="city1">
-        </div>
+          </div>
         <div class="gameInfo b"> {{ uiLabels.clue1 }}
-        <input type="text" v-model="clue1">
+          <input type="text" v-model="clue1">
         </div>
         <div class="gameInfo c"> {{ uiLabels.clue2 }}
-        <input type="text" v-model="clue2">
+          <input type="text" v-model="clue2">
+        </div>
+        <div class="gameInfo d"> {{ uiLabels.clue3 }}
+          <input type="text" v-model="clue3">
+        </div>
+        <div class="gameInfo f"> 
+          <button class="addTown" v-on:click="addQuestion"> {{ uiLabels.addTown }}</button>
+        </div>
+        <div v-if="submittedCities.length > 0" class="right-section">
+          My cities: <hr />
+        <div v-for="(city, index) in submittedCities" :key="index">
+          <p>City: {{ city.name }}, Clues: {{ city.clue1 }}, {{ city.clue2 }}, {{ city.clue3 }}</p>
+          <hr />
+        </div>
       </div>
-      <div class="gameInfo d"> {{ uiLabels.clue3 }}
-        <input type="text" v-model="clue3">
-      </div>
-      <div class ="earth">
+      
+      <!-- <div class ="earth">
         <img id="earth" src="/img/earth.png" style="width: 180px;">
-      </div>
+      </div> -->
       
         <!--Poll link: 
       <input type="text" v-model="pollId">
@@ -45,19 +58,16 @@
       <div class="gameInfo e"> 
         <router-link to="/playerjoining/"> <button class="createbutton"> {{ uiLabels.createGame }}</button> </router-link>
       </div>
-      <div class="gameInfo f"> 
-        <button class="addTown" v-on:click="addQuestion"> {{ uiLabels.addTown }}</button>
-      </div>
 
       <div class="infofromviewbefore">
         test
-        {{ pollId}}
-        {{ data }}
+        PollId: {{ pollId}}
+        Data: {{ data }}
+        QuizName: {{data.quizName}}
        
       </div>
   
-      <!-- <div class="gameInfo c">
-        {{ uiLabels.question }}:
+      <!--
         <input type="text" v-model="question">
         <div>
           Answers:
@@ -80,14 +90,17 @@
   </template>
   
   <script>
+  
   import io from 'socket.io-client';
   import avatar from '../assets/avatar.json';
   const socket = io("localhost:3000");
   
   export default {
     name: 'CreateQuestions',
+  
     data: function () {
       return {
+        showRightSection: false,
         lang: localStorage.getItem("lang") || "en",
         pollId: "",
         question: "",
@@ -101,11 +114,19 @@
         city1: "",
         clue1: "",
         clue2: "",
-        clue3: ""
+        clue3: "",
+        // Separate variables to hold submitted data
+        submittedCities: [],
       }
     },
+    computed: {
+      areFieldsFilled: function () {
+        return this.city1 && this.clue1 && this.clue2 && this.clue3;
+      },
+    },
+    
     created: function () {
-      this.quizName = this.$route.params.quizName;
+      this.pollId = this.$route.params.pollId;
   
       socket.emit("pageLoaded", this.lang);
       socket.on("init", (labels) => {
@@ -114,17 +135,15 @@
       
       socket.on("dataUpdate", (data) =>
        this.data = data );
-      // socket.emit("getPoll", this.pollId);
       
       console.log("Updated quizName:",this.pollId)
-      socket.emit("getPoll");
-
+      socket.emit("getPoll", this.pollId);
+      socket.on("pollCreated",  (data) => console.log("pollId created in createquestio:", data));
       socket.on("fullPole", (data) => {
-        console.log("in create", this.pollId)
+        console.log("in createquest", this.pollId)
         this.data = data;
       });
         
-
     },
     methods: {
       createPoll: function () {
@@ -134,7 +153,34 @@
         this.pollNameId.push("");
        },
        addQuestion: function () {
-       socket.emit("addQuestion", { pollId: this.pollId, q: this.city1, a: this.clue1, b: this.clue2, c: this.clue3 })
+        if (!this.areFieldsFilled) {
+          alert('Please fill in all fields before adding a new city.');
+          return;
+        }
+       socket.emit("addQuestion", { 
+          pollId: this.pollId, 
+          q: this.city1, 
+          a: this.clue1, 
+          b: this.clue2, 
+          c: this.clue3 });
+          
+          this.submittedCities.push({
+            name: this.city1,
+            clue1: this.clue1,
+            clue2: this.clue2,
+            clue3: this.clue3,
+      });
+        // this.showRightSection =  true;
+        // this.submittedCity = this.city1;
+        // this.submittedClue1 = this.clue1;
+        // this.submittedClue2 = this.clue2;
+        // this.submittedClue3 = this.clue3;
+
+        this.city1 = "";
+        this.clue1 = "";
+        this.clue2 = "";
+        this.clue3 = "";
+
       },
       addAnswer: function () {
         this.answers.push("");
@@ -144,11 +190,12 @@
        },
       selectAvatar(index) {
         this.selectedAvatar = index;
-      }
+      },
+
       
-    }
-  
+    },
   }
+
   </script>
   
   <style scoped>
@@ -165,7 +212,7 @@
   .poll {
     position: relative;
     display: grid;
-    grid-template-columns: 50vw 30vw 10vw;
+    grid-template-columns: 30vw 30vw 10vw 20vw;
     grid-template-rows: 7vw 7vw 7vw 7vw 7vw 10vw;
     background-color: rgb(163, 163, 243);
     grid-gap: 1vw;
@@ -175,7 +222,7 @@
   
   .gameInfo {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    width: 50vw;
+    width: 30vw;
     height: 1vw;
     text-align: left;
     position: left;
@@ -240,7 +287,7 @@
 .e{
   margin-bottom: 0;
   grid-row-start: 4;
-  grid-column-start: 3;
+  grid-column-start: 4;
   width: 10vw;
   
 }
@@ -257,6 +304,19 @@
   background-color: rgb(201, 241, 244);
   margin-left: 10vw;
 }
+
+.right-section{
+  grid-row-start: 1;
+  grid-column-start: 4;
+  font-size:1vw;
+  width: 20vw;
+  height: 20vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
 .infofromviewbefore{
     grid-row-start:6 ;
     grid-column-start: 1;
