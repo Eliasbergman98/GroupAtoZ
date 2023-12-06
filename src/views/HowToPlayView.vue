@@ -3,7 +3,7 @@
     <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
   </div>
   <div>
-    <img src="/img/brake.png" style="width: 200px;">
+    <img id="brake" src="/img/brake.png" style="width: 200px;">
     <h1>
       {{ uiLabels.heading }}
     </h1>
@@ -46,7 +46,7 @@ export default {
 
 <style scoped>
 h1 {
-  margin-top: 10px;
+  margin-top: 0px;
   font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
   font-size: 60pt;
@@ -60,27 +60,34 @@ h1 {
 }
 
 h2 {
-  font-size: 25px;
+  font-size: 35px;
 }
 p {
-  margin-top: 20px;
+  margin-top: 0px;
   font-style: italic;
   font-size: 20px;
   text-align: center;
 }
 
+#brake {
+  margin-top:-75px;
+}
+
 #howtoplay, #howtocreate {
-  width: 50vw;
+  width: 35vw;
   border: 2px solid black;
-  margin: 20px;
+  margin: 15px;
+  margin-top: -50px;
   color: white;
   background-color: green;
-  margin-left: 20vw;
-  margin-right: 25vw;
-  padding: 5vw;
+  padding: 2vw;
+  display: inline-block;
+  height: 18vw;
 }
 /*Svart outline taget från Fred Meyer https://wpshout.com/quick-guides/create-text-outline-css/#gref */
 .text {
+  display: flex;
+  align-items: flex-start;
 	text-shadow:
 		-0.5px -0.5px 0 #000,
 		0.5px -0.5px 0 #000,
