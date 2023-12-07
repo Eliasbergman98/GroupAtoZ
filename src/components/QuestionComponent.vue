@@ -13,7 +13,6 @@ export default {
   props: {
     question: Object,
     pollId: String
-
   },
   emits: ["answer"], 
   methods: {

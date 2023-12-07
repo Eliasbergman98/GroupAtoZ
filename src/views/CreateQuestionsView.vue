@@ -23,14 +23,25 @@
         <div class="gameInfo f"> 
           <button class="addTown" v-on:click="addQuestion" :disabled="submittedCities.length >= 5"> {{ uiLabels.addTown }}</button>
         </div>
-        <div v-if="submittedCities.length > 0" class="right-section">
-          {{uiLabels.myCities}} <hr />
+     
+      <div v-if="Object.keys(submittedCities2).length > 0 " class="right-section">
+          Alles cities: <hr/>
+        <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
+          <p>City: {{ cityData }}, Clues: {{ cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}</p>
+
+    </div>
+  </div> 
+
+ 
+  
+        <!-- <div v-if="submittedCities.length > 0" class="right-section">
+          My cities: <hr />
         <div v-for="(city, index) in submittedCities" :key="index">
           <p> {{uiLabels.city}} {{ index + 1 }}: {{ city.name }}, {{ uiLabels.clues }}: {{ city.clue1 }}, {{ city.clue2 }}, {{ city.clue3 }}</p>
             <hr />
         </div>
       </div>
-      
+       -->
       <!-- <div class ="earth">
         <img id="earth" src="/img/earth.png" style="width: 180px;">
       </div> -->
@@ -87,6 +98,7 @@
       {{ data }}
       <router-link v-bind:to="'/result/' + pollId">Check result</router-link>  -->
     </div>
+    
   </template>
   
   <script>
@@ -116,7 +128,9 @@
         clue2: "",
         clue3: "",
         // Separate variables to hold submitted data
-        submittedCities: [],
+        // submittedCities: [], 
+
+        submittedCities2: {},
       }
     },
     computed: {
@@ -170,12 +184,23 @@
           b: this.clue2, 
           c: this.clue3 });
           
-          this.submittedCities.push({
-            name: this.city1,
-            clue1: this.clue1,
-            clue2: this.clue2,
-            clue3: this.clue3,
-      });
+          if (!this.submittedCities2[this.city1]) {
+              this.submittedCities2[this.city1] = [];
+            }
+
+          this.submittedCities2[this.city1].push(
+            this.clue1,
+            this.clue2,
+            this.clue3
+          );
+
+      // this.submittedCities.push({
+      //       name: this.city1,
+      //       clue1: this.clue1,
+      //       clue2: this.clue2,
+      //       clue3: this.clue3,
+      // });
+
         // this.showRightSection =  true;
         // this.submittedCity = this.city1;
         // this.submittedClue1 = this.clue1;
