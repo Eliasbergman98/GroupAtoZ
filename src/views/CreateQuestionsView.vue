@@ -172,7 +172,7 @@
           return;
         }
 
-        if (Object.keys(submittedCities2).length >= 5) {
+        if (Object.keys(this.submittedCities2).length >= 5) {
         alert('You can only add up to 5 cities.');
         
         return;
