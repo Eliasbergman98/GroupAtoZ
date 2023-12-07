@@ -21,13 +21,13 @@
           <textarea class="fillInfo" v-model="clue3" rows="2"></textarea>
         </div>
         <div class="gameInfo f"> 
-          <button class="addTown" v-on:click="addQuestion" :disabled="submittedCities.length >= 5"> {{ uiLabels.addTown }}</button>
+          <button class="addTown" v-on:click="addQuestion" :disabled="Object.keys(submittedCities2).length >= 5"> {{ uiLabels.addTown }}</button>
         </div>
      
       <div v-if="Object.keys(submittedCities2).length > 0 " class="right-section">
-          Alles cities: <hr/>
+        {{ uiLabels.myCities }}<hr/>
         <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
-          <p>City: {{ cityData }}, Clues: {{ cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}</p>
+          <p> {{uiLabels.city}} {{ cityData }}, {{ uiLabels.clues }} {{ cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}</p>
 
     </div>
   </div> 
@@ -172,7 +172,7 @@
           return;
         }
 
-        if (this.submittedCities.length >= 5) {
+        if (Object.keys(submittedCities2).length >= 5) {
         alert('You can only add up to 5 cities.');
         
         return;
