@@ -14,10 +14,15 @@
             Quizname & PollID
             <!--<img src="/img/brake.png" style="width: 200px;">-->
         </h1>
+        <div>
+            test 
+            QuizName: {{data.quizName}}
+            PollID: {{ pollId }}
+        </div>
         <section class="player">
             <div class="gameInfo a" id="name">
                 {{ uiLabels.yourName }}:
-                <input type="text" id="yourname" v-model="yourname" :placeholder="uiLabels.enterName">
+                <input type="text" id="yourname" v-model="yourName" :placeholder="uiLabels.enterName">
             </div>
             <div class="earth">
                 <img id="earth" src="/img/earth.png" style="width: 180px;">
@@ -61,23 +66,31 @@ export default {
             pollId: "inactive poll",
             submittedAnswers: {},
             uiLabels: {},
-            lang: localStorage.getItem("lang") || "en"
+            lang: localStorage.getItem("lang") || "en",
+            data: {},
+            quizName: '',
+            yourName: ''
         }
 
     },
     created: function () {
-        this.pollId = this.$route.params.id
+        this.id = this.$route.params.id
         socket.emit('joinPoll', this.pollId)
         socket.on("newQuestion", q =>
             this.question = q
         )
-        socket.on("dataUpdate", answers =>
-            this.submittedAnswers = answers
-        )
+        // socket.on("dataUpdate", answers =>
+        //     this.submittedAnswers = answers
+        // )
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels
         })
+        socket.emit("getPoll", this.pollId);
+        socket.on("fullPole", (data) => {
+        this.data = data;
+        console.log("data hämtad", this.pollId)
+      });
     },
     methods: {
         submitAnswer: function (answer) {
@@ -179,4 +192,3 @@ export default {
     background-color: green;
 }
 </style>
-  

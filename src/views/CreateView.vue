@@ -37,6 +37,10 @@
       <button class="createbutton" v-on:click="createPoll"> {{ uiLabels.createGame }}</button>
     </div>
   </div>
+  <div>
+    {{ selectedAvatar }}
+    {{ avatars.name }}
+  </div>
 </template>
 
 <script>
@@ -64,8 +68,6 @@ export default {
     }
   },
   created: function () {
-
-
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
@@ -76,14 +78,11 @@ export default {
     socket.on("pollCreated", (data) => console.log("pollId created:", data))
   },
   methods: {
-
     createPoll: function () {
       this.pollId = '' + Math.floor(Math.random() * 10000);
-      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName })
+      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatar })
       console.log("the pollId:", this.pollId)
       this.$router.push('/createquestions/' + this.pollId);
-
-
     },
     addGameCode: function () {
       if (this.gamecode === '') {
@@ -104,6 +103,8 @@ export default {
     },
     selectAvatar(index) {
       this.selectedAvatar = index;
+      this.avatars.name = "avatar" +index;
+      console.log(this.avatars.name)
     }
   }
 }
