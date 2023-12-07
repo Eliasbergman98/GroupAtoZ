@@ -9,25 +9,25 @@
     <div class="poll">
       
       <div class="gameInfo a"> {{uiLabels.city1}}
-        <input type="text" v-model="city1">
+        <input type="text" v-model="city1" class="fillInfo">
           </div>
         <div class="gameInfo b"> {{ uiLabels.clue1 }}
-          <input type="text" v-model="clue1">
+          <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
         </div>
         <div class="gameInfo c"> {{ uiLabels.clue2 }}
-          <input type="text" v-model="clue2">
+          <textarea class="fillInfo" v-model="clue2" rows="2"></textarea>
         </div>
         <div class="gameInfo d"> {{ uiLabels.clue3 }}
-          <input type="text" v-model="clue3">
+          <textarea class="fillInfo" v-model="clue3" rows="2"></textarea>
         </div>
         <div class="gameInfo f"> 
-          <button class="addTown" v-on:click="addQuestion"> {{ uiLabels.addTown }}</button>
+          <button class="addTown" v-on:click="addQuestion" :disabled="submittedCities.length >= 5"> {{ uiLabels.addTown }}</button>
         </div>
         <div v-if="submittedCities.length > 0" class="right-section">
-          My cities: <hr />
+          {{uiLabels.myCities}} <hr />
         <div v-for="(city, index) in submittedCities" :key="index">
-          <p>City: {{ city.name }}, Clues: {{ city.clue1 }}, {{ city.clue2 }}, {{ city.clue3 }}</p>
-          <hr />
+          <p> {{uiLabels.city}} {{ index + 1 }}: {{ city.name }}, {{ uiLabels.clues }}: {{ city.clue1 }}, {{ city.clue2 }}, {{ city.clue3 }}</p>
+            <hr />
         </div>
       </div>
       
@@ -157,6 +157,12 @@
           alert('Please fill in all fields before adding a new city.');
           return;
         }
+
+        if (this.submittedCities.length >= 5) {
+        alert('You can only add up to 5 cities.');
+        
+        return;
+        }
        socket.emit("addQuestion", { 
           pollId: this.pollId, 
           q: this.city1, 
@@ -199,6 +205,11 @@
   </script>
   
   <style scoped>
+.fillInfo{
+  height: 2vw;
+    width: 20vw;
+    margin-top: 1vw;
+  }
 
   #saveButton{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
