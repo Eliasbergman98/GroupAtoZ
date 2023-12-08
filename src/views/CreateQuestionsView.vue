@@ -8,6 +8,7 @@
     
     <div class="poll">
       
+      
       <div class="gameInfo a"> {{uiLabels.city1}}
         <input type="text" v-model="city1" class="fillInfo">
           </div>
@@ -24,8 +25,9 @@
           <button class="addTown" v-on:click="addQuestion" :disabled="Object.keys(submittedCities2).length >= 5"> {{ uiLabels.addTown }}</button>
         </div>
      
-      <div v-if="Object.keys(submittedCities2).length > 0 " class="right-section">
-        {{ uiLabels.myCities }}<hr/>
+      <div v-if="Object.keys(submittedCities2).length > 0 " class="right-section" >
+       
+        {{ uiLabels.myCities }} <hr/>
         <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
           <p> {{uiLabels.city}} {{ cityData }}, {{ uiLabels.clues }} {{ cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}</p>
 
@@ -67,7 +69,7 @@
       </div> -->
   
       <div class="gameInfo e"> 
-        <router-link to="/playerjoining/"> <button class="createbutton"> {{ uiLabels.createGame }}</button> </router-link>
+         <button class="createbutton" v-on:click="sendInfo"> {{ uiLabels.createGame }}</button> 
       </div>
 
       <div class="infofromviewbefore">
@@ -75,6 +77,9 @@
         PollId: {{ pollId}}
         Data: {{ data }}
         QuizName: {{data.quizName}}
+        <div>
+          <img v-bind:src="data.selectedAvatar" alt="😄" width="32" height="32" >
+        </div>
        
       </div>
   
@@ -127,6 +132,7 @@
         clue1: "",
         clue2: "",
         clue3: "",
+
         // Separate variables to hold submitted data
         // submittedCities: [], 
 
@@ -141,6 +147,7 @@
     
     created: function () {
       this.pollId = this.$route.params.pollId;
+      this.selectedAvatarUrl = this.avatarUrl;
   
       socket.emit("pageLoaded", this.lang);
       socket.on("init", (labels) => {
@@ -161,11 +168,14 @@
     },
     methods: {
       createPoll: function () {
-       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
+       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, selectedAvatar: this.selectedAvatarUrl })
       },
        addPollName: function () {
         this.pollNameId.push("");
        },
+       sendInfo: function () {
+          this.$router.push('/playerjoining/' + this.pollId);
+        },
        addQuestion: function () {
         if (!this.areFieldsFilled) {
           alert('Please fill in all fields before adding a new city.');
@@ -177,6 +187,7 @@
         
         return;
         }
+        
        socket.emit("addQuestion", { 
           pollId: this.pollId, 
           q: this.city1, 

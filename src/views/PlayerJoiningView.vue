@@ -11,7 +11,7 @@
             {{ uiLabels.players }} <br>
         </div>
         <div class="gameInfo b">
-            {{ uiLabels.gameTag }} <br>
+            {{ uiLabels.gameTag }} {{ pollId }} <br>
         </div>
 
         <div class="earth">
@@ -46,8 +46,8 @@ export default {
         }
     },
     created: function () {
-        this.id = this.$route.params.id;
-
+        this.pollId = this.$route.params.pollId;
+        this.selectedAvatarUrl = this.avatarUrl;
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels
@@ -60,7 +60,7 @@ export default {
     },
     methods: {
         createPoll: function () {
-            socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
+            socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, selectedAvatar: this.selectedAvatarUrl })
         },
         addQuizName: function () {
             socket.emit("addQuizName", this.quizName)

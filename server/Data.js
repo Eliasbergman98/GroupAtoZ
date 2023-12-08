@@ -19,9 +19,10 @@ Data.prototype.getUILabels = function (lang = "en") {
   return JSON.parse(labels);
 }
 
-Data.prototype.createPoll = function(pollId, lang="en", quizName) {
+Data.prototype.createPoll = function(pollId, lang="en", quizName, selectedAvatar) {
   if (typeof this.polls[pollId] === "undefined") {
     let poll = {};
+    poll.selectedAvatar = selectedAvatar
     poll.quizName = quizName;
     poll.lang = lang;  
     poll.questions = [];

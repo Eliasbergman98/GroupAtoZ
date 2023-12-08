@@ -18,7 +18,7 @@
     </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
       <input v-model="quizName" id="addQuizName" name="addQuizName" type="text">
-      <button id="addQuizName" name="addQuizName" v-on:click="createPoll">
+      <button id="addQuizName" name="addQuizName">
         {{ uiLabels.addName }}
       </button>
     </div>
@@ -38,8 +38,8 @@
     </div>
   </div>
   <div>
-    {{ selectedAvatar }}
     {{ avatars.name }}
+    {{ avatars.url }}
   </div>
 </template>
 
@@ -80,7 +80,7 @@ export default {
   methods: {
     createPoll: function () {
       this.pollId = '' + Math.floor(Math.random() * 10000);
-      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatar })
+      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatarUrl })
       console.log("the pollId:", this.pollId)
       this.$router.push('/createquestions/' + this.pollId);
     },
@@ -104,7 +104,9 @@ export default {
     selectAvatar(index) {
       this.selectedAvatar = index;
       this.avatars.name = "avatar" +index;
+      this.selectedAvatarUrl = this.avatars[index].url;
       console.log(this.avatars.name)
+      console.log("Selected avatar URL:", this.selectedAvatarUrl);
     }
   }
 }

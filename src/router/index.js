@@ -40,7 +40,7 @@ const router = createRouter({
       component: () => import('../views/HowToPlayView.vue')
     },
     {
-      path: '/playerjoining/',
+      path: '/playerjoining/:pollId',
       name: 'PlayerJoiningView',
       component: () => import('../views/PlayerJoiningView.vue')
     },
