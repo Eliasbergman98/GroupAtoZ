@@ -75,24 +75,23 @@ p {
 
 #howtoplay, #howtocreate {
   width: 35vw;
-  border: 2px solid black;
-  margin: 15px;
-  margin-top: -50px;
+  border: 0.2vw solid black;
+  margin: 5vw;
+  margin-top: -2vw;
   color: white;
   background-color: green;
   padding: 2vw;
+  height: 25vw;
   display: inline-block;
-  height: 18vw;
 }
 /*Svart outline taget från Fred Meyer https://wpshout.com/quick-guides/create-text-outline-css/#gref */
 .text {
-  display: flex;
-  align-items: flex-start;
+
 	text-shadow:
-		-0.5px -0.5px 0 #000,
-		0.5px -0.5px 0 #000,
-		-0.5px 0.5px 0 #000,
-		0.5px 0.5px 0 #000;
+		-0.08vw -0.08vw 0 #000,
+		0.08vw -0.08vw 0 #000,
+		-0.08vw 0.08vw 0 #000,
+		0.08vw 0.08vw 0 #000;
 }
 .arrow{
   background-color: rgb(163, 163, 243);
