@@ -5,7 +5,13 @@ import {readFileSync} from "fs";
 // Store data in an object to keep the global namespace clean
 function Data() {
   this.polls = {};
-  console.log("här är vi i data", this.polls)
+//  this.polls['test']= {
+//   lang: "en",
+//   quizName: "testquiz",
+//   cities: { "uppsala": {clue1: "veronica maggio", clue2: "Mares", clue3: "ångan"}},
+//   answers: [],
+//   participants: []
+//  }
 }
 
 /***********************************************
@@ -30,6 +36,7 @@ Data.prototype.createPoll = function(pollId, lang="en", quizName, selectedAvatar
     poll.answers = [];
     poll.currentQuestion = 0;              
     this.polls[pollId] = poll;
+    poll.participants = [];
     console.log("poll created in data", pollId, poll);
   }
   console.log("poll created before return", pollId);
@@ -59,6 +66,29 @@ Data.prototype.addCity = function(pollId, city, clue1, clue2, clue3) {
      };
     console.log("added city:", city)
   }
+}
+
+
+Data.prototype.addParticipant = function(pollId, name, selectedAvatar) {
+  const poll = this.polls[pollId];
+  console.log("participant added", pollId, name, selectedAvatar);
+  if (typeof poll !== 'undefined') {
+    let participant = {
+      name: name,
+      avatar: selectedAvatar,
+      answers: []
+    }
+    poll.participants.push(participant);
+    
+  }
+}
+
+Data.prototype.getParticipants = function(pollId) {
+  const poll = this.polls[pollId];
+  if (typeof poll !== 'undefined') {
+    return poll.participants;
+  }
+  return []
 }
 
 Data.prototype.getCities = function(pollId) {

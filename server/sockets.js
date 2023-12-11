@@ -44,6 +44,11 @@ function sockets(io, socket, data) {
     data.submitAnswer(d.pollId, d.answer);
     io.to(d.pollId).emit('dataUpdate', data.getAnswers(d.pollId));
   });
+  
+  socket.on("addParticipant", function(d) {
+    data.addParticipant(d.pollId, d.name, d.selectedAvatar);
+    io.to(d.pollId).emit('participantsUpdate', data.getParticipants(d.pollId));
+  });
 
   socket.on('resetAll', () => {
     data = new Data();

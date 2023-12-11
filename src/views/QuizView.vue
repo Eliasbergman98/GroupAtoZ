@@ -24,6 +24,9 @@
                 {{ uiLabels.yourName }}:
                 <input type="text" id="yourname" v-model="yourName" :placeholder="uiLabels.enterName">
             </div>
+            <div>
+                {{ yourName }}
+            </div>
             <div class="earth">
                 <img id="earth" src="/img/earth.png" style="width: 180px;">
             </div>
@@ -36,7 +39,7 @@
                 </button>
             </div>
             <div class="gameInfo c">
-                <button id="donebutton"> {{ uiLabels.doneButton }}</button>
+                <button v-on:click="addParticipant" id="donebutton"> {{ uiLabels.doneButton }}</button>
             </div>
         </section>
     </main>
@@ -63,13 +66,14 @@ export default {
                 q: "",
                 a: [],
             },
-            pollId: "inactive poll",
+            pollId: "test",
             submittedAnswers: {},
             uiLabels: {},
             lang: localStorage.getItem("lang") || "en",
             data: {},
             quizName: '',
-            yourName: ''
+            yourName: '',
+            pollId: "7096"
         }
 
     },
@@ -90,15 +94,20 @@ export default {
         socket.on("fullPole", (data) => {
         this.data = data;
         console.log("data hämtad", this.pollId)
+        
       });
+      
     },
     methods: {
-        submitAnswer: function (answer) {
-            socket.emit("submitAnswer", { pollId: this.pollId, answer: answer })
-        },
         selectAvatar(index) {
             this.selectedAvatar = index;
-        }
+            this.selectedAvatarUrl = this.avatars[index].url;
+        },
+        addParticipant: function () {
+            socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl })
+            console.log("added one participant now", this.pollId, this.yourName, this.selectedAvatarUrl)
+            this.$router.push('/playerjoining/' + this.pollId)
+        },
     }
 }
 </script>

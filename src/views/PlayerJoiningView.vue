@@ -9,8 +9,11 @@
     <div class="poll">
         <div class="gameInfo a">
             {{ uiLabels.players }} <br>
+            {{ participants }}
         </div>
+
         <div class="gameInfo b">
+            {{ data.quizName }} <br>
             {{ uiLabels.gameTag }} {{ pollId }} <br>
         </div>
 
@@ -35,19 +38,18 @@ export default {
         return {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
-            quizName: '',
             question: "",
             answers: ["", ""],
             questionNumber: 0,
             data: {},
             uiLabels: {},
             selectedAvatar: null,
-            avatars: avatar
+            avatars: avatar,
+            participants: []
         }
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-        this.selectedAvatarUrl = this.avatarUrl;
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels
@@ -55,32 +57,33 @@ export default {
         socket.on("dataUpdate", (data) =>
             this.data = data
         )
+        socket.on("participantsUpdate", (participants) =>
+            this.participants = participants,
+            console.log("hej här kommer nya joinare", this.participants)
+        )
+        socket.emit("joinPoll", this.pollId);
+        socket.emit("getPoll", this.pollId);
         socket.on("pollCreated", (data) =>
             this.data = data)
+            socket.on("fullPole", (data) => {
+        console.log("in joiningview", this.pollId)
+        this.data = data;
+      });
     },
     methods: {
-        createPoll: function () {
-            socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, selectedAvatar: this.selectedAvatarUrl })
-        },
-        addQuizName: function () {
-            socket.emit("addQuizName", this.quizName)
-            //this.quizName.push("");
-            console.log(this.quizName)
-            socket.on("addQuizName", (data) => console.log("hej"))
-
-        },
-        addQuestion: function () {
-            socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
-        },
-        addAnswer: function () {
-            this.answers.push("");
-        },
-        runQuestion: function () {
-            socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
-        },
-        selectAvatar(index) {
-            this.selectedAvatar = index;
-        },
+       
+        // addQuestion: function () {
+        //     socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers })
+        // },
+        // addAnswer: function () {
+        //     this.answers.push("");
+        // },
+        // runQuestion: function () {
+        //     socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
+        // },
+        // selectAvatar(index) {
+        //     this.selectedAvatar = index;
+        // },
         sendInfo: function(){
             this.$router.push('/startingquiz/' + this.pollId)
 
@@ -136,7 +139,7 @@ export default {
     text-align: left;
     font-size: 2vw;
     width: 30vw;
-    height: 3vw;
+    height: 6vw;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 10vw;

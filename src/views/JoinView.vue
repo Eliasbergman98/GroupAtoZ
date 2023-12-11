@@ -75,9 +75,12 @@ export default {
       if (this.gamecode === '') {
         alert('Please enter a game code');
       }
+      // if (this.gamecode === this.pollId) {
+      //   this.$router.push('/quiz/' + this.gamecode)
+      // }
       else {
-        this.$router.push('/quiz/' + this.gamecode)
-      }
+       this.$router.push('/quiz/' + this.gamecode)
+       }
     }
   }
 }
