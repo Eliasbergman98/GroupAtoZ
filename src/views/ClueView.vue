@@ -3,12 +3,17 @@
             {{uiLabels.whereTo}}
         </h1>
 
-        {{ data.cities }}
+        {{ cities }}
         <div class="clueBox">
         <div class="tester" v-for="(cityClue,cityName) in cities" :key="cityName">
-            {{ cityClue }}
-            hej
-
+            <div>
+                <div v-if="shouldRenderClue(cityName)">    
+                    <!-- <h2>{{ cityName }}</h2> -->
+                    <p v-if="clueNumber === 0">{{ cityClue.clue1 }}</p>
+                    <p v-else-if="clueNumber === 1">{{ cityClue.clue2 }}</p>
+                    <p v-else-if="clueNumber === 2">{{ cityClue.clue3 }}</p>
+                </div>
+            </div>
             
              <br>
             <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text" >
@@ -45,6 +50,7 @@
                 fuseWidth: 100,
                 answerClue: "",
                 cities: {},
+                clueNumber: 0,
             }
         },
         created: function () {
@@ -63,10 +69,11 @@
             });
             socket.on("fullPole", (data)=> { 
                 this.data = data;
-                console.log("hej", data.cities)
-                
+                this.cities = data.cities;
+                console.log("Initial data.cities:", this.cities);
             });
             this.startFuseTimer();
+
 
         },
         methods: {
@@ -91,14 +98,45 @@
                 this.selectedAvatar = index;
             },
             addPlayerAnswer: function () {
-                socket.emit("addPlayerAnswer", { pollId: this.pollId, answer: this.answerClue  })
+                socket.emit("addPlayerAnswer", {pollId: this.pollId, answer: this.answerClue})
             },
             handleFuseBurnout() {
                 this.fuseWidth = 100;
                 this.addPlayerAnswer();
-                console.log(this.addPlayerAnswer)
+                this.handleClues();
+                //console.log(this.addPlayerAnswer)
 
             },
+            shouldRenderClue(cityName) {
+                return cityName === Object.keys(this.cities)[0]; // Only render for the first city
+            },
+
+            handleClues() {
+                const lengthCities = Object.keys(this.cities).length;
+                console.log(lengthCities);
+                if (this.cities && Object.keys(this.cities).length > 0 && lengthCities > 0) {
+                    for (const cityName in this.cities) {
+                        const city = this.cities[cityName];
+                        for(const cityClues in city){
+                            if (this.clueNumber == 0) {
+                                console.log(`${cityName}: ${city.clue1}`);
+                            }
+                            else if (this.clueNumber == 1) {
+                                console.log(`${cityName}: ${city.clue2}`);
+                            }
+                            else if (this.clueNumber == 2) {
+                                console.log(`${cityName}: ${city.clue3}`);
+                            }
+                            if(this.clueNumber > 2)
+                                console.log("nästa stad")
+                                //gå till nästa stad
+                        }
+                    }
+                    this.clueNumber += 1;
+            }
+            },
+
+
 
         startFuseTimer: function () {
             clearInterval(this.fuseTimer);
@@ -107,7 +145,7 @@
 
             setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.5; // Adjust as needed
+                this.fuseWidth -= 0.2; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
