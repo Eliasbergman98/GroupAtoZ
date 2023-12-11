@@ -10,7 +10,7 @@
       
       
       <div class="gameInfo a"> {{uiLabels.city1}}
-        <input type="text" v-model="city1" class="fillInfo">
+        <input type="text" v-model="city" class="fillInfo">
           </div>
         <div class="gameInfo b"> {{ uiLabels.clue1 }}
           <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
@@ -128,7 +128,7 @@
         selectedAvatar: null,
         avatars: avatar,
         quizName: "",
-        city1: "",
+        city: "",
         clue1: "",
         clue2: "",
         clue3: "",
@@ -141,7 +141,7 @@
     },
     computed: {
       areFieldsFilled: function () {
-        return this.city1 && this.clue1 && this.clue2 && this.clue3;
+        return this.city && this.clue1 && this.clue2 && this.clue3;
       },
     },
     
@@ -154,7 +154,7 @@
         this.uiLabels = labels;
       });
       
-      socket.on("dataUpdate", (data) =>
+     socket.on("dataUpdate", (data) =>
        this.data = data );
       
       console.log("Updated quizName:",this.pollId)
@@ -187,41 +187,38 @@
         
         return;
         }
-        
+        else {
        socket.emit("addQuestion", { 
+        //vill emit dessa som nyckel-stad och värden-clues?
           pollId: this.pollId, 
-          q: this.city1, 
-          a: this.clue1, 
-          b: this.clue2, 
-          c: this.clue3 });
+          city: this.city, 
+          clue1: this.clue1, 
+          clue2: this.clue2, 
+          clue3: this.clue3 });
+          console.log("emitting city info:", this.pollId, 
+          this.city, 
+          this.clue1, 
+          this.clue2, 
+          this.clue3 )
+       
+       }
           
-          if (!this.submittedCities2[this.city1]) {
-              this.submittedCities2[this.city1] = [];
-            }
-
-          this.submittedCities2[this.city1].push(
+          if (!this.submittedCities2[this.city]) {
+              this.submittedCities2[this.city] = [];
+              this.submittedCities2[this.city].push(
             this.clue1,
             this.clue2,
             this.clue3
           );
+          this.city = "";
+          this.clue1 = "";
+          this.clue2 = "";
+          this.clue3 = "";
+            }
 
-      // this.submittedCities.push({
-      //       name: this.city1,
-      //       clue1: this.clue1,
-      //       clue2: this.clue2,
-      //       clue3: this.clue3,
-      // });
+          
 
-        // this.showRightSection =  true;
-        // this.submittedCity = this.city1;
-        // this.submittedClue1 = this.clue1;
-        // this.submittedClue2 = this.clue2;
-        // this.submittedClue3 = this.clue3;
-
-        this.city1 = "";
-        this.clue1 = "";
-        this.clue2 = "";
-        this.clue3 = "";
+      
 
       },
       addAnswer: function () {
