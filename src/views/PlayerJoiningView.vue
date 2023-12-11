@@ -117,8 +117,10 @@ export default {
     width: 30vw;
     height: 30vw;
     background-size: cover;
-    background-color: white;
-    border: 0.5em solid black;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin-left: 10vw;
+    border-radius: 20px;
     margin-left: 5vw;
     margin-right: 3vw;
     padding: 0.7em 0  0 1em;
@@ -131,9 +133,10 @@ export default {
     font-size: 2vw;
     width: 30vw;
     height: 3vw;
-    background-size: cover;
-    background-color: white;
-    border: 0.5em solid black;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin-left: 10vw;
+    border-radius: 20px;
     margin-left: 15vw;
     padding: 0.7em 0  0 1em;
 }
