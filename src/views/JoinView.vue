@@ -53,13 +53,19 @@ export default {
     socket.on("newQuestion", q =>
       this.question = q
     )
-    socket.on("dataUpdate", answers =>
-      this.submittedAnswers = answers
-    )
+    // socket.on("dataUpdate", answers =>
+    //   this.submittedAnswers = answers
+    // )
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
+    socket.on("pollCreated", (data) => console.log("pollId created:", data))
+    socket.emit("getPoll", this.pollId);
+    socket.on("fullPole", (data) => {
+      this.data = data;
+      console.log("data hämtad i joinview", this.data)
+    });
   },
   methods: {
     submitAnswer: function (answer) {
@@ -70,7 +76,7 @@ export default {
         alert('Please enter a game code');
       }
       else {
-        this.$router.push('/quiz/')
+        this.$router.push('/quiz/' + this.gamecode)
       }
     }
   }
@@ -78,7 +84,6 @@ export default {
 </script>
 
 <style scoped>
-
 #joinbutton:hover {
   background-color: green;
 }
@@ -95,7 +100,8 @@ export default {
   margin-left: 60vw;
 }
 
-#gamecode, #gamecodeheading {
+#gamecode,
+#gamecodeheading {
   padding: 20px;
   font-weight: bold;
 }
@@ -107,5 +113,4 @@ export default {
 #heading {
   margin-bottom: 1vw;
 }
-
 </style>

@@ -5,6 +5,7 @@ import {readFileSync} from "fs";
 // Store data in an object to keep the global namespace clean
 function Data() {
   this.polls = {};
+  console.log("här är vi i data", this.polls)
 }
 
 /***********************************************
@@ -18,9 +19,11 @@ Data.prototype.getUILabels = function (lang = "en") {
   return JSON.parse(labels);
 }
 
-Data.prototype.createPoll = function(pollId, lang="en") {
+Data.prototype.createPoll = function(pollId, lang="en", quizName, selectedAvatar) {
   if (typeof this.polls[pollId] === "undefined") {
     let poll = {};
+    poll.selectedAvatar = selectedAvatar
+    poll.quizName = quizName;
     poll.lang = lang;  
     poll.questions = [];
     poll.answers = [];
@@ -31,8 +34,9 @@ Data.prototype.createPoll = function(pollId, lang="en") {
   console.log("poll created before return", pollId);
   return this.polls[pollId];
 }
+
 Data.prototype.getPoll = function (pollId) {
-  console.log("in data getfunction:", pollId)
+  console.log("in data getfunction:", this.polls)
   return this.polls[pollId] || {};
 }
 

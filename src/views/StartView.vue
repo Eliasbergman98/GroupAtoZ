@@ -25,21 +25,18 @@
 </template>
 
 <script>
-import ResponsiveNav from '@/components/ResponsiveNav.vue';
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
 export default {
   name: 'StartView',
   components: {
-    ResponsiveNav
   },
   data: function () {
     return {
       uiLabels: {},
       id: "",
       lang: localStorage.getItem("lang") || "en",
-      hideNav: true,
     }
   },
   created: function () {

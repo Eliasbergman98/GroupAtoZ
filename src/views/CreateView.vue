@@ -139,7 +139,7 @@ export default {
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
   margin-left: 10vw;
-  border-radius: 20px;
+  
 }
 
 .b {
