@@ -133,7 +133,7 @@ export default {
   text-align: left;
   position: left;
   border-radius: 20px;
-
+  
 }
 
 .a {
