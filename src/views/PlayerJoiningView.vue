@@ -19,7 +19,7 @@
         </div>
 
         <div class="gameInfo c">
-            <router-link to="/startingquiz/"><button class="createbutton"> {{uiLabels.startGame}}</button></router-link>
+            <button class="createbutton" v-on:click="sendInfo"> {{uiLabels.startGame}}</button>
         </div>
     </div>
 </template>
@@ -80,6 +80,10 @@ export default {
         },
         selectAvatar(index) {
             this.selectedAvatar = index;
+        },
+        sendInfo: function(){
+            this.$router.push('/startingquiz/' + this.pollId)
+
         }
     }
 

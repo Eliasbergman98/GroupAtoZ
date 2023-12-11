@@ -45,12 +45,12 @@ const router = createRouter({
       component: () => import('../views/PlayerJoiningView.vue')
     },
     {
-      path: '/startingquiz/',
+      path: '/startingquiz/:pollId',
       name: 'StartingQuizView',
       component: () => import('../views/StartingQuizView.vue')
     },
     {
-      path: '/clueview/',
+      path: '/clue/:pollId',
       name: 'ClueView',
       component: () => import('../views/ClueView.vue')
     }

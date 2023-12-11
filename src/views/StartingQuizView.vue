@@ -5,7 +5,7 @@
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-
+    {{data.pollId}}
     <footer>
         <div class="fuse-container">
             <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
@@ -19,7 +19,7 @@ import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
 
 export default {
-    name: 'PlayerJoiningView',
+    name: 'StartingQuizView',
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
@@ -36,7 +36,7 @@ export default {
         }
     },
     created: function () {
-        this.id = this.$route.params.id;
+        this.pollId = this.$route.params.pollId;
 
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
@@ -75,9 +75,8 @@ export default {
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
-
             clearInterval(this.fuseTimer);
-            this.$router.push('/ClueView/');            
+            this.$router.push('/clue/' + this.pollId);            
 
 
         },
@@ -97,7 +96,7 @@ export default {
                 // Handle the event when the fuse is burned out
                 this.handleFuseBurnout();
             }
-        },);
+        },timerInterval);
     }
 }}
 </script>  

@@ -3,9 +3,14 @@
             {{uiLabels.whereTo}}
         </h1>
 
+        {{ data.cities }}
         <div class="clueBox">
-        <div class="tester">
-            {{ uiLabels.clues }} <br>
+        <div class="tester" v-for="(cityClue,cityName) in cities" :key="cityName">
+            {{ cityClue }}
+            hej
+
+            
+             <br>
             <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text" >
         </div>        
 
@@ -24,7 +29,7 @@
     const socket = io("localhost:3000");
 
     export default {
-        name: 'PlayerJoiningView',
+        name: 'ClueView',
         data: function () {
             return {
                 lang: localStorage.getItem("lang") || "en",
@@ -39,20 +44,27 @@
                 avatars: avatar,
                 fuseWidth: 100,
                 answerClue: "",
+                cities: {},
             }
         },
         created: function () {
-            this.id = this.$route.params.id;
-
+            this.pollId = this.$route.params.pollId;
+            socket.emit("getPoll", this.pollId);
             socket.emit("pageLoaded", this.lang);
             socket.on("init", (labels) => {
                 this.uiLabels = labels;
             });
             socket.on("dataUpdate", (data) => {
                 this.data = data;
+
             });
             socket.on("pollCreated", (data) => {
                 this.data = data;
+            });
+            socket.on("fullPole", (data)=> { 
+                this.data = data;
+                console.log("hej", data.cities)
+                
             });
             this.startFuseTimer();
 
