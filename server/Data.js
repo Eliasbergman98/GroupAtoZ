@@ -24,6 +24,7 @@ Data.prototype.createPoll = function(pollId, lang="en", quizName, selectedAvatar
     let poll = {};
     poll.selectedAvatar = selectedAvatar;
     poll.quizName = quizName;
+    poll.cities = {};
     poll.lang = lang;  
     poll.questions = [];
     poll.answers = [];
@@ -40,12 +41,34 @@ Data.prototype.getPoll = function (pollId) {
   return this.polls[pollId] || {};
 }
 
-Data.prototype.addQuestion = function(pollId, q) {
+// Data.prototype.addQuestion = function(pollId, city, clue1, clue2, clue3) {
+//   const poll = this.polls[pollId];
+//   console.log("question added to", pollId, city, clue1, clue2, clue3);
+//   if (typeof poll !== 'undefined') {
+//     poll.questions.push(city);
+//   }
+// }
+Data.prototype.addCity = function(pollId, city, clue1, clue2, clue3) {
   const poll = this.polls[pollId];
-  console.log("question added to", pollId, q);
+  console.log("question added to", pollId, city);
   if (typeof poll !== 'undefined') {
-    poll.questions.push(q);
+     poll.cities[city] = {
+       clue1: clue1,
+      clue2: clue2,
+      clue3: clue3,
+     };
+    console.log("added city:", city)
   }
+}
+
+Data.prototype.getCities = function(pollId) {
+  const poll = this.polls[pollId];
+  console.log("cities", poll.cities);
+  if (typeof poll !== 'undefined') {
+    
+    return poll.cities;
+  }
+  return {}
 }
 
 Data.prototype.editQuestion = function(pollId, index, newQuestion) {
@@ -90,7 +113,7 @@ Data.prototype.getAnswers = function(pollId) {
   if (typeof poll !== 'undefined') {
     const answers = poll.answers[poll.currentQuestion];
     if (typeof poll.questions[poll.currentQuestion] !== 'undefined') {
-      return {q: poll.questions[poll.currentQuestion].q, a: answers};
+      return {city: poll.questions[poll.currentQuestion].city, a: answers};
     }
   }
   return {}

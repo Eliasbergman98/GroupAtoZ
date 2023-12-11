@@ -20,12 +20,12 @@ function sockets(io, socket, data) {
   });
 
   socket.on('addQuestion', function(d) {
-    data.addQuestion(d.pollId, {q: d.q, a: d.a, b: d.b, c: d.c});
-    socket.emit('dataUpdate', data.getAnswers(d.pollId));
+    data.addCity(d.pollId, d.city, d.clue1, d.clue2, d.clue3);
+    socket.emit('dataUpdate', data.getCities(d.pollId));
   });
 
   socket.on('editQuestion', function(d) {
-    data.editQuestion(d.pollId, d.index, {q: d.q, a: d.a});
+    data.editQuestion(d.pollId, d.index, {city: d.city, clue1: d.clue1, clue2: d.clue2, clue3: d.clue3});
     socket.emit('questionEdited', data.getAllQuestions(d.pollId));
   });
 
