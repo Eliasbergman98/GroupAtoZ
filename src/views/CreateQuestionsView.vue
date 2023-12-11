@@ -232,6 +232,7 @@
        },
       selectAvatar(index) {
         this.selectedAvatar = index;
+      console.log(this. data.selectedAvatar)
       },
 
       

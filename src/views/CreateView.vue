@@ -105,9 +105,9 @@ export default {
     selectAvatar(index) {
       this.selectedAvatar = index;
       this.avatars.name = "avatar" +index;
-      this.selectAvatarUrl = this.avatars[index].url;
+      this.selectedAvatarUrl = this.avatars[index].url;
       console.log(this.avatars.name)
-      console.log("selected avatar URL:", this.selectAvatarUrl);
+      console.log("selected avatar URL:", this.selectedAvatarUrl);
     }
   }
 
