@@ -8,7 +8,7 @@
 
     <footer>
         <div class="fuse-container">
-            <img id="fuseLine" src="/img/test1.png" style="width: 70vw; height: 10vw;">
+            <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
         </div>
     </footer>
 </template>
@@ -48,6 +48,8 @@ export default {
         socket.on("pollCreated", (data) => {
             this.data = data;
         });
+        this.startFuseTimer();
+
     },
     methods: {
         createPoll: function () {
@@ -73,32 +75,36 @@ export default {
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
-            // For example, you might redirect the user to another page or perform another action
-        }
-    },
-    mounted() {
-        // Start the fuse timer when the component is mounted
-        this.startFuseTimer();
-    },
+
+            clearInterval(this.fuseTimer);
+            this.$router.push('/ClueView/');            
+
+
+        },
+
     startFuseTimer: function () {
+        clearInterval(this.fuseTimer);
+
         // Adjust the timer interval based on your preference
-        const timerInterval = 1000; // 1 second
+        const timerInterval = 10; // 1 second
 
         setInterval(() => {
             // Decrease the fuse width by a certain percentage
-            this.fuseWidth -= 5; // Adjust as needed
+            this.fuseWidth -= 0.5; // Adjust as needed
 
             // Check if the fuse is completely burned
             if (this.fuseWidth <= 0) {
                 // Handle the event when the fuse is burned out
                 this.handleFuseBurnout();
             }
-        }, timerInterval);
+        },);
     }
-}
+}}
 </script>  
 
 <style scoped>
+/*Explosion och keyframes gör inget atm, ska fixa det sen. */
+
 h1 {
     position: center;
     margin-top: 10vw;
