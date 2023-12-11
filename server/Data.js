@@ -22,7 +22,7 @@ Data.prototype.getUILabels = function (lang = "en") {
 Data.prototype.createPoll = function(pollId, lang="en", quizName, selectedAvatar) {
   if (typeof this.polls[pollId] === "undefined") {
     let poll = {};
-    poll.selectedAvatar = selectedAvatar
+    poll.selectedAvatar = selectedAvatar;
     poll.quizName = quizName;
     poll.lang = lang;  
     poll.questions = [];

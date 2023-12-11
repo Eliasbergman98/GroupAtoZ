@@ -159,7 +159,7 @@
       
       console.log("Updated quizName:",this.pollId)
       socket.emit("getPoll", this.pollId);
-      socket.on("pollCreated",  (data) => console.log("pollId created in createquestio:", data));
+      socket.on("pollCreated",  (data) => console.log("pollId created in createquestion:", data));
       socket.on("fullPole", (data) => {
         console.log("in createquest", this.pollId)
         this.data = data;

@@ -18,13 +18,13 @@
     </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
       <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" >
-      <button id="addQuizName" name="addQuizName" v-on:click="createPoll">
+      <button id="addQuizName" name="addQuizName">
         {{ uiLabels.addName }}
       </button>
     </div>
-    <div class ="earth">
+    <!-- <div class ="earth">
       <img id="earth" src="/img/earth.png" style="width: 180px;">
-    </div>
+    </div> -->
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>
       <img class="avatar">
@@ -34,8 +34,12 @@
       </button>
     </div>
     <div class="gameInfo c">
-      <router-link v-bind:to="'/createquestions/' + this.quizName"><button class="createbutton" v-bind:pollId=this.pollId > {{ uiLabels.createGame }}</button></router-link>
+      <button class="createbutton" v-on:click="createPoll" > {{ uiLabels.createGame }}</button>
     </div>
+  </div>
+  <div>
+    {{ avatars.name }}
+    {{ avatars.url }}
   </div>
 </template>
 
@@ -76,8 +80,9 @@ export default {
   methods: {
     createPoll: function () {
     this.pollId = Math.floor(Math.random()*10000);
-      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang })
+      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatarUrl })
       console.log("the pollId:",this.pollId)
+      this.$router.push('/createquestions/' + this.pollId);
       
     },
     addGameCode: function () {
@@ -99,6 +104,10 @@ export default {
     },
     selectAvatar(index) {
       this.selectedAvatar = index;
+      this.avatars.name = "avatar" +index;
+      this.selectAvatarUrl = this.avatars[index].url;
+      console.log(this.avatars.name)
+      console.log("selected avatar URL:", this.selectAvatarUrl);
     }
   }
 
