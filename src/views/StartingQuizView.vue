@@ -87,7 +87,7 @@ export default {
         // Adjust the timer interval based on your preference
         const timerInterval = 10; // 1 second
 
-        setInterval(() => {
+        this.fuseTimer = setInterval(() => {
             // Decrease the fuse width by a certain percentage
             this.fuseWidth -= 0.5; // Adjust as needed
 

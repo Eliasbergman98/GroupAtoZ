@@ -2,7 +2,7 @@
         <h1>
             {{uiLabels.whereTo}}
         </h1>
-
+        {{ pollId }}
         {{ Object.values(cities)[0] }}
         <div class="clueBox">
             <div class="tester" v-if="cities && Object.values(cities).length > 0"> 
@@ -22,8 +22,14 @@
                         
                     </p>
                     <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text">
-                    <button v-on:click="addPlayerAnswer" class="clueAnswer"> 
-                        Add answer
+                    <button v-on:click="addPlayerAnswer" class="clueAnswer" :class="{ 'green-button': buttonClicked}">
+                        <div v-if=!buttonClicked>
+                            {{uiLabels.addAnswer}}
+                         </div>
+
+                         <div v-else-if=buttonClicked>
+                            {{uiLabels.thankYou}}
+                         </div>
                     </button> 
 
                 
@@ -42,7 +48,6 @@
     import avatar from '../assets/avatar.json';
     const socket = io("localhost:3000");
 
-    const timeObject= {} ;
     export default {
         name: 'ClueView',
         data: function () {
@@ -51,7 +56,7 @@
                 pollId: "",
                 quizName: '',
                 question: "",
-                answers: ["", ""],
+                answers: [],
                 questionNumber: 0,
                 data: {},
                 uiLabels: {},
@@ -61,10 +66,14 @@
                 answerClue: "",
                 cities: {},
                 clueNumber: 0,
+                isRedirected: false,
+                dataLoaded: false,
+                buttonClicked: false,
             }
         },
         created: function () {
             this.pollId = this.$route.params.pollId;
+            this.isRedirected = false;
             socket.emit("getPoll", this.pollId);
             socket.emit("pageLoaded", this.lang);
             socket.on("init", (labels) => {
@@ -81,9 +90,12 @@
                 this.data = data;
                 this.cities = data.cities;
                 console.log("Initial data.cities:", this.cities);
-            });
-            this.startFuseTimer();
+                this.dataLoaded = true;
+                console.log(this.dataLoaded);
+                this.startFuseTimer();
 
+
+            });
 
         },
         methods: {
@@ -92,13 +104,7 @@
             },
             addQuizName: function () {
                 socket.emit("addQuizName", this.quizName);
-                socket.on("addQuizName", (data) => console.log("hej"));
-            },
-            addQuestion: function () {
-                socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers });
-            },
-            addAnswer: function () {
-                this.answers.push("");
+                socket.on("addQuizName", (data) => console.log("svelandns"));
             },
             runQuestion: function () {
                 socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber });
@@ -107,68 +113,97 @@
                 this.selectedAvatar = index;
             },
             addPlayerAnswer: function () {
+                this.buttonClicked = true;
+                this.answers.push(this.answerClue);
                 socket.emit("addPlayerAnswer", {pollId: this.pollId, answers: this.answerClue})
-                console.log(this.answerClue)
+                console.log(this.answerClue, ": enskilt svar")
+                console.log(this.answers, ": svarslista")
+
             },
 
             handleFuseBurnout() {
                 this.fuseWidth = 100;
-                this.addPlayerAnswer();
+                this.buttonClicked = false;
                 this.handleClues();
                 this.answerClue= "";
-                this.startFuseTimer();
+                
+                //this.addPlayerAnswer();
+
+                //this.startFuseTimer();
+
+
                 //console.log(this.addPlayerAnswer)
 
             },
 
             handleClues() {
+                if (!this.dataLoaded) {
+                // Data hasn't been loaded yet, do not attempt to redirect
+                return;
+                }
                 const lengthCities = Object.keys(this.cities).length;
-                console.log(lengthCities);
+                //console.log(lengthCities);
                 if (this.cities && Object.keys(this.cities).length > 0 && lengthCities > 0) {
+                    this.clueNumber += 1;
                     for (const cityName in this.cities) {
+                        console.log(this.clueNumber + "detta är numret")
                         const city = this.cities[cityName];
                         for(const cityClues in city){
-                            if (this.clueNumber == 0) {
+                            if (this.clueNumber === 1) {
                                 console.log(`${cityName}: ${city.clue1}`);
                             }
-                            else if (this.clueNumber == 1) {
+                            else if (this.clueNumber === 2) {
                                 console.log(`${cityName}: ${city.clue2}`);
                             }
-                            else if (this.clueNumber == 2) {
+                            else if (this.clueNumber === 3) {
                                 console.log(`${cityName}: ${city.clue3}`);
                             }
                         }
                     }
-                    this.clueNumber += 1;
-
-                    if (this.clueNumber > 2) {
+                    if (this.clueNumber === 3 && !this.isRedirected) {      
+                        this.isRedirected = true;
+                        this.clueNumber == 0;
                         console.log("nästa stad");
-                        this.clueNumber = 0;
-                        this.$router.push('/afterclueview/' + this.pollId);
-                        //gå till nästa stad
-        }
+                        console.log(this.isRedirected)
+                        clearInterval(this.fuseTimer);
+                        this.$router.push('/afterclue/' + this.pollId);
+
+                        // Check if you've already redirected to avoid multiple redirects
+                        // if (!this.isRedirected) {
+                        //     this.isRedirected = true;
+                        //     console.log(this.isRedirected)
+                        //     this.clueNumber == 0;
+
+                        //     console.log("Redirecting to the next page");
+
+                        //            // Use a Vue nextTick to ensure that the DOM has been updated
+
+                        //     this.$router.push('/afterclue/' + this.pollId);
+
+                        // }
+                        
+                    }
             }
-            },
+        },
 
 
 
         startFuseTimer: function () {
+            clearInterval(this.fuseTimer);
+
             // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
 
-            let intervalId = setInterval(() => {
+            this.fuseTimer = setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.2; // Adjust as needed
+                this.fuseWidth -= 0.1; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
-                    clearInterval(timeObject.intervalId);
-
                 }
             }, timerInterval);
-            timeObject.intervalId = intervalId;
         }
     }}
     </script>  
@@ -207,7 +242,18 @@
         width: 10vw;
         position: right;
         margin-left: 5vw;
+        background-color: gray;
+        border: 2px solid black;
     }
+
+    .clueAnswer:hover{
+        cursor: pointer;
+        background-color: green;
+    }
+    .green-button {
+    background-color: green;
+}
+
     .labelSize{
         margin-top: 1vw;
         font-size: 1.2vw;

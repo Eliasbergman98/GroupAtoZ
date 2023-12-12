@@ -55,7 +55,7 @@ const router = createRouter({
       component: () => import('../views/ClueView.vue')
     },
     {
-    path: '/afterclueview/:pollId',
+    path: '/afterclue/:pollId',
       name: 'AfterClueView',
       component: () => import('../views/AfterClueView.vue')
     }
