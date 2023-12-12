@@ -78,7 +78,8 @@ export default {
     },
     methods: {
         sendInfo: function () {
-            this.$router.push('/startingquiz/' + this.pollId)
+            socket.emit("startingGame", this.pollId);
+            this.$router.push('/startingquiz/' + this.pollId);
         },
     }
 }

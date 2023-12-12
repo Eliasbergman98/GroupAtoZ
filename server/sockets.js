@@ -16,7 +16,12 @@ function sockets(io, socket, data) {
   });
 
   socket.on('getPoll', function(pollId){
-    socket.emit('fullPole', data.getPoll(pollId))
+    socket.emit('fullPole', data.getPoll(pollId));
+    io.to(pollId).emit('participantsUpdate', data.getParticipants(pollId));
+  });
+
+  socket.on('startingGame', function(pollId){
+    io.to(pollId).emit('creatorStarting', pollId);
   });
 
   socket.on('addQuestion', function(d) {

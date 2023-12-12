@@ -2,9 +2,7 @@
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-    <div>
-        {{ participants }}
-    </div>
+   
     <div class="gameInfo b">
             {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" width="20" height="20"
                 target="_blank"> <br> <hr>
@@ -13,13 +11,8 @@
         </div>
     <div>
             {{ uiLabels.players }} <br>
-            <div>
-                <ul v-for="person in participants" :key="participants.name">
-                    <li>
-                        {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32"
-                            height="32">
-                    </li>
-                </ul>
+            <div class="participant" v-for="person in participants" :key="participants.name" :style="getPositionStyle()">
+                        {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32" height="32">
             </div>
         </div>
     <footer>
@@ -65,42 +58,34 @@ export default {
         socket.on("pollCreated", (data) => {
             this.data = data;
         });
-        
-        
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
             socket.on("fullPole", (data) => {
             console.log("in joiningview", this.pollId)
             this.data = data;
         });
-        socket.on("participantsUpdate", (participants) =>
+        socket.on("participantsUpdate", (participants) => {
             this.participants = participants,
             console.log("hej här kommer nya joinare", this.participants)
-        );
+    });
         //this.startFuseTimer();
+
+        socket.on("creatorStarting", (pollId) => {
+            this.$router.push('/clue/' + this.pollId);
+        });
 
     },
     methods: {
-        // createPoll: function () {
-        //     socket.emit("createPoll", { pollId: this.pollId, lang: this.lang });
-        // },
-        // addQuizName: function () {
-        //     socket.emit("addQuizName", this.quizName);
-        //     console.log(this.quizName);
-        //     socket.on("addQuizName", (data) => console.log("hej"));
-        // },
-        // addQuestion: function () {
-        //     socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers });
-        // },
-        // addAnswer: function () {
-        //     this.answers.push("");
-        // },
-        // runQuestion: function () {
-        //     socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber });
-        // },
-        // selectAvatar(index) {
-        //     this.selectedAvatar = index;
-        // },
+        getPositionStyle() {
+      // Adjust the position values based on your layout
+      const position = {
+        top: `${Math.random() * 1000}px`, // Adjust the vertical position range
+        left: `${Math.random() * 1000}px`, // Adjust the horizontal position range
+      };
+      
+
+      return position;
+    },
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
@@ -127,7 +112,8 @@ export default {
             }
         },timerInterval);
     }
-}}
+}
+}
 </script>  
 
 <style scoped>
@@ -142,16 +128,9 @@ h2 {
     position: center;
     margin-top: 10vw;
 }
-</style>
-
-<style scoped>
-h1 {
-    position: center;
-    margin-top: 10vw;
-}
-
-h2 {
-    position: center;
-    margin-top: 10vw;
+.participant {
+  position: absolute;
+  /* Add more styling as needed */
 }
 </style>
+
