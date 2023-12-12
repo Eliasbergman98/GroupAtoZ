@@ -1,17 +1,17 @@
 <template>
   <header>
     <div class="langimg">
-      <img id="sweimg" src="/img/sweflag.png" style="width: 50px;" v-on:click="switchLanguage('sv')">
-      <img id="ukimg" src="/img/ukflag.png" style="width: 50px;" v-on:click="switchLanguage('en')">
+      <img id="sweimg" src="/img/sweflag.png" style="width: 4vw;" v-on:click="switchLanguage('sv')">
+      <img id="ukimg" src="/img/ukflag.png" style="width: 4vw;" v-on:click="switchLanguage('en')">
     </div>
   </header>
   <main>
     <section id="section1">
-      <img src="/img/brake.png" style="width: 200px;">
+      <img id="brake" src="/img/brake.png" style="width: 15vw;">
       <h1>{{ uiLabels.heading }}</h1>
       <div>
         <!--<img id="map" src="/img/map.webp" style="width: 150px;">-->
-        <img id="earth" src="/img/spinning_globe.gif" style="width: 250px;">
+        <img id="earth" src="/img/spinning_globe.gif" style="width: 18vw;">
         <!--<img id="train" src="/img/train.gif" style="width: 150px;"><-->
       </div>
       <h2>{{ uiLabels["sales-pitch2"] }}</h2>
@@ -56,19 +56,17 @@ export default {
 </script>
 
 <style scoped>
-/* #section {
-  position: absolute;
-} */
+body {
+  overflow:hidden;
+}
 
-#train,
-#map {
-  margin-left: 20px;
-  margin-right: 20px;
+#brake{
+  margin-top:-1vw;
 }
 
 #earth{
-  margin-top:-90px;
-  margin-bottom:-40px;
+  margin-top:-6vw;
+  margin-bottom:-6vw;
 }
 
 .langimg {
@@ -88,6 +86,7 @@ export default {
 }
 
 .button-container {
+  margin-top: -1em;
   bottom: 0;
   left: 0;
   width: calc(100% - 4em);
@@ -110,9 +109,8 @@ export default {
 }
 
 h2 {
-  margin-top: 20px;
+  margin-top: 6vw;
   font-style: italic;
-  font-size: 15px;
+  font-size: 1.4vw;
 }
-
 </style>

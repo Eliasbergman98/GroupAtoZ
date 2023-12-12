@@ -5,11 +5,11 @@ import {readFileSync} from "fs";
 // Store data in an object to keep the global namespace clean
 function Data() {
   this.polls = {};
-//  this.polls['test']= {
-//   lang: "en",
-//   quizName: "testquiz",
-//   cities: { "uppsala": {clue1: "veronica maggio", clue2: "Mares", clue3: "ångan"}},
-//   answers: [],
+// this.polls['test']= {
+//  lang: "en",
+//  quizName: "testquiz",
+//  cities: { "uppsala": {clue1: "veronica maggio", clue2: "Mares", clue3: "ångan"}},
+// answers: [],
 //   participants: []
 //  }
 }
@@ -34,7 +34,7 @@ Data.prototype.createPoll = function(pollId, lang="en", quizName, selectedAvatar
     poll.lang = lang;  
     poll.questions = [];
     poll.answers = [];
-    poll.currentQuestion = 0;              
+    poll.currentQuestion = 0;           
     this.polls[pollId] = poll;
     poll.participants = [];
     console.log("poll created in data", pollId, poll);
