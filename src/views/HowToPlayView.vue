@@ -10,10 +10,16 @@
       {{ uiLabels.heading }}
     </h1>
   </div>
-  <section id="howtoplay" class="text">
+  <section id="box-container">
+  <section id="aboutus" class="text">
     <h2>{{ uiLabels.aboutText }}</h2>
     <p>{{ uiLabels.information1 }}</p>
+    <p style="margin-bottom:1em">{{ uiLabels.information15 }}</p>
+  </section>
+  <section id="howtoplay" class="text">
+    <h2>{{ uiLabels.aboutText2 }}</h2>
     <p>{{ uiLabels.information2 }}</p>
+    <p style="margin-bottom:1em">{{ uiLabels.information25 }}</p>
   </section>
   <section id="howtocreate" class="text">
     <h2> {{ uiLabels.createGame1 }} </h2>
@@ -22,6 +28,7 @@
     <p>{{ uiLabels.information5 }}</p>
     <p>{{ uiLabels.information6 }}</p>
   </section>
+</section>
 </template>
 
 <script>
@@ -47,52 +54,35 @@ export default {
 
 
 <style scoped>
-h1 {
-  font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
-  text-transform: uppercase;
-  font-size: 500%;
-  /*font-style: italic;*/
-  color: rgb(177, 27, 27);
-  text-shadow:
-    -0.1vw -0.1vw 0 #000,
-    0.1vw -0.1vw 0 #000,
-    -0.1vw 0.1vw 0 #000,
-    0.1vw 0.1vw 0 #000;
-}
-
-h2 {
-  font-size: 250%;
-}
-p {
-  font-style: italic;
-  font-size: 110%;
-  text-align: center;
-}
 
 #brake {
-  margin-top:-6vw;
+  margin-top:-7vw;
 }
 
-#howtoplay, #howtocreate {
-  position:relative;
-  display:inline-block;
-  width: 35vw;
+#box-container{
+  display:inline-flex;
+}
+
+#aboutus, #howtoplay, #howtocreate {
   border: 0.2vw solid black;
-  margin: 5vw;
-  margin-top: -2vw;
   color: white;
   background-color: green;
-  padding: 2vw;
-  height: 25vw;
+  margin: 1vw;
+  margin-top: -1vw;
+  padding: 1vw;
+  height: 19vw;
+  width: 26vw;
+  border-radius: 1.5vw;
 }
 
 /*Svart outline taget från Fred Meyer https://wpshout.com/quick-guides/create-text-outline-css/#gref */
 .text {
 	text-shadow:
-		-0.08vw -0.08vw 0 #000,
-		0.08vw -0.08vw 0 #000,
-		-0.08vw 0.08vw 0 #000,
-		0.08vw 0.08vw 0 #000;
+		-0.05vw -0.05vw 0 #000,
+		0.05vw -0.05vw 0 #000,
+		-0.05vw 0.05vw 0 #000,
+		0.05vw 0.05vw 0 #000;
+    font-size: 1.15vw;
 }
 .arrow{
   background-color: rgb(163, 163, 243);

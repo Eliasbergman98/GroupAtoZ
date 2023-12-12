@@ -9,11 +9,17 @@
     <div class="poll">
         <div class="gameInfo a">
             {{ uiLabels.players }} <br>
-            {{ participants }}
+        
+    <ul v-for="person in participants" :key="participants.name">
+      <li>
+        {{ person.name }} <img v-bind:src="person.avatar" target="_blank" width="32" height="32">
+      </li>
+    </ul>
+  
         </div>
 
         <div class="gameInfo b">
-            {{ data.quizName }} <br>
+            {{ data.quizName }} <img v-bind:src="data.selectedAvatar"  width="32" height="32" target="_blank" > <br>
             {{ uiLabels.gameTag }} {{ pollId }} <br>
         </div>
 
