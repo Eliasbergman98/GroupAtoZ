@@ -81,7 +81,6 @@ export default {
     createPoll: function () {
     this.pollId = Math.floor(Math.random()*10000);
       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatarUrl })
-      console.log("the pollId:",this.pollId)
       this.$router.push('/createquestions/' + this.pollId);
       
     },

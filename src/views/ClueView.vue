@@ -3,22 +3,31 @@
             {{uiLabels.whereTo}}
         </h1>
 
-        {{ cities }}
+        {{ Object.values(cities)[0] }}
         <div class="clueBox">
-        <div class="tester" v-for="(cityClue,cityName) in cities" :key="cityName">
-            <div>
-                <div v-if="shouldRenderClue(cityName)">    
-                    <!-- <h2>{{ cityName }}</h2> -->
-                    <p v-if="clueNumber === 0">{{ cityClue.clue1 }}</p>
-                    <p v-else-if="clueNumber === 1">{{ cityClue.clue2 }}</p>
-                    <p v-else-if="clueNumber === 2">{{ cityClue.clue3 }}</p>
-                </div>
-            </div>
-            
-             <br>
-            <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text" >
-        </div>        
+            <div class="tester" v-if="cities && Object.values(cities).length > 0"> 
+                    <p v-if="clueNumber === 0">
+                        {{ uiLabels.clue6p }} <br> 
+                        <div class="labelSize">{{ Object.values(cities)[0].clue1 }}</div> <br>
+                    </p>
+                    <p v-else-if="clueNumber === 1">
+                        {{ uiLabels.clue4p }} <br> 
+                        <div class="labelSize">{{ Object.values(cities)[0].clue2 }}</div> <br>
+                    </p>
+                    <p v-else-if="clueNumber === 2">
+                        {{ uiLabels.clue2p }} <br> 
+                        <div class="labelSize">{{ Object.values(cities)[0].clue3 }}</div> <br>
+                    </p>
+                    <p v-else-if="clueNumber > 2 ">
+                        
+                    </p>
+                    <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text">
+                    <button v-on:click="addPlayerAnswer" class="clueAnswer"> 
+                        Add answer
+                    </button> 
 
+                
+            </div>        
         </div>
 
         <footer>
@@ -33,6 +42,7 @@
     import avatar from '../assets/avatar.json';
     const socket = io("localhost:3000");
 
+    const timeObject= {} ;
     export default {
         name: 'ClueView',
         data: function () {
@@ -98,17 +108,18 @@
                 this.selectedAvatar = index;
             },
             addPlayerAnswer: function () {
-                socket.emit("addPlayerAnswer", {pollId: this.pollId, answer: this.answerClue})
+                socket.emit("addPlayerAnswer", {pollId: this.pollId, answers: this.answerClue})
+                console.log(this.answerClue)
             },
+
             handleFuseBurnout() {
                 this.fuseWidth = 100;
                 this.addPlayerAnswer();
                 this.handleClues();
+                this.answerClue= "";
+                this.startFuseTimer();
                 //console.log(this.addPlayerAnswer)
 
-            },
-            shouldRenderClue(cityName) {
-                return cityName === Object.keys(this.cities)[0]; // Only render for the first city
             },
 
             handleClues() {
@@ -127,23 +138,27 @@
                             else if (this.clueNumber == 2) {
                                 console.log(`${cityName}: ${city.clue3}`);
                             }
-                            if(this.clueNumber > 2)
-                                console.log("nästa stad")
-                                //gå till nästa stad
                         }
                     }
                     this.clueNumber += 1;
+
+                    if (this.clueNumber > 2) {
+                        clearInterval(timeObject.intervalId);
+                        console.log("nästa stad");
+                        this.clueNumber = 0;
+                        this.$router.push('/afterclueview/' + this.pollId);
+                        //gå till nästa stad
+        }
             }
             },
 
 
 
         startFuseTimer: function () {
-            clearInterval(this.fuseTimer);
             // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
 
-            setInterval(() => {
+            let intervalId = setInterval(() => {
                 // Decrease the fuse width by a certain percentage
                 this.fuseWidth -= 0.2; // Adjust as needed
 
@@ -151,8 +166,11 @@
                 if (this.fuseWidth <= 0) {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
+                    clearInterval(timeObject.intervalId);
+
                 }
             }, timerInterval);
+            timeObject.intervalId = intervalId;
         }
     }}
     </script>  
@@ -164,27 +182,37 @@
 
     display: grid;
     background-color: rgb(163, 163, 243);
-    grid-gap: 3vw;
     background-size: cover;
 
     }
     .tester {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    width: 50vw;
-    height: 1vw;
     text-align: left;
     position: center;
     border-radius: 20px;
-    padding: 10em auto 2em 2em;
     text-align: center;
     font-size:2vw;
     width: 50vw;
-    height: 5vw;
+    height: 15vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
-    margin: 5vw auto;
-
+    margin: 2vw auto 0 auto;
+    }
+    
+    .tester input{
+        font-size: 1.5vw;
+        height: 2vw;
+    }
+    .clueAnswer{
+        height: 2vw;
+        width: 10vw;
+        position: right;
+        margin-left: 5vw;
+    }
+    .labelSize{
+        margin-top: 1vw;
+        font-size: 1.2vw;
     }
 
     h1 {

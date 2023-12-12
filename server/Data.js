@@ -68,7 +68,6 @@ Data.prototype.addCity = function(pollId, city, clue1, clue2, clue3) {
   }
 }
 
-
 Data.prototype.addParticipant = function(pollId, name, selectedAvatar) {
   const poll = this.polls[pollId];
   console.log("participant added", pollId, name, selectedAvatar);
@@ -93,7 +92,6 @@ Data.prototype.getParticipants = function(pollId) {
 
 Data.prototype.getCities = function(pollId) {
   const poll = this.polls[pollId];
-  console.log("cities", poll.cities);
   if (typeof poll !== 'undefined') {
     
     return poll.cities;

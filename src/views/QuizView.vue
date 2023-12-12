@@ -66,19 +66,18 @@ export default {
                 q: "",
                 a: [],
             },
-            pollId: "test",
             submittedAnswers: {},
             uiLabels: {},
             lang: localStorage.getItem("lang") || "en",
             data: {},
             quizName: '',
             yourName: '',
-            pollId: "532"
+            pollId: ""
         }
 
     },
     created: function () {
-        this.id = this.$route.params.id
+        this.pollId = this.$route.params.pollId
         socket.emit('joinPoll', this.pollId)
         socket.on("newQuestion", q =>
             this.question = q
@@ -106,7 +105,7 @@ export default {
         addParticipant: function () {
             socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl })
             console.log("added one participant now", this.pollId, this.yourName, this.selectedAvatarUrl)
-            this.$router.push('/playerjoining/' + this.pollId)
+            // this.$router.push('/playerjoining/' + this.pollId) Här ska väntesidan läggas in
         },
     }
 }
