@@ -2,23 +2,25 @@
   --foreground-color: red;
   --background-color: green;
 }
+
 body {
   margin: 0;
   padding: 0;
   background-color: rgb(163, 163, 243);
 }
+
 h1 {
   margin-top: 10px;
   font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
-  font-size: 60pt;
+  font-size: 6vw;
   /*font-style: italic;*/
   color: rgb(177, 27, 27);
   text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+    -0.075vw -0.075vw 0 #000,
+    0.075vw -0.075vw 0 #000,
+    -0.075vw 0.075vw 0 #000,
+    0.075vw 0.075vw 0 #000;
 }
 
 .arrow {
@@ -32,16 +34,28 @@ h1 {
   border: 1px solid rgb(163, 163, 243);
 }
 
-#joinbutton:hover, #goBack:hover, #createbutton:hover, #donebutton:hover, #howtoplaybutton:hover,#joinbutton:hover, img[id=ukimg], img[id=sweimg]:hover {
+#joinbutton:hover,
+#goBack:hover,
+#createbutton:hover,
+#donebutton:hover,
+#howtoplaybutton:hover,
+#joinbutton:hover,
+img[id=ukimg],
+img[id=sweimg]:hover {
   cursor: pointer;
 }
 
-#howtoplaybutton, #createbutton, #joinbutton {
+#howtoplaybutton,
+#createbutton,
+#joinbutton {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 14pt;
+  font-size: 1.7vw;
   color: white;
   background-color: green;
-  border: 2px solid black;
-  border-radius: 25px;
-  padding: 20px;
+  border: 0.2vw solid black;
+  border-radius: 1.5vw;
+  padding: 1.7vw;
+  width: 9em;
 }
+
+

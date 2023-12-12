@@ -15,8 +15,8 @@
             <!--<img src="/img/brake.png" style="width: 200px;">-->
         </h1>
         <div>
-            test 
-            QuizName: {{data.quizName}}
+            test
+            QuizName: {{ data.quizName }}
             PollID: {{ pollId }}
         </div>
         <section class="player">
@@ -73,7 +73,7 @@ export default {
             data: {},
             quizName: '',
             yourName: '',
-            pollId: "7096"
+            pollId: "532"
         }
 
     },
@@ -92,11 +92,11 @@ export default {
         })
         socket.emit("getPoll", this.pollId);
         socket.on("fullPole", (data) => {
-        this.data = data;
-        console.log("data hämtad", this.pollId)
-        
-      });
-      
+            this.data = data;
+            console.log("data hämtad", this.pollId)
+
+        });
+
     },
     methods: {
         selectAvatar(index) {
@@ -141,7 +141,7 @@ export default {
     width: 50vw;
     height: 5vw;
     background-size: cover;
-    background-color:rgb(201, 241, 244);
+    background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-top: 5vw;
     margin-left: 10vw;
