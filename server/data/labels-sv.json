@@ -45,5 +45,6 @@
 	"clue2": "Andra ledtråden:",
 	"clue3": "Tredje ledtråden:",
 	"saveButton": "Spara stad",
-	"whereTo": "Vart är vi på väg?"
+	"whereTo": "Vart är vi på väg?",
+	"participantCount": " spelare anslutna"
 }
