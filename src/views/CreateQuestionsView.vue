@@ -10,7 +10,7 @@
       
       
       <div class="gameInfo a"> {{uiLabels.city1}}
-        <input type="text" v-model="city" class="fillInfo">
+        <textarea class="fillInfo" v-model="city" rows="2"></textarea>
           </div>
         <div class="gameInfo b"> {{ uiLabels.clue1 }}
           <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
@@ -275,11 +275,10 @@
   
   }
   
-  .a {
-  grid-row-start: 1;
-  grid-column-start: 1;
+  .a, .b, .c, .d{
   padding: 10em auto 2em 2em;
-  text-align: center;
+  text-align: left;
+  padding-left: 5vw;
   font-size:2vw;
   width: 50vw;
   height: 5vw;
@@ -288,46 +287,23 @@
   border: 2px solid black;
   margin-left: 10vw;
   }
+  .a{
+    grid-row-start: 1;
+  grid-column-start: 1;
+  }
   
   .b {
   grid-row-start: 2;
   grid-column-start: 1;
-  padding: 10em auto 2em 2em;
-  text-align: center;
-  font-size:2vw;
-  width: 50vw;
-  height: 5vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 10vw;
 }
   
 .c {
   grid-row-start: 3;
   grid-column-start: 1;
-  padding: 10em auto 2em 2em;
-  text-align: center;
-  font-size:2vw;
-  width: 50vw;
-  height: 5vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 10vw;
 }
 .d {
   grid-row-start: 4;
   grid-column-start: 1;
-  padding: 10em auto 2em 2em;
-  text-align: center;
-  font-size:2vw;
-  width: 50vw;
-  height: 5vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 10vw;
 }
 .e{
   margin-bottom: 0;

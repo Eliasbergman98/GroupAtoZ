@@ -73,7 +73,7 @@ export default {
             data: {},
             quizName: '',
             yourName: '',
-            pollId: "7096"
+            pollId: "3247"
         }
 
     },
