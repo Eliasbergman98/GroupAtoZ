@@ -11,25 +11,19 @@
     </div> -->
     <main>
         <h1>
-            Quizname & PollID
-            <!--<img src="/img/brake.png" style="width: 200px;">-->
+            Quiz: {{ data.quizName }}
+            <br>
+            GAME ID: {{ pollId }}
         </h1>
         <div>
-            test
-            QuizName: {{ data.quizName }}
-            PollID: {{ pollId }}
+
         </div>
         <section class="player">
             <div class="gameInfo a" id="name">
                 {{ uiLabels.yourName }}:
                 <input type="text" id="yourname" v-model="yourName" :placeholder="uiLabels.enterName">
             </div>
-            <div>
-                {{ yourName }}
-            </div>
-            <div class="earth">
-                <img id="earth" src="/img/earth.png" style="width: 180px;">
-            </div>
+
             <div class="gameInfo b">
                 {{ uiLabels.chooseAvatar }} <br>
                 <img class="avatar">
@@ -112,37 +106,48 @@ export default {
 </script>
 
 <style scoped>
+.emojis {
+    width: 2vw;
+    height: 2vw;
+}
+
+h1 {
+    text-align: left;
+    margin-left: 10vw;
+}
+
 .player {
     position: relative;
     display: grid;
-    grid-template-columns: 50vw 20vw 2vw;
-    grid-template-rows: 5vw 10vw 10vw;
+    grid-template-columns: 50vw 20vw;
+    grid-template-rows: 5vw 5vw;
     background-color: rgb(163, 163, 243);
     grid-gap: 3vw;
     background-size: cover;
 }
 
 .gameInfo {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     width: 50vw;
-    height: 1vw;
+    height: 20vw;
     text-align: left;
     position: left;
-    border-radius: 20px;
+    border-radius: 2vw;
 }
 
 .a {
     grid-row-start: 1;
     grid-column-start: 1;
-    padding: 10em auto 2em 2em;
+    padding: 8vw auto 2vw 2vw;
     text-align: center;
-    font-size: 12pt;
-    width: 50vw;
+    font-size: 2vw;
+    width: 40vw;
     height: 5vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
-    border: 2px solid black;
-    margin-top: 5vw;
+    border: 0.2vw solid black;
+    margin-top: -2vw;
+    margin-bottom: 5vw;
     margin-left: 10vw;
 }
 
@@ -150,30 +155,23 @@ export default {
     grid-row-start: 2;
     grid-column-start: 1;
     text-align: center;
-    font-size: 12pt;
-    width: 50vw;
-    height: 10vw;
+    font-size: 1.5vw;
+    width: 40vw;
+    height: 12vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
-    border: 2px solid black;
-    margin-top: 4vw;
+    border: 0.2vw solid black;
+    margin-top: -3vw;
     margin-left: 10vw;
-    padding-top: 2vw;
+    padding-top: 1vw;
     padding-bottom: 4vw;
 }
 
 .c {
     width: 10vw;
-    grid-row-start: 3;
-    grid-column-start: 4;
-    justify-self: center;
-}
-
-.earth {
-    margin-top: 2vw;
-    width: 10vw;
-    grid-column-start: 3;
+    margin-left: 13vw;
     grid-row-start: 1;
+    grid-column-start: 2;
 }
 
 #donebutton:hover {
@@ -182,18 +180,31 @@ export default {
 
 #donebutton {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 14pt;
+    font-size: 3vw;
     color: white;
     background-color: gray;
-    border: 2px solid black;
-    padding: 25px;
-    border-radius: 20px;
+    border: 0.2vw solid black;
+    padding: 2vw;
+    border-radius: 1vw;
+    width: 15vw;
+
+
 }
 
 #yourname {
-    margin-top: 1vw;
-    padding: 1vw;
+    margin-top: 0.8vw;
     font-weight: bold;
+    font-size: 1.2vw;
+    background-color: inherit;
+    border: none;
+    padding: 1vw;
+    width: 73%; 
+    margin-left: 0.5vw;
+    position: relative;
+}
+
+#yourname::placeholder {
+    color: gray;
 }
 
 .selected {
