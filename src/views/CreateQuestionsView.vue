@@ -78,7 +78,7 @@
         Data: {{ data }}
         QuizName: {{data.quizName}}
         <div>
-          <img v-bind:src="data.selectedAvatar" alt="😄" width="32" height="32" >
+          <img v-bind:src="data.selectedAvatar"  width="32" height="32" >
         </div>
        
       </div>
@@ -154,8 +154,8 @@
         this.uiLabels = labels;
       });
       
-     socket.on("dataUpdate", (data) =>
-       this.data = data );
+    //  socket.on("dataUpdate", (data) =>
+    //    this.data = data );
       
       console.log("Updated quizName:",this.pollId)
       socket.emit("getPoll", this.pollId);
