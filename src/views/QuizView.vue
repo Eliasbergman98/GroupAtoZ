@@ -99,6 +99,7 @@ export default {
         addParticipant: function () {
             socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl })
             console.log("added one participant now", this.pollId, this.yourName, this.selectedAvatarUrl)
+            this.$router.push('/playerwaiting/' + this.pollId);
             // this.$router.push('/playerjoining/' + this.pollId) Här ska väntesidan läggas in
         },
     }

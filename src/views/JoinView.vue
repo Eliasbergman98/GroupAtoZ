@@ -13,10 +13,6 @@
         {{ uiLabels.gameCode }}:
       </div>
       <div>
-        {{ data }}
-        {{ gamecode }}
-      </div>
-      <div>
         <input type="text" id="gamecode" v-model="gamecode" :placeholder="uiLabels.enterCode">
       </div>
     </section>
@@ -77,30 +73,39 @@ export default {
     //   socket.emit("submitAnswer", { pollId: this.pollId, answer: answer })
     // },
 
-    addGameCode: function () {
+    addGameCode: async function () {
       this.pollId = this.gameCode
-      socket.emit("getPoll", this.gamecode);
-      socket.on("fullPole", (data) => {
-      this.data = data;
-      // this.pollId = data.poll.pollId;
-      console.log("data hämtad när vi försöker hitta en poll", this.data)
-    });
+     // Use a Promise to wait for the asynchronous operation
+    const fetchData = () => {
+      return new Promise((resolve) => {
+        socket.emit("getPoll", this.gamecode);
+        socket.on("fullPole", (data) => {
+          this.data = data;
+          console.log("data hämtad när vi försöker hitta en poll", this.data);
+          resolve(); // Resolve the promise when the data is retrieved
+        });
+      });
+    };
+
+    try {
+      // Wait for the data to be retrieved before proceeding
+      await fetchData();
+
       if (this.gamecode === '') {
         alert('Please enter a game code');
-      }
-      
-      else if (Object.keys(this.data).length === 0){
+      } else if (Object.keys(this.data).length === 0) {
         alert('Please enter a valid game code');
-      }
-      else  {
+      } else {
         this.pollId = this.gamecode;
-        this.$router.push('/quiz/' + this.pollId)
-        console.log('gamecode = pollId i joinview')
-        console.log("Här är gamecode: ", this.gamecode)
-        console.log("Här är pollId: ", this.pollId)
+        this.$router.push('/quiz/' + this.pollId);
+        console.log('gamecode = pollId i joinview');
+        console.log("Här är gamecode: ", this.gamecode);
+        console.log("Här är pollId: ", this.pollId);
       }
-      
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
+  }
   }
 }
 </script>
