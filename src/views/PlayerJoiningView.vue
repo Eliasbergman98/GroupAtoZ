@@ -10,20 +10,24 @@
     <div class="poll">
         <div class="gameInfo a">
             {{ uiLabels.players }} <br>
+            <hr>
             <div class="scroll-wrapper">
                 <ul v-for="person in participants" :key="participants.name">
                     <li>
-                        {{ person.name }} <img v-bind:src="person.avatar" target="_blank" width="32" height="32">
+                        {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32"
+                            height="32">
                     </li>
                 </ul>
             </div>
         </div>
         <div class="gameInfo b">
-            {{ data.quizName }} <img v-bind:src="data.selectedAvatar" width="20" height="20" target="_blank"> <br>
+            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" width="20" height="20"
+                target="_blank"> <br> <hr>
             {{ uiLabels.gameTag }} {{ pollId }} <br>
+            {{ participants.length }} {{ uiLabels.participantCount }}
         </div>
         <div class="gameInfo c">
-            <button class="createbutton" v-on:click="sendInfo"> {{ uiLabels.startGame }}</button>
+            <button id="createbutton" v-on:click="sendInfo"> {{ uiLabels.startGame }}</button>
         </div>
     </div>
 </template>
@@ -46,7 +50,8 @@ export default {
             uiLabels: {},
             selectedAvatar: null,
             avatars: avatar,
-            participants: []
+            participants: [],
+            participantCount: 0
         }
     },
     created: function () {
@@ -74,7 +79,7 @@ export default {
     methods: {
         sendInfo: function () {
             this.$router.push('/startingquiz/' + this.pollId)
-        }
+        },
     }
 }
 </script>
@@ -118,8 +123,8 @@ export default {
 
 .scroll-wrapper {
     overflow-y: auto;
-    height: 35vw; /* Ensure the wrapper takes the full height of the container */
-    border-radius: 18px; /* Adjust this value to match your border-radius */
+    height: 30vw;
+    /* Ensure the wrapper takes the full height of the container */
 }
 
 .scroll-wrapper ul {
@@ -127,13 +132,14 @@ export default {
     padding: 0;
     margin: 0;
 }
+
 .b {
     grid-row-start: 1;
     grid-column-start: 2;
     text-align: left;
     position: relative;
     width: 30vw;
-    height: 6vw;
+    height: 10vw;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 10vw;
@@ -146,23 +152,21 @@ export default {
     grid-row-start: 3;
     grid-column-start: 4;
     justify-self: center;
-    margin-top: 7vw;
+    margin-top: 8vw;
 }
 
-.createbutton:hover {
+#createbutton:hover {
     cursor: pointer;
     background-color: green;
 }
 
-.createbutton {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+#createbutton {
     background-color: gray;
-    color: white;
-    border: 2px solid black;
-    padding: 20px;
-    border-radius: 20px;
-    margin-left: 20vw;
+    margin-left: 15vw;
 }
 
-
+.emojies {
+    width: 2vw;
+    height: 2vw;
+}
 </style>

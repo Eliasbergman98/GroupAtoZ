@@ -95,6 +95,14 @@ body {
   padding: 2em;
 }
 
+.button-container button {
+  pointer-events: auto;
+}
+
+.button-container {
+  pointer-events: none;
+}
+
 #createbutton {
   margin-left: 15vw;
 }
