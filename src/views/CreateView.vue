@@ -18,7 +18,7 @@
     </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
       <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" >
-      <button id="addQuizName" name="addQuizName">
+      <button id="addQuizNameBtn" name="addQuizName">
         {{ uiLabels.addName }}
       </button>
     </div>
@@ -37,10 +37,7 @@
       <button class="createbutton" v-on:click="createPoll" > {{ uiLabels.createGame }}</button>
     </div>
   </div>
-  <div>
-    {{ avatars.name }}
-    {{ avatars.url }}
-  </div>
+ 
 </template>
 
 <script>
@@ -79,10 +76,14 @@ export default {
   },
   methods: {
     createPoll: function () {
+      if(this.quizName === '' || this.selectedAvatar === null){
+        alert('Please choose a quizname and avatar.')
+      }
+      else{
     this.pollId = Math.floor(Math.random()*10000);
       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatarUrl })
       this.$router.push('/createquestions/' + this.pollId);
-      
+      }
     },
     addGameCode: function () {
       if (this.gamecode === '') {
@@ -118,7 +119,7 @@ export default {
   position: relative;
   display: grid;
   grid-template-columns: 50vw 10vw 30w;
-  grid-template-rows: 5vw 5vw 25vw;
+  grid-template-rows: 5vw 5vw 10vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 3vw;
   background-size: cover;
@@ -146,7 +147,7 @@ export default {
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
-  margin-left: 10vw;
+  margin-left: 22vw;
   
 }
 
@@ -160,7 +161,7 @@ export default {
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
-  margin-left: 10vw;
+  margin-left: 22vw;
   padding-top: 2vw;
   padding-bottom: 4vw;
 }
@@ -168,7 +169,7 @@ export default {
 .c{
   grid-row-start: 2;
   grid-column-start: 3;
-  margin-top: 10vw;
+  margin-top: 12vw;
   width: 10vw;
   
 }
@@ -180,7 +181,7 @@ export default {
   
 }
 
-.createbutton:hover {
+.createbutton:hover, #addQuizNameBtn:hover {
   cursor: pointer;
   background-color: green;
 }
@@ -195,13 +196,30 @@ export default {
   border-radius: 20px;
 } 
 
-
 .selected {
   background-color: green;
 
 }
 
+#addQuizName{
+width: 15vw;
+height: 1.5vw;
+margin-left: 12vw;
+font-family: Georgia, 'Times New Roman', Times, serif;
+border-color: rgb(201, 241, 244);
+}
 
+#addQuizNameBtn{
+width: 6vw;
+height: 1.8vw;
+margin-left: 5vw;
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+border: 0.1vw solid black;
+border-radius: 10px;
+background-color: gray;
+color: white;
+font-size: 0.8vw;
+}
 .arrow{
   background-color: rgb(163, 163, 243);
   text-align: left;
@@ -210,5 +228,10 @@ export default {
 .arrow button{
   background-color: rgb(163, 163, 243);
   border: 1px solid rgb(163, 163, 243);
+}
+
+.emojies{
+  width: 2vw;
+  height: 2vw;
 }
 </style>

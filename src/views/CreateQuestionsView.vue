@@ -1,89 +1,49 @@
 <template>
-  
-    <div class="arrow">
-      <button @click="goBack()">
-      <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
+  <div class="arrow">
+    <button @click="goBack()">
+      <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
+        </button></router-link>
     </button>
+  </div>
+
+  <div class="poll">
+
+
+    <div class="gameInfo a"> {{ uiLabels.city1 }}
+      <textarea class="fillInfo" v-model="city" rows="2"></textarea>
     </div>
-    
-    <div class="poll">
-      
-      
-      <div class="gameInfo a"> {{uiLabels.city1}}
-        <input type="text" v-model="city" class="fillInfo">
-          </div>
-        <div class="gameInfo b"> {{ uiLabels.clue1 }}
-          <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
-        </div>
-        <div class="gameInfo c"> {{ uiLabels.clue2 }}
-          <textarea class="fillInfo" v-model="clue2" rows="2"></textarea>
-        </div>
-        <div class="gameInfo d"> {{ uiLabels.clue3 }}
-          <textarea class="fillInfo" v-model="clue3" rows="2"></textarea>
-        </div>
-        <div class="gameInfo f"> 
-          <button class="addTown" v-on:click="addQuestion" :disabled="Object.keys(submittedCities2).length >= 5"> {{ uiLabels.addTown }}</button>
-        </div>
-     
-      <div v-if="Object.keys(submittedCities2).length > 0 " class="right-section" >
-       
-        {{ uiLabels.myCities }} <hr/>
-        <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
-          <p> {{uiLabels.city}} {{ cityData }}, {{ uiLabels.clues }} {{ cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}</p>
-
+    <div class="gameInfo b"> {{ uiLabels.clue1 }}
+      <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
     </div>
-  </div> 
+    <div class="gameInfo c"> {{ uiLabels.clue2 }}
+      <textarea class="fillInfo" v-model="clue2" rows="2"></textarea>
+    </div>
+    <div class="gameInfo d"> {{ uiLabels.clue3 }}
+      <textarea class="fillInfo" v-model="clue3" rows="2"></textarea>
+    </div>
+    <div class="gameInfo f">
+      <button class="addTown" v-on:click="addQuestion" :disabled="Object.keys(submittedCities2).length >= 5"> {{
+        uiLabels.addTown }}</button>
+    </div>
 
- 
-  
-        <!-- <div v-if="submittedCities.length > 0" class="right-section">
-          My cities: <hr />
-        <div v-for="(city, index) in submittedCities" :key="index">
-          <p> {{uiLabels.city}} {{ index + 1 }}: {{ city.name }}, {{ uiLabels.clues }}: {{ city.clue1 }}, {{ city.clue2 }}, {{ city.clue3 }}</p>
-            <hr />
-        </div>
+    <div v-if="Object.keys(submittedCities2).length > 0" class="right-section">
+      <div id="title">
+        {{ uiLabels.myCities }}
       </div>
-       -->
-      <!-- <div class ="earth">
-        <img id="earth" src="/img/earth.png" style="width: 180px;">
-      </div> -->
-      
-        <!--Poll link: 
-      <input type="text" v-model="pollId">
-      <button v-on:click="createPoll">
-        Save gameID 
-      </button> <br> <br> -->
-        <!-- {{ uiLabels.chooseName }} <br>
-        <input type="text" v-model="pollNameId">
-        <button v-on:click="addPollName">
-          {{ uiLabels.addName }}
-        </button> -->
-    
-      <!-- <div class="gameInfo b">
-        {{ uiLabels.chooseAvatar }} <br>
-        <img class="avatar">
-        <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
-          :class="{ 'selected': selectedAvatar === index }">
-          <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
-        </button>
-      </div> -->
-  
-      <div class="gameInfo e"> 
-         <button class="createbutton" v-on:click="sendInfo"> {{ uiLabels.createGame }}</button> 
+      <hr>
+      <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
+        <p>
+        <div id="city">{{ uiLabels.city }} {{ cityData }}</div>  <div id="clue"> {{ uiLabels.clues }} </div> {{
+          cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}
+        </p>
+        <hr>
       </div>
+    </div>
+    <div class="gameInfo e">
+      <button class="createbutton" v-on:click="sendInfo"> {{ uiLabels.createGame }}</button>
+    </div>
 
-      <div class="infofromviewbefore">
-        test
-        PollId: {{ pollId}}
-        Data: {{ data }}
-        QuizName: {{data.quizName}}
-        <div>
-          <img v-bind:src="data.selectedAvatar"  width="32" height="32" >
-        </div>
-       
-      </div>
-  
-      <!--
+    <!--
         <input type="text" v-model="question">
         <div>
           Answers:
@@ -102,199 +62,190 @@
       </button>
       {{ data }}
       <router-link v-bind:to="'/result/' + pollId">Check result</router-link>  -->
-    </div>
-    
-  </template>
+  </div>
+</template>
   
-  <script>
-  
-  import io from 'socket.io-client';
-  import avatar from '../assets/avatar.json';
-  const socket = io("localhost:3000");
-  
-  export default {
-    name: 'CreateQuestions',
-  
-    data: function () {
-      return {
-        showRightSection: false,
-        lang: localStorage.getItem("lang") || "en",
-        pollId: "",
-        question: "",
-        answers: ["", ""],
-        questionNumber: 0,
-        data: {},
-        uiLabels: {},
-        selectedAvatar: null,
-        avatars: avatar,
-        quizName: "",
-        city: "",
-        clue1: "",
-        clue2: "",
-        clue3: "",
+<script>
 
-        // Separate variables to hold submitted data
-        // submittedCities: [], 
+import io from 'socket.io-client';
+import avatar from '../assets/avatar.json';
+const socket = io("localhost:3000");
 
-        submittedCities2: {},
-      }
+export default {
+  name: 'CreateQuestions',
+
+  data: function () {
+    return {
+      showRightSection: false,
+      lang: localStorage.getItem("lang") || "en",
+      pollId: "",
+      question: "",
+      answers: ["", ""],
+      questionNumber: 0,
+      data: {},
+      uiLabels: {},
+      selectedAvatar: null,
+      avatars: avatar,
+      quizName: "",
+      city: "",
+      clue1: "",
+      clue2: "",
+      clue3: "",
+
+      // Separate variables to hold submitted data
+      // submittedCities: [], 
+
+      submittedCities2: {},
+    }
+  },
+  computed: {
+    areFieldsFilled: function () {
+      return this.city && this.clue1 && this.clue2 && this.clue3;
     },
-    computed: {
-      areFieldsFilled: function () {
-        return this.city && this.clue1 && this.clue2 && this.clue3;
-      },
-    },
-    
-    created: function () {
-      this.pollId = this.$route.params.pollId;
-      this.selectedAvatarUrl = this.avatarUrl;
-  
-      socket.emit("pageLoaded", this.lang);
-      socket.on("init", (labels) => {
-        this.uiLabels = labels;
-      });
-      
+  },
+
+  created: function () {
+    this.pollId = this.$route.params.pollId;
+    this.selectedAvatarUrl = this.avatarUrl;
+
+    socket.emit("pageLoaded", this.lang);
+    socket.on("init", (labels) => {
+      this.uiLabels = labels;
+    });
+
     //  socket.on("dataUpdate", (data) =>
     //    this.data = data );
-      
-      console.log("Updated quizName:",this.pollId)
-      socket.emit("getPoll", this.pollId);
-      socket.on("pollCreated",  (data) => console.log("pollId created in createquestion:", data));
-      socket.on("fullPole", (data) => {
-        console.log("in createquest", this.pollId)
-        this.data = data;
-      });
-        
-    },
-    methods: {
-      createPoll: function () {
-       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, selectedAvatar: this.selectedAvatarUrl })
-      },
-       addPollName: function () {
-        this.pollNameId.push("");
-       },
-       sendInfo: function () {
-          this.$router.push('/playerjoining/' + this.pollId);
-        },
-       addQuestion: function () {
-        if (!this.areFieldsFilled) {
-          alert('Please fill in all fields before adding a new city.');
-          return;
-        }
 
-        if (Object.keys(this.submittedCities2).length >= 5) {
-        alert('You can only add up to 5 cities.');
-        
+    console.log("Updated quizName:", this.pollId)
+    socket.emit("getPoll", this.pollId);
+    socket.on("pollCreated", (data) => console.log("pollId created in createquestion:", data));
+    socket.on("fullPole", (data) => {
+      console.log("in createquest", this.pollId)
+      this.data = data;
+    });
+
+  },
+  methods: {
+    createPoll: function () {
+      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, selectedAvatar: this.selectedAvatarUrl })
+    },
+    addPollName: function () {
+      this.pollNameId.push("");
+    },
+    sendInfo: function () {
+      this.$router.push('/playerjoining/' + this.pollId);
+    },
+    addQuestion: function () {
+      if (!this.areFieldsFilled) {
+        alert('Please fill in all fields before adding a new city.');
         return;
-        }
-        else {
-       socket.emit("addQuestion", { 
-        //vill emit dessa som nyckel-stad och värden-clues?
-          pollId: this.pollId, 
-          city: this.city, 
-          clue1: this.clue1, 
-          clue2: this.clue2, 
-          clue3: this.clue3 });
-          console.log("emitting city info:", this.pollId, 
-          this.city, 
-          this.clue1, 
-          this.clue2, 
-          this.clue3 )
-       
-       }
-          
-          if (!this.submittedCities2[this.city]) {
-              this.submittedCities2[this.city] = [];
-              this.submittedCities2[this.city].push(
-            this.clue1,
-            this.clue2,
-            this.clue3
-          );
-          this.city = "";
-          this.clue1 = "";
-          this.clue2 = "";
-          this.clue3 = "";
-            }
+      }
 
-          
+      if (Object.keys(this.submittedCities2).length >= 5) {
+        alert('You can only add up to 5 cities.');
 
-      
+        return;
+      }
+      else {
+        socket.emit("addQuestion", {
+          //vill emit dessa som nyckel-stad och värden-clues?
+          pollId: this.pollId,
+          city: this.city,
+          clue1: this.clue1,
+          clue2: this.clue2,
+          clue3: this.clue3
+        });
+        console.log("emitting city info:", this.pollId,
+          this.city,
+          this.clue1,
+          this.clue2,
+          this.clue3)
 
-      },
-      addAnswer: function () {
-        this.answers.push("");
-       },
-       runQuestion: function () {
-       socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
-       },
-      selectAvatar(index) {
-        this.selectedAvatar = index;
-      console.log(this. data.selectedAvatar)
-      },
+      }
 
-      
+      if (!this.submittedCities2[this.city]) {
+        this.submittedCities2[this.city] = [];
+        this.submittedCities2[this.city].push(
+          this.clue1,
+          this.clue2,
+          this.clue3
+        );
+        this.city = "";
+        this.clue1 = "";
+        this.clue2 = "";
+        this.clue3 = "";
+      }
     },
-  }
+    addAnswer: function () {
+      this.answers.push("");
+    },
+    runQuestion: function () {
+      socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
+    },
+    selectAvatar(index) {
+      this.selectedAvatar = index;
+      console.log(this.data.selectedAvatar)
+    },
 
-  </script>
+
+  },
+}
+
+</script>
   
-  <style scoped>
-.fillInfo{
+<style scoped>
+.fillInfo {
   height: 2vw;
-    width: 20vw;
-    margin-top: 1vw;
-  }
-
-  #saveButton{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 1.5vw;
-    color: white;
-    background-color: green;
-    border: 2px solid black;
-    padding: 1vw;
-    border-radius: 2px;
-  }
-  .poll {
-    position: relative;
-    display: grid;
-    grid-template-columns: 30vw 30vw 10vw 20vw;
-    grid-template-rows: 7vw 7vw 7vw 7vw 7vw 10vw;
-    background-color: rgb(163, 163, 243);
-    grid-gap: 1vw;
-    background-size: cover;
-  }
-  
-  
-  .gameInfo {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    width: 30vw;
-    height: 1vw;
-    text-align: left;
-    position: left;
-    border-radius: 20px;
-  
-  }
-  
-  .a {
-  grid-row-start: 1;
-  grid-column-start: 1;
-  padding: 10em auto 2em 2em;
-  text-align: center;
-  font-size:2vw;
-  width: 50vw;
-  height: 5vw;
-  background-size: cover;
+  width: 30vw;
+  margin-top: 1vw;
+  border-color: black;
+  border-top: 1vw;
+  border-left: 1vw;
+  border-right: 1vw;
+  font-size: 1.4vw;
   background-color: rgb(201, 241, 244);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#saveButton {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 1.5vw;
+  color: white;
+  background-color: green;
   border: 2px solid black;
-  margin-left: 10vw;
-  }
-  
-  .b {
-  grid-row-start: 2;
-  grid-column-start: 1;
+  padding: 1vw;
+  border-radius: 2px;
+}
+
+.poll {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30vw 30vw 7vw;
+  grid-template-rows: 7vw 7vw 7vw 7vw 7vw;
+  background-color: rgb(163, 163, 243);
+  grid-gap: 1vw;
+  background-size: cover;
+}
+
+
+.gameInfo {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 30vw;
+  height: 1vw;
+  text-align: left;
+  position: left;
+  border-radius: 20px;
+
+}
+
+.a,
+.b,
+.c,
+.d {
   padding: 10em auto 2em 2em;
-  text-align: center;
-  font-size:2vw;
+  text-align: left;
+  padding-left: 5vw;
+  font-size: 2vw;
   width: 50vw;
   height: 5vw;
   background-size: cover;
@@ -302,119 +253,136 @@
   border: 2px solid black;
   margin-left: 10vw;
 }
-  
+
+.a {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+.b {
+  grid-row-start: 2;
+  grid-column-start: 1;
+}
+
 .c {
   grid-row-start: 3;
   grid-column-start: 1;
-  padding: 10em auto 2em 2em;
-  text-align: center;
-  font-size:2vw;
-  width: 50vw;
-  height: 5vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 10vw;
 }
+
 .d {
   grid-row-start: 4;
   grid-column-start: 1;
-  padding: 10em auto 2em 2em;
-  text-align: center;
-  font-size:2vw;
-  width: 50vw;
-  height: 5vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 10vw;
-}
-.e{
-  margin-bottom: 0;
-  grid-row-start: 4;
-  grid-column-start: 4;
-  width: 10vw;
-  
 }
 
-.f{
+.e {
+  grid-row-start: 5;
+  grid-column-start: 4;
+margin-left: 11.5vw;
+}
+
+.f {
   grid-row-start: 5;
   grid-column-start: 1;
-  padding: 10em auto 2em 2em;
+  padding: 10vw auto 2vw 2vw;
   text-align: center;
-  font-size:3vw;
-  width: 50vw;
+  font-size: 3vw;
+  width: 55vw;
   height: 5vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   margin-left: 10vw;
 }
 
-.right-section{
+.right-section {
   grid-row-start: 1;
   grid-column-start: 4;
-  font-size:1vw;
+  font-size: 1.2vw;
   width: 20vw;
-  height: 20vw;
+  height: 31vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
-  border: 2px solid black;
+  border: 0.2vw solid black;
   border-radius: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: oblique;
+  overflow-y: auto;
 }
 
-.infofromviewbefore{
-    grid-row-start:6 ;
-    grid-column-start: 1;
-  }
-  
-  .selected {
-    background-color: green;
-  
-  }
+.infofromviewbefore {
+  grid-row-start: 6;
+  grid-column-start: 1;
+}
+
+.selected {
+  background-color: green;
+
+}
+
 .createbutton:hover {
   cursor: pointer;
   background-color: green;
 }
-  
-  .createbutton {
+
+.createbutton {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 14pt;
+  font-size: 1vw;
   color: white;
   background-color: gray;
-  border: 2px solid black;
-  padding: 20px;
-  border-radius: 20px;
-} 
+  border: 0.2vw solid black;
+  padding: 2vw;
+  border-radius: 1vw;
+}
+
 .addTown:hover {
   cursor: pointer;
   background-color: green;
 }
-.addTown{
+
+.addTown {
   font-family: Georgia, 'Times New Roman', Times, serif;
   width: 100%;
   height: 100%;
   text-align: center;
-  font-size:2vw;
-  background-color:rgb(201, 241, 244) ;
+  font-size: 2vw;
+  background-color: rgb(201, 241, 244);
   border: 2px solid black;
   padding: 20px;
   border-radius: 20px;
 }
 
-  .arrow{
-    background-color: rgb(163, 163, 243);
-    text-align: left;
-    padding: 1vw 0 0 1vw;
-  }
-  .arrow button{
-    background-color: rgb(163, 163, 243);
-    border: 1px solid rgb(163, 163, 243);
-  }
+.arrow {
+  background-color: rgb(163, 163, 243);
+  text-align: left;
+  padding: 1vw 0 0 1vw;
+}
 
-  .earth{
+.arrow button {
+  background-color: rgb(163, 163, 243);
+  border: 1px solid rgb(163, 163, 243);
+}
+
+.earth {
   width: 10vw;
   grid-column-start: 3;
   grid-row-start: 1;
-  
+
 }
-  </style>
+
+#title {
+  font-weight: bolder;
+  font-size: larger;
+}
+
+#city {
+  font-weight: bolder;
+}
+
+#clue {
+  font-weight: bolder;
+
+}
+
+.right-section p {
+  display: flex;
+  flex-direction: column;
+}</style>
