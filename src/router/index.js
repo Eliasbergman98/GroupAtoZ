@@ -15,7 +15,7 @@ const router = createRouter({
       component: () => import('../views/JoinView.vue')
     },
     {
-      path: '/quiz/:gamecode',
+      path: '/quiz/:pollId',
       name: 'QuizView',
       component: () => import('../views/QuizView.vue')
     },

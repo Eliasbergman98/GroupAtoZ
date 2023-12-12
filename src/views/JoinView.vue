@@ -61,26 +61,35 @@ export default {
       this.uiLabels = labels
     })
     socket.on("pollCreated", (data) => console.log("pollId created:", data))
-    socket.emit("getPoll", this.pollId);
+    socket.emit("getPoll", this.gamecode);
     socket.on("fullPole", (data) => {
       this.data = data;
+      // this.pollId = data.poll.pollId;
       console.log("data hämtad i joinview", this.data)
+    });
+    socket.on("existingPollId", (pollId) => {
+      this.pollId = pollId;
+      console.log(this.pollId)
     });
   },
   methods: {
-    submitAnswer: function (answer) {
-      socket.emit("submitAnswer", { pollId: this.pollId, answer: answer })
-    },
+    // submitAnswer: function (answer) {
+    //   socket.emit("submitAnswer", { pollId: this.pollId, answer: answer })
+    // },
     addGameCode: function () {
       if (this.gamecode === '') {
         alert('Please enter a game code');
       }
-      // if (this.gamecode === this.pollId) {
+      else if (this.data != {}) {
+        this.pollId = this.gamecode;
+        this.$router.push('/quiz/' + this.pollId)
+        console.log('gamecode = pollId i joinview')
+        console.log("Här är gamecode: ", this.gamecode)
+        console.log("Här är pollId: ", this.pollId)
+      }
+      // else {
       //   this.$router.push('/quiz/' + this.gamecode)
       // }
-      else {
-       this.$router.push('/quiz/' + this.gamecode)
-       }
     }
   }
 }
