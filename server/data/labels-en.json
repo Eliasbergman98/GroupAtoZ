@@ -35,20 +35,14 @@
 	"startGame": "Start game",
 	"players": "Players:",
 	"gameTag": "Game-ID:",
-<<<<<<< HEAD
-	"clues": "Clues",
 	"clue6p": "First clue - 6 points: ",
 	"clue4p": "Second clue - 4 points: ",
 	"clue2p": "Third clue - 2 points: ",
-	"myCities": "My Cities",
-	"city": "City",
 	"addAnswer": "Add Answer",
 	"thankYou": "Good Guess",
-=======
 	"clues": "Clues:",
 	"myCities": "My Cities",
 	"city": "City:",
->>>>>>> 09eb3239b708701123f66f17a353858dea1d3341
 	"city1": "Enter City:",
 	"clue1": "First clue:",
 	"clue2": "Second clue:",
