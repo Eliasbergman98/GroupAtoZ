@@ -92,7 +92,6 @@
             },
             addQuizName: function () {
                 socket.emit("addQuizName", this.quizName);
-                console.log(this.quizName);
                 socket.on("addQuizName", (data) => console.log("hej"));
             },
             addQuestion: function () {
@@ -143,7 +142,6 @@
                     this.clueNumber += 1;
 
                     if (this.clueNumber > 2) {
-                        clearInterval(timeObject.intervalId);
                         console.log("nästa stad");
                         this.clueNumber = 0;
                         this.$router.push('/afterclueview/' + this.pollId);
