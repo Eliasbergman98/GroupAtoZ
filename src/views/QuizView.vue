@@ -3,12 +3,6 @@
         <router-link to="/join/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
             </button></router-link>
     </div>
-    <!-- <div>
-      {{pollId}}
-      <QuestionComponent v-bind:question="question"
-                v-on:answer="submitAnswer($event)"/>
-                <span>{{submittedAnswers}}</span>
-    </div> -->
     <main>
         <h1>
             Quiz: {{ data.quizName }}
@@ -34,6 +28,9 @@
             </div>
             <div class="gameInfo c">
                 <button v-on:click="addParticipant" id="donebutton"> {{ uiLabels.doneButton }}</button>
+                <AlertComponent ref="alertComponent" :alertContentText="alertContentText" :title="alertTitle"
+                    @closeAlert="closeAlert">
+                </AlertComponent>
             </div>
         </section>
     </main>
@@ -41,7 +38,7 @@
   
 <script>
 // @ is an alias to /src
-import QuestionComponent from '@/components/QuestionComponent.vue';
+import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
@@ -49,7 +46,7 @@ const socket = io("localhost:3000");
 export default {
     name: 'QuizView',
     components: {
-        QuestionComponent
+        AlertComponent
     },
     data: function () {
         return {
@@ -66,7 +63,8 @@ export default {
             data: {},
             quizName: '',
             yourName: '',
-            pollId: ""
+            pollId: "",
+            alertContentText: ""
         }
 
     },
@@ -97,10 +95,15 @@ export default {
             this.selectedAvatarUrl = this.avatars[index].url;
         },
         addParticipant: function () {
-            socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl })
-            console.log("added one participant now", this.pollId, this.yourName, this.selectedAvatarUrl)
-            this.$router.push('/playerwaiting/' + this.pollId);
-            // this.$router.push('/playerjoining/' + this.pollId) Här ska väntesidan läggas in
+            if (this.yourName === '' || this.selectedAvatarUrl === null) {
+                this.alertContentText = this.uiLabels.nameAvatarAlert;
+                this.$refs.alertComponent.openAlert();
+            }
+            else {
+                socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl })
+                console.log("added one participant now", this.pollId, this.yourName, this.selectedAvatarUrl)
+                this.$router.push('/playerwaiting/' + this.pollId);
+            }
         },
     }
 }
@@ -199,7 +202,7 @@ h1 {
     background-color: inherit;
     border: none;
     padding: 1vw;
-    width: 73%; 
+    width: 73%;
     margin-left: 0.5vw;
     position: relative;
 }
