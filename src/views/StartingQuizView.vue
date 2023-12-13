@@ -1,6 +1,6 @@
 <template>
     <h2>
-        {{uiLabels.city}}
+        {{uiLabels.city}}{{ questionNumber }}
     </h2>
     <h1>
         {{ uiLabels.whereTo }}
@@ -49,6 +49,11 @@ export default {
             this.data = data;
         });
         this.startFuseTimer();
+        socket.emit("cityUpdate");
+        // socket.on("updateQuestionNumber", (data) => {
+        //     this.questionNumber = data;
+        // });
+        //socket.on("updateQuestionNumber");
 
     },
     methods: {

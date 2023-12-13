@@ -20,9 +20,15 @@ function sockets(io, socket, data) {
     io.to(pollId).emit('participantsUpdate', data.getParticipants(pollId));
   });
 
-  socket.on('startingGame', function(pollId){
-    io.to(pollId).emit('creatorStarting', pollId);
+  socket.on('startingGame', function(d){
+    io.to(d.pollId).emit('creatorStarting', d.pollId);
   });
+
+// socket.on('cityUpdate', function (pollId){
+//   data.getNewCity(pollId)
+//   console.log("i socket och vill updaterar questionnumber")
+//   //io.to(pollId).emit('updateQuestionNumber', getNewCity(pollId));
+//  })
 
   socket.on('addQuestion', function(d) {
     data.addCity(d.pollId, d.city, d.clue1, d.clue2, d.clue3);

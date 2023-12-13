@@ -99,6 +99,17 @@ Data.prototype.getCities = function(pollId) {
   return {}
 }
 
+Data.prototype.getNewCity = function(pollId) {
+  const poll = this.polls[pollId];
+  if (typeof poll !== 'undefined') {
+    poll.currentQuestion += 1;
+    console.log("in data and adding to currentquestion", poll.currentQuestion)
+
+    return poll.currentQuestion;
+  }
+  return 50
+}
+
 Data.prototype.editQuestion = function(pollId, index, newQuestion) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {

@@ -71,7 +71,7 @@ export default {
         //this.startFuseTimer();
 
         socket.on("creatorStarting", (pollId) => {
-            this.$router.push('/clue/' + this.pollId);
+            this.$router.push('/startingquiz/' + this.pollId);
         });
 
     },
@@ -130,7 +130,7 @@ h2 {
 }
 .participant {
   position: absolute;
-  /* Add more styling as needed */
+  
 }
 </style>
 
