@@ -24,11 +24,11 @@ function sockets(io, socket, data) {
     io.to(d.pollId).emit('creatorStarting', d.pollId);
   });
 
-// socket.on('cityUpdate', function (pollId){
-//   data.getNewCity(pollId)
-//   console.log("i socket och vill updaterar questionnumber")
-//   //io.to(pollId).emit('updateQuestionNumber', getNewCity(pollId));
-//  })
+socket.on('cityUpdate', function (d){
+  // data.getNewCity(d.pollId)
+ console.log("i socket och vill updaterar questionnumber")
+socket.emit('updateQuestionNumber', data.getNewCity(d.pollId));
+ })
 
   socket.on('addQuestion', function(d) {
     data.addCity(d.pollId, d.city, d.clue1, d.clue2, d.clue3);
