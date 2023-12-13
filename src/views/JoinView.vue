@@ -17,21 +17,23 @@
       </div>
     </section>
     <div>
-      <button id="joinbutton" v-on:click="addGameCode"> {{ uiLabels.joinQuiz }}</button>
+      <button id="joinbutton" v-on:click="addGameCode"> {{ uiLabels.joinQuiz }} </button>
+      <AlertComponent ref="alertComponent" :alertContentText="alertContentText" :title="alertTitle" @closeAlert="closeAlert">
+      </AlertComponent>
     </div>
   </main>
 </template>
 
 <script>
 // @ is an alias to /src
-import QuestionComponent from '@/components/QuestionComponent.vue';
+import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
 export default {
   name: 'JoinView',
   components: {
-    QuestionComponent
+    AlertComponent,
   },
   data: function () {
     return {
@@ -43,7 +45,8 @@ export default {
       pollId: "inactive poll",
       submittedAnswers: {},
       uiLabels: {},
-      lang: localStorage.getItem("lang") || "en"
+      lang: localStorage.getItem("lang") || "en",
+      alertContentText: ""
     }
 
   },
@@ -72,40 +75,41 @@ export default {
     // submitAnswer: function (answer) {
     //   socket.emit("submitAnswer", { pollId: this.pollId, answer: answer })
     // },
-
     addGameCode: async function () {
       this.pollId = this.gameCode
-     // Use a Promise to wait for the asynchronous operation
-    const fetchData = () => {
-      return new Promise((resolve) => {
-        socket.emit("getPoll", this.gamecode);
-        socket.on("fullPole", (data) => {
-          this.data = data;
-          console.log("data hämtad när vi försöker hitta en poll", this.data);
-          resolve(); // Resolve the promise when the data is retrieved
+      // Use a Promise to wait for the asynchronous operation
+      const fetchData = () => {
+        return new Promise((resolve) => {
+          socket.emit("getPoll", this.gamecode);
+          socket.on("fullPole", (data) => {
+            this.data = data;
+            console.log("data hämtad när vi försöker hitta en poll", this.data);
+            resolve(); // Resolve the promise when the data is retrieved
+          });
         });
-      });
-    };
+      };
 
-    try {
-      // Wait for the data to be retrieved before proceeding
-      await fetchData();
+      try {
+        // Wait for the data to be retrieved before proceeding
+        await fetchData();
 
-      if (this.gamecode === '') {
-        alert('Please enter a game code');
-      } else if (Object.keys(this.data).length === 0) {
-        alert('Please enter a valid game code');
-      } else {
-        this.pollId = this.gamecode;
-        this.$router.push('/quiz/' + this.pollId);
-        console.log('gamecode = pollId i joinview');
-        console.log("Här är gamecode: ", this.gamecode);
-        console.log("Här är pollId: ", this.pollId);
+        if (this.gamecode === '') {
+          this.alertContentText = this.uiLabels.gameCodeAlert;
+          this.$refs.alertComponent.openAlert();
+        } else if (Object.keys(this.data).length === 0) {
+          this.alertContentText = this.uiLabels.gameCodeAlert; 
+          this.$refs.alertComponent.openAlert();
+        } else {
+          this.pollId = this.gamecode;
+          this.$router.push('/quiz/' + this.pollId);
+          console.log('gamecode = pollId i joinview');
+          console.log("Här är gamecode: ", this.gamecode);
+          console.log("Här är pollId: ", this.pollId);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
     }
-  }
   }
 }
 </script>

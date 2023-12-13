@@ -48,5 +48,7 @@
 	"clue3": "Tredje ledtråden:",
 	"saveButton": "Spara stad",
 	"whereTo": "Vart är vi på väg?",
-	"participantCount": " spelare anslutna"
+	"participantCount": " spelare anslutna",
+	"gameCodeAlert": "Ange en giltig spelkod ",
+	"nameAvatarAlert": "Fyll i ditt namn och välj en avatar"
 }

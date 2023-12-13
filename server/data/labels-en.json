@@ -49,5 +49,7 @@
 	"clue3": "Third clue:",
 	"saveButton": "Save city",
 	"whereTo": "Where are we going?",
-	"participantCount": " players joined"
+	"participantCount": " players joined",
+	"gameCodeAlert": "Please enter a valid game code",
+	"nameAvatarAlert": "Please enter your name and choose an avatar"
 }

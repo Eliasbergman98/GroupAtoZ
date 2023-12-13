@@ -35,6 +35,8 @@
     </div>
     <div class="gameInfo c">
       <button class="createbutton" v-on:click="createPoll" > {{ uiLabels.createGame }}</button>
+      <AlertComponent ref="alertComponent" :alertContentText="alertContentText" :title="alertTitle" @closeAlert="closeAlert">
+      </AlertComponent>
     </div>
   </div>
  
@@ -43,10 +45,14 @@
 <script>
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
+import AlertComponent from '@/components/AlertComponent.vue';
 const socket = io("localhost:3000");
 
 export default {
   name: 'CreateView',
+  components: {
+    AlertComponent,
+  },
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
@@ -58,7 +64,8 @@ export default {
       data: {},
       uiLabels: {},
       selectedAvatar: null,
-      avatars: avatar
+      avatars: avatar,
+      alertContentText: ""
     }
   },
   created: function () {
@@ -77,20 +84,13 @@ export default {
   methods: {
     createPoll: function () {
       if(this.quizName === '' || this.selectedAvatar === null){
-        alert('Please choose a quizname and avatar.')
+        this.alertContentText = this.uiLabels.nameAvatarAlert;
+        this.$refs.alertComponent.openAlert();
       }
       else{
     this.pollId = Math.floor(Math.random()*10000);
       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatarUrl })
       this.$router.push('/createquestions/' + this.pollId);
-      }
-    },
-    addGameCode: function () {
-      if (this.gamecode === '') {
-        alert('Please enter a game code');
-      }
-      else {
-        this.$router.push('//')
       }
     },
     addQuestion: function () {
