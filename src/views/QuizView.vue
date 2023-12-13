@@ -115,15 +115,16 @@ export default {
 }
 
 h1 {
-    text-align: left;
-    margin-left: 10vw;
+    /* margin-left: 6vw; */
+    font-size: 4vw;
+    
 }
 
 .player {
     position: relative;
     display: grid;
     grid-template-columns: 50vw 20vw;
-    grid-template-rows: 5vw 5vw;
+    grid-template-rows: 5vw 15vw;
     background-color: rgb(163, 163, 243);
     grid-gap: 3vw;
     background-size: cover;
@@ -139,59 +140,43 @@ h1 {
 }
 
 .a {
-    grid-row-start: 1;
-    grid-column-start: 1;
-    padding: 8vw auto 2vw 2vw;
-    text-align: center;
-    font-size: 2vw;
-    width: 40vw;
-    height: 5vw;
-    background-size: cover;
-    background-color: rgb(201, 241, 244);
-    border: 0.2vw solid black;
-    margin-top: -2vw;
-    margin-bottom: 5vw;
-    margin-left: 10vw;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  padding: 10em auto 2em 2em;
+  text-align: center;
+  font-size:2vw;
+  width: 50vw;
+  height: 5vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 24vw;
+  
 }
 
 .b {
-    grid-row-start: 2;
-    grid-column-start: 1;
-    text-align: center;
-    font-size: 1.5vw;
-    width: 40vw;
-    height: 12vw;
-    background-size: cover;
-    background-color: rgb(201, 241, 244);
-    border: 0.2vw solid black;
-    margin-top: -3vw;
-    margin-left: 10vw;
-    padding-top: 1vw;
-    padding-bottom: 4vw;
+  grid-row-start: 2;
+  grid-column-start: 1;
+  text-align: center;
+  font-size: 2vw;
+  width: 50vw;
+  height: 10vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 24vw;
+  padding-top: 2vw;
+  padding-bottom: 4vw;
 }
-
-.c {
-    width: 10vw;
-    margin-left: 13vw;
-    grid-row-start: 1;
-    grid-column-start: 2;
+.c{
+  grid-row-start: 2;
+  grid-column-start: 3;
+  width: 10vw;
+  margin-left: -12vw;
 }
 
 #donebutton:hover {
     background-color: green;
-}
-
-#donebutton {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 3vw;
-    color: white;
-    background-color: gray;
-    border: 0.2vw solid black;
-    padding: 2vw;
-    border-radius: 1vw;
-    width: 15vw;
-
-
 }
 
 #yourname {

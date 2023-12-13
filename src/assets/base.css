@@ -40,6 +40,7 @@ h1 {
 #donebutton:hover,
 #howtoplaybutton:hover,
 #joinbutton:hover,
+#donebutton:hover,
 img[id=ukimg],
 img[id=sweimg]:hover {
   cursor: pointer;
@@ -47,11 +48,13 @@ img[id=sweimg]:hover {
 
 #howtoplaybutton,
 #createbutton,
-#joinbutton {
+#joinbutton, 
+.createbutton,
+#donebutton {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.7vw;
   color: white;
-  background-color: green;
+  background-color: gray;
   border: 0.2vw solid black;
   border-radius: 1.5vw;
   padding: 1.7vw;
