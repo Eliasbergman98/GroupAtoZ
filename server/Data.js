@@ -68,6 +68,21 @@ Data.prototype.addCity = function(pollId, city, clue1, clue2, clue3) {
   }
 }
 
+Data.prototype.removeCity = function(pollId, city) {
+  const poll = this.polls[pollId];
+  console.log("question removed from", pollId, city);
+  if (typeof poll !== 'undefined') {
+    delete poll.cities[city];
+    //  poll.cities[city] = {
+    //   clue1: clue1,
+    //   clue2: clue2,
+    //   clue3: clue3,
+     //};
+    
+    console.log("removed city:", city)
+  }
+}
+
 Data.prototype.addParticipant = function(pollId, name, selectedAvatar) {
   const poll = this.polls[pollId];
   console.log("participant added", pollId, name, selectedAvatar);

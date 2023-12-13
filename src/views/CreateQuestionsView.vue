@@ -36,6 +36,7 @@
         <div id="city">{{ uiLabels.city }} {{ cityData }}</div>  <div id="clue"> {{ uiLabels.clues }} </div> {{
           cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}
         </p>
+        <button v-on:click="removeCity(cityData)"> TA BORT</button>
         <hr>
       </div>
     </div>
@@ -113,8 +114,8 @@ export default {
       this.uiLabels = labels;
     });
 
-    //  socket.on("dataUpdate", (data) =>
-    //    this.data = data );
+    socket.on("dataUpdate", (data) =>
+        this.data = data );
 
     console.log("Updated quizName:", this.pollId)
     socket.emit("getPoll", this.pollId);
@@ -186,6 +187,17 @@ export default {
       this.selectedAvatar = index;
       console.log(this.data.selectedAvatar)
     },
+    removeCity: function(cityData){
+      this.city = cityData;
+      console.log(this.submittedCities2, "INNAN")
+      socket.emit("removeCity", { pollId: this.pollId, city: this.city });
+      // Remove the city from the local submittedCities2 object
+      delete this.submittedCities2[cityData];
+      console.log(this.submittedCities2, "EFTER")
+      console.log("stadnamn", this.city);
+
+
+    }
 
 
   },

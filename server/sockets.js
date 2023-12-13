@@ -34,6 +34,12 @@ socket.emit('updateQuestionNumber', data.getNewCity(pollId));
     socket.emit('dataUpdate', data.getCities(d.pollId));
   });
 
+   socket.on('removeCity',function(d){
+    data.removeCity(d.pollId, d.city);
+    socket.emit('dataUpdate', data.getCities(d.pollId));
+
+ });
+
   socket.on('editQuestion', function(d) {
     data.editQuestion(d.pollId, d.index, {city: d.city, clue1: d.clue1, clue2: d.clue2, clue3: d.clue3});
     socket.emit('questionEdited', data.getAllQuestions(d.pollId));

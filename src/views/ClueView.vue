@@ -248,6 +248,7 @@
         height: 2vw;
     }
     .clueAnswer{
+        font-size: 1vw;
         height: 2vw;
         width: 10vw;
         position: right;
