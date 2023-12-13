@@ -49,11 +49,14 @@ export default {
             this.data = data;
         });
         this.startFuseTimer();
-        socket.emit("cityUpdate");
+        socket.emit("cityUpdate", this.questionNumber);
         // socket.on("updateQuestionNumber", (data) => {
         //     this.questionNumber = data;
         // });
         //socket.on("updateQuestionNumber");
+        socket.on("updateQuestionNumber", (data) => {
+            this.data = data;
+        });
 
     },
     methods: {
