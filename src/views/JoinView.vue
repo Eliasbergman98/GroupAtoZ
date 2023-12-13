@@ -18,7 +18,7 @@
     </section>
     <div>
       <button id="joinbutton" v-on:click="addGameCode"> {{ uiLabels.joinQuiz }} </button>
-      <AlertComponent ref="alertComponent" :alertContentText="alertContentText" :title="alertTitle" @closeAlert="closeAlert">
+      <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
       </AlertComponent>
     </div>
   </main>

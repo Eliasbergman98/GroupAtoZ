@@ -28,8 +28,7 @@
             </div>
             <div class="gameInfo c">
                 <button v-on:click="addParticipant" id="donebutton"> {{ uiLabels.doneButton }}</button>
-                <AlertComponent ref="alertComponent" :alertContentText="alertContentText" :title="alertTitle"
-                    @closeAlert="closeAlert">
+                <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
                 </AlertComponent>
             </div>
         </section>
