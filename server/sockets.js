@@ -24,10 +24,9 @@ function sockets(io, socket, data) {
     io.to(d.pollId).emit('creatorStarting', d.pollId);
   });
 
-socket.on('cityUpdate', function (d){
-  // data.getNewCity(d.pollId)
+socket.on('cityUpdate', function (pollId){
  console.log("i socket och vill updaterar questionnumber")
-socket.emit('updateQuestionNumber', data.getNewCity(d.pollId));
+socket.emit('updateQuestionNumber', data.getNewCity(pollId));
  })
 
   socket.on('addQuestion', function(d) {

@@ -103,6 +103,7 @@ Data.prototype.getNewCity = function(pollId) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
     poll.currentQuestion += 1;
+    
     console.log("in data and adding to currentquestion", poll.currentQuestion)
 
     return poll.currentQuestion;

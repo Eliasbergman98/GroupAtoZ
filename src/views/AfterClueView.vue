@@ -1,11 +1,15 @@
 <template>
     <h2>
-        {{uiLabels.city}}
+        {{uiLabels.city}}{{ questionNumber }}
     </h2>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
     {{data.pollId}}
+
+    <div>
+    <button v-on:click="handleFuseBurnout"> </button>
+    </div>
 </template>
   
 <script>
@@ -20,6 +24,7 @@ export default {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
             quizName: '',
+            cities: {},
             question: "",
             answers: ["", ""],
             questionNumber: 0,
@@ -32,7 +37,7 @@ export default {
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-
+       
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
@@ -43,34 +48,28 @@ export default {
         socket.on("pollCreated", (data) => {
             this.data = data;
         });
+        socket.emit("getPoll", this.pollId);
+        
+        socket.emit("cityUpdate", this.pollId);
+        socket.on("updateQuestionNumber", (data) => {
+            this.questionNumber = data;
+            console.log("hämtar info från update number", this.questionNumber)
+        });
+        socket.on("fullPole", (data)=> { 
+                this.data = data;
+                
+                this.cities = data.cities;
+                console.log("här kommer våra städer", this.cities)
+
+            });
 
     },
     methods: {
-        createPoll: function () {
-            socket.emit("createPoll", { pollId: this.pollId, lang: this.lang });
-        },
-        addQuizName: function () {
-            socket.emit("addQuizName", this.quizName);
-            console.log(this.quizName);
-            socket.on("addQuizName", (data) => console.log("hej"));
-        },
-        addQuestion: function () {
-            socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers });
-        },
-        addAnswer: function () {
-            this.answers.push("");
-        },
-        runQuestion: function () {
-            socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber });
-        },
-        selectAvatar(index) {
-            this.selectedAvatar = index;
-        },
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             clearInterval(this.fuseTimer);
-            this.$router.push('/clue/' + this.pollId);            
+                this.$router.push('/clue/' + this.pollId); 
 
 
         },
@@ -81,18 +80,6 @@ export default {
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
-h1 {
-    position: center;
-    margin-top: 10vw;
-}
-
-h2 {
-    position: center;
-    margin-top: 10vw;
-}
-</style>
-
-<style scoped>
 h1 {
     position: center;
     margin-top: 10vw;

@@ -49,37 +49,14 @@ export default {
             this.data = data;
         });
         this.startFuseTimer();
-        socket.emit("cityUpdate", this.questionNumber);
-        // socket.on("updateQuestionNumber", (data) => {
-        //     this.questionNumber = data;
-        // });
-        //socket.on("updateQuestionNumber");
+        socket.emit("cityUpdate", this.pollId);
         socket.on("updateQuestionNumber", (data) => {
-            this.data = data;
+            this.questionNumber = data;
+            console.log("hämtar info från update number", this.questionNumber)
         });
 
     },
     methods: {
-        createPoll: function () {
-            socket.emit("createPoll", { pollId: this.pollId, lang: this.lang });
-        },
-        addQuizName: function () {
-            socket.emit("addQuizName", this.quizName);
-            console.log(this.quizName);
-            socket.on("addQuizName", (data) => console.log("hej"));
-        },
-        addQuestion: function () {
-            socket.emit("addQuestion", { pollId: this.pollId, q: this.question, a: this.answers });
-        },
-        addAnswer: function () {
-            this.answers.push("");
-        },
-        runQuestion: function () {
-            socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber });
-        },
-        selectAvatar(index) {
-            this.selectedAvatar = index;
-        },
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
