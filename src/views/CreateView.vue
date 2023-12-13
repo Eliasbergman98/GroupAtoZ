@@ -35,7 +35,7 @@
     </div>
     <div class="gameInfo c">
       <button class="createbutton" v-on:click="createPoll" > {{ uiLabels.createGame }}</button>
-      <AlertComponent ref="alertComponent" :alertContentText="alertContentText" :title="alertTitle" @closeAlert="closeAlert">
+      <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
       </AlertComponent>
     </div>
   </div>
