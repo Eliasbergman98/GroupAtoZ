@@ -9,10 +9,6 @@
             <br>
             GAME ID: {{ pollId }}
         </h1>
-        <div>
-            {{ data.particpants }}
-
-        </div>
         <section class="player">
             <div class="gameInfo a" id="name">
                 {{ uiLabels.yourName }}:
