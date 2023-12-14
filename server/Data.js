@@ -1,17 +1,17 @@
 'use strict';
 const languages = ["en", "se"];
-import {readFileSync} from "fs";
+import { readFileSync } from "fs";
 
 // Store data in an object to keep the global namespace clean
 function Data() {
   this.polls = {};
-// this.polls['test']= {
-//  lang: "en",
-//  quizName: "testquiz",
-//  cities: { "uppsala": {clue1: "veronica maggio", clue2: "Mares", clue3: "ångan"}},
-// answers: [],
-//   participants: []
-//  }
+  // this.polls['test']= {
+  //  lang: "en",
+  //  quizName: "testquiz",
+  //  cities: { "uppsala": {clue1: "veronica maggio", clue2: "Mares", clue3: "ångan"}},
+  // answers: [],
+  //   participants: []
+  //  }
 }
 
 /***********************************************
@@ -25,16 +25,16 @@ Data.prototype.getUILabels = function (lang = "en") {
   return JSON.parse(labels);
 }
 
-Data.prototype.createPoll = function(pollId, lang="en", quizName, selectedAvatar) {
+Data.prototype.createPoll = function (pollId, lang = "en", quizName, selectedAvatar) {
   if (typeof this.polls[pollId] === "undefined") {
     let poll = {};
     poll.selectedAvatar = selectedAvatar;
     poll.quizName = quizName;
     poll.cities = {};
-    poll.lang = lang;  
+    poll.lang = lang;
     poll.questions = [];
     poll.answers = [];
-    poll.currentQuestion = 0;           
+    poll.currentQuestion = 0;
     this.polls[pollId] = poll;
     poll.participants = [];
     console.log("poll created in data", pollId, poll);
@@ -55,20 +55,20 @@ Data.prototype.getPoll = function (pollId) {
 //     poll.questions.push(city);
 //   }
 // }
-Data.prototype.addCity = function(pollId, city, clue1, clue2, clue3) {
+Data.prototype.addCity = function (pollId, city, clue1, clue2, clue3) {
   const poll = this.polls[pollId];
   console.log("question added to", pollId, city);
   if (typeof poll !== 'undefined') {
-     poll.cities[city] = {
-       clue1: clue1,
+    poll.cities[city] = {
+      clue1: clue1,
       clue2: clue2,
       clue3: clue3,
-     };
+    };
     console.log("added city:", city)
   }
 }
 
-Data.prototype.removeCity = function(pollId, city) {
+Data.prototype.removeCity = function (pollId, city) {
   const poll = this.polls[pollId];
   console.log("question removed from", pollId, city);
   if (typeof poll !== 'undefined') {
@@ -77,27 +77,34 @@ Data.prototype.removeCity = function(pollId, city) {
     //   clue1: clue1,
     //   clue2: clue2,
     //   clue3: clue3,
-     //};
-    
+    //};
+
     console.log("removed city:", city)
   }
 }
 
-Data.prototype.addParticipant = function(pollId, name, selectedAvatar) {
+Data.prototype.addParticipant = function (pollId, name, selectedAvatar) {
   const poll = this.polls[pollId];
   console.log("participant added", pollId, name, selectedAvatar);
   if (typeof poll !== 'undefined') {
+    for (let i = 0; i < poll.participants.length; i++) {
+      console.log("nu är jag i data och ska loopa över participants");
+      if (poll.participants[i].name === name) {
+        console.log("nu hittade vi ett likadant namn åh nej", poll.participants[i].name)
+        return "invalidName"
+      }
+    }
     let participant = {
       name: name,
       avatar: selectedAvatar,
       answers: []
     }
     poll.participants.push(participant);
-    
+
   }
 }
 
-Data.prototype.getParticipants = function(pollId) {
+Data.prototype.getParticipants = function (pollId) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
     return poll.participants;
@@ -105,20 +112,20 @@ Data.prototype.getParticipants = function(pollId) {
   return []
 }
 
-Data.prototype.getCities = function(pollId) {
+Data.prototype.getCities = function (pollId) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
-    
+
     return poll.cities;
   }
   return {}
 }
 
-Data.prototype.getNewCity = function(pollId) {
+Data.prototype.getNewCity = function (pollId) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
     poll.currentQuestion += 1;
-    
+
     console.log("in data and adding to currentquestion", poll.currentQuestion)
 
     return poll.currentQuestion;
@@ -126,14 +133,14 @@ Data.prototype.getNewCity = function(pollId) {
   return 50
 }
 
-Data.prototype.editQuestion = function(pollId, index, newQuestion) {
+Data.prototype.editQuestion = function (pollId, index, newQuestion) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
     poll.questions[index] = newQuestion;
   }
 }
 
-Data.prototype.getQuestion = function(pollId, qId=null) {
+Data.prototype.getQuestion = function (pollId, qId = null) {
   const poll = this.polls[pollId];
   console.log("question requested for ", pollId, qId);
   if (typeof poll !== 'undefined') {
@@ -145,7 +152,7 @@ Data.prototype.getQuestion = function(pollId, qId=null) {
   return []
 }
 
-Data.prototype.submitAnswer = function(pollId, answer) {
+Data.prototype.submitAnswer = function (pollId, answer) {
   const poll = this.polls[pollId];
   console.log("answer submitted for ", pollId, answer);
   if (typeof poll !== 'undefined') {
@@ -163,12 +170,12 @@ Data.prototype.submitAnswer = function(pollId, answer) {
   }
 }
 
-Data.prototype.getAnswers = function(pollId) {
+Data.prototype.getAnswers = function (pollId) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
     const answers = poll.answers[poll.currentQuestion];
     if (typeof poll.questions[poll.currentQuestion] !== 'undefined') {
-      return {city: poll.questions[poll.currentQuestion].city, a: answers};
+      return { city: poll.questions[poll.currentQuestion].city, a: answers };
     }
   }
   return {}
