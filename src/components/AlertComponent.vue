@@ -1,5 +1,6 @@
 <template>
   <div class="custom-alert" :class="{ 'visible': visible }">
+    <div class="overlay"></div>
     <div class="alert-box">
       <div class="alert-header" v-if=!inCreateQuestionsView>
         <button id="xbutton" @click="closeAlert">X</button>
@@ -8,8 +9,8 @@
         {{ alertContentText }}
       </div>
       <div v-if="inCreateQuestionsView">
-        <button id="nobutton" @click="closeAlert"> {{ noText }} </button>
         <button id="yesbutton" @click="continueGame"> {{ yesText }} </button>
+        <button id="nobutton" @click="closeAlert"> {{ noText }} </button>
       </div>
     </div>
   </div>
@@ -63,27 +64,32 @@ export default {
   align-items: center;
   z-index: 999;
   opacity: 0;
-  /* Set initial opacity to 0 */
   pointer-events: none;
-  /* Disable pointer events initially */
   transition: opacity 0.3s ease;
-  /* Add a transition effect for opacity */
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.7vw;
 }
 
 .visible {
   opacity: 1;
-  /* Set opacity to 1 when visible */
   pointer-events: auto;
-  /* Enable pointer events when visible */
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Adjust the opacity here (0 to 1) */
+  z-index: -1; /* Place the overlay behind the alert */
+}
 .alert-box {
-  background-color: white;
+  background-color:rgb(184, 187, 237);
   padding: 5vw;
   border: 2px solid black;
-  border-radius: 25px;
-  width: 300px;
+  border-radius: 20px;
+  width: 25vw;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -109,7 +115,32 @@ export default {
 }
 
 #yesbutton {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.5vw;
   position: left;
+  background-color: green;
+  color: white;
+  padding: 1vw;
+  border-radius: 1vw;
+  border: 1 px solid black;
+  margin-top: 2vw;
+  margin-left: 2vw;
+  margin-right: 6vw;
+  width: 6vw;
+}
+
+#nobutton {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.5vw;
+  position: right;
+  background-color: red;
+  color: white;
+  padding: 1vw;
+  border: 1 px solid black;
+  border-radius: 1vw;
+  margin-top: 2vw;
+  margin-left: 3vw;
+  width: 6vw;
 }
 </style>
   
