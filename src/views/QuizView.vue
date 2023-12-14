@@ -148,8 +148,8 @@ h1 {
 .player {
     position: relative;
     display: grid;
-    grid-template-columns: 50vw 20vw;
-    grid-template-rows: 5vw 15vw;
+    grid-template-columns: 50vw 35vw ;
+    grid-template-rows: 5vw 5vw;
     background-color: rgb(163, 163, 243);
     grid-gap: 3vw;
     background-size: cover;
@@ -193,12 +193,13 @@ h1 {
     padding-top: 2vw;
     padding-bottom: 4vw;
 }
-
-.c {
-    grid-row-start: 2;
-    grid-column-start: 3;
-    width: 10vw;
-    margin-left: -12vw;
+.c{
+  grid-row-start: 2;
+  grid-column-start: 3;
+  width: 10vw;
+  margin-top: 10vw;
+  margin-left: -12vw;
+  height: 2vw;
 }
 
 #donebutton:hover {
