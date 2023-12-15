@@ -51,5 +51,6 @@
 	"whereTo": "Where are we going?",
 	"participantCount": " players joined",
 	"gameCodeAlert": "Please enter a valid game code",
-	"nameAvatarAlert": "Please enter your name and choose an avatar"
+	"nameAvatarAlert": "Please enter your name and choose an avatar",
+	"exitGame": "EXIT GAME"
 }
