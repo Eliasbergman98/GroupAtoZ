@@ -1,6 +1,7 @@
 <template>
     <header>
-        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" style="width: 3vw; height: 3vw;"/>
+        <button  class="muteButton" @click="toggleMute"><img :src="buttonImage" alt="Toggle Mute" style="width: 5vw;"/></button>
+
     </header>
     <h2>
         {{uiLabels.city}}{{ questionNumber }}
@@ -9,7 +10,7 @@
         {{ uiLabels.whereTo }}
     </h1>
     {{data.pollId}}
-    <audio ref="audioPlayer2" autoplay loop>
+    <audio ref="audioPlayer" autoplay loop>
       <source src="/img/6398985.mp3" type="audio/mp3" />
       Your browser does not support the audio element.
     </audio>
@@ -25,11 +26,11 @@
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
-import pressToMuteImage from "/img/soundon.png";
-import pressToUnmuteImage from "/img/soundoff.png";
+import pressToMuteImage from "/img/6398985.png";
+import pressToUnmuteImage from "/img/pressToMute.png";
 
 export default {
-    name: 'StartingQuizView',
+    name: 'StartingQuizPlayerView',
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
@@ -54,15 +55,19 @@ export default {
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-        socket.emit("cityUpdate", this.pollId);
+
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
         socket.on("dataUpdate", (data) => {
+            this.questionNumber = data.currentQuestion;
+            console.log(data, "Hej kom igen")
             this.data = data;
         });
         socket.on("pollCreated", (data) => {
+            this.questionNumber = data.currentQuestion;
+            console.log(data, "Hej kom igen")
             this.data = data;
         });
         this.startFuseTimer();
@@ -70,6 +75,12 @@ export default {
             this.questionNumber = data;
             console.log("hämtar info från update number", this.questionNumber)
         });
+        socket.on("fullPole", (data)=> { 
+                this.data = data;
+                this.questionNumber = data.currentQuestion;
+                console.log("this is data", data);
+
+            });
 
     },
     methods: {
@@ -112,11 +123,8 @@ export default {
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
 .muteButton{
-    position: absolute;
     width: 2vw;
-    padding: 2vw;
-    margin-left: 42vw;
-    margin-top: -10vw;
+    right: auto;
 }
 
 h1 {

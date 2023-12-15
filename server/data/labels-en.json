@@ -58,5 +58,7 @@
 	"maxCitiesAlert": "You can only add up to 5 cities.",
 	"yesHeading": "YES",
 	"noHeading": "NO",
-	"enterGameName": "Enter a name for your game"
+	"enterGameName": "Enter a name for your game",
+	"waitingForHost": "WAITING FOR HOST TO START GAME...",
+	"theWinner": "THE WINNER IS..."
 }

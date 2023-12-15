@@ -2,12 +2,22 @@
     <h1>
         {{ data.quizName }}
     </h1>
-    <h2>WAITING FOR HOST TO START GAME...</h2>
+    <h2>{{ uiLabels.waitingForHost }}</h2>
     <div class="poll">
-        <div class="a">
-            <div class="participants" v-for="person in participants" :key="participants.name" :style="getPositionStyle()">
-                {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32" height="32">
+        <div class="columns-wrapper">
+            <div v-for="(column, index) in playerColumns" :key="index" class="column">
+                <div class="scroll-wrapper">
+                    <ul v-for="person in column" :key="person.name">
+                        <li>
+                            {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32"
+                                height="32">
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <!--<div class="participants" v-for="person in participants" :key="participants.name" :style="getPositionStyle()">
+                {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32" height="32">
+            </div>-->
             <section class="button-container">
                 <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
                 <router-link to="//"><button id="exitGamebutton">{{ uiLabels.exitGame }}</button></router-link>
@@ -37,8 +47,16 @@ export default {
             selectedAvatar: null,
             avatars: avatar,
             fuseWidth: 100,
-            participants: []
+            participants: [],
+            playerColumns: [],
+            playersPerColumn: 8,
         }
+    },
+
+    watch: {
+        participants: function () {
+            this.updatePlayerColumns();
+        },
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
@@ -59,49 +77,112 @@ export default {
             console.log("in joiningview", this.pollId)
             this.data = data;
         });
-        socket.on("participantsUpdate", (participants) => {
+
+        socket.on("participantsUpdate", (participants) =>
             this.participants = participants,
-                console.log("hej här kommer nya joinare", this.participants)
-        });
+            console.log("hej här kommer nya joinare", this.participants)
+        )
+
+        /*socket.on("participantsUpdate", (participants) => {
+            this.participants = participants.map((participant) => ({
+                ...participant,
+                position: this.getPositionStyle(), // Add the position property
+            }));
+            console.log("hej här kommer nya joinare", this.participants);
+        });*/
 
         socket.on("creatorStarting", (pollId) => {
-            this.$router.push('/startingquiz/' + this.pollId);
+            this.$router.push('/startingquizplayer/' + this.pollId);
         });
 
     },
     methods: {
-        getPositionStyle() {
+        updatePlayerColumns() {
+            this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
+        },
+        chunkArray(array, size) {
+            const result = [];
+            for (let i = 0; i < array.length; i += size) {
+                result.push(array.slice(i, i + size));
+            }
+            return result;
+        },
+        /*getPositionStyle() {
             const position = {
-                bottom: `${Math.random() * 30 + 40}%`, // Adjust the bottom position between 40% and 60%
-                top: `${Math.random() * 30 + 40}%`,    // Adjust the top position between 40% and 60%
-                left: `${Math.random() * 30 + 40}%`,   // Adjust the left position between 40% and 60%
-                right: `${Math.random() * 30 + 40}%`,  // Adjust the right position between 40% and 60%
+                bottom: `${Math.random() * 30 + 40}%`, // Adjust the bottom position between 40% and 70%
+                top: `${Math.random() * 30 + 40}%`,    // Adjust the top position between 40% and 70%
+                left: `${Math.random() * 30 + 40}%`,   // Adjust the left position between 40% and 70%
+                right: `${Math.random() * 30 + 40}%`,  // Adjust the right position between 40% and 70%
             };
 
-            return position;
-        }
-    }
+            const isCollision = this.participants.some((participant) => {
+                const existingPosition = participant.position;
+                const horizontalCollision =
+                    Math.abs(position.left - existingPosition.left) < this.fuseWidth;
+                const verticalCollision =
+                    Math.abs(position.top - existingPosition.top) < this.fuseWidth;
+                return horizontalCollision && verticalCollision;
+            });
+
+            // If collision occurs, recursively try again with a new position
+            if (isCollision) {
+                return this.getPositionStyle();
+            }
+
+            return {
+                ...position,
+                position: 'absolute',
+            };
+        },*/
+    },
 }
 </script>  
 
 <style scoped>
+@keyframes flash {
+    0% {
+        opacity: 0.05;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.05;
+    }
+}
+
 h1 {
-    position: center;
+    text-align: center;
 }
 
 h2 {
     margin-top: -3vw;
-    position: center;
+    text-align: center;
     font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
     text-transform: uppercase;
     font-size: 3vw;
-    /*font-style: italic;*/
     color: green;
     text-shadow:
         -0.075vw -0.075vw 0 #000,
         0.075vw -0.075vw 0 #000,
         -0.075vw 0.075vw 0 #000,
         0.075vw 0.075vw 0 #000;
+    padding: 10px;
+    animation: flash 2.5s infinite;
+}
+
+.columns-wrapper {
+    display: flex;
+    justify-content: space-around;
+    /* Adjust this property based on your layout requirements */
+}
+
+.column {
+    flex-grow: 1;
+    margin: 0 10px;
+    /* Adjust the margin based on your layout preferences */
 }
 
 
@@ -160,6 +241,23 @@ h2 {
 
 .participants {
     position: absolute;
+}
+
+.emojies {
+    width: 2vw;
+    height: 2vw;
+}
+
+.scroll-wrapper {
+    overflow-y: auto;
+    height: 30vw;
+    /* Ensure the wrapper takes the full height of the container */
+}
+
+.scroll-wrapper ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 </style>
 

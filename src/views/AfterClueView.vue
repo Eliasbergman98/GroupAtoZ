@@ -37,7 +37,6 @@ export default {
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-       
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
@@ -50,14 +49,13 @@ export default {
         });
         socket.emit("getPoll", this.pollId);
         
-        socket.emit("cityUpdate", this.pollId);
         socket.on("updateQuestionNumber", (data) => {
             this.questionNumber = data;
             console.log("hämtar info från update number", this.questionNumber)
         });
         socket.on("fullPole", (data)=> { 
                 this.data = data;
-                
+                this.questionNumber = data.currentQuestion;
                 this.cities = data.cities;
                 console.log("här kommer våra städer", this.cities)
 
@@ -68,6 +66,7 @@ export default {
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
+            socket.emit("cityUpdate", this.pollId);
             clearInterval(this.fuseTimer);
                 this.$router.push('/clue/' + this.pollId); 
 
