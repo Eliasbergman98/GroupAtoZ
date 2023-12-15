@@ -8,7 +8,6 @@
     {{data.pollId}}
 
     <div>
-    <button v-on:click="handleFuseBurnout"> </button>
     </div>
 </template>
   
@@ -38,7 +37,6 @@ export default {
     created: function () {
         this.pollId = this.$route.params.pollId;
         socket.emit("pageLoaded", this.lang);
-        socket.emit("joinPoll", this.pollId);
         socket.emit("getCity", this.pollId);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
@@ -52,6 +50,7 @@ export default {
         socket.emit("getPoll", this.pollId);
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
+            this.questionNumber +=1;
             console.log("hämtar info från update number", this.questionNumber)
         });
         socket.on("updateQuestionNumber", (data) => {
@@ -65,7 +64,7 @@ export default {
                 console.log("här kommer våra städer", this.cities)
 
             });
-            socket.on("creatorClicked", (data) => {
+            socket.on("creatorClicked", (pollId) => {
             console.log("CREATORCLICKED THE BUTTON", this.pollId)
             this.$router.push('/clue/' + this.pollId);
         });
@@ -78,7 +77,8 @@ export default {
             socket.emit("cityUpdate", this.pollId);
             socket.emit("creatorClick", this.pollId);
             clearInterval(this.fuseTimer);
-              
+                this.$router.push('/clue/' + this.pollId); 
+
 
         },
     }

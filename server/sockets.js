@@ -24,9 +24,20 @@ function sockets(io, socket, data) {
     io.to(d.pollId).emit('creatorStarting', d.pollId);
   });
 
+  socket.on('getCity', function (pollId) {
+    socket.emit('currentCity', data.getCurrentCity(pollId));
+  });
+
+  socket.on('creatorClick', function (pollId) {
+    console.log("jag har klickat dig vidare nu")
+    io.to(pollId).emit('creatorClicked', pollId);
+  });
+
+  
+
   socket.on('cityUpdate', function (pollId) {
     console.log("i socket och vill updaterar questionnumber")
-    socket.emit('updateQuestionNumber', data.getNewCity(pollId));
+    io.to(pollId).emit('updateQuestionNumber', data.getNewCity(pollId));
   })
 
   socket.on('addQuestion', function (d) {
