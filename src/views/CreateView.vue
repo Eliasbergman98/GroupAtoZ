@@ -18,9 +18,6 @@
     </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
       <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" >
-      <button id="addQuizNameBtn" name="addQuizName">
-        {{ uiLabels.addName }}
-      </button>
     </div>
     <!-- <div class ="earth">
       <img id="earth" src="/img/earth.png" style="width: 180px;">
@@ -147,7 +144,7 @@ export default {
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
-  margin-left: 22vw;
+  margin-left: 24vw;
   
 }
 
@@ -161,7 +158,7 @@ export default {
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
-  margin-left: 22vw;
+  margin-left: 24vw;
   padding-top: 2vw;
   padding-bottom: 4vw;
 }
@@ -169,32 +166,14 @@ export default {
 .c{
   grid-row-start: 2;
   grid-column-start: 3;
-  margin-top: 12vw;
+  margin-top: 11vw;
   width: 10vw;
-  
-}
-
-.earth{
-  width: 10vw;
-  grid-column-start: 3;
-  grid-row-start: 1;
-  
+  margin-left: -12vw;
 }
 
 .createbutton:hover, #addQuizNameBtn:hover {
   cursor: pointer;
-  background-color: green;
 }
-
-.createbutton {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 14pt;
-  color: white;
-  background-color: gray;
-  border: 2px solid black;
-  padding: 20px;
-  border-radius: 20px;
-} 
 
 .selected {
   background-color: green;
@@ -204,22 +183,10 @@ export default {
 #addQuizName{
 width: 15vw;
 height: 1.5vw;
-margin-left: 12vw;
 font-family: Georgia, 'Times New Roman', Times, serif;
 border-color: rgb(201, 241, 244);
 }
 
-#addQuizNameBtn{
-width: 6vw;
-height: 1.8vw;
-margin-left: 5vw;
-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-border: 0.1vw solid black;
-border-radius: 10px;
-background-color: gray;
-color: white;
-font-size: 0.8vw;
-}
 .arrow{
   background-color: rgb(163, 163, 243);
   text-align: left;

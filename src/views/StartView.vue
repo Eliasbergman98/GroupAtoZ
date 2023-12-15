@@ -109,15 +109,18 @@ body {
 
 #createbutton {
   margin-left: 15vw;
+  background-color: green;
 }
 
 #howtoplaybutton {
   margin-left: 2vw;
   margin-right: 2vw;
+  background-color: green;
 }
 
 #joinbutton {
   margin-right: 15vw;
+  background-color: green;
 }
 
 h2 {
