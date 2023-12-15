@@ -5,10 +5,7 @@
         </button></router-link>
     </button>
   </div>
-
   <div class="poll">
-
-
     <div class="gameInfo a"> {{ uiLabels.city1 }}
       <textarea class="fillInfo" v-model="city" rows="2"></textarea>
     </div>
@@ -22,10 +19,9 @@
       <textarea class="fillInfo" v-model="clue3" rows="2"></textarea>
     </div>
     <div class="gameInfo f">
-      <button class="addTown" v-on:click="addQuestion" :disabled="Object.keys(submittedCities2).length >= 5"> {{
+      <button class="addTown" v-on:click="addQuestion"> {{
         uiLabels.addTown }}</button>
     </div>
-
     <div v-if="Object.keys(submittedCities2).length > 0" class="right-section">
       <div id="title">
         {{ uiLabels.myCities }}
@@ -33,7 +29,8 @@
       <hr>
       <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
         <p>
-        <div id="city">{{ uiLabels.city }} {{ cityData }}</div>  <div id="clue"> {{ uiLabels.clues }} </div> {{
+        <div id="city">{{ uiLabels.city }} {{ cityData }}</div>
+        <div id="clue"> {{ uiLabels.clues }} </div> {{
           cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}
         </p>
         <button v-on:click="removeCity(cityData)"> TA BORT</button>
@@ -42,39 +39,25 @@
     </div>
     <div class="gameInfo e">
       <button class="createbutton" v-on:click="sendInfo"> {{ uiLabels.createGame }}</button>
+      <AlertComponent ref="alertComponent" :alertContentText="alertContentText"
+        :inCreateQuestionsView="inCreateQuestionsView">
+      </AlertComponent>
     </div>
-
-    <!--
-        <input type="text" v-model="question">
-        <div>
-          Answers:
-          <input v-for="(_, i) in answers" v-model="answers[i]" v-bind:key="'answer' + i">
-          <button v-on:click="addAnswer">
-            Add answer alternative
-          </button>
-        </div>
-      </div>
-      <button v-on:click="addQuestion">
-        Add question
-      </button>
-      <input type="number" v-model="questionNumber">
-      <button v-on:click="runQuestion">
-        Run question
-      </button>
-      {{ data }}
-      <router-link v-bind:to="'/result/' + pollId">Check result</router-link>  -->
   </div>
 </template>
   
 <script>
 
+import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
 
 export default {
   name: 'CreateQuestions',
-
+  components: {
+    AlertComponent,
+  },
   data: function () {
     return {
       showRightSection: false,
@@ -92,10 +75,10 @@ export default {
       clue1: "",
       clue2: "",
       clue3: "",
-
+      alertContentText: "",
+      inCreateQuestionsView: true,
       // Separate variables to hold submitted data
       // submittedCities: [], 
-
       submittedCities2: {},
     }
   },
@@ -115,7 +98,7 @@ export default {
     });
 
     socket.on("dataUpdate", (data) =>
-        this.data = data );
+      this.data = data);
 
     console.log("Updated quizName:", this.pollId)
     socket.emit("getPoll", this.pollId);
@@ -134,17 +117,26 @@ export default {
       this.pollNameId.push("");
     },
     sendInfo: function () {
-      this.$router.push('/playerjoining/' + this.pollId);
+      if (Object.keys(this.submittedCities2).length === 0) {
+        this.alertContentText = this.uiLabels.emptyGameAlert;
+        this.$refs.alertComponent.openAlert();
+      }
+      else {
+        this.alertContentText = this.uiLabels.createGameAlert;
+        this.yesText = this.uiLabels.yesHeading;
+        this.noText = this.uiLabels.noHeading;
+        this.$refs.alertComponent.openAlert(this.inCreateQuestionsView, this.pollId, this.yesText, this.noText);
+      }
     },
     addQuestion: function () {
       if (!this.areFieldsFilled) {
-        alert('Please fill in all fields before adding a new city.');
+        this.alertContentText = this.uiLabels.emptyCityAlert;
+        this.$refs.alertComponent.openAlert();
         return;
       }
-
       if (Object.keys(this.submittedCities2).length >= 5) {
-        alert('You can only add up to 5 cities.');
-
+        this.alertContentText = this.uiLabels.maxCitiesAlert;
+        this.$refs.alertComponent.openAlert();
         return;
       }
       else {
@@ -161,9 +153,7 @@ export default {
           this.clue1,
           this.clue2,
           this.clue3)
-
       }
-
       if (!this.submittedCities2[this.city]) {
         this.submittedCities2[this.city] = [];
         this.submittedCities2[this.city].push(
@@ -187,7 +177,7 @@ export default {
       this.selectedAvatar = index;
       console.log(this.data.selectedAvatar)
     },
-    removeCity: function(cityData){
+    removeCity: function (cityData) {
       this.city = cityData;
       console.log(this.submittedCities2, "INNAN")
       socket.emit("removeCity", { pollId: this.pollId, city: this.city });
@@ -289,7 +279,8 @@ export default {
 .e {
   grid-row-start: 5;
   grid-column-start: 4;
-margin-left: 11.5vw;
+  margin-left: 11.5vw;
+  width: 2vw;
 }
 
 .f {
@@ -397,4 +388,5 @@ margin-left: 11.5vw;
 .right-section p {
   display: flex;
   flex-direction: column;
-}</style>
+}
+</style>

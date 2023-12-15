@@ -50,5 +50,11 @@
 	"whereTo": "Vart är vi på väg?",
 	"participantCount": " spelare anslutna",
 	"gameCodeAlert": "Ange en giltig spelkod ",
-	"nameAvatarAlert": "Fyll i ditt namn och välj en avatar"
+	"nameAvatarAlert": "Fyll i ditt namn och välj en avatar",
+	"createGameAlert": "Är du säker på att du vill spara ditt spel? Om du går vidare kan du inte ändra något mer.",
+	"emptyGameAlert": "Fyll i minst en stad innan du går vidare.",
+	"emptyCityAlert": "Fyll i alla fält innan du lägger till en ny stad.",
+	"maxCitiesAlert": "Du kan som mest lägga till 5 städer",
+	"yesHeading": "JA",
+	"noHeading": "NEJ"
 }
