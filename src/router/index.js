@@ -64,6 +64,11 @@ const router = createRouter({
       name: 'PlayerWaitingView',
       component: () => import('../views/PlayerWaitingView.vue')
     },
+    {
+      path: '/startingquizplayer/:pollId',
+      name: 'StartingQuizPlayerView',
+      component: () => import('../views/StartingQuizPlayerView.vue')
+    },
   ]
 })
 

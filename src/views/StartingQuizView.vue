@@ -10,8 +10,8 @@
         {{ uiLabels.whereTo }}
     </h1>
     {{data.pollId}}
-    <audio ref="audioPlayer" autoplay loop>
-      <source src="/img/train1.mp3" type="audio/mp3" />
+    <audio ref="audioPlayer2" autoplay loop>
+      <source src="/img/6398985.mp3" type="audio/mp3" />
       Your browser does not support the audio element.
     </audio>
 
@@ -27,7 +27,7 @@ import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
 import pressToMuteImage from "/img/6398985.png";
-import pressToUnmuteImage from "/img/pressToUnmute.png";
+import pressToUnmuteImage from "/img/pressToMute.png";
 
 export default {
     name: 'StartingQuizView',
@@ -55,7 +55,7 @@ export default {
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-
+        socket.emit("cityUpdate", this.pollId);
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
@@ -67,7 +67,6 @@ export default {
             this.data = data;
         });
         this.startFuseTimer();
-        socket.emit("cityUpdate", this.pollId);
         socket.on("updateQuestionNumber", (data) => {
             this.questionNumber = data;
             console.log("hämtar info från update number", this.questionNumber)

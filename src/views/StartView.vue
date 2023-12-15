@@ -8,7 +8,8 @@
   <audio ref="audioPlayer" autoplay loop>
       <source src="/img/villeTrainSounds.mp3" type="audio/mp3" />
       Your browser does not support the audio element.
-    </audio>
+  </audio>
+  <button  class="startMusic" @click="toggleMusic"><img src="/img/6398985.png" alt="Toggle Mute" style="width: 5vw;"/></button>
   <main>
     <section id="section1">
       <img id="brake" src="/img/brake.png" style="width: 15vw;">
@@ -43,17 +44,21 @@ export default {
       lang: localStorage.getItem("lang") || "en",
     }
   },
+  
   created: function () {
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
-    })
+    });
   },
   methods: {
     switchLanguage: function (lang) {
       this.lang = lang;
       localStorage.setItem("lang", this.lang);
       socket.emit("switchLanguage", this.lang)
+    },
+    toggleMusic() {
+      this.$refs.audioPlayer.play();
     }
   }
 }

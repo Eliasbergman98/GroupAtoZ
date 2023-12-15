@@ -1,20 +1,20 @@
 <template>
+    <header>
+        <button  class="muteButton" @click="toggleMute"><img :src="buttonImage" alt="Toggle Mute" style="width: 5vw;"/></button>
+
+    </header>
+    <h2>
+        {{uiLabels.city}}{{ questionNumber }}
+    </h2>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-   
-    <div class="gameInfo b">
-            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" width="20" height="20"
-                target="_blank"> <br> <hr>
-            {{ uiLabels.gameTag }} {{ pollId }} <br>
-            {{ participants.length }} {{ uiLabels.participantCount }}
-        </div>
-    <div>
-            {{ uiLabels.players }} <br>
-            <div class="participant" v-for="person in participants" :key="participants.name" :style="getPositionStyle()">
-                        {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32" height="32">
-            </div>
-        </div>
+    {{data.pollId}}
+    <audio ref="audioPlayer" autoplay loop>
+      <source src="/img/6398985.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+
     <footer>
         <div class="fuse-container">
             <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
@@ -26,9 +26,11 @@
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
+import pressToMuteImage from "/img/6398985.png";
+import pressToUnmuteImage from "/img/pressToMute.png";
 
 export default {
-    name: 'PlayerWaitingView',
+    name: 'StartingQuizPlayerView',
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
@@ -42,57 +44,59 @@ export default {
             selectedAvatar: null,
             avatars: avatar,
             fuseWidth: 100,
-            participants: []
+            isMuted: false,
+        }
+    },
+    computed: {
+        // Compute the image source based on the button state
+        buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
         }
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-        
+
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
         socket.on("dataUpdate", (data) => {
+            this.questionNumber = data.currentQuestion;
+            console.log(data, "Hej kom igen")
             this.data = data;
         });
         socket.on("pollCreated", (data) => {
+            this.questionNumber = data.currentQuestion;
+            console.log(data, "Hej kom igen")
             this.data = data;
         });
-        socket.emit("joinPoll", this.pollId);
-        socket.emit("getPoll", this.pollId);
-            socket.on("fullPole", (data) => {
-            console.log("in joiningview", this.pollId)
-            this.data = data;
+        this.startFuseTimer();
+        socket.on("updateQuestionNumber", (data) => {
+            this.questionNumber = data;
+            console.log("hämtar info från update number", this.questionNumber)
         });
-        socket.on("participantsUpdate", (participants) => {
-            this.participants = participants,
-            console.log("hej här kommer nya joinare", this.participants)
-    });
-        //this.startFuseTimer();
+        socket.on("fullPole", (data)=> { 
+                this.data = data;
+                this.questionNumber = data.currentQuestion;
+                console.log("this is data", data);
 
-        socket.on("creatorStarting", (pollId) => {
-            this.$router.push('/startingquizplayer/' + this.pollId);
-        });
+            });
 
     },
     methods: {
-        getPositionStyle() {
-      // Adjust the position values based on your layout
-      const position = {
-        top: `${Math.random() * 1000}px`, // Adjust the vertical position range
-        left: `${Math.random() * 1000}px`, // Adjust the horizontal position range
-      };
-      
-
-      return position;
-    },
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             clearInterval(this.fuseTimer);
             this.$router.push('/clue/' + this.pollId);            
+        },
+        toggleMute() {
+      const audioPlayer = this.$refs.audioPlayer;
 
+      // Toggle the muted attribute
+      audioPlayer.muted = !audioPlayer.muted;
 
+      this.isMuted = !this.isMuted;
         },
 
     startFuseTimer: function () {
@@ -103,7 +107,7 @@ export default {
 
         this.fuseTimer = setInterval(() => {
             // Decrease the fuse width by a certain percentage
-            this.fuseWidth -= 0.5; // Adjust as needed
+            this.fuseWidth -= 0.1; // Adjust as needed
 
             // Check if the fuse is completely burned
             if (this.fuseWidth <= 0) {
@@ -112,12 +116,16 @@ export default {
             }
         },timerInterval);
     }
-}
-}
+}}
 </script>  
 
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
+
+.muteButton{
+    width: 2vw;
+    right: auto;
+}
 
 h1 {
     position: center;
@@ -128,9 +136,16 @@ h2 {
     position: center;
     margin-top: 10vw;
 }
-.participant {
-  position: absolute;
-  
-}
 </style>
 
+<style scoped>
+h1 {
+    position: center;
+    margin-top: 10vw;
+}
+
+h2 {
+    position: center;
+    margin-top: 10vw;
+}
+</style>
