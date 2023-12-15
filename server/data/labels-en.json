@@ -1,5 +1,4 @@
 {
-	
 	"sales-pitch": "Simply. Great. Polling.",
 	"sales-pitch2": "Unlock the door to knowledge and follow the tracks to victory",
 	"subHeading": "A simple polling tool",
@@ -52,10 +51,13 @@
 	"participantCount": " players joined",
 	"gameCodeAlert": "Please enter a valid game code",
 	"nameAvatarAlert": "Please enter your name and choose an avatar",
+	"exitGame": "EXIT GAME",
 	"createGameAlert": "Are you sure you want to continue? If you continue you cannot change your quiz anymore.",
 	"emptyGameAlert": "Please enter at least one city before continuing.",
 	"emptyCityAlert": "Please fill in all fields before adding a new city.",
 	"maxCitiesAlert": "You can only add up to 5 cities.",
 	"yesHeading": "YES",
-	"noHeading": "NO"
+	"noHeading": "NO",
+	"waitingForHost": "WAITING FOR HOST TO START GAME...",
+	"theWinner": "THE WINNER IS..."
 }

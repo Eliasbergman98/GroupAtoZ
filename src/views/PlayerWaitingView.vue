@@ -1,25 +1,30 @@
 <template>
     <h1>
-        {{ uiLabels.whereTo }}
+        {{ data.quizName }}
     </h1>
-   
-    <div class="gameInfo b">
-            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" width="20" height="20"
-                target="_blank"> <br> <hr>
-            {{ uiLabels.gameTag }} {{ pollId }} <br>
-            {{ participants.length }} {{ uiLabels.participantCount }}
-        </div>
-    <div>
-            {{ uiLabels.players }} <br>
-            <div class="participant" v-for="person in participants" :key="participants.name" :style="getPositionStyle()">
-                        {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32" height="32">
+    <h2>{{ uiLabels.waitingForHost }}</h2>
+    <div class="poll">
+        <div class="columns-wrapper">
+            <div v-for="(column, index) in playerColumns" :key="index" class="column">
+                <div class="scroll-wrapper">
+                    <ul v-for="person in column" :key="person.name">
+                        <li>
+                            {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32"
+                                height="32">
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <!--<div class="participants" v-for="person in participants" :key="participants.name" :style="getPositionStyle()">
+                {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32" height="32">
+            </div>-->
+            <section class="button-container">
+                <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
+                <router-link to="//"><button id="exitGamebutton">{{ uiLabels.exitGame }}</button></router-link>
+                <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
+            </section>
         </div>
-    <footer>
-        <div class="fuse-container">
-            <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
-        </div>
-    </footer>
+    </div>
 </template>
   
 <script>
@@ -42,12 +47,20 @@ export default {
             selectedAvatar: null,
             avatars: avatar,
             fuseWidth: 100,
-            participants: []
+            participants: [],
+            playerColumns: [],
+            playersPerColumn: 8,
         }
+    },
+
+    watch: {
+        participants: function () {
+            this.updatePlayerColumns();
+        },
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-        
+
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
@@ -60,15 +73,23 @@ export default {
         });
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
-            socket.on("fullPole", (data) => {
+        socket.on("fullPole", (data) => {
             console.log("in joiningview", this.pollId)
             this.data = data;
         });
-        socket.on("participantsUpdate", (participants) => {
+
+        socket.on("participantsUpdate", (participants) =>
             this.participants = participants,
             console.log("hej här kommer nya joinare", this.participants)
-    });
-        //this.startFuseTimer();
+        )
+
+        /*socket.on("participantsUpdate", (participants) => {
+            this.participants = participants.map((participant) => ({
+                ...participant,
+                position: this.getPositionStyle(), // Add the position property
+            }));
+            console.log("hej här kommer nya joinare", this.participants);
+        });*/
 
         socket.on("creatorStarting", (pollId) => {
             this.$router.push('/startingquiz/' + this.pollId);
@@ -76,61 +97,167 @@ export default {
 
     },
     methods: {
-        getPositionStyle() {
-      // Adjust the position values based on your layout
-      const position = {
-        top: `${Math.random() * 1000}px`, // Adjust the vertical position range
-        left: `${Math.random() * 1000}px`, // Adjust the horizontal position range
-      };
-      
-
-      return position;
-    },
-        handleFuseBurnout() {
-            // Add logic to handle what should happen when the fuse is burned out
-            console.log('The fuse is burned out!');
-            clearInterval(this.fuseTimer);
-            this.$router.push('/clue/' + this.pollId);            
-
-
+        updatePlayerColumns() {
+            this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
         },
-
-    startFuseTimer: function () {
-        clearInterval(this.fuseTimer);
-
-        // Adjust the timer interval based on your preference
-        const timerInterval = 10; // 1 second
-
-        this.fuseTimer = setInterval(() => {
-            // Decrease the fuse width by a certain percentage
-            this.fuseWidth -= 0.5; // Adjust as needed
-
-            // Check if the fuse is completely burned
-            if (this.fuseWidth <= 0) {
-                // Handle the event when the fuse is burned out
-                this.handleFuseBurnout();
+        chunkArray(array, size) {
+            const result = [];
+            for (let i = 0; i < array.length; i += size) {
+                result.push(array.slice(i, i + size));
             }
-        },timerInterval);
-    }
-}
+            return result;
+        },
+        /*getPositionStyle() {
+            const position = {
+                bottom: `${Math.random() * 30 + 40}%`, // Adjust the bottom position between 40% and 70%
+                top: `${Math.random() * 30 + 40}%`,    // Adjust the top position between 40% and 70%
+                left: `${Math.random() * 30 + 40}%`,   // Adjust the left position between 40% and 70%
+                right: `${Math.random() * 30 + 40}%`,  // Adjust the right position between 40% and 70%
+            };
+
+            const isCollision = this.participants.some((participant) => {
+                const existingPosition = participant.position;
+                const horizontalCollision =
+                    Math.abs(position.left - existingPosition.left) < this.fuseWidth;
+                const verticalCollision =
+                    Math.abs(position.top - existingPosition.top) < this.fuseWidth;
+                return horizontalCollision && verticalCollision;
+            });
+
+            // If collision occurs, recursively try again with a new position
+            if (isCollision) {
+                return this.getPositionStyle();
+            }
+
+            return {
+                ...position,
+                position: 'absolute',
+            };
+        },*/
+    },
 }
 </script>  
 
 <style scoped>
-/*Explosion och keyframes gör inget atm, ska fixa det sen. */
+@keyframes flash {
+    0% {
+        opacity: 0.05;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.05;
+    }
+}
 
 h1 {
-    position: center;
-    margin-top: 10vw;
+    text-align: center;
 }
 
 h2 {
-    position: center;
-    margin-top: 10vw;
+    margin-top: -3vw;
+    text-align: center;
+    font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+    font-size: 3vw;
+    color: green;
+    text-shadow:
+        -0.075vw -0.075vw 0 #000,
+        0.075vw -0.075vw 0 #000,
+        -0.075vw 0.075vw 0 #000,
+        0.075vw 0.075vw 0 #000;
+    padding: 10px;
+    animation: flash 2.5s infinite;
 }
-.participant {
-  position: absolute;
-  
+
+.columns-wrapper {
+    display: flex;
+    justify-content: space-around;
+    /* Adjust this property based on your layout requirements */
+}
+
+.column {
+    flex-grow: 1;
+    margin: 0 10px;
+    /* Adjust the margin based on your layout preferences */
+}
+
+
+#exitGamebutton {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.7vw;
+    background-color: red;
+    border: 0.2vw solid black;
+    border-radius: 1.5vw;
+    padding: 1.7vw;
+    width: 12em;
+    color: white;
+}
+
+#gameIDbutton {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.7vw;
+    background-color: green;
+    border: 0.2vw solid black;
+    border-radius: 1.5vw;
+    padding: 1.7vw;
+    width: 12em;
+    color: white;
+}
+
+#playerJoinedbutton {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.7vw;
+    background-color: green;
+    border: 0.2vw solid black;
+    border-radius: 1.5vw;
+    padding: 1.7vw;
+    width: 12em;
+    color: white;
+}
+
+.poll {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.7vw;
+    color: black;
+    position: center;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    margin-bottom: 2vw;
+    ;
+    margin-left: 3vw;
+}
+
+.participants {
+    position: absolute;
+}
+
+.emojies {
+    width: 2vw;
+    height: 2vw;
+}
+
+.scroll-wrapper {
+    overflow-y: auto;
+    height: 30vw;
+    /* Ensure the wrapper takes the full height of the container */
+}
+
+.scroll-wrapper ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 </style>
 
