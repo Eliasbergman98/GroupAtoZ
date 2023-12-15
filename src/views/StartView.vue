@@ -5,6 +5,10 @@
       <img id="ukimg" src="/img/ukflag.png" style="width: 4vw;" v-on:click="switchLanguage('en')">
     </div>
   </header>
+  <audio ref="audioPlayer" autoplay loop>
+      <source src="/img/villeTrainSounds.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
   <main>
     <section id="section1">
       <img id="brake" src="/img/brake.png" style="width: 15vw;">

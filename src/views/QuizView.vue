@@ -9,9 +9,6 @@
             <br>
             GAME ID: {{ pollId }}
         </h1>
-        <div>
-
-        </div>
         <section class="player">
             <div class="gameInfo a" id="name">
                 {{ uiLabels.yourName }}:
@@ -63,7 +60,9 @@ export default {
             quizName: '',
             yourName: '',
             pollId: "",
-            alertContentText: ""
+            alertContentText: "",
+            checkName: ""
+
         }
 
     },
@@ -93,17 +92,39 @@ export default {
             this.selectedAvatar = index;
             this.selectedAvatarUrl = this.avatars[index].url;
         },
-        addParticipant: function () {
+        addParticipant: async function () {
+            // Check if 'yourName' or 'selectedAvatarUrl' is empty
             if (this.yourName === '' || this.selectedAvatarUrl === null) {
                 this.alertContentText = this.uiLabels.nameAvatarAlert;
                 this.$refs.alertComponent.openAlert();
             }
-            else {
-                socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl })
-                console.log("added one participant now", this.pollId, this.yourName, this.selectedAvatarUrl)
-                this.$router.push('/playerwaiting/' + this.pollId);
+            try {
+                // Use a promise to wait for the result of socket.emit
+                const addParticipantResult = await new Promise((resolve, reject) => {
+                    // Emit 'addParticipant' event to the server
+                    socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl });
+                    socket.on("checkPlayer", (data) => {
+                        // Resolve the promise with the received data
+                        resolve(data);
+                    });
+                });
+                // Set 'checkName' with the result from the server
+                this.checkName = addParticipantResult;
+
+                if (this.checkName === "invalidName" || this.yourName === '') {
+                    console.log("hjälp jag måste ta bort mitt namn lol", this.checkName);
+                    this.alertContentText = this.uiLabels.nameAvatarAlert;
+                    this.$refs.alertComponent.openAlert();
+                    this.checkName = "";
+                } else {
+                    // Log a message and navigate to the specified route if conditions are false
+                    console.log("added one participant now", this.pollId, this.yourName, this.selectedAvatarUrl);
+                    this.$router.push('/playerwaiting/' + this.pollId);
+                }
+            } catch (error) {
+                console.error("Error adding participant:", error);
             }
-        },
+        }
     }
 }
 </script>
@@ -117,7 +138,7 @@ export default {
 h1 {
     /* margin-left: 6vw; */
     font-size: 4vw;
-    
+
 }
 
 .player {
@@ -140,33 +161,33 @@ h1 {
 }
 
 .a {
-  grid-row-start: 1;
-  grid-column-start: 1;
-  padding: 10em auto 2em 2em;
-  text-align: center;
-  font-size:2vw;
-  width: 50vw;
-  height: 5vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 24vw;
-  
+    grid-row-start: 1;
+    grid-column-start: 1;
+    padding: 10em auto 2em 2em;
+    text-align: center;
+    font-size: 2vw;
+    width: 50vw;
+    height: 5vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin-left: 24vw;
+
 }
 
 .b {
-  grid-row-start: 2;
-  grid-column-start: 1;
-  text-align: center;
-  font-size: 2vw;
-  width: 50vw;
-  height: 10vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 24vw;
-  padding-top: 2vw;
-  padding-bottom: 4vw;
+    grid-row-start: 2;
+    grid-column-start: 1;
+    text-align: center;
+    font-size: 2vw;
+    width: 50vw;
+    height: 10vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin-left: 24vw;
+    padding-top: 2vw;
+    padding-bottom: 4vw;
 }
 .c{
   grid-row-start: 2;

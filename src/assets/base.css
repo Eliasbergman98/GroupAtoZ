@@ -43,7 +43,9 @@ h1 {
 #joinbutton:hover,
 #donebutton:hover,
 img[id=ukimg],
-img[id=sweimg]:hover {
+img[id=sweimg]:hover,
+#yesbutton:hover,
+#nobutton:hover {
   cursor: pointer;
 }
 
