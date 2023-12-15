@@ -45,7 +45,8 @@ h1 {
 img[id=ukimg],
 img[id=sweimg]:hover,
 #yesbutton:hover,
-#nobutton:hover {
+#nobutton:hover,
+#redCrossRemove {
   cursor: pointer;
 }
 

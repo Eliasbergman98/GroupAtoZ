@@ -25,7 +25,7 @@
 	"information6": "4. Done! Now you can start the game and compete with your friends.",
 	"gameCode": "Game Code",
 	"enterCode": "Enter your game code here",
-	"chooseName": "Choose a name for your game:",
+	"chooseName": "Game name:",
 	"addName": "Choose name",
 	"chooseAvatar": "Choose your avatar:",
 	"yourName": "Name",
@@ -57,5 +57,6 @@
 	"emptyCityAlert": "Please fill in all fields before adding a new city.",
 	"maxCitiesAlert": "You can only add up to 5 cities.",
 	"yesHeading": "YES",
-	"noHeading": "NO"
+	"noHeading": "NO",
+	"enterGameName": "Enter a name for your game"
 }

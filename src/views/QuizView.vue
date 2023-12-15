@@ -5,9 +5,9 @@
     </div>
     <main>
         <h1>
-            Quiz: {{ data.quizName }}
+        {{ data.quizName }}
             <br>
-            GAME ID: {{ pollId }}
+        {{ pollId }}
         </h1>
         <section class="player">
             <div class="gameInfo a" id="name">
@@ -93,6 +93,8 @@ export default {
             this.selectedAvatarUrl = this.avatars[index].url;
         },
         addParticipant: async function () {
+            console.log("selAv", this.selectedAvatar)
+            console.log("selAvUrl", this.selectedAvatarUrl)
             // Check if 'yourName' or 'selectedAvatarUrl' is empty
             if (this.yourName === '' || this.selectedAvatarUrl === null) {
                 this.alertContentText = this.uiLabels.nameAvatarAlert;
@@ -152,7 +154,7 @@ h1 {
 }
 
 .gameInfo {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 50vw;
     height: 20vw;
     text-align: left;

@@ -20,7 +20,7 @@
     </div>
     <div class="gameInfo f">
       <button class="addTown" v-on:click="addQuestion"> {{
-        uiLabels.addTown }}</button>
+        uiLabels.addTown }} <img id="greentick" src="/img/greentick.png" style="width: 1.5vw; height: 1.5vw"></button>
     </div>
     <div v-if="Object.keys(submittedCities2).length > 0" class="right-section">
       <div id="title">
@@ -29,16 +29,16 @@
       <hr>
       <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
         <p>
+          <img id="redCrossRemove" src="/img/redcross.png" style="width: 1.2vw; height:1.2vw" v-on:click="removeCity(cityData)">
         <div id="city">{{ uiLabels.city }} {{ cityData }}</div>
         <div id="clue"> {{ uiLabels.clues }} </div> {{
           cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}
         </p>
-        <button v-on:click="removeCity(cityData)"> TA BORT</button>
         <hr>
       </div>
     </div>
     <div class="gameInfo e">
-      <button class="createbutton" v-on:click="sendInfo"> {{ uiLabels.createGame }}</button>
+      <button class="createbutton" v-on:click="sendInfo"> {{ uiLabels.createGame }} </button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText"
         :inCreateQuestionsView="inCreateQuestionsView">
       </AlertComponent>
@@ -311,14 +311,17 @@ export default {
   overflow-y: auto;
 }
 
+.right-section::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.right-section::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0);
+}
+
 .infofromviewbefore {
   grid-row-start: 6;
   grid-column-start: 1;
-}
-
-.selected {
-  background-color: green;
-
 }
 
 .createbutton:hover {
@@ -384,9 +387,13 @@ export default {
   font-weight: bolder;
 
 }
-
 .right-section p {
   display: flex;
   flex-direction: column;
+}
+
+#redCrossRemove {
+margin-left: 18vw;
+margin-top: -1vw;
 }
 </style>

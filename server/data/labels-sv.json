@@ -25,7 +25,7 @@
 	"information6": "4. Färdig! Vänta på att dina vänner ansluter och starta sedan spelet!",
 	"gameCode": "Spelkod",
 	"enterCode": "Skriv in din spelkod här",
-	"chooseName": "Välj namn för ditt spel:",
+	"chooseName": "Spelnamn:",
 	"addName": "Välj namn",
 	"chooseAvatar": "Välj din avatar",
 	"yourName": "Namn",
@@ -57,5 +57,6 @@
 	"emptyCityAlert": "Fyll i alla fält innan du lägger till en ny stad.",
 	"maxCitiesAlert": "Du kan som mest lägga till 5 städer",
 	"yesHeading": "JA",
-	"noHeading": "NEJ"	
+	"noHeading": "NEJ",
+	"enterGameName": "Skriv in ett namn för ditt spel"
 }

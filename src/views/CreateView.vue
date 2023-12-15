@@ -17,7 +17,7 @@
       Save gameID 
     </button> <br> <br> -->
       {{ uiLabels.chooseName }} <br>
-      <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" >
+      <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" :placeholder="uiLabels.enterGameName">
     </div>
     <!-- <div class ="earth">
       <img id="earth" src="/img/earth.png" style="width: 180px;">
@@ -118,13 +118,13 @@ export default {
   grid-template-columns: 50vw 10vw 30w;
   grid-template-rows: 5vw 5vw 10vw;
   background-color: rgb(163, 163, 243);
-  grid-gap: 3vw;
+  grid-gap: 4vw;
   background-size: cover;
 }
 
 
 .gameInfo {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 50vw;
   height: 1vw;
   text-align: left;
@@ -136,8 +136,8 @@ export default {
 .a {
   grid-row-start: 1;
   grid-column-start: 1;
-  padding: 10em auto 2em 2em;
-  text-align: center;
+  padding-bottom: 2vw;
+  text-align: left;
   font-size:2vw;
   width: 50vw;
   height: 5vw;
@@ -145,7 +145,6 @@ export default {
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
   margin-left: 24vw;
-  
 }
 
 .b {
@@ -166,7 +165,7 @@ export default {
 .c{
   grid-row-start: 2;
   grid-column-start: 3;
-  margin-top: 11vw;
+  margin-top: 23vh;
   width: 10vw;
   margin-left: -12vw;
 }
@@ -200,5 +199,21 @@ border-color: rgb(201, 241, 244);
 .emojies{
   width: 2vw;
   height: 2vw;
+}
+
+#addQuizName {
+    margin-top: 0.8vw;
+    font-weight: bold;
+    font-size: 1.2vw;
+    background-color: inherit;
+    border: none;
+    padding: 1vw;
+    width: 73%;
+    margin-left: 0.5vw;
+    position: relative;
+}
+
+#addQuizName::placeholder {
+    color: gray;
 }
 </style>
