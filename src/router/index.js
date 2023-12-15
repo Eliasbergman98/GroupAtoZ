@@ -68,6 +68,12 @@ const router = createRouter({
       path: '/startingquizplayer/:pollId',
       name: 'StartingQuizPlayerView',
       component: () => import('../views/StartingQuizPlayerView.vue')
+
+    },
+    {
+      path: '/lastresult/:pollId',
+      name: 'LastResultView',
+      component: () => import('../views/LastResultView.vue')
     },
   ]
 })

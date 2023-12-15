@@ -1,7 +1,7 @@
 <template>
     <div class="arrow">
-        <button @click="goBack()">
-            <router-link to="/createquestions/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"
+        <button>
+            <router-link :to="'/createquestions/' + pollId"><button id="goBack"> <img id="arrow" src="/img/arrow.png"
                         style="width: 3vw;">
                 </button></router-link>
         </button>
@@ -78,8 +78,7 @@ export default {
     },
     methods: {
         sendInfo: function () {
-            socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber });
-            this.$router.push('/startingquiz/' + this.pollId);
+            this.$router.push('/startingquiz/' + this.pollId)
         },
     }
 }

@@ -10,7 +10,7 @@
 },
 {
     "name":"avatar3",
-    "url":"https://fonts.gstatic.com/s/e/notoemoji/latest/1f973/512.gif"
+    "url":"https://fonts.gstatic.com/s/e/notoemoji/latest/1f614/512.gif"
 
 }
 ,
@@ -34,7 +34,7 @@
 ,
 {
     "name":"avatar7",
-    "url":"https://fonts.gstatic.com/s/e/notoemoji/latest/1f92f/512.gif"
+    "url":"https://fonts.gstatic.com/s/e/notoemoji/latest/1f643/512.gif"
 
 },
 {
@@ -67,7 +67,7 @@
 },
 {
     "name":"avatar13",
-    "url":"https://fonts.gstatic.com/s/e/notoemoji/latest/1f636_200d_1f32b_fe0f/512.gif"
+    "url":"https://fonts.gstatic.com/s/e/notoemoji/latest/1f631/512.gif"
 
 },
 {
@@ -81,7 +81,11 @@
     "url":"https://fonts.gstatic.com/s/e/notoemoji/latest/1f60e/512.gif"
 
 }
+,
+{
+    "name":"avatar16",
+    "url":"https://fonts.gstatic.com/s/e/notoemoji/latest/1f913/512.gif"
 
-
+}
 
 ]
