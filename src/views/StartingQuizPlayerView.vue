@@ -1,7 +1,6 @@
 <template>
     <header>
-        <button  class="muteButton" @click="toggleMute"><img :src="buttonImage" alt="Toggle Mute" style="width: 5vw;"/></button>
-
+        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" style="width: 3vw; height: 3vw;"/>
     </header>
     <h2>
         {{uiLabels.city}}{{ questionNumber }}
@@ -26,8 +25,8 @@
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
-import pressToMuteImage from "/img/6398985.png";
-import pressToUnmuteImage from "/img/pressToMute.png";
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 
 export default {
     name: 'StartingQuizPlayerView',
@@ -123,8 +122,11 @@ export default {
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
 .muteButton{
+    position: absolute;
     width: 2vw;
-    right: auto;
+    padding: 2vw;
+    margin-left: 42vw;
+    margin-top: -10vw;
 }
 
 h1 {

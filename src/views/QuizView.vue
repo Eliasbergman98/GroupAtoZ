@@ -5,9 +5,7 @@
     </div>
     <main>
         <h1>
-        {{ data.quizName }}
-            <br>
-        {{ pollId }}
+        {{uiLabels.joining}} {{ data.quizName }}
         </h1>
         <section class="player">
             <div class="gameInfo a" id="name">
@@ -96,10 +94,18 @@ export default {
             console.log("selAv", this.selectedAvatar)
             console.log("selAvUrl", this.selectedAvatarUrl)
             // Check if 'yourName' or 'selectedAvatarUrl' is empty
-            if (this.yourName === '' || this.selectedAvatarUrl === null) {
+            if (this.yourName === '' || this.selectedAvatar === null) {
                 this.alertContentText = this.uiLabels.nameAvatarAlert;
                 this.$refs.alertComponent.openAlert();
+                return;
             }
+
+            if (this.selectedAvatarUrl === null) {
+                this.alertContentText = this.uiLabels.nameAvatarAlert;
+                this.$refs.alertComponent.openAlert();
+                return;
+            }
+
             try {
                 // Use a promise to wait for the result of socket.emit
                 const addParticipantResult = await new Promise((resolve, reject) => {
@@ -113,9 +119,9 @@ export default {
                 // Set 'checkName' with the result from the server
                 this.checkName = addParticipantResult;
 
-                if (this.checkName === "invalidName" || this.yourName === '') {
+                if (this.checkName === "invalidName") {
                     console.log("hjälp jag måste ta bort mitt namn lol", this.checkName);
-                    this.alertContentText = this.uiLabels.nameAvatarAlert;
+                    this.alertContentText = this.uiLabels.nameTakenAlert;
                     this.$refs.alertComponent.openAlert();
                     this.checkName = "";
                 } else {
@@ -139,7 +145,7 @@ export default {
 
 h1 {
     /* margin-left: 6vw; */
-    font-size: 4vw;
+    font-size: 6vw;
 
 }
 
@@ -174,6 +180,7 @@ h1 {
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 24vw;
+    margin-top: 3px;
 
 }
 
@@ -188,15 +195,16 @@ h1 {
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 24vw;
+    margin-top: 2.8vh;
     padding-top: 2vw;
     padding-bottom: 4vw;
 }
 .c{
   grid-row-start: 2;
   grid-column-start: 3;
-  width: 10vw;
-  margin-top: 10vw;
-  margin-left: -12vw;
+  width: 2vw;
+  margin-top: 11.7vw;
+  margin-left: -8.9vw;
   height: 2vw;
 }
 

@@ -16,8 +16,9 @@
     <button v-on:click="createPoll">
       Save gameID 
     </button> <br> <br> -->
-      {{ uiLabels.chooseName }} <br>
-      <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" :placeholder="uiLabels.enterGameName">
+    <div id="gameName">
+      {{ uiLabels.chooseName }} </div>
+      <input v-model="quizName" class="addQuizName" type="text" :placeholder="uiLabels.enterGameName">
     </div>
     <!-- <div class ="earth">
       <img id="earth" src="/img/earth.png" style="width: 180px;">
@@ -125,26 +126,25 @@ export default {
 
 .gameInfo {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  width: 50vw;
-  height: 1vw;
-  text-align: left;
-  position: left;
-  border-radius: 20px;
-  
+    width: 50vw;
+    height: 20vw;
+    text-align: left;
+    position: left;
+    border-radius: 2vw; 
 }
 
 .a {
   grid-row-start: 1;
-  grid-column-start: 1;
-  padding-bottom: 2vw;
-  text-align: left;
-  font-size:2vw;
-  width: 50vw;
-  height: 5vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 24vw;
+    grid-column-start: 1;
+    font-size: 2vw;
+    width: 50vw;
+    height: 5vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin-left: 24vw;
+    display: flex;
+    
 }
 
 .b {
@@ -167,6 +167,7 @@ export default {
   grid-column-start: 3;
   margin-top: 23vh;
   width: 10vw;
+  height: 2vh;
   margin-left: -12vw;
 }
 
@@ -178,12 +179,23 @@ export default {
   background-color: green;
 
 }
+#gameName{
+  font-weight: bold;
+    font-size: 2vw;
+    margin-left: 0.5vw;
+    padding-top: 1vw;
+    padding-left: 1vw;
+}
 
-#addQuizName{
-width: 15vw;
-height: 1.5vw;
-font-family: Georgia, 'Times New Roman', Times, serif;
-border-color: rgb(201, 241, 244);
+.addQuizName{
+    font-weight: bold;
+    font-size: 1.2vw;
+    background-color: inherit;
+    border: none;
+    margin-top: 0.8vw;
+    width: 73%;
+    height: 60%;
+    margin-left: 0.5vw;
 }
 
 .arrow{
@@ -199,18 +211,6 @@ border-color: rgb(201, 241, 244);
 .emojies{
   width: 2vw;
   height: 2vw;
-}
-
-#addQuizName {
-    margin-top: 0.8vw;
-    font-weight: bold;
-    font-size: 1.2vw;
-    background-color: inherit;
-    border: none;
-    padding: 1vw;
-    width: 73%;
-    margin-left: 0.5vw;
-    position: relative;
 }
 
 #addQuizName::placeholder {
