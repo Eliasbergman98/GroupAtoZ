@@ -15,9 +15,6 @@
                     </ul>
                 </div>
             </div>
-            <!--<div class="participants" v-for="person in participants" :key="participants.name" :style="getPositionStyle()">
-                {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32" height="32">
-            </div>-->
             <section class="button-container">
                 <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
                 <router-link to="//"><button id="exitGamebutton">{{ uiLabels.exitGame }}</button></router-link>
@@ -83,14 +80,6 @@ export default {
             console.log("hej här kommer nya joinare", this.participants)
         )
 
-        /*socket.on("participantsUpdate", (participants) => {
-            this.participants = participants.map((participant) => ({
-                ...participant,
-                position: this.getPositionStyle(), // Add the position property
-            }));
-            console.log("hej här kommer nya joinare", this.participants);
-        });*/
-
         socket.on("creatorStarting", (pollId) => {
             this.$router.push('/startingquizplayer/' + this.pollId);
         });
@@ -107,33 +96,6 @@ export default {
             }
             return result;
         },
-        /*getPositionStyle() {
-            const position = {
-                bottom: `${Math.random() * 30 + 40}%`, // Adjust the bottom position between 40% and 70%
-                top: `${Math.random() * 30 + 40}%`,    // Adjust the top position between 40% and 70%
-                left: `${Math.random() * 30 + 40}%`,   // Adjust the left position between 40% and 70%
-                right: `${Math.random() * 30 + 40}%`,  // Adjust the right position between 40% and 70%
-            };
-
-            const isCollision = this.participants.some((participant) => {
-                const existingPosition = participant.position;
-                const horizontalCollision =
-                    Math.abs(position.left - existingPosition.left) < this.fuseWidth;
-                const verticalCollision =
-                    Math.abs(position.top - existingPosition.top) < this.fuseWidth;
-                return horizontalCollision && verticalCollision;
-            });
-
-            // If collision occurs, recursively try again with a new position
-            if (isCollision) {
-                return this.getPositionStyle();
-            }
-
-            return {
-                ...position,
-                position: 'absolute',
-            };
-        },*/
     },
 }
 </script>  
@@ -141,7 +103,7 @@ export default {
 <style scoped>
 @keyframes flash {
     0% {
-        opacity: 0.05;
+        opacity: 0.1;
     }
 
     50% {
@@ -149,7 +111,7 @@ export default {
     }
 
     100% {
-        opacity: 0.05;
+        opacity: 0.1;
     }
 }
 
@@ -170,7 +132,7 @@ h2 {
         -0.075vw 0.075vw 0 #000,
         0.075vw 0.075vw 0 #000;
     padding: 10px;
-    animation: flash 2.5s infinite;
+    animation: flash 2.3s infinite;
 }
 
 .columns-wrapper {
