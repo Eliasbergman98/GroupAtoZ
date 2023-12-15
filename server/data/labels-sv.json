@@ -58,6 +58,8 @@
 	"maxCitiesAlert": "Du kan som mest lägga till 5 städer",
 	"yesHeading": "JA",
 	"noHeading": "NEJ",
-	"nameAvatarAlert": "Fyll i ditt namn och välj en avatar"
+	"nameAvatarAlert": "Fyll i ditt namn och välj en avatar",
+	"waitingForHost": "VÄNTAR PÅ ATT SPELET SKA STARTAS...",
+	"theWinner": "VINNAREN ÄR..."
 	
 }

@@ -58,5 +58,7 @@
 	"emptyCityAlert": "Please fill in all fields before adding a new city.",
 	"maxCitiesAlert": "You can only add up to 5 cities.",
 	"yesHeading": "YES",
-	"noHeading": "NO"
+	"noHeading": "NO",
+	"waitingForHost": "WAITING FOR HOST TO START GAME...",
+	"theWinner": "THE WINNER IS..."
 }
