@@ -51,6 +51,7 @@
 	"participantCount": " players joined",
 	"gameCodeAlert": "Please enter a valid game code",
 	"nameAvatarAlert": "Please enter your name and choose an avatar",
+	"nameTakenAlert": "Great minds think alike! Your name is already taken, please choose a new one.",
 	"exitGame": "EXIT GAME",
 	"createGameAlert": "Are you sure you want to continue? If you continue you cannot change your quiz anymore.",
 	"emptyGameAlert": "Please enter at least one city before continuing.",
@@ -60,5 +61,6 @@
 	"noHeading": "NO",
 	"enterGameName": "Enter a name for your game",
 	"waitingForHost": "WAITING FOR HOST TO START GAME...",
-	"theWinner": "THE WINNER IS..."
+	"theWinner": "THE WINNER IS...",
+	"joining": "Joining"
 }

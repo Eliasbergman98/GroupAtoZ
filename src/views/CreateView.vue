@@ -16,19 +16,22 @@
     <button v-on:click="createPoll">
       Save gameID 
     </button> <br> <br> -->
-      {{ uiLabels.chooseName }} <br>
-      <input v-model="quizName" id="addQuizName" name="addQuizName" type="text" :placeholder="uiLabels.enterGameName">
+    <div id="gameName">
+      {{ uiLabels.chooseName }} </div>
+      <input v-model="quizName" class="addQuizName" type="text" :placeholder="uiLabels.enterGameName">
     </div>
     <!-- <div class ="earth">
       <img id="earth" src="/img/earth.png" style="width: 180px;">
     </div> -->
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>
+      <div id="avatarZone">
       <img class="avatar">
       <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
         :class="{ 'selected': selectedAvatar === index }">
         <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
       </button>
+    </div>
     </div>
     <div class="gameInfo c">
       <button class="createbutton" v-on:click="createPoll" > {{ uiLabels.createGame }}</button>
@@ -115,7 +118,7 @@ export default {
 .poll {
   position: relative;
   display: grid;
-  grid-template-columns: 50vw 10vw 30w;
+  grid-template-columns: 24vw 26vw 30w;
   grid-template-rows: 5vw 5vw 10vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 4vw;
@@ -125,26 +128,25 @@ export default {
 
 .gameInfo {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  width: 50vw;
-  height: 1vw;
-  text-align: left;
-  position: left;
-  border-radius: 20px;
-  
+    width: 50vw;
+    height: 20vw;
+    text-align: left;
+    position: left;
+    border-radius: 2vw; 
 }
 
 .a {
   grid-row-start: 1;
-  grid-column-start: 1;
-  padding-bottom: 2vw;
-  text-align: left;
-  font-size:2vw;
-  width: 50vw;
-  height: 5vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 24vw;
+    grid-column-start: 1;
+    font-size: 2vw;
+    width: 50vw;
+    height: 5vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin-left: 24vw;
+    display: flex;
+    
 }
 
 .b {
@@ -161,12 +163,17 @@ export default {
   padding-top: 2vw;
   padding-bottom: 4vw;
 }
-
+#avatarZone{
+  width: 75%;
+  margin-left: 12.5%;
+  margin-top: 3vh;
+}
 .c{
   grid-row-start: 2;
   grid-column-start: 3;
   margin-top: 23vh;
   width: 10vw;
+  height: 2vh;
   margin-left: -12vw;
 }
 
@@ -178,12 +185,23 @@ export default {
   background-color: green;
 
 }
+#gameName{
+  font-weight: bold;
+    font-size: 2vw;
+    margin-left: 0.5vw;
+    padding-top: 1vw;
+    padding-left: 1vw;
+}
 
-#addQuizName{
-width: 15vw;
-height: 1.5vw;
-font-family: Georgia, 'Times New Roman', Times, serif;
-border-color: rgb(201, 241, 244);
+.addQuizName{
+    font-weight: bold;
+    font-size: 1.2vw;
+    background-color: inherit;
+    border: none;
+    margin-top: 0.8vw;
+    width: 73%;
+    height: 60%;
+    margin-left: 0.5vw;
 }
 
 .arrow{
@@ -199,18 +217,6 @@ border-color: rgb(201, 241, 244);
 .emojies{
   width: 2vw;
   height: 2vw;
-}
-
-#addQuizName {
-    margin-top: 0.8vw;
-    font-weight: bold;
-    font-size: 1.2vw;
-    background-color: inherit;
-    border: none;
-    padding: 1vw;
-    width: 73%;
-    margin-left: 0.5vw;
-    position: relative;
 }
 
 #addQuizName::placeholder {

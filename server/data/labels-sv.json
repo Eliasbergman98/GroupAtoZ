@@ -51,6 +51,7 @@
 	"participantCount": " spelare anslutna",
 	"gameCodeAlert": "Ange en giltig spelkod ",
 	"nameAvatarAlert": "Fyll i ditt namn och välj en avatar",
+	"nameTakenAlert": "Oops! Ditt namn är redan taget, var vänlig välj ett nytt",
 	"exitGame": "LÄMNA SPEL",
 	"createGameAlert": "Är du säker på att du vill spara ditt spel? Om du går vidare kan du inte ändra något mer.",
 	"emptyGameAlert": "Fyll i minst en stad innan du går vidare.",
@@ -60,6 +61,7 @@
 	"noHeading": "NEJ",
 	"enterGameName": "Skriv in ett namn för ditt spel",
 	"waitingForHost": "VÄNTAR PÅ ATT SPELET SKA STARTAS...",
-	"theWinner": "VINNAREN ÄR..."
+	"theWinner": "VINNAREN ÄR...",
+	"joining": "Går med i "
 	
 }
