@@ -223,4 +223,7 @@ export default {
 #addQuizName::placeholder {
     color: gray;
 }
+#title{
+  padding-top: 4vh;
+}
 </style>

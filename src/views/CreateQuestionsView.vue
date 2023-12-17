@@ -6,16 +6,16 @@
     </button>
   </div>
   <div class="poll">
-    <div class="gameInfo a"> {{ uiLabels.city1 }}
-      <input class="fillInfo" type="text" rows="2"/>
+    <div class="gameInfo a">  <div id="title"> {{ uiLabels.city1 }} </div>
+      <textarea class="fillInfo" v-model="city" type="text"></textarea>
     </div>
-    <div class="gameInfo b"> {{ uiLabels.clue1 }}
+    <div class="gameInfo b"> <div id="title"> {{ uiLabels.clue1 }} </div>
       <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
     </div>
-    <div class="gameInfo c"> {{ uiLabels.clue2 }}
+    <div class="gameInfo c"> <div id="title"> {{ uiLabels.clue2 }} </div>
       <textarea class="fillInfo" v-model="clue2" rows="2"></textarea>
     </div>
-    <div class="gameInfo d"> {{ uiLabels.clue3 }}
+    <div class="gameInfo d"> <div id="title"> {{ uiLabels.clue3 }} </div>
       <textarea class="fillInfo" v-model="clue3" rows="2"></textarea>
     </div>
     <div class="gameInfo f">
@@ -197,13 +197,14 @@ export default {
   
 <style scoped>
 .fillInfo {
-  height: 1vw;
+  height: 2vw;
   width: 30vw;
   margin-top: 1.7vw;
   border-color: black;
   border-top: 1vw;
   border-left: 1vw;
   border-right: 1vw;
+  max-height: 6vh;
   margin-left: 1vw;
   font-size: 1.4vw;
   background-color: rgb(201, 241, 244);
@@ -238,7 +239,7 @@ export default {
   text-align: left;
   position: left;
   border-radius: 20px;
-
+  display: flex;
 }
 
 .a,
@@ -398,5 +399,8 @@ margin-top: -1vw;
 }
 #info{
   color: gray;
+}
+#title{
+  padding-top: 2vh;
 }
 </style>
