@@ -1,4 +1,9 @@
 <template>
+    <header>
+    <div>
+      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+    </div>
+  </header>
   
   <div class="arrow">
     <button @click="goBack()">
@@ -45,6 +50,8 @@
 <script>
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 import AlertComponent from '@/components/AlertComponent.vue';
 const socket = io("localhost:3000");
 
@@ -65,8 +72,16 @@ export default {
       uiLabels: {},
       selectedAvatar: null,
       avatars: avatar,
-      alertContentText: ""
+      alertContentText: "",
+      isMuted: false,
+      showMysteryButton: true,
     }
+  },
+  computed: {
+        // Compute the image source based on the button state
+        buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        }
   },
   created: function () {
     
@@ -108,7 +123,18 @@ export default {
       this.selectedAvatarUrl = this.avatars[index].url;
       console.log(this.avatars.name)
       console.log("selected avatar URL:", this.selectedAvatarUrl);
-    }
+    },
+    toggleMusic() {
+      // Access the audio player from the AppView component
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.play();
+      this.showMysteryButton = false; // Hide the mysteryButton
+    },
+    toggleMute() {
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.muted = !audioPlayer.muted;
+      this.isMuted = !this.isMuted;
+      },
   }
 
 }
@@ -155,7 +181,7 @@ export default {
   text-align: center;
   font-size: 2vw;
   width: 50vw;
-  height: 10vw;
+  height: 21vh;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
@@ -179,6 +205,7 @@ export default {
 
 .createbutton:hover, #addQuizNameBtn:hover {
   cursor: pointer;
+  background-color: green;
 }
 
 .selected {
@@ -221,5 +248,8 @@ export default {
 
 #addQuizName::placeholder {
     color: gray;
+}
+#title{
+  padding-top: 4vh;
 }
 </style>

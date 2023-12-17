@@ -11,10 +11,6 @@
 
     </div>
   </header>
-  <audio ref="audioPlayer" autoplay loop>
-    <source src="/img/villeTrainSounds.mp3" type="audio/mp3" />
-    Your browser does not support the audio element.
-  </audio>
 
   <main>
     <section id="section1">
@@ -74,19 +70,16 @@ export default {
       socket.emit("switchLanguage", this.lang)
     },
     toggleMusic() {
-      this.$refs.audioPlayer.play();
+      // Access the audio player from the AppView component
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.play();
       this.showMysteryButton = false; // Hide the mysteryButton
-
-
     },
     toggleMute() {
-      const audioPlayer = this.$refs.audioPlayer;
-
-      // Toggle the muted attribute
+      const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
-
       this.isMuted = !this.isMuted;
-    },
+        },
   }
 }
 </script>

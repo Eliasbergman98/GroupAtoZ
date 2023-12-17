@@ -89,12 +89,12 @@ export default {
             this.$router.push('/clue/' + this.pollId);            
         },
         toggleMute() {
-      const audioPlayer = this.$refs.audioPlayer;
+            const audioPlayer = this.$refs.audioPlayer;
 
-      // Toggle the muted attribute
-      audioPlayer.muted = !audioPlayer.muted;
+            // Toggle the muted attribute
+            audioPlayer.muted = !audioPlayer.muted;
 
-      this.isMuted = !this.isMuted;
+            this.isMuted = !this.isMuted;
         },
 
     startFuseTimer: function () {
