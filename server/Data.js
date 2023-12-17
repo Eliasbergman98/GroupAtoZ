@@ -43,6 +43,19 @@ Data.prototype.createPoll = function (pollId, lang = "en", quizName, selectedAva
   return this.polls[pollId];
 }
 
+Data.prototype.createParticipant = function (pollId, name, answer) {
+  const poll = this.polls[pollId];
+  if (typeof poll !== 'undefined') {
+    for (let i = 0; i < poll.participants.length; i++) {
+      if (poll.participants[i].name === name) {
+        poll.participants[i].answers.push(answer);
+        console.log("answer push", name)
+      }
+    }
+  }
+  return name;
+}
+
 Data.prototype.getPoll = function (pollId) {
   console.log("in data getfunction:", this.polls)
   return this.polls[pollId] || {};
@@ -88,7 +101,7 @@ Data.prototype.addParticipant = function (pollId, name, selectedAvatar) {
   console.log("participant added", pollId, name, selectedAvatar);
   if (typeof poll !== 'undefined') {
     for (let i = 0; i < poll.participants.length; i++) {
-      console.log("nu är jag i data och ska loopa över participants");
+      console.log("nu är jag i data och ska loopa över participants", poll.participants[i].name);
       if (poll.participants[i].name === name) {
         console.log("nu hittade vi ett likadant namn åh nej", poll.participants[i].name)
         return "invalidName"
