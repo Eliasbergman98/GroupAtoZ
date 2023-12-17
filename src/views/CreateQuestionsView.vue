@@ -7,7 +7,7 @@
   </div>
   <div class="poll">
     <div class="gameInfo a"> {{ uiLabels.city1 }}
-      <textarea class="fillInfo" v-model="city" rows="2"></textarea>
+      <input class="fillInfo" type="text" rows="2"/>
     </div>
     <div class="gameInfo b"> {{ uiLabels.clue1 }}
       <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
@@ -197,13 +197,14 @@ export default {
   
 <style scoped>
 .fillInfo {
-  height: 1.3vw;
+  height: 1vw;
   width: 30vw;
-  margin-top: 1.5vw;
+  margin-top: 1.7vw;
   border-color: black;
   border-top: 1vw;
   border-left: 1vw;
   border-right: 1vw;
+  margin-left: 1vw;
   font-size: 1.4vw;
   background-color: rgb(201, 241, 244);
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -352,7 +353,6 @@ export default {
   font-size: 2vw;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
-  padding: 20px;
   border-radius: 20px;
 }
 

@@ -98,7 +98,7 @@ export default {
 }
 
 .gameInfo {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 50vw;
     height: 1vw;
     text-align: left;

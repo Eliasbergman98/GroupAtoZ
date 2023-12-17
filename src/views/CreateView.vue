@@ -155,7 +155,7 @@ export default {
   text-align: center;
   font-size: 2vw;
   width: 50vw;
-  height: 10vw;
+  height: 21vh;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
@@ -179,6 +179,7 @@ export default {
 
 .createbutton:hover, #addQuizNameBtn:hover {
   cursor: pointer;
+  background-color: green;
 }
 
 .selected {
