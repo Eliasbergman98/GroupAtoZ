@@ -13,10 +13,6 @@
       {{ uiLabels.heading }}
     </h1>
   </div>
-  <!-- <audio id="audioPlayer" autoplay loop>
-      <source src="/img/villeTrainSounds.mp3" type="audio/mp3" />
-      Your browser does not support the audio element.
-  </audio> -->
   <section id="box-container">
   <section id="aboutus" class="text">
     <h2>{{ uiLabels.aboutText }}</h2>

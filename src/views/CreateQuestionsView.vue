@@ -4,15 +4,14 @@
       <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
     </div>
   </header>
+  
   <div class="arrow">
-    <button @click="goBack()">
-      <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
-        </button></router-link>
-    </button>
+    <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
   </div>
+
   <div class="poll">
     <div class="gameInfo a"> {{ uiLabels.city1 }}
-      <input class="fillInfo" type="text" rows="2"/>
+      <input class="fillInfo" v-model="city" type="text" rows="2"/>
     </div>
     <div class="gameInfo b"> {{ uiLabels.clue1 }}
       <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
