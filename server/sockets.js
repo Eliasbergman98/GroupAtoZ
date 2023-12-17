@@ -33,7 +33,10 @@ function sockets(io, socket, data) {
     io.to(pollId).emit('creatorClicked', pollId);
   });
 
-  
+  socket.on('getThisParticipant', function (pollId, name, answer) {
+    console.log("spelare hämtad")
+    io.to(pollId).emit('thisPlayer', data.createParticipant(pollId, name, answer))
+  })
 
   socket.on('cityUpdate', function (pollId) {
     console.log("i socket och vill updaterar questionnumber")

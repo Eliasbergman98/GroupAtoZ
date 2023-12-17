@@ -6,9 +6,7 @@
   </header>
   
   <div class="arrow">
-    <button @click="goBack()">
     <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
-  </button>
   </div>
   <h1>
     {{ uiLabels.heading }}

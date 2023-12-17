@@ -1,16 +1,16 @@
 <template>
     <header>
-        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" style="width: 3vw; height: 3vw;"/>
+        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" style="width: 3vw; height: 3vw;" />
     </header>
     <h2>
-        {{uiLabels.city}}{{ questionNumber }}
+        {{ uiLabels.city }}{{ questionNumber }}
     </h2>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-    {{data.pollId}}
+    {{ data.pollId }}
     <audio ref="audioPlayer" autoplay loop>
-      <source src="/img/6398985.mp3" type="audio/mp3" />
+      <source src="/img/train1.mp3" type="audio/mp3" />
       Your browser does not support the audio element.
     </audio>
 
@@ -44,6 +44,7 @@ export default {
             avatars: avatar,
             fuseWidth: 100,
             isMuted: false,
+            yourName: ""
         }
     },
     computed: {
@@ -54,14 +55,13 @@ export default {
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-        
+
         socket.emit("pageLoaded", this.lang);
         socket.emit("getCity", this.pollId)
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        
-        
+        socket.emit("joinPoll", this.pollId);
         socket.on("dataUpdate", (data) => {
             console.log(data, "Hej kom igen dataUpdate")
             this.data = data;
@@ -75,11 +75,14 @@ export default {
             this.questionNumber = data;
             console.log("hämtar info från update number", this.questionNumber)
         });
-        socket.on("fullPole", (data)=> { 
-                this.data = data;
-                console.log("this is data", data);
-
-            });
+        socket.on("fullPole", (data) => {
+            this.data = data;
+            console.log("this is data", data);
+        });
+        socket.on("thisPlayer", (data) => {
+            this.yourName = data;
+            console.log(this.yourName, "Hej kom igen thisPlayer")
+        });
 
     },
     methods: {
@@ -87,41 +90,42 @@ export default {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             clearInterval(this.fuseTimer);
-            this.$router.push('/clue/' + this.pollId);            
+            this.$router.push('/clue/' + this.pollId);
         },
         toggleMute() {
-      const audioPlayer = this.$refs.audioPlayer;
+            const audioPlayer = this.$refs.audioPlayer;
 
-      // Toggle the muted attribute
-      audioPlayer.muted = !audioPlayer.muted;
+            // Toggle the muted attribute
+            audioPlayer.muted = !audioPlayer.muted;
 
-      this.isMuted = !this.isMuted;
+            this.isMuted = !this.isMuted;
         },
 
-    startFuseTimer: function () {
-        clearInterval(this.fuseTimer);
+        startFuseTimer: function () {
+            clearInterval(this.fuseTimer);
 
-        // Adjust the timer interval based on your preference
-        const timerInterval = 10; // 1 second
+            // Adjust the timer interval based on your preference
+            const timerInterval = 10; // 1 second
 
-        this.fuseTimer = setInterval(() => {
-            // Decrease the fuse width by a certain percentage
-            this.fuseWidth -= 0.1; // Adjust as needed
+            this.fuseTimer = setInterval(() => {
+                // Decrease the fuse width by a certain percentage
+                this.fuseWidth -= 0.1; // Adjust as needed
 
-            // Check if the fuse is completely burned
-            if (this.fuseWidth <= 0) {
-                // Handle the event when the fuse is burned out
-                this.handleFuseBurnout();
-            }
-        },timerInterval);
+                // Check if the fuse is completely burned
+                if (this.fuseWidth <= 0) {
+                    // Handle the event when the fuse is burned out
+                    this.handleFuseBurnout();
+                }
+            }, timerInterval);
+        }
     }
-}}
+}
 </script>  
 
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
-.muteButton{
+.muteButton {
     position: absolute;
     width: 2vw;
     padding: 2vw;

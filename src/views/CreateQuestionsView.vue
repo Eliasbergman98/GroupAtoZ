@@ -4,12 +4,11 @@
       <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </div>
   </header>
+  
   <div class="arrow">
-    <button @click="goBack()">
-      <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
-        </button></router-link>
-    </button>
+    <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
   </div>
+
   <div class="poll">
     <div class="gameInfo a">
       <div id="title"> {{ uiLabels.city1 }} </div>
