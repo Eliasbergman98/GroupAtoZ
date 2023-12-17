@@ -288,6 +288,7 @@ export default {
   border: 2px solid black;
   margin-left: 10vw;
   display: flex;
+  overflow: hidden;
 }
 
 .a {
@@ -313,7 +314,7 @@ export default {
 .e {
   grid-row-start: 5;
   grid-column-start: 4;
-  margin-left: 11.5vw;
+  margin-left: 4.5vw;
   width: 2vw;
 }
 

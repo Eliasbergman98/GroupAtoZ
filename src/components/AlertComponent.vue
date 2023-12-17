@@ -142,5 +142,15 @@ export default {
   margin-left: 3vw;
   width: 6vw;
 }
+
+@media screen and (max-width: 800px) {
+.custom-alert{
+  font-size: 8vw;
+  }
+.alert-box {
+  width: 50vw;
+  height: auto;
+}
+}
 </style>
   

@@ -34,7 +34,7 @@
       <img class="avatar">
       <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
         :class="{ 'selected': selectedAvatar === index }">
-        <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
+        <img class="emojies" v-bind:src="avatar.url" alt="😄" >
       </button>
     </div>
     </div>
@@ -187,7 +187,7 @@ export default {
   border: 2px solid black;
   margin-left: 24vw;
   padding-top: 2vw;
-  padding-bottom: 4vw;
+  padding-bottom: 5vw;
 }
 #avatarZone{
   width: 75%;
@@ -251,5 +251,53 @@ export default {
 }
 #title{
   padding-top: 4vh;
+}
+
+@media screen and (max-width: 800px) {
+h1{
+  font-size: 12vw;
+
+}
+.a{
+  margin-left: 5vw;
+  width: 90vw;
+  height: 10vw;
+}
+#gameName{
+font-size: 6vw;
+margin-bottom: 1vw;
+}
+.addQuizName{
+  font-size: 4vw;
+  height: 5vw;
+  padding-top: 2vw;
+}
+
+.b{
+  margin-top: 10vw;
+  width: 90vw;
+  margin-left: 5vw;
+  font-size: 8vw;
+  height: 80vh;
+  min-height: 60vh;
+}
+.emojies{
+  height: 7vw;
+  width: 7vw;
+  margin-top: 1vw;
+  margin-left: 1vw;
+}
+.c{
+  grid-row-start: 16;
+  grid-column-start: 1;
+  margin-left: 25vw;
+  
+}
+.createbutton{
+  height: 10vh;
+  width: 50vw;
+  font-size: 5vh;
+  margin-bottom: 2vh;
+}
 }
 </style>
