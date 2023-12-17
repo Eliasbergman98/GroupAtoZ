@@ -1,4 +1,9 @@
 <template>
+    <header>
+        <div>
+            <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+        </div>
+    </header>
     <div class="arrow">
         <router-link to="/join/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
             </button></router-link>
@@ -22,7 +27,7 @@
                 </button>
             </div>
             <div class="gameInfo c">
-                <button v-on:click="addParticipant" id="donebutton"> {{ uiLabels.doneButton }}</button>
+                <button v-on:click="stopMusicAndStartGame" id="donebutton"> {{ uiLabels.doneButton }}</button>
                 <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
                 </AlertComponent>
             </div>
@@ -35,6 +40,8 @@
 import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 const socket = io("localhost:3000");
 
 export default {
@@ -59,10 +66,17 @@ export default {
             yourName: '',
             pollId: "",
             alertContentText: "",
-            checkName: ""
+            checkName: "",
+            isMuted: false,
+            showMysteryButton: true,
 
         }
 
+    },
+    computed: {
+        buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        }
     },
     created: function () {
         this.pollId = this.$route.params.pollId
@@ -90,6 +104,30 @@ export default {
             this.selectedAvatar = index;
             this.selectedAvatarUrl = this.avatars[index].url;
         },
+        toggleMusic() {
+            // Access the audio player from the AppView component
+            const audioPlayer = this.$root.$refs.audioPlayer;
+            audioPlayer.play();
+            this.showMysteryButton = false; // Hide the mysteryButton
+        },
+        toggleMute() {
+            const audioPlayer = this.$root.$refs.audioPlayer;
+            audioPlayer.muted = !audioPlayer.muted;
+            this.isMuted = !this.isMuted;
+        },
+        stopMusicAndStartGame() {
+            // Access the audio player from the AppView component
+            const audioPlayer = this.$root.$refs.audioPlayer;
+            
+            // Pause the music if it's playing
+            if (!audioPlayer.paused) {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
+
+            // Start the game
+            this.addParticipant();
+            },
         addParticipant: async function () {
             console.log("selAv", this.selectedAvatar)
             console.log("selAvUrl", this.selectedAvatarUrl)

@@ -1,6 +1,9 @@
 <template>
-  
-
+  <header>
+    <div>
+      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+    </div>
+  </header>
   <div class="arrow">
     <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
   </div>
@@ -10,6 +13,10 @@
       {{ uiLabels.heading }}
     </h1>
   </div>
+  <!-- <audio id="audioPlayer" autoplay loop>
+      <source src="/img/villeTrainSounds.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+  </audio> -->
   <section id="box-container">
   <section id="aboutus" class="text">
     <h2>{{ uiLabels.aboutText }}</h2>
@@ -33,6 +40,8 @@
 
 <script>
 import io from 'socket.io-client';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 const socket = io("localhost:3000");
 
 export default {
@@ -41,19 +50,54 @@ export default {
     return {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
+      isMuted: false,
+      showMysteryButton: true,
     }
+  },
+  computed: {
+        // Compute the image source based on the button state
+        buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        }
   },
   created: function () {
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
+  },
+  methods: {
+    switchLanguage: function (lang) {
+      this.lang = lang;
+      localStorage.setItem("lang", this.lang);
+      socket.emit("switchLanguage", this.lang)
+    },
+    toggleMusic() {
+      // Access the audio player from the AppView component
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.play();
+      this.showMysteryButton = false; // Hide the mysteryButton
+    },
+    toggleMute() {
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.muted = !audioPlayer.muted;
+      this.isMuted = !this.isMuted;
+      },
   }
 }
 </script>
 
 
 <style scoped>
+
+.muteButton{
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+    padding: 0.5vw 0 0 0.5vw; /* Adjusted padding */
+    margin-left: 45vw;
+    margin-top: 1vw;
+}
 
 #brake {
   margin-top:-7vw;

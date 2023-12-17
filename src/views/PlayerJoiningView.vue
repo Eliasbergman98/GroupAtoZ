@@ -1,4 +1,9 @@
 <template>
+    <header>
+        <div>
+        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+        </div>
+  </header>
     <div class="arrow">
         <button>
             <router-link :to="'/createquestions/' + pollId"><button id="goBack"> <img id="arrow" src="/img/arrow.png"
@@ -27,7 +32,7 @@
             {{ participants.length }} {{ uiLabels.participantCount }}
         </div>
         <div class="gameInfo c">
-            <button id="createbutton" v-on:click="sendInfo"> {{ uiLabels.startGame }}</button>
+            <button id="createbutton" v-on:click="stopMusicAndStartGame"> {{ uiLabels.startGame }}</button>
         </div>
     </div>
 </template>
@@ -35,6 +40,8 @@
 <script>
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 const socket = io("localhost:3000");
 
 export default {
@@ -51,7 +58,14 @@ export default {
             selectedAvatar: null,
             avatars: avatar,
             participants: [],
-            participantCount: 0
+            participantCount: 0,
+            isMuted: false,
+            showMysteryButton: true,
+        }
+    },
+    computed: {
+        buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
         }
     },
     created: function () {
@@ -81,6 +95,30 @@ export default {
             socket.emit("startingGame", {pollId: this.pollId, questionNumber: this.questionNumber})
             this.$router.push('/startingquiz/' + this.pollId)
         },
+        toggleMusic() {
+            // Access the audio player from the AppView component
+            const audioPlayer = this.$root.$refs.audioPlayer;
+            audioPlayer.play();
+            this.showMysteryButton = false; // Hide the mysteryButton
+        },
+        toggleMute() {
+            const audioPlayer = this.$root.$refs.audioPlayer;
+            audioPlayer.muted = !audioPlayer.muted;
+            this.isMuted = !this.isMuted;
+        },
+        stopMusicAndStartGame() {
+            // Access the audio player from the AppView component
+            const audioPlayer = this.$root.$refs.audioPlayer;
+            
+            // Pause the music if it's playing
+            if (!audioPlayer.paused) {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
+
+            // Start the game
+            this.sendInfo();
+            },
     }
 }
 </script>

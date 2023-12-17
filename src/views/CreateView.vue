@@ -1,4 +1,9 @@
 <template>
+    <header>
+    <div>
+      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+    </div>
+  </header>
   
   <div class="arrow">
     <button @click="goBack()">
@@ -43,6 +48,8 @@
 <script>
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 import AlertComponent from '@/components/AlertComponent.vue';
 const socket = io("localhost:3000");
 
@@ -63,8 +70,16 @@ export default {
       uiLabels: {},
       selectedAvatar: null,
       avatars: avatar,
-      alertContentText: ""
+      alertContentText: "",
+      isMuted: false,
+      showMysteryButton: true,
     }
+  },
+  computed: {
+        // Compute the image source based on the button state
+        buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        }
   },
   created: function () {
     
@@ -106,7 +121,18 @@ export default {
       this.selectedAvatarUrl = this.avatars[index].url;
       console.log(this.avatars.name)
       console.log("selected avatar URL:", this.selectedAvatarUrl);
-    }
+    },
+    toggleMusic() {
+      // Access the audio player from the AppView component
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.play();
+      this.showMysteryButton = false; // Hide the mysteryButton
+    },
+    toggleMute() {
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.muted = !audioPlayer.muted;
+      this.isMuted = !this.isMuted;
+      },
   }
 
 }
