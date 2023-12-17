@@ -46,7 +46,8 @@ img[id=ukimg],
 img[id=sweimg]:hover,
 #yesbutton:hover,
 #nobutton:hover,
-#redCrossRemove {
+#redCrossRemove,
+.muteButton {
   cursor: pointer;
 }
 
@@ -63,6 +64,14 @@ img[id=sweimg]:hover,
   border-radius: 1.5vw;
   padding: 1.7vw;
   width: 9em;
+}
+.muteButton{
+  position: absolute;
+  width: 3vw;
+  height: 3vw;
+  padding: 0.5vw 0 0 0.5vw; /* Adjusted padding */
+  margin-left: 45vw;
+  margin-top: 1vw;
 }
 
 

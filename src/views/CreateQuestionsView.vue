@@ -1,4 +1,9 @@
 <template>
+  <header>
+    <div>
+      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+    </div>
+  </header>
   <div class="arrow">
     <button @click="goBack()">
       <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
@@ -50,6 +55,8 @@
 
 import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
 
@@ -80,12 +87,17 @@ export default {
       // Separate variables to hold submitted data
       // submittedCities: [], 
       submittedCities2: {},
+      isMuted: false,
+      showMysteryButton: true,
     }
   },
   computed: {
     areFieldsFilled: function () {
       return this.city && this.clue1 && this.clue2 && this.clue3;
     },
+    buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        }
   },
 
   created: function () {
@@ -116,6 +128,17 @@ export default {
     addPollName: function () {
       this.pollNameId.push("");
     },
+    toggleMusic() {
+      // Access the audio player from the AppView component
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.play();
+      this.showMysteryButton = false; // Hide the mysteryButton
+    },
+    toggleMute() {
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.muted = !audioPlayer.muted;
+      this.isMuted = !this.isMuted;
+      },
     sendInfo: function () {
       if (Object.keys(this.submittedCities2).length === 0) {
         this.alertContentText = this.uiLabels.emptyGameAlert;

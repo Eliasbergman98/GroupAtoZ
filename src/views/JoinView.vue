@@ -1,4 +1,9 @@
 <template>
+    <header>
+    <div>
+      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+    </div>
+  </header>
   <div class="arrow">
     <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
       </button></router-link>
@@ -28,6 +33,8 @@
 // @ is an alias to /src
 import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 const socket = io("localhost:3000");
 
 export default {
@@ -46,9 +53,17 @@ export default {
       submittedAnswers: {},
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      alertContentText: ""
+      alertContentText: "",
+      isMuted: false,
+      showMysteryButton: true,
     }
 
+  },
+  computed: {
+        // Compute the image source based on the button state
+        buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        }
   },
   created: function () {
     this.pollId = this.$route.params.id
@@ -72,9 +87,17 @@ export default {
     });
   },
   methods: {
-    // submitAnswer: function (answer) {
-    //   socket.emit("submitAnswer", { pollId: this.pollId, answer: answer })
-    // },
+    toggleMusic() {
+      // Access the audio player from the AppView component
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.play();
+      this.showMysteryButton = false; // Hide the mysteryButton
+    },
+    toggleMute() {
+      const audioPlayer = this.$root.$refs.audioPlayer;
+      audioPlayer.muted = !audioPlayer.muted;
+      this.isMuted = !this.isMuted;
+      },
     addGameCode: async function () {
       this.pollId = this.gameCode
       // Use a Promise to wait for the asynchronous operation
