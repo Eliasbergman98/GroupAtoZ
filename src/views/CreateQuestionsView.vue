@@ -12,7 +12,7 @@
   </div>
   <div class="poll">
     <div class="gameInfo a"> {{ uiLabels.city1 }}
-      <textarea class="fillInfo" v-model="city" rows="2"></textarea>
+      <input class="fillInfo" type="text" rows="2"/>
     </div>
     <div class="gameInfo b"> {{ uiLabels.clue1 }}
       <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
@@ -35,9 +35,9 @@
       <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
         <p>
           <img id="redCrossRemove" src="/img/redcross.png" style="width: 1.2vw; height:1.2vw" v-on:click="removeCity(cityData)">
-        <div id="city">{{ uiLabels.city }} {{ cityData }}</div>
-        <div id="clue"> {{ uiLabels.clues }} </div> {{
-          cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}
+        <div id="city">{{ uiLabels.city }} <div id="info"> {{ cityData }}</div></div>
+        <div id="clue"> {{ uiLabels.clues }} </div> <div id="info"> {{
+          cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}</div>
         </p>
         <hr>
       </div>
@@ -220,16 +220,17 @@ export default {
   
 <style scoped>
 .fillInfo {
-  height: 2vw;
+  height: 1vw;
   width: 30vw;
-  margin-top: 1vw;
+  margin-top: 1.7vw;
   border-color: black;
   border-top: 1vw;
   border-left: 1vw;
   border-right: 1vw;
+  margin-left: 1vw;
   font-size: 1.4vw;
   background-color: rgb(201, 241, 244);
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #saveButton {
@@ -254,7 +255,7 @@ export default {
 
 
 .gameInfo {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 30vw;
   height: 1vw;
   text-align: left;
@@ -329,7 +330,7 @@ export default {
   background-color: rgb(201, 241, 244);
   border: 0.2vw solid black;
   border-radius: 20px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-style: oblique;
   overflow-y: auto;
 }
@@ -368,14 +369,13 @@ export default {
 }
 
 .addTown {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 100%;
   height: 100%;
   text-align: center;
   font-size: 2vw;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
-  padding: 20px;
   border-radius: 20px;
 }
 
@@ -418,5 +418,8 @@ export default {
 #redCrossRemove {
 margin-left: 18vw;
 margin-top: -1vw;
+}
+#info{
+  color: gray;
 }
 </style>

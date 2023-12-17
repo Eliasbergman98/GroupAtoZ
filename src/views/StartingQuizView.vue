@@ -54,8 +54,12 @@ export default {
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
+
         socket.emit("cityUpdate", this.pollId);
+
+        
         socket.emit("pageLoaded", this.lang);
+        socket.emit("getCity", this.pollId);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
@@ -65,11 +69,16 @@ export default {
         socket.on("pollCreated", (data) => {
             this.data = data;
         });
-        this.startFuseTimer();
+        socket.on("currentCity", (data) => {
+            this.questionNumber = data;
+            console.log("hämtar info från update number", this.questionNumber)
+        });
         socket.on("updateQuestionNumber", (data) => {
             this.questionNumber = data;
             console.log("hämtar info från update number", this.questionNumber)
         });
+        this.startFuseTimer();
+        
 
     },
     methods: {

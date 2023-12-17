@@ -30,11 +30,13 @@
     </div> -->
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>
+      <div id="avatarZone">
       <img class="avatar">
       <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
         :class="{ 'selected': selectedAvatar === index }">
         <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
       </button>
+    </div>
     </div>
     <div class="gameInfo c">
       <button class="createbutton" v-on:click="createPoll" > {{ uiLabels.createGame }}</button>
@@ -142,7 +144,7 @@ export default {
 .poll {
   position: relative;
   display: grid;
-  grid-template-columns: 50vw 10vw 30w;
+  grid-template-columns: 24vw 26vw 30w;
   grid-template-rows: 5vw 5vw 10vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 4vw;
@@ -179,7 +181,7 @@ export default {
   text-align: center;
   font-size: 2vw;
   width: 50vw;
-  height: 10vw;
+  height: 21vh;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
@@ -187,7 +189,11 @@ export default {
   padding-top: 2vw;
   padding-bottom: 4vw;
 }
-
+#avatarZone{
+  width: 75%;
+  margin-left: 12.5%;
+  margin-top: 3vh;
+}
 .c{
   grid-row-start: 2;
   grid-column-start: 3;
@@ -199,6 +205,7 @@ export default {
 
 .createbutton:hover, #addQuizNameBtn:hover {
   cursor: pointer;
+  background-color: green;
 }
 
 .selected {

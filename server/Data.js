@@ -121,6 +121,14 @@ Data.prototype.getCities = function (pollId) {
   return {}
 }
 
+Data.prototype.getCurrentCity = function (pollId) {
+  const poll = this.polls[pollId];
+  if (typeof poll !== 'undefined') {
+
+    return poll.currentQuestion;
+  }
+  return {}
+}
 Data.prototype.getNewCity = function (pollId) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
@@ -132,6 +140,7 @@ Data.prototype.getNewCity = function (pollId) {
   }
   return 50
 }
+
 
 Data.prototype.editQuestion = function (pollId, index, newQuestion) {
   const poll = this.polls[pollId];

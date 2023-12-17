@@ -61,6 +61,7 @@
 	"noHeading": "NEJ",
 	"enterGameName": "Skriv in ett namn för ditt spel",
 	"waitingForHost": "VÄNTAR PÅ ATT SPELET SKA STARTAS...",
-	"theWinner": "VINNAREN ÄR..."
+	"theWinner": "VINNAREN ÄR...",
+	"joining": "Går med i "
 	
 }

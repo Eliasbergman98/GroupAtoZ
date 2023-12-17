@@ -20,11 +20,13 @@
 
             <div class="gameInfo b">
                 {{ uiLabels.chooseAvatar }} <br>
+                <div id="avatarZone">
                 <img class="avatar">
                 <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
                     :class="{ 'selected': selectedAvatar === index }">
                     <img class="emojis" v-bind:src="avatar.url" alt="😄" width="32" height="32">
                 </button>
+            </div>
             </div>
             <div class="gameInfo c">
                 <button v-on:click="stopMusicAndStartGame" id="donebutton"> {{ uiLabels.doneButton }}</button>
@@ -236,6 +238,11 @@ h1 {
     margin-top: 2.8vh;
     padding-top: 2vw;
     padding-bottom: 4vw;
+}
+#avatarZone{
+  width: 75%;
+  margin-left: 12.5%;
+  margin-top: 3vh;
 }
 .c{
   grid-row-start: 2;
