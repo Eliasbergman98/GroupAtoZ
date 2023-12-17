@@ -1,23 +1,24 @@
 <template>
   <header>
     <div class="langimg">
-      <img id="sweimg" src="/img/sweflag.png" style="width: 4vw;" v-on:click="switchLanguage('sv')">
-      <img id="ukimg" src="/img/ukflag.png" style="width: 4vw;" v-on:click="switchLanguage('en')">
+      <img id="sweimg" src="/img/sweflag.png" v-on:click="switchLanguage('sv')">
+      <img id="ukimg" src="/img/ukflag.png" v-on:click="switchLanguage('en')">
     </div>
     <div>
-      <img v-if="showMysteryButton" class="mysteryButton" @click="toggleMusic" src="/img/dontPress.png" alt="Toggle Mute" style="width: 5vw; height: 5vw;"/>
-      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+      <img v-if="showMysteryButton" class="mysteryButton" @click="toggleMusic" src="/img/dontPress.png"
+        alt="Toggle Mute" />
+      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
 
     </div>
   </header>
 
   <main>
     <section id="section1">
-      <img id="brake" src="/img/brake.png" style="width: 15vw;">
+      <img id="brake" src="/img/brake.png">
       <h1>{{ uiLabels.heading }}</h1>
       <div>
         <!--<img id="map" src="/img/map.webp" style="width: 150px;">-->
-        <img id="earth" src="/img/spinning_globe.gif" style="width: 18vw;">
+        <img id="earth" src="/img/spinning_globe.gif">
         <!--<img id="train" src="/img/train.gif" style="width: 150px;"><-->
       </div>
       <h2>{{ uiLabels["sales-pitch2"] }}</h2>
@@ -49,13 +50,13 @@ export default {
       showMysteryButton: true,
     }
   },
-    computed: {
-        // Compute the image source based on the button state
-        buttonImage() {
-            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
-        }
+  computed: {
+    // Compute the image source based on the button state
+    buttonImage() {
+      return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+    }
   },
-  
+
   created: function () {
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
@@ -78,23 +79,25 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
-      },
-  },
+        },
+  }
 }
 </script>
 
 <style scoped>
 body {
-  overflow:hidden;
+  overflow: hidden;
 }
 
-#brake{
-  margin-top:-1vw;
+#brake {
+  margin-top: -1vw;
+  width: 15vw;
 }
 
-#earth{
-  margin-top:-6vw;
-  margin-bottom:-6vw;
+#earth {
+  margin-top: -6vw;
+  margin-bottom: -6vw;
+  width: 17vw;
 }
 
 .langimg {
@@ -107,30 +110,36 @@ body {
 #sweimg {
   margin-left: 20px;
   margin-right: 10px;
+  width: 4vw;
 }
 
 #ukimg {
   margin-right: 10px;
+  width: 4vw;
 }
 
-.mysteryButton{
+.mysteryButton {
   position: absolute;
   margin-left: 39vw;
   margin-top: 0.5vw;
   width: 5vw;
-} 
-.muteButton{
-    position: absolute;
-    width: 3vw;
-    height: 3vw;
-    padding: 0.5vw 0 0 0.5vw; /* Adjusted padding */
-    margin-left: 45vw;
-    margin-top: 1vw;
 }
 
-.mysteryButton:hover, .muteButton:hover{
+.muteButton {
+  position: absolute;
+  width: 3vw;
+  height: 3vw;
+  padding: 0.5vw 0 0 0.5vw;
+  /* Adjusted padding */
+  margin-left: 45vw;
+  margin-top: 1vw;
+}
+
+.mysteryButton:hover,
+.muteButton:hover {
   cursor: pointer;
 }
+
 .button-container {
   margin-top: -1em;
   bottom: 0;
@@ -169,5 +178,76 @@ h2 {
   margin-top: 6vw;
   font-style: italic;
   font-size: 1.4vw;
+}
+
+@media screen and (max-width: 800px) {
+
+  .mysteryButton {
+    position: absolute;
+    margin-left: 28vw;
+    margin-top: 2vw;
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .muteButton {
+    position: absolute;
+    width: 7vw;
+    height: 7vw;
+    padding: 0.5vw 0 0 0.5vw;
+    /* Adjusted padding */
+    margin-left: 40vw;
+    margin-top: 3.5vw;
+  }
+
+  #brake {
+    margin-top: 5vw;
+    width: 40vw;
+  }
+  
+
+  #sweimg {
+    margin-left: 20px;
+    margin-right: 10px;
+    width: 8vw;
+  }
+
+  #ukimg {
+    margin-right: 10px;
+    width: 8vw;
+  }
+
+  #earth {
+    margin-top: -3vw;
+    margin-bottom: -3vw;
+    width: 40vw;
+  }
+
+
+  h1 {
+    font-size: 12vw;
+    margin-top: 5vh;
+  }
+
+  h2 {
+    margin-top: 5vh;
+    font-style: italic;
+    font-size: 3vw;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #createbutton,
+  #howtoplaybutton,
+  #joinbutton {
+    margin: 4vw 0;
+    width: 75vw;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 7vw;
+    border: 0.3vw solid black;
+  }
 }
 </style>

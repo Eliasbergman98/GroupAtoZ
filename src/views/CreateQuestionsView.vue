@@ -1,7 +1,7 @@
 <template>
   <header>
     <div>
-      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </div>
   </header>
   
@@ -10,16 +10,20 @@
   </div>
 
   <div class="poll">
-    <div class="gameInfo a"> {{ uiLabels.city1 }}
-      <input class="fillInfo" v-model="city" type="text" rows="2"/>
+    <div class="gameInfo a">
+      <div id="title"> {{ uiLabels.city1 }} </div>
+      <input class="fillInfo" v-model="city" type="text" />
     </div>
-    <div class="gameInfo b"> {{ uiLabels.clue1 }}
+    <div class="gameInfo b">
+      <div id="title"> {{ uiLabels.clue1 }} </div>
       <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
     </div>
-    <div class="gameInfo c"> {{ uiLabels.clue2 }}
+    <div class="gameInfo c">
+      <div id="title"> {{ uiLabels.clue2 }} </div>
       <textarea class="fillInfo" v-model="clue2" rows="2"></textarea>
     </div>
-    <div class="gameInfo d"> {{ uiLabels.clue3 }}
+    <div class="gameInfo d">
+      <div id="title"> {{ uiLabels.clue3 }} </div>
       <textarea class="fillInfo" v-model="clue3" rows="2"></textarea>
     </div>
     <div class="gameInfo f">
@@ -33,9 +37,12 @@
       <hr>
       <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
         <p>
-          <img id="redCrossRemove" src="/img/redcross.png" style="width: 1.2vw; height:1.2vw" v-on:click="removeCity(cityData)">
-        <div id="city">{{ uiLabels.city }} <div id="info"> {{ cityData }}</div></div>
-        <div id="clue"> {{ uiLabels.clues }} </div> <div id="info"> {{
+          <img id="redCrossRemove" src="/img/redcross.png" style="width: 1.2vw; height:1.2vw"
+            v-on:click="removeCity(cityData)">
+        <div id="city">{{ uiLabels.city }} <div id="info"> {{ cityData }}</div>
+        </div>
+        <div id="clue"> {{ uiLabels.clues }} </div>
+        <div id="info"> {{
           cityName[0] }}, {{ cityName[1] }}, {{ cityName[2] }}</div>
         </p>
         <hr>
@@ -95,8 +102,8 @@ export default {
       return this.city && this.clue1 && this.clue2 && this.clue3;
     },
     buttonImage() {
-            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
-        }
+      return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+    }
   },
 
   created: function () {
@@ -137,7 +144,7 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
-      },
+    },
     sendInfo: function () {
       if (Object.keys(this.submittedCities2).length === 0) {
         this.alertContentText = this.uiLabels.emptyGameAlert;
@@ -219,13 +226,15 @@ export default {
   
 <style scoped>
 .fillInfo {
-  height: 1vw;
+  height: 2vw;
   width: 30vw;
   margin-top: 1.7vw;
   border-color: black;
   border-top: 1vw;
   border-left: 1vw;
   border-right: 1vw;
+  max-height: 6vh;
+  max-width: 30vw;
   margin-left: 1vw;
   font-size: 1.4vw;
   background-color: rgb(201, 241, 244);
@@ -277,6 +286,7 @@ export default {
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
   margin-left: 10vw;
+  display: flex;
 }
 
 .a {
@@ -342,24 +352,9 @@ export default {
   background-color: rgba(0, 0, 0, 0);
 }
 
-.infofromviewbefore {
-  grid-row-start: 6;
-  grid-column-start: 1;
-}
-
 .createbutton:hover {
   cursor: pointer;
   background-color: green;
-}
-
-.createbutton {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 1vw;
-  color: white;
-  background-color: gray;
-  border: 0.2vw solid black;
-  padding: 2vw;
-  border-radius: 1vw;
 }
 
 .addTown:hover {
@@ -389,13 +384,6 @@ export default {
   border: 1px solid rgb(163, 163, 243);
 }
 
-.earth {
-  width: 10vw;
-  grid-column-start: 3;
-  grid-row-start: 1;
-
-}
-
 #title {
   font-weight: bolder;
   font-size: larger;
@@ -409,16 +397,21 @@ export default {
   font-weight: bolder;
 
 }
+
 .right-section p {
   display: flex;
   flex-direction: column;
 }
 
 #redCrossRemove {
-margin-left: 18vw;
-margin-top: -1vw;
+  margin-left: 18vw;
+  margin-top: -1vw;
 }
-#info{
+
+#info {
   color: gray;
 }
-</style>
+
+#title {
+  padding-top: 2vh;
+}</style>
