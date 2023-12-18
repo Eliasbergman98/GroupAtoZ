@@ -21,7 +21,7 @@
     </button> <br> <br> -->
     <div id="gameName">
       {{ uiLabels.chooseName }} </div>
-      <input v-model="quizName" class="addQuizName" type="text" :placeholder="uiLabels.enterGameName">
+      <input v-model="quizName" class="addQuizName" type="text" :placeholder="uiLabels.enterGameName" maxlength="20">
     </div>
     <!-- <div class ="earth">
       <img id="earth" src="/img/earth.png" style="width: 180px;">
@@ -295,8 +295,8 @@ margin-bottom: 3vw;
 }
 
 .emojies{
-  height: 7vw;
-  width: 7vw;
+  height: 5vw;
+  width: 5vw;
   margin-top: 1vw;
   margin-left: 1vw;
 }

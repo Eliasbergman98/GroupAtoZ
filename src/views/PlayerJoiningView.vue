@@ -14,8 +14,7 @@
 
     <div class="poll">
         <div class="gameInfo b">
-            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" width="20" height="20"
-                target="_blank"> <br> <hr>
+            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" target="_blank"> <br> <hr>
             {{ uiLabels.gameTag }} {{ pollId }} <br>
             {{ participants.length }} {{ uiLabels.participantCount }}
         </div>
@@ -25,8 +24,7 @@
             <div class="scroll-wrapper">
                 <ul v-for="person in participants" :key="participants.name">
                     <li>
-                        {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32"
-                            height="32">
+                        {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank">
                     </li>
                 </ul>
             </div>
@@ -212,8 +210,8 @@ export default {
 .b{
     grid-column-start: 1;
     width: 65vw;
-    height: 20vh;
-    font-size: 4vh;
+    height: 23vh;
+    font-size: 3.6vh;
     margin-left: 0vw;
 }
 .a{
@@ -233,6 +231,10 @@ export default {
     width: 50vw;
     font-size: 2vh;
     margin-left: 2.5vw;
+}
+.emojies {
+    width: 3vh;
+    height: 3vh;
 }
 .scroll-wrapper ul{
     overflow-y: auto;

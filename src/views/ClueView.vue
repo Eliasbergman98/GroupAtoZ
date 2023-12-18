@@ -206,7 +206,7 @@
 
             this.fuseTimer = setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.5; // Adjust as needed
+                this.fuseWidth -= 0.001; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
@@ -291,4 +291,54 @@
         position: center;
         margin-top: 10vw;
     }
+
+@media screen and (max-width: 800px)  {
+
+    h1{
+        font-size: 7.7vh;
+    }
+    .tester {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: left;
+    position: center;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 3vw;
+    width: 80vw;
+    height: 40vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin: 2vw auto 20vw auto;
+    padding-bottom: 0vw ;   
+    }
+    .tester input{
+        font-size: 1.5vw;
+        margin-bottom: 10vw;
+        margin-left: 9vw;
+        height: 5vw;
+        width: 50vw;
+    }
+    p{
+        height: 10vw;
+    }
+    
+    .clueAnswer{
+        font-size: 1.5vw;
+        height: 5vw;
+        width: 10vw;
+        position: center;
+        margin-left: 5vw;
+        margin-bottom: 10vw;
+
+        padding-top: 1.5vw;         
+        background-color: gray;
+        border: 2px solid black;
+    }
+    .labelSize{
+        font-size: 3vw;
+    }
+
+
+}
     </style>
