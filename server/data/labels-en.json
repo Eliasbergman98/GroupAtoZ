@@ -62,5 +62,6 @@
 	"enterGameName": "Enter a name for your game",
 	"waitingForHost": "WAITING FOR HOST TO START GAME...",
 	"theWinner": "THE WINNER IS...",
-	"joining": "Joining"
+	"joining": "Joining",
+	"waitingForAnswers": "Waiting for players to submit answers..."
 }

@@ -45,17 +45,17 @@ const router = createRouter({
       component: () => import('../views/PlayerJoiningView.vue')
     },
     {
-      path: '/startingquiz/:pollId',
+      path: '/startingquiz/:pollId/:yourName',
       name: 'StartingQuizView',
       component: () => import('../views/StartingQuizView.vue')
     },
     {
-      path: '/clue/:pollId',
+      path: '/clue/:pollId/:yourName',
       name: 'ClueView',
       component: () => import('../views/ClueView.vue')
     },
     {
-    path: '/afterclue/:pollId',
+    path: '/afterclue/:pollId/:yourName',
       name: 'AfterClueView',
       component: () => import('../views/AfterClueView.vue')
     },
@@ -65,11 +65,20 @@ const router = createRouter({
       component: () => import('../views/PlayerWaitingView.vue')
     },
     {
-      path: '/startingquizplayer/:pollId',
+      path: '/startingquizplayer/:pollId/:yourName',
       name: 'StartingQuizPlayerView',
-      component: () => import('../views/StartingQuizPlayerView.vue')
-
+      component: () => import('../views/StartingQuizPlayerView.vue'),
     },
+    // {
+    //   path: '/startingquizplayer/:pollId/:yourName',  // Add :yourName to the route
+    //   name: 'StartingQuizPlayerView',
+    //   component: StartingQuizPlayerView,
+    //   props: (route) => ({
+    //     pollId: route.params.pollId,
+    //     yourName: route.params.yourName,
+    //   }),
+    // },
+    
     {
       path: '/lastresult/:pollId',
       name: 'LastResultView',

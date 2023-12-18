@@ -61,6 +61,7 @@ export default {
             participantCount: 0,
             isMuted: false,
             showMysteryButton: true,
+            quizName: ""
         }
     },
     computed: {
@@ -84,16 +85,17 @@ export default {
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
         socket.on("pollCreated", (data) =>
-            this.data = data)
+            this.data = data )
         socket.on("fullPole", (data) => {
-            console.log("in joiningview", this.pollId)
             this.data = data;
+            this.quizName = data.quizName;
+            console.log("in joiningview", this.quizName)
         });
     },
     methods: {
         sendInfo: function () {
             socket.emit("startingGame", {pollId: this.pollId, questionNumber: this.questionNumber})
-            this.$router.push('/startingquiz/' + this.pollId)
+            this.$router.push('/startingquiz/' + this.pollId + "/" + this.quizName)
         },
         toggleMusic() {
             // Access the audio player from the AppView component

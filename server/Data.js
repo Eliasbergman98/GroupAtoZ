@@ -48,7 +48,7 @@ Data.prototype.createParticipant = function (pollId, name, answer) {
   if (typeof poll !== 'undefined') {
     for (let i = 0; i < poll.participants.length; i++) {
       if (poll.participants[i].name === name) {
-        poll.participants[i].answers.push(answer);
+        // poll.participants[i].answers.push(answer);
         console.log("answer push", name)
       }
     }
@@ -96,12 +96,15 @@ Data.prototype.removeCity = function (pollId, city) {
   }
 }
 
-Data.prototype.addParticipant = function (pollId, name, selectedAvatar) {
+Data.prototype.addParticipant = function (pollId, name, selectedAvatar, quizName) {
   const poll = this.polls[pollId];
   console.log("participant added", pollId, name, selectedAvatar);
   if (typeof poll !== 'undefined') {
+    if (quizName === name) {
+      return "invalidName"
+    }
     for (let i = 0; i < poll.participants.length; i++) {
-      console.log("nu är jag i data och ska loopa över participants", poll.participants[i].name);
+      console.log("nu är jag i data och ska loopa över participants", poll.quizName);
       if (poll.participants[i].name === name) {
         console.log("nu hittade vi ett likadant namn åh nej", poll.participants[i].name)
         return "invalidName"
@@ -110,11 +113,11 @@ Data.prototype.addParticipant = function (pollId, name, selectedAvatar) {
     let participant = {
       name: name,
       avatar: selectedAvatar,
-      answers: []
+      points: 0
     }
     poll.participants.push(participant);
-
   }
+  return "validName"
 }
 
 Data.prototype.getParticipants = function (pollId) {
@@ -154,7 +157,6 @@ Data.prototype.getNewCity = function (pollId) {
   return 50
 }
 
-
 Data.prototype.editQuestion = function (pollId, index, newQuestion) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
@@ -192,6 +194,37 @@ Data.prototype.submitAnswer = function (pollId, answer) {
   }
 }
 
+Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber) {
+  const poll = this.polls[pollId];
+  console.log("in CheckAnswer", pollId, answer, name, clueNumber)
+  let city = Object.keys(poll.cities)[poll.currentQuestion - 1].toLowerCase();
+  answer = answer.toLowerCase();
+  console.log("city", city)
+  let pointsWon;
+  console.log("cities", poll.cities);
+  if (answer != "") {
+    if (clueNumber === 0 && answer === city) {
+      pointsWon = 6;
+    }
+    if (clueNumber === 1 && answer === city) {
+      pointsWon = 4;
+    }
+    if (clueNumber === 2 && answer === city) {
+      pointsWon = 2;
+    }
+    if (typeof poll !== 'undefined') {
+      for (let i = 0; i < poll.participants.length; i++) {
+        if (poll.participants[i].name === name) {
+          poll.participants[i].points += pointsWon;
+          console.log("points", poll.participants[i].points);
+          console.log("participant", poll.participants[i]);
+          console.log("pointsWon", pointsWon);
+        }
+      }
+    }
+  }
+}
+
 Data.prototype.getAnswers = function (pollId) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
@@ -203,6 +236,3 @@ Data.prototype.getAnswers = function (pollId) {
   return {}
 }
 export { Data };
-
-
-

@@ -5,6 +5,7 @@
     <h2>
         {{ uiLabels.city }}{{ questionNumber }}
     </h2>
+    <div> {{ yourName }}</div>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
@@ -55,7 +56,7 @@ export default {
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-
+        this.yourName = this.$route.params.yourName;
         socket.emit("pageLoaded", this.lang);
         socket.emit("getCity", this.pollId)
         socket.on("init", (labels) => {
@@ -90,7 +91,7 @@ export default {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             clearInterval(this.fuseTimer);
-            this.$router.push('/clue/' + this.pollId);
+            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
         },
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;

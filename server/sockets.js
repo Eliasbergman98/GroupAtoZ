@@ -76,7 +76,7 @@ function sockets(io, socket, data) {
   });
 
   socket.on("addParticipant", function (d) {
-    socket.emit("checkPlayer", data.addParticipant(d.pollId, d.name, d.selectedAvatar));
+    socket.emit("checkPlayer", data.addParticipant(d.pollId, d.name, d.selectedAvatar, d.quizName));
     io.to(d.pollId).emit('participantsUpdate', data.getParticipants(d.pollId));
   });
 
@@ -84,7 +84,10 @@ function sockets(io, socket, data) {
     data = new Data();
     data.initializeData();
   })
-
+  socket.on("checkAnswer", function (d) {
+    console.log("Socket checkanswer")
+    data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber);
+  });
 }
 
 export { sockets };

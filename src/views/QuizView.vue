@@ -96,6 +96,7 @@ export default {
         socket.emit("getPoll", this.pollId);
         socket.on("fullPole", (data) => {
             this.data = data;
+            this.quizName = data.quizName;
             console.log("data hämtad", this.pollId)
 
         });
@@ -150,7 +151,7 @@ export default {
                 // Use a promise to wait for the result of socket.emit
                 const addParticipantResult = await new Promise((resolve, reject) => {
                     // Emit 'addParticipant' event to the server
-                    socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl });
+                    socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl, quizName: this.quizName });
                     socket.on("checkPlayer", (data) => {
                         // Resolve the promise with the received data
                         resolve(data);

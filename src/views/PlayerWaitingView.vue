@@ -85,7 +85,7 @@ export default {
 
         socket.on("creatorStarting", (pollId) => {
             socket.emit("getThisParticipant", this.pollId, this.yourName )
-            this.$router.push('/startingquizplayer/' + this.pollId);
+            this.$router.push('/startingquizplayer/' + this.pollId + '/' + this.yourName);
         });
 
     },

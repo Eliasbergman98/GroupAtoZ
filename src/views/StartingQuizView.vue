@@ -44,6 +44,7 @@ export default {
             avatars: avatar,
             fuseWidth: 100,
             isMuted: false,
+            yourName: ""
         }
     },
     computed: {
@@ -54,10 +55,8 @@ export default {
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
-
+        this.yourName = this.$route.params.yourName;
         socket.emit("cityUpdate", this.pollId);
-
-        
         socket.emit("pageLoaded", this.lang);
         socket.emit("getCity", this.pollId);
         socket.on("init", (labels) => {
@@ -86,7 +85,7 @@ export default {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             clearInterval(this.fuseTimer);
-            this.$router.push('/clue/' + this.pollId);            
+            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);            
         },
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;
