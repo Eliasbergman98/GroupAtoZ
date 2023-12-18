@@ -21,7 +21,7 @@
     </button> <br> <br> -->
     <div id="gameName">
       {{ uiLabels.chooseName }} </div>
-      <input v-model="quizName" class="addQuizName" type="text" :placeholder="uiLabels.enterGameName">
+      <input v-model="quizName" class="addQuizName" type="text" :placeholder="uiLabels.enterGameName" maxlength="20">
     </div>
     <!-- <div class ="earth">
       <img id="earth" src="/img/earth.png" style="width: 180px;">
@@ -32,7 +32,7 @@
       <img class="avatar">
       <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
         :class="{ 'selected': selectedAvatar === index }">
-        <img class="emojies" v-bind:src="avatar.url" alt="😄" width="32" height="32">
+        <img class="emojies" v-bind:src="avatar.url" alt="😄" >
       </button>
     </div>
     </div>
@@ -185,7 +185,7 @@ export default {
   border: 2px solid black;
   margin-left: 24vw;
   padding-top: 2vw;
-  padding-bottom: 4vw;
+  padding-bottom: 5vw;
 }
 #avatarZone{
   width: 75%;
@@ -249,5 +249,68 @@ export default {
 }
 #title{
   padding-top: 4vh;
+}
+
+@media screen and (max-width: 800px)  {
+h1{
+  font-size: 12vw;
+
+}
+.poll {
+  position: relative;
+  display: grid;
+  grid-template-columns: 24vw 16vw 10w;
+  grid-template-rows: 5vw 5vw 10vw;
+  background-color: rgb(163, 163, 243);
+  grid-gap: 4vw;
+  background-size: cover;
+}
+.a{
+  display: flex;
+  margin-left: 5vw;
+  width: 90vw;
+  height: 10vw;
+}
+#gameName{
+font-size: 4vw;
+padding-top: 3vw;
+width: 22vw;
+margin-bottom: 3vw;
+}
+
+.addQuizName{
+  width: 55vw;
+  font-size: 3.8vw;
+  height: 5vw;
+  padding-top: 2.5vw;
+} 
+
+.b{
+  margin-top: 10vw;
+  width: 90vw;
+  margin-left: 5vw;
+  font-size: 8vw;
+  height: 40vh;
+
+}
+
+.emojies{
+  height: 5vw;
+  width: 5vw;
+  margin-top: 1vw;
+  margin-left: 1vw;
+}
+.c{
+  grid-row-start: 16;
+  grid-column-start: 1;
+  margin-left: 25vw;
+  
+}
+.createbutton{
+  height: 10vh;
+  width: 50vw;
+  font-size: 4vh;
+  margin-bottom: 2vh;
+}
 }
 </style>

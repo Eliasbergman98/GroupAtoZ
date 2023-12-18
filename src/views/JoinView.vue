@@ -167,4 +167,12 @@ export default {
 #heading {
   margin-bottom: 1vw;
 }
+
+@media screen and (max-width: 800px){
+  
+ h1{
+  font-size: 17vw;
+ } 
+
+}
 </style>

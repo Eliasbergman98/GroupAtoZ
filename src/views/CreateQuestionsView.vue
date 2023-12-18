@@ -28,7 +28,7 @@
     </div>
     <div class="gameInfo f">
       <button class="addTown" v-on:click="addQuestion"> {{
-        uiLabels.addTown }} <img id="greentick" src="/img/greentick.png" style="width: 1.5vw; height: 1.5vw"></button>
+        uiLabels.addTown }} <img id="greentick" src="/img/greentick.png"></button>
     </div>
     <div v-if="Object.keys(submittedCities2).length > 0" class="right-section">
       <div id="title">
@@ -37,7 +37,7 @@
       <hr>
       <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
         <p>
-          <img id="redCrossRemove" src="/img/redcross.png" style="width: 1.2vw; height:1.2vw"
+          <img id="redCrossRemove" src="/img/redcross.png "
             v-on:click="removeCity(cityData)">
         <div id="city">{{ uiLabels.city }} <div id="info"> {{ cityData }}</div>
         </div>
@@ -287,6 +287,7 @@ export default {
   border: 2px solid black;
   margin-left: 10vw;
   display: flex;
+  overflow: hidden;
 }
 
 .a {
@@ -312,7 +313,7 @@ export default {
 .e {
   grid-row-start: 5;
   grid-column-start: 4;
-  margin-left: 11.5vw;
+  margin-left: 4.5vw;
   width: 2vw;
 }
 
@@ -328,13 +329,16 @@ export default {
   background-color: rgb(201, 241, 244);
   margin-left: 10vw;
 }
-
+#greentick{
+  height: 1.2vw;
+  width: 1.2vw;
+}
 .right-section {
   grid-row-start: 1;
   grid-column-start: 4;
   font-size: 1.2vw;
   width: 20vw;
-  height: 31vw;
+  height: 21vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 0.2vw solid black;
@@ -404,6 +408,8 @@ export default {
 }
 
 #redCrossRemove {
+  height: 1.2vw;
+  width: 1.2vw;
   margin-left: 18vw;
   margin-top: -1vw;
 }
@@ -414,4 +420,113 @@ export default {
 
 #title {
   padding-top: 2vh;
+}
+@media screen and (max-width: 800px) {
+  .poll {
+  position: relative;
+  display: grid;
+  grid-template-columns: 39vw 39vw 9.1vw;
+  grid-template-rows: 10vw 10vw 10vw 10vw 5vw 50vw 14vw;
+  background-color: rgb(163, 163, 243);
+  grid-gap: 6vw;
+  background-size: cover;
+
+}
+.a,
+.b,
+.c,
+.d {
+  padding: 10em auto 2em 2em;
+  text-align: left;
+  padding-left: 5vw;
+  padding-top: 2vw;
+  font-size: 4vw;
+  width: 75vw;
+  height: 10vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 10vw;
+  display: flex;
+  overflow: hidden;
+}
+
+.addTown {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 4vw;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
+.f {
+  padding: 10vw auto 2vw 2vw;
+  text-align: center;
+  font-size: 4vw;
+  width: 80vw;
+  height: 10vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  margin-left: 10vw;
+}
+.fillInfo {
+  height: 5vw;
+  width: 35vw;
+  margin-top: 1.7vw;
+  border-color: black;
+  border-top: 1vw;
+  border-left: 1vw;
+  border-right: 1vw;
+  max-height: 6vh;
+  max-width: 30vw;
+  margin-left: 1vw;
+  font-size: 2.8vw;
+  background-color: rgb(201, 241, 244);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.e {
+  grid-row-start: 7;
+  grid-column-start: 1;
+  margin-left: 4.5vw;
+  width: 80vw;
+}
+.createbutton{
+  height: 10vh;
+  width: 50vw;
+  font-size: 4vh;
+  margin-left: 20vw;
+  margin-top: 10vw;
+}
+.right-section {
+  grid-row-start: 6;
+  grid-column-start: 1;
+  font-size: 2.4vw;
+  margin-left: 30vw;
+  margin-top: 3vw;
+  width: 40vw;
+  height: 58vw;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 0.2vw solid black;
+  border-radius: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-style: oblique;
+  overflow-y: auto;
+}
+  #greentick{
+    width: 3vw;
+    height: 3vw;
+  }
+#redCrossRemove{
+  height: 3vw;
+  width: 3vw;
+  position: relative;
+  top: 3vh;
+  right: 10vw;
+}
+
+
 }</style>

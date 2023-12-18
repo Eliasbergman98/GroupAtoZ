@@ -13,23 +13,21 @@
     </div>
 
     <div class="poll">
+        <div class="gameInfo b">
+            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" target="_blank"> <br> <hr>
+            {{ uiLabels.gameTag }} {{ pollId }} <br>
+            {{ participants.length }} {{ uiLabels.participantCount }}
+        </div>
         <div class="gameInfo a">
             {{ uiLabels.players }} <br>
             <hr>
             <div class="scroll-wrapper">
                 <ul v-for="person in participants" :key="participants.name">
                     <li>
-                        {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank" width="32"
-                            height="32">
+                        {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank">
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="gameInfo b">
-            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" width="20" height="20"
-                target="_blank"> <br> <hr>
-            {{ uiLabels.gameTag }} {{ pollId }} <br>
-            {{ participants.length }} {{ uiLabels.participantCount }}
         </div>
         <div class="gameInfo c">
             <button id="createbutton" v-on:click="stopMusicAndStartGame"> {{ uiLabels.startGame }}</button>
@@ -210,4 +208,50 @@ export default {
     width: 2vw;
     height: 2vw;
 }
+@media screen and (max-width: 800px){
+.b{
+    grid-column-start: 1;
+    width: 65vw;
+    height: 23vh;
+    font-size: 3.6vh;
+    margin-left: 0vw;
+}
+.a{
+    grid-row-start: 3;
+    font-size: 4vh;
+    width: 65vw;
+    height: 50vh;
+    margin-left: 3vw;
+}
+.c{
+    grid-row-start: 5;
+    grid-column-start: 3;
+    margin-left: -5vw;
+}
+#createbutton{
+    height: 7vh;
+    width: 50vw;
+    font-size: 2vh;
+    margin-left: 2.5vw;
+}
+.emojies {
+    width: 3vh;
+    height: 3vh;
+}
+.scroll-wrapper ul{
+    overflow-y: auto;
+    max-height: 200vh;
+    height: auto;
+
+    /* Ensure the wrapper takes the full height of the container */
+}
+.poll{
+    
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+
+}
+}
 </style>
+

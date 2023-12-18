@@ -130,6 +130,7 @@ export default {
 h1 {
     position: center;
     margin-top: 10vw;
+ 
 }
 
 h2 {
@@ -147,5 +148,13 @@ h1 {
 h2 {
     position: center;
     margin-top: 10vw;
+}
+
+@media screen and (max-width: 800px)  {
+
+h1{
+    font-size: 7.7vh;
+}
+
 }
 </style>

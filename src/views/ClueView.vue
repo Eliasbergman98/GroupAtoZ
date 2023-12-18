@@ -287,14 +287,55 @@ h2 {
 }
 </style>
 
-<style scoped>
-h1 {
-    position: center;
-    margin-top: 10vw;
-}
+    h2 {
+        position: center;
+        margin-top: 10vw;
+    }
 
-h2 {
-    position: center;
-    margin-top: 10vw;
+@media screen and (max-width: 500px)  {
+
+    h1{
+        font-size: 12vw;
+    }
+    .tester {
+    border-radius: 20px;
+    text-align: center;
+    font-size: 3vw;
+    width: 80vw;
+    height: 40vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin: 2vw auto 20vw auto;
+    padding-bottom: 0vw ;   
+    }
+    .tester input{
+        font-size: 1.5vw;
+        margin-bottom: 10vw;
+        margin-left: 9vw;
+        height: 5vw;
+        width: 50vw;
+    }
+    p{
+        height: 10vw;
+    }
+    
+    .clueAnswer{
+        font-size: 1.5vw;
+        height: 5vw;
+        width: 10vw;
+        position: center;
+        margin-left: 5vw;
+        margin-bottom: 10vw;
+
+        padding-top: 1.5vw;         
+        background-color: gray;
+        border: 2px solid black;
+    }
+    .labelSize{
+        font-size: 3vw;
+    }
+
+
 }
-</style>
+    </style>
