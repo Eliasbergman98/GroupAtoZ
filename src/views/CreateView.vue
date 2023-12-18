@@ -257,20 +257,24 @@ h1{
 
 }
 .a{
+  display: flex;
   margin-left: 5vw;
   width: 90vw;
   height: 10vw;
 }
 #gameName{
-font-size: 6vw;
-margin-bottom: 1vw;
-}
-.addQuizName{
-  font-size: 4vw;
-  height: 5vw;
-  padding-top: 2vw;
+font-size: 4vw;
+padding-top: 3vw;
+width: 22vw;
+margin-bottom: 3vw;
 }
 
+.addQuizName{
+  width: 55vw;
+  font-size: 3.8vw;
+  height: 5vw;
+  padding-top: 3vw;
+} 
 .b{
   margin-top: 10vw;
   width: 90vw;
@@ -279,6 +283,7 @@ margin-bottom: 1vw;
   height: 50vh;
   min-height: 60vh;
 }
+
 .emojies{
   height: 7vw;
   width: 7vw;
@@ -294,7 +299,7 @@ margin-bottom: 1vw;
 .createbutton{
   height: 10vh;
   width: 50vw;
-  font-size: 5vh;
+  font-size: 4vh;
   margin-bottom: 2vh;
 }
 }
