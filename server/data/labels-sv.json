@@ -62,6 +62,6 @@
 	"enterGameName": "Skriv in ett namn för ditt spel",
 	"waitingForHost": "VÄNTAR PÅ ATT SPELET SKA STARTAS...",
 	"theWinner": "VINNAREN ÄR...",
-	"joining": "Går med i "
-	
+	"joining": "Går med i ",
+	"waitingForAnswers": "Väntar på att spelarna ska svara..."
 }
