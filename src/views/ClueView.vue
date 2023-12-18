@@ -295,12 +295,9 @@
 @media screen and (max-width: 800px)  {
 
     h1{
-        font-size: 7.7vh;
+        font-size: 12vw;
     }
     .tester {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    text-align: left;
-    position: center;
     border-radius: 20px;
     text-align: center;
     font-size: 3vw;

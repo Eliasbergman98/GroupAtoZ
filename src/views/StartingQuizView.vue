@@ -131,6 +131,7 @@ export default {
 h1 {
     position: center;
     margin-top: 10vw;
+ 
 }
 
 h2 {
