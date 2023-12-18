@@ -271,6 +271,15 @@ h2 {
         margin-left: -10vw;
         border-radius: 5vw;
     }
+    .scroll-wrapper {
+    overflow-y: auto;
+    height: 50vw;
+    /* Ensure the wrapper takes the full height of the container */
+    }
+    .emojies {
+    width: 7vw;
+    height: 7vw;
+}
 
 }
 </style>
