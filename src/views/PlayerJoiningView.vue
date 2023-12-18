@@ -13,6 +13,12 @@
     </div>
 
     <div class="poll">
+        <div class="gameInfo b">
+            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" width="20" height="20"
+                target="_blank"> <br> <hr>
+            {{ uiLabels.gameTag }} {{ pollId }} <br>
+            {{ participants.length }} {{ uiLabels.participantCount }}
+        </div>
         <div class="gameInfo a">
             {{ uiLabels.players }} <br>
             <hr>
@@ -24,12 +30,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="gameInfo b">
-            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" width="20" height="20"
-                target="_blank"> <br> <hr>
-            {{ uiLabels.gameTag }} {{ pollId }} <br>
-            {{ participants.length }} {{ uiLabels.participantCount }}
         </div>
         <div class="gameInfo c">
             <button id="createbutton" v-on:click="stopMusicAndStartGame"> {{ uiLabels.startGame }}</button>
@@ -208,4 +208,49 @@ export default {
     width: 2vw;
     height: 2vw;
 }
+@media screen and (max-width: 800px){
+.b{
+    grid-column-start: 1;
+    width: 65vw;
+    height: 20vh;
+    font-size: 4vh;
+    margin-left: 0vw;
+}
+.a{
+    grid-row-start: 3;
+    font-size: 4vh;
+    width: 65vw;
+    height: 50vh;
+    margin-left: 3vw;
+}
+.c{
+    grid-row-start: 5;
+    grid-column-start: 3;
+    margin-left: -5vw;
+}
+#createbutton{
+    height: 7vh;
+    width: 50vw;
+    font-size: 2vh;
+    margin-left: 2.5vw;
+}
+.scroll-wrapper ul{
+    overflow-y: auto;
+    max-height: 200vw;
+    height: auto;
+
+    /* Ensure the wrapper takes the full height of the container */
+}
+.scroll-wrapper{
+overflow:inherit;
+}
+.poll{
+    
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+
+}
+}
 </style>
+
