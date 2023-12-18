@@ -338,7 +338,7 @@ export default {
   grid-column-start: 4;
   font-size: 1.2vw;
   width: 20vw;
-  max-height: 31vw;
+  height: 21vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 0.2vw solid black;
@@ -426,7 +426,7 @@ export default {
   position: relative;
   display: grid;
   grid-template-columns: 39vw 39vw 9.1vw;
-  grid-template-rows: 10vw 10vw 10vw 10vw 5vw 24vw 14vw;
+  grid-template-rows: 10vw 10vw 10vw 10vw 5vw 50vw 14vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 6vw;
   background-size: cover;
@@ -507,7 +507,7 @@ export default {
   margin-left: 30vw;
   margin-top: 3vw;
   width: 40vw;
-  height: 50vw;
+  height: 58vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 0.2vw solid black;
