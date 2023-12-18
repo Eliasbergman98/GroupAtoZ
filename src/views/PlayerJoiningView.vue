@@ -236,13 +236,10 @@ export default {
 }
 .scroll-wrapper ul{
     overflow-y: auto;
-    max-height: 200vw;
+    max-height: 200vh;
     height: auto;
 
     /* Ensure the wrapper takes the full height of the container */
-}
-.scroll-wrapper{
-overflow:inherit;
 }
 .poll{
     

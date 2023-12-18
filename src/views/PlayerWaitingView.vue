@@ -232,5 +232,46 @@ h2 {
     padding: 0;
     margin: 0;
 }
+
+@media screen and (max-width:800px) {
+    h1{
+        font-size: 12vw;
+    }
+    h2{
+        font-size: 8vw;
+    }
+    .poll{
+        font-size: 8vw;
+    }
+    .button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    #gameIDbutton{
+        width: 60vw;
+        height: 10vh;
+        font-size: 3.6vh;
+        margin-left: -10vw;
+        border-radius: 5vw;
+        margin-bottom: 20px;
+    }
+    #exitGamebutton{
+        width: 60vw;
+        height: 10vh;
+        font-size: 3.6vh;
+        margin-left: -10vw; 
+        border-radius: 5vw;
+        margin-bottom: 20px;
+    }
+    #playerJoinedbutton{
+        width: 60vw;
+        height: 10vh;
+        font-size: 3.6vh;
+        margin-left: -10vw;
+        border-radius: 5vw;
+    }
+
+}
 </style>
 

@@ -276,4 +276,47 @@ h1 {
 .selected {
     background-color: green;
 }
+@media screen and (max-width: 800px){
+h1{
+    font-size: 12vw;
+}
+.player{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.a{
+   margin-left: 0vw;
+   padding-top: 1vh;
+   padding-left: 2vw;
+   font-size: 5vw;
+   width: 90vw;
+   height: 10vw;
+}
+#yourname{
+    font-size: 4vw;
+}
+.b{
+    width: 90vw;
+    height: 40vh;
+    margin-left: 0vw;
+    font-size: 5vw;
+}
+.emojis{
+    height: 5vw;
+    width: 5vw;
+    margin-top: 1vw;
+  margin-left: 1vw;
+}
+.c{
+    margin-right: 40vw;
+}
+#donebutton{
+  height: 10vh;
+  width: 50vw;
+  font-size: 4vh;
+  margin-bottom: 2vh;
+}
+
+}
 </style>
