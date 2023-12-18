@@ -276,7 +276,7 @@ margin-bottom: 1vw;
   width: 90vw;
   margin-left: 5vw;
   font-size: 8vw;
-  height: 80vh;
+  height: 50vh;
   min-height: 60vh;
 }
 .emojies{
