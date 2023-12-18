@@ -251,10 +251,19 @@ export default {
   padding-top: 4vh;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 800px)  {
 h1{
   font-size: 12vw;
 
+}
+.poll {
+  position: relative;
+  display: grid;
+  grid-template-columns: 24vw 16vw 10w;
+  grid-template-rows: 5vw 5vw 10vw;
+  background-color: rgb(163, 163, 243);
+  grid-gap: 4vw;
+  background-size: cover;
 }
 .a{
   display: flex;
@@ -273,15 +282,16 @@ margin-bottom: 3vw;
   width: 55vw;
   font-size: 3.8vw;
   height: 5vw;
-  padding-top: 3vw;
+  padding-top: 2.5vw;
 } 
+
 .b{
   margin-top: 10vw;
   width: 90vw;
   margin-left: 5vw;
   font-size: 8vw;
-  height: 50vh;
-  min-height: 60vh;
+  height: 40vh;
+
 }
 
 .emojies{

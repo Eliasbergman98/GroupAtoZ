@@ -335,7 +335,7 @@ export default {
   grid-column-start: 4;
   font-size: 1.2vw;
   width: 20vw;
-  height: 31vw;
+  max-height: 31vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 0.2vw solid black;
@@ -489,8 +489,12 @@ export default {
   width: 80vw;
 }
 .createbutton{
+  height: 10vh;
   width: 50vw;
+  font-size: 4vh;
+
   margin-left: 20vw;
+  margin-top: 10vw;
 }
 .right-section {
   grid-row-start: 6;
@@ -499,7 +503,7 @@ export default {
   margin-left: 30vw;
   margin-top: 3vw;
   width: 40vw;
-  height: 24vw;
+  height: 50vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 0.2vw solid black;
