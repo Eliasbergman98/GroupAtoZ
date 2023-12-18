@@ -200,7 +200,7 @@ Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber) {
   let city = Object.keys(poll.cities)[poll.currentQuestion - 1].toLowerCase();
   answer = answer.toLowerCase();
   console.log("city", city)
-  let pointsWon;
+  let pointsWon = 0;
   console.log("cities", poll.cities);
   if (answer != "") {
     if (clueNumber === 0 && answer === city) {
