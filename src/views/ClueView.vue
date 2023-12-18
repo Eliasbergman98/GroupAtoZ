@@ -285,7 +285,6 @@ h2 {
     position: center;
     margin-top: 10vw;
 }
-</style>
 
     h2 {
         position: center;
@@ -335,7 +334,6 @@ h2 {
     .labelSize{
         font-size: 3vw;
     }
-
 
 }
     </style>
