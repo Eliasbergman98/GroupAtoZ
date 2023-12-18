@@ -28,7 +28,7 @@
     </div>
     <div class="gameInfo f">
       <button class="addTown" v-on:click="addQuestion"> {{
-        uiLabels.addTown }} <img id="greentick" src="/img/greentick.png" style="width: 1.5vw; height: 1.5vw"></button>
+        uiLabels.addTown }} <img id="greentick" src="/img/greentick.png"></button>
     </div>
     <div v-if="Object.keys(submittedCities2).length > 0" class="right-section">
       <div id="title">
@@ -37,7 +37,7 @@
       <hr>
       <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
         <p>
-          <img id="redCrossRemove" src="/img/redcross.png" style="width: 1.2vw; height:1.2vw"
+          <img id="redCrossRemove" src="/img/redcross.png "
             v-on:click="removeCity(cityData)">
         <div id="city">{{ uiLabels.city }} <div id="info"> {{ cityData }}</div>
         </div>
@@ -329,7 +329,10 @@ export default {
   background-color: rgb(201, 241, 244);
   margin-left: 10vw;
 }
-
+#greentick{
+  height: 1.2vw;
+  width: 1.2vw;
+}
 .right-section {
   grid-row-start: 1;
   grid-column-start: 4;
@@ -405,6 +408,8 @@ export default {
 }
 
 #redCrossRemove {
+  height: 1.2vw;
+  width: 1.2vw;
   margin-left: 18vw;
   margin-top: -1vw;
 }
@@ -489,6 +494,7 @@ export default {
   width: 80vw;
 }
 .createbutton{
+  margin-top: 10vh;
   width: 50vw;
   margin-left: 20vw;
 }
@@ -499,7 +505,7 @@ export default {
   margin-left: 30vw;
   margin-top: 3vw;
   width: 40vw;
-  height: 24vw;
+  height: 34vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 0.2vw solid black;
@@ -507,6 +513,17 @@ export default {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-style: oblique;
   overflow-y: auto;
+}
+  #greentick{
+    width: 3vw;
+    height: 3vw;
+  }
+#redCrossRemove{
+  height: 3vw;
+  width: 3vw;
+  position: relative;
+  top: 3vh;
+  right: 10vw;
 }
 
 
