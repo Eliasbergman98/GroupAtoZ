@@ -1,24 +1,38 @@
 <template>
-    <h2>
-        {{ uiLabels.city }}{{ questionNumber }}
-    </h2>
-    <h1>
-        {{ uiLabels.whereTo }}
-    </h1>
-    {{ participants }}
-    <img src="" alt="">
-    <div v-if="creator">
-        <button v-on:click="handleFuseBurnout"> </button>
+    <div v-if="nextCity">
+        <h2>
+            {{ uiLabels.city }}{{ questionNumber }}
+        </h2>
+        <h1>
+            {{ uiLabels.whereTo }}
+        </h1>
     </div>
+    <div v-else>
+        <score-board-component :uiLabels="uiLabels" :nextCity="nextCity"
+            :participants="participants"></score-board-component>
+    </div>
+    <img src="" alt="">
+    <div v-if="creator && !nextCity">
+        <button id="nextcitybutton" v-on:click="movingToNextCity"> {{uiLabels.nextCity}} </button>
+    </div>
+    <footer v-if="nextCity">
+        <div class="fuse-container">
+            <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
+        </div>
+    </footer>
 </template>
   
 <script>
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
+import ScoreBoardComponent from '@/components/ScoreBoardComponent.vue';
 
 export default {
     name: 'AfterClueView',
+    components: {
+        ScoreBoardComponent,
+    },
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
@@ -33,7 +47,8 @@ export default {
             fuseWidth: 100,
             yourName: "",
             creator: false,
-            participants: [] 
+            participants: [],
+            nextCity: false,
         }
     },
     created: function () {
@@ -72,16 +87,23 @@ export default {
             this.playerWithMostPoints();
         });
         socket.on("creatorClicked", (data) => {
+            this.nextCity = true;
+            this.startFuseTimer();
             console.log("CREATORCLICKED THE BUTTON", this.pollId)
-            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
         });
     },
     methods: {
+        movingToNextCity() {
+            clearInterval(this.fuseTimer);
+            this.nextCity = true;
+            socket.emit("creatorClick", this.pollId);
+            socket.emit("cityUpdate", this.pollId);
+            this.startFuseTimer();
+        },
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
-            socket.emit("cityUpdate", this.pollId);
-            socket.emit("creatorClick", this.pollId);
+            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
             clearInterval(this.fuseTimer);
         },
         checkIfCreator() {
@@ -90,20 +112,27 @@ export default {
             }
         },
         nextQuestion() {
-            this.questionNumber +=1
+            this.questionNumber += 1
         },
-        playerWithMostPoints(){
-    //         let participantWithHighestPoint = this.participants[0];
-    //         for (let i = 1; i < this.participants.length; i++) {
-    //             const currentParticipant = this.participants[i];
+        playerWithMostPoints() {
+            this.participants.sort((a, b) => b.points - a.points);
+        },
+        startFuseTimer: function () {
+            clearInterval(this.fuseTimer);
 
-    //             if(currentParticipant.points > participantWithHighestPoint.points){
-    //                 participantWithHighestPoint = currentParticipant;
-    //             }
-        
-    //   }
-      //console.log("Detta är spelaren med högst poäng: ", participantWithHighestPoint )
-      this.participants.sort((a, b) => b.points - a.points);
+            // Adjust the timer interval based on your preference
+            const timerInterval = 10; // 1 second
+
+            this.fuseTimer = setInterval(() => {
+                // Decrease the fuse width by a certain percentage
+                this.fuseWidth -= 0.1; // Adjust as needed
+
+                // Check if the fuse is completely burned
+                if (this.fuseWidth <= 0) {
+                    // Handle the event when the fuse is burned out
+                    this.handleFuseBurnout();
+                }
+            }, timerInterval);
         }
     }
 }

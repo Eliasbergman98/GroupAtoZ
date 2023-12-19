@@ -236,7 +236,7 @@ export default {
                     clearInterval(this.fuseTimer);
                     if (Object.keys(this.cities).length === this.questionNumber) {
                         clearInterval(this.fuseTimer);
-                        this.$router.push('/');
+                        this.$router.push('/lastresult/' + this.pollId);
                     }
                     else {
                         clearInterval(this.fuseTimer);

@@ -49,7 +49,8 @@ img[id=sweimg]:hover,
 #yesbutton:hover,
 #nobutton:hover,
 #redCrossRemove,
-.muteButton {
+.muteButton,
+#nextcitybutton {
   cursor: pointer;
 }
 
@@ -57,7 +58,8 @@ img[id=sweimg]:hover,
 #createbutton,
 #joinbutton,
 .createbutton,
-#donebutton {
+#donebutton,
+#nextcitybutton {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.7vw;
   color: white;
