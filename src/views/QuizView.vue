@@ -1,16 +1,16 @@
 <template>
     <header>
         <div>
-            <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+            <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
         </div>
     </header>
     <div class="arrow">
-        <router-link to="/join/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
+        <router-link to="/join/"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
             </button></router-link>
     </div>
     <main>
         <h1>
-        {{uiLabels.joining}} {{ data.quizName }}
+            {{ uiLabels.joining }} {{ data.quizName }}
         </h1>
         <section class="player">
             <div class="gameInfo a" id="name">
@@ -21,12 +21,12 @@
             <div class="gameInfo b">
                 {{ uiLabels.chooseAvatar }} <br>
                 <div id="avatarZone">
-                <img class="avatar">
-                <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
-                    :class="{ 'selected': selectedAvatar === index }">
-                    <img class="emojis" v-bind:src="avatar.url" alt="😄" width="32" height="32">
-                </button>
-            </div>
+                    <img class="avatar">
+                    <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
+                        :class="{ 'selected': selectedAvatar === index }">
+                        <img class="emojis" v-bind:src="avatar.url" alt="😄" width="32" height="32">
+                    </button>
+                </div>
             </div>
             <div class="gameInfo c">
                 <button v-on:click="stopMusicAndStartGame" id="donebutton"> {{ uiLabels.doneButton }}</button>
@@ -38,7 +38,6 @@
 </template>
   
 <script>
-// @ is an alias to /src
 import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
@@ -55,12 +54,6 @@ export default {
         return {
             selectedAvatar: null,
             avatars: avatar,
-            gamecode: "",
-            question: {
-                q: "",
-                a: [],
-            },
-            submittedAnswers: {},
             uiLabels: {},
             lang: localStorage.getItem("lang") || "en",
             data: {},
@@ -83,12 +76,6 @@ export default {
     created: function () {
         this.pollId = this.$route.params.pollId
         socket.emit('joinPoll', this.pollId)
-        socket.on("newQuestion", q =>
-            this.question = q
-        )
-        // socket.on("dataUpdate", answers =>
-        //     this.submittedAnswers = answers
-        // )
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels
@@ -97,8 +84,6 @@ export default {
         socket.on("fullPole", (data) => {
             this.data = data;
             this.quizName = data.quizName;
-            console.log("data hämtad", this.pollId)
-
         });
 
     },
@@ -108,10 +93,9 @@ export default {
             this.selectedAvatarUrl = this.avatars[index].url;
         },
         toggleMusic() {
-            // Access the audio player from the AppView component
             const audioPlayer = this.$root.$refs.audioPlayer;
             audioPlayer.play();
-            this.showMysteryButton = false; // Hide the mysteryButton
+            this.showMysteryButton = false;
         },
         toggleMute() {
             const audioPlayer = this.$root.$refs.audioPlayer;
@@ -119,22 +103,16 @@ export default {
             this.isMuted = !this.isMuted;
         },
         stopMusicAndStartGame() {
-            // Access the audio player from the AppView component
             const audioPlayer = this.$root.$refs.audioPlayer;
-            
-            // Pause the music if it's playing
+
             if (!audioPlayer.paused) {
                 audioPlayer.pause();
                 audioPlayer.currentTime = 0;
             }
 
-            // Start the game
             this.addParticipant();
-            },
+        },
         addParticipant: async function () {
-            console.log("selAv", this.selectedAvatar)
-            console.log("selAvUrl", this.selectedAvatarUrl)
-            // Check if 'yourName' or 'selectedAvatarUrl' is empty
             if (this.yourName === '' || this.selectedAvatar === null) {
                 this.alertContentText = this.uiLabels.nameAvatarAlert;
                 this.$refs.alertComponent.openAlert();
@@ -148,26 +126,19 @@ export default {
             }
 
             try {
-                // Use a promise to wait for the result of socket.emit
                 const addParticipantResult = await new Promise((resolve, reject) => {
-                    // Emit 'addParticipant' event to the server
                     socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl, quizName: this.quizName });
                     socket.on("checkPlayer", (data) => {
-                        // Resolve the promise with the received data
                         resolve(data);
                     });
                 });
-                // Set 'checkName' with the result from the server
                 this.checkName = addParticipantResult;
 
                 if (this.checkName === "invalidName") {
-                    console.log("hjälp jag måste ta bort mitt namn lol", this.checkName);
                     this.alertContentText = this.uiLabels.nameTakenAlert;
                     this.$refs.alertComponent.openAlert();
                     this.checkName = "";
                 } else {
-                    // Log a message and navigate to the specified route if conditions are false
-                    console.log("added one participant now", this.pollId, this.yourName, this.selectedAvatarUrl);
                     this.$router.push('/playerwaiting/' + this.pollId);
                 }
             } catch (error) {
@@ -185,7 +156,6 @@ export default {
 }
 
 h1 {
-    /* margin-left: 6vw; */
     font-size: 6vw;
 
 }
@@ -193,7 +163,7 @@ h1 {
 .player {
     position: relative;
     display: grid;
-    grid-template-columns: 50vw 35vw ;
+    grid-template-columns: 50vw 35vw;
     grid-template-rows: 5vw 5vw;
     background-color: rgb(163, 163, 243);
     grid-gap: 3vw;
@@ -240,18 +210,20 @@ h1 {
     padding-top: 2vw;
     padding-bottom: 4vw;
 }
-#avatarZone{
-  width: 75%;
-  margin-left: 12.5%;
-  margin-top: 3vh;
+
+#avatarZone {
+    width: 75%;
+    margin-left: 12.5%;
+    margin-top: 3vh;
 }
-.c{
-  grid-row-start: 2;
-  grid-column-start: 3;
-  width: 2vw;
-  margin-top: 11.7vw;
-  margin-left: -8.9vw;
-  height: 2vw;
+
+.c {
+    grid-row-start: 2;
+    grid-column-start: 3;
+    width: 2vw;
+    margin-top: 11.7vw;
+    margin-left: -8.9vw;
+    height: 2vw;
 }
 
 #donebutton:hover {
@@ -277,47 +249,54 @@ h1 {
 .selected {
     background-color: green;
 }
-@media screen and (max-width: 800px){
-h1{
-    font-size: 12vw;
-}
-.player{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.a{
-   margin-left: 0vw;
-   padding-top: 1vh;
-   padding-left: 2vw;
-   font-size: 5vw;
-   width: 90vw;
-   height: 10vw;
-}
-#yourname{
-    font-size: 4vw;
-}
-.b{
-    width: 90vw;
-    height: 40vh;
-    margin-left: 0vw;
-    font-size: 5vw;
-}
-.emojis{
-    height: 5vw;
-    width: 5vw;
-    margin-top: 1vw;
-  margin-left: 1vw;
-}
-.c{
-    margin-right: 40vw;
-}
-#donebutton{
-  height: 10vh;
-  width: 50vw;
-  font-size: 4vh;
-  margin-bottom: 2vh;
-}
 
-}
-</style>
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 12vw;
+    }
+
+    .player {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .a {
+        margin-left: 0vw;
+        padding-top: 1vh;
+        padding-left: 2vw;
+        font-size: 5vw;
+        width: 90vw;
+        height: 10vw;
+    }
+
+    #yourname {
+        font-size: 4vw;
+    }
+
+    .b {
+        width: 90vw;
+        height: 40vh;
+        margin-left: 0vw;
+        font-size: 5vw;
+    }
+
+    .emojis {
+        height: 5vw;
+        width: 5vw;
+        margin-top: 1vw;
+        margin-left: 1vw;
+    }
+
+    .c {
+        margin-right: 40vw;
+    }
+
+    #donebutton {
+        height: 10vh;
+        width: 50vw;
+        font-size: 4vh;
+        margin-bottom: 2vh;
+    }
+
+}</style>
