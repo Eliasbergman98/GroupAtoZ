@@ -1,20 +1,20 @@
 <template>
     <header>
         <div>
-        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+            <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
         </div>
-  </header>
+    </header>
     <div class="arrow">
         <button>
-            <router-link :to="'/createquestions/' + pollId"><button id="goBack"> <img id="arrow" src="/img/arrow.png"
-                        style="width: 3vw;">
+            <router-link :to="'/createquestions/' + pollId"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
                 </button></router-link>
         </button>
     </div>
 
     <div class="poll">
         <div class="gameInfo b">
-            {{ data.quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" target="_blank"> <br> <hr>
+            {{ quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" target="_blank"> <br>
+            <hr>
             {{ uiLabels.gameTag }} {{ pollId }} <br>
             {{ participants.length }} {{ uiLabels.participantCount }}
         </div>
@@ -48,8 +48,6 @@ export default {
         return {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
-            question: "",
-            answers: ["", ""],
             questionNumber: 0,
             data: {},
             uiLabels: {},
@@ -73,33 +71,32 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels
         })
-        socket.on("dataUpdate", (data) =>
-            this.data = data
-        )
         socket.on("participantsUpdate", (participants) =>
             this.participants = participants,
-            console.log("hej här kommer nya joinare", this.participants)
+            console.log("hej här kommer nya joinare i participantsupdate", this.participants)
         )
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
         socket.on("pollCreated", (data) =>
-            this.data = data )
+            this.data = data)
         socket.on("fullPole", (data) => {
             this.data = data;
             this.quizName = data.quizName;
-            console.log("in joiningview", this.quizName)
+            console.log("lyssnar på fullPole och detta ör quizname: ", this.quizName)
         });
     },
     methods: {
         sendInfo: function () {
-            socket.emit("startingGame", {pollId: this.pollId, questionNumber: this.questionNumber})
+            console.log("så här många players", this.participants)
+            if (this.participants != 0){
+            socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber })
             this.$router.push('/startingquiz/' + this.pollId + "/" + this.quizName)
+        }
         },
         toggleMusic() {
-            // Access the audio player from the AppView component
             const audioPlayer = this.$root.$refs.audioPlayer;
             audioPlayer.play();
-            this.showMysteryButton = false; // Hide the mysteryButton
+            this.showMysteryButton = false;
         },
         toggleMute() {
             const audioPlayer = this.$root.$refs.audioPlayer;
@@ -107,18 +104,15 @@ export default {
             this.isMuted = !this.isMuted;
         },
         stopMusicAndStartGame() {
-            // Access the audio player from the AppView component
             const audioPlayer = this.$root.$refs.audioPlayer;
-            
-            // Pause the music if it's playing
+
             if (!audioPlayer.paused) {
                 audioPlayer.pause();
                 audioPlayer.currentTime = 0;
             }
 
-            // Start the game
             this.sendInfo();
-            },
+        },
     }
 }
 </script>
@@ -163,7 +157,6 @@ export default {
 .scroll-wrapper {
     overflow-y: auto;
     height: 30vw;
-    /* Ensure the wrapper takes the full height of the container */
 }
 
 .scroll-wrapper ul {
@@ -208,50 +201,54 @@ export default {
     width: 2vw;
     height: 2vw;
 }
-@media screen and (max-width: 800px){
-.b{
-    grid-column-start: 1;
-    width: 65vw;
-    height: 23vh;
-    font-size: 3.6vh;
-    margin-left: 0vw;
-}
-.a{
-    grid-row-start: 3;
-    font-size: 4vh;
-    width: 65vw;
-    height: 50vh;
-    margin-left: 3vw;
-}
-.c{
-    grid-row-start: 5;
-    grid-column-start: 3;
-    margin-left: -5vw;
-}
-#createbutton{
-    height: 7vh;
-    width: 50vw;
-    font-size: 2vh;
-    margin-left: 2.5vw;
-}
-.emojies {
-    width: 3vh;
-    height: 3vh;
-}
-.scroll-wrapper ul{
-    overflow-y: auto;
-    max-height: 200vh;
-    height: auto;
 
-    /* Ensure the wrapper takes the full height of the container */
-}
-.poll{
-    
- display: flex;
- flex-direction: column;
- align-items: center;
+@media screen and (max-width: 800px) {
+    .b {
+        grid-column-start: 1;
+        width: 65vw;
+        height: 23vh;
+        font-size: 3.6vh;
+        margin-left: 0vw;
+    }
 
-}
-}
-</style>
+    .a {
+        grid-row-start: 3;
+        font-size: 4vh;
+        width: 65vw;
+        height: 50vh;
+        margin-left: 3vw;
+    }
+
+    .c {
+        grid-row-start: 5;
+        grid-column-start: 3;
+        margin-left: -5vw;
+    }
+
+    #createbutton {
+        height: 7vh;
+        width: 50vw;
+        font-size: 2vh;
+        margin-left: 2.5vw;
+    }
+
+    .emojies {
+        width: 3vh;
+        height: 3vh;
+    }
+
+    .scroll-wrapper ul {
+        overflow-y: auto;
+        max-height: 200vh;
+        height: auto;
+    }
+
+    .poll {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+}</style>
 

@@ -3,7 +3,6 @@
         {{ data.quizName }}
     </h1>
     <h2>{{ uiLabels.waitingForHost }}</h2>
-    {{ yourName }}
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
@@ -16,11 +15,11 @@
                     </ul>
                 </div>
             </div>
-            <section class="button-container">
-                <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
-                <button v-on:click="exitGame" id="exitGamebutton">{{ uiLabels.exitGame }}</button>
-                <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
-            </section>
+        </div>
+        <div class="button-container">
+            <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
+            <button v-on:click="exitGame" id="exitGamebutton">{{ uiLabels.exitGame }}</button>
+            <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
         </div>
     </div>
 </template>
@@ -47,7 +46,7 @@ export default {
             fuseWidth: 100,
             participants: [],
             playerColumns: [],
-            playersPerColumn: 8,
+            playersPerColumn: 6,
             yourName: ""
         }
     },
@@ -87,6 +86,7 @@ export default {
             socket.emit("getThisParticipant", this.pollId, this.yourName)
             this.$router.push('/startingquizplayer/' + this.pollId + '/' + this.yourName);
         });
+        window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
 
     },
     methods: {
@@ -94,10 +94,12 @@ export default {
          exitGame(){
             socket.emit("playerExited", { pollId: this.pollId, name: this.yourName })
             this.$router.push('//');
+            this.applyFunctionBasedOnMediaQuery();
         },
 
         updatePlayerColumns() {
-            this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
+            //this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
+            this.applyFunctionBasedOnMediaQuery();
         },
         chunkArray(array, size) {
             const result = [];
@@ -111,6 +113,16 @@ export default {
             if (this.participants.length > 0 && this.yourName === "") {
                 this.yourName = this.participants[this.participants.length - 1].name;
                 console.log("I getParticipantName", this.yourName);
+            }
+        },
+        applyFunctionBasedOnMediaQuery() {
+            if (window.matchMedia("(max-width: 800px)").matches) {
+                this.playersPerColumn = 100;
+                this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
+                console.log("Media query matches! Run your function here.");
+            } else {
+                this.playersPerColumn = 6;
+                this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
             }
         },
     },
@@ -155,13 +167,11 @@ h2 {
 .columns-wrapper {
     display: flex;
     justify-content: space-around;
-    /* Adjust this property based on your layout requirements */
 }
 
 .column {
     flex-grow: 1;
     margin: 0 10px;
-    /* Adjust the margin based on your layout preferences */
 }
 
 
@@ -206,16 +216,14 @@ h2 {
 }
 
 .button-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 90%;
+    margin-top: 2vw;
+    position: relative;
+    width: 80vw;
     display: flex;
     justify-content: space-between;
     padding: 1em;
     margin-bottom: 2vw;
-    ;
-    margin-left: 3vw;
+    margin-left: 10vw;
 }
 
 .participants {
@@ -229,7 +237,7 @@ h2 {
 
 .scroll-wrapper {
     overflow-y: auto;
-    height: 30vw;
+    height: 15vw;
     /* Ensure the wrapper takes the full height of the container */
 }
 
@@ -287,7 +295,6 @@ h2 {
     .scroll-wrapper {
         overflow-y: auto;
         height: 50vw;
-        /* Ensure the wrapper takes the full height of the container */
     }
 
     .emojies {
