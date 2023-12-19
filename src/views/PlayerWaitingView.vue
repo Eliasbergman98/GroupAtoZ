@@ -3,7 +3,7 @@
         {{ data.quizName }}
     </h1>
     <h2>{{ uiLabels.waitingForHost }}</h2>
-    {{  yourName }}
+    {{ yourName }}
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
@@ -84,7 +84,7 @@ export default {
         });
 
         socket.on("creatorStarting", (pollId) => {
-            socket.emit("getThisParticipant", this.pollId, this.yourName )
+            socket.emit("getThisParticipant", this.pollId, this.yourName)
             this.$router.push('/startingquizplayer/' + this.pollId + '/' + this.yourName);
         });
 
@@ -239,80 +239,60 @@ h2 {
     margin: 0;
 }
 
-@media screen and(max-width:800px) {
-    #exitGamebutton {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        font-size: 1.7vw;
-        background-color: red;
-        border: 0.2vw solid black;
-        border-radius: 1.5vw;
-        padding: 1.7vw;
-        width: 12em;
-        color: white;
+@media screen and (max-width:800px) {
+    h1 {
+        font-size: 12vw;
     }
 
-    #gameIDbutton {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        font-size: 1.7vw;
-        background-color: green;
-        border: 0.2vw solid black;
-        border-radius: 1.5vw;
-        padding: 1.7vw;
-        width: 12em;
-        color: white;
-    }
-
-    #playerJoinedbutton {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        font-size: 1.7vw;
-        background-color: green;
-        border: 0.2vw solid black;
-        border-radius: 1.5vw;
-        padding: 1.7vw;
-        width: 12em;
-        color: white;
+    h2 {
+        font-size: 8vw;
     }
 
     .poll {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        font-size: 1.7vw;
-        color: black;
-        position: center;
+        font-size: 8vw;
     }
 
     .button-container {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 90%;
         display: flex;
-        justify-content: space-between;
-        padding: 1em;
-        margin-bottom: 2vw;
-        ;
-        margin-left: 3vw;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .participants {
-        position: absolute;
+    #gameIDbutton {
+        width: 60vw;
+        height: 10vh;
+        font-size: 3.6vh;
+        margin-left: -10vw;
+        border-radius: 5vw;
+        margin-bottom: 20px;
     }
 
-    .emojies {
-        width: 2vw;
-        height: 2vw;
+    #exitGamebutton {
+        width: 60vw;
+        height: 10vh;
+        font-size: 3.6vh;
+        margin-left: -10vw;
+        border-radius: 5vw;
+        margin-bottom: 20px;
+    }
+
+    #playerJoinedbutton {
+        width: 60vw;
+        height: 10vh;
+        font-size: 3.6vh;
+        margin-left: -10vw;
+        border-radius: 5vw;
     }
 
     .scroll-wrapper {
         overflow-y: auto;
-        height: 30vw;
+        height: 50vw;
         /* Ensure the wrapper takes the full height of the container */
     }
 
-    .scroll-wrapper ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+    .emojies {
+        width: 7vw;
+        height: 7vw;
     }
-}
-</style>
+}</style>
 
