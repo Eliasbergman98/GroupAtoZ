@@ -5,7 +5,8 @@
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-    {{ data.pollId }}
+    {{ participants }}
+    <img src="" alt="">
     <div v-if="creator">
         <button v-on:click="handleFuseBurnout"> </button>
     </div>
@@ -65,8 +66,10 @@ export default {
             this.questionNumber = data.currentQuestion;
             this.cities = data.cities;
             this.quizName = data.quizName;
+            this.participants = data.participants;
             this.checkIfCreator();
             this.nextQuestion();
+            this.playerWithMostPoints();
         });
         socket.on("creatorClicked", (data) => {
             console.log("CREATORCLICKED THE BUTTON", this.pollId)
@@ -88,6 +91,19 @@ export default {
         },
         nextQuestion() {
             this.questionNumber +=1
+        },
+        playerWithMostPoints(){
+    //         let participantWithHighestPoint = this.participants[0];
+    //         for (let i = 1; i < this.participants.length; i++) {
+    //             const currentParticipant = this.participants[i];
+
+    //             if(currentParticipant.points > participantWithHighestPoint.points){
+    //                 participantWithHighestPoint = currentParticipant;
+    //             }
+        
+    //   }
+      //console.log("Detta är spelaren med högst poäng: ", participantWithHighestPoint )
+      this.participants.sort((a, b) => b.points - a.points);
         }
     }
 }
