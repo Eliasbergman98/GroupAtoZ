@@ -42,10 +42,6 @@ export default {
   data: function () {
     return {
       gamecode: "",
-      question: {
-        q: "",
-        a: [],
-      },
       pollId: "inactive poll",
       submittedAnswers: {},
       uiLabels: {},
@@ -79,8 +75,6 @@ export default {
     socket.emit("getPoll", this.gamecode);
     socket.on("fullPole", (data) => {
       this.data = data;
-      // this.pollId = data.poll.pollId;
-      console.log("data hämtad i joinview", this.data)
     });
   },
   methods: {
@@ -103,7 +97,6 @@ export default {
           socket.emit("getPoll", this.gamecode);
           socket.on("fullPole", (data) => {
             this.data = data;
-            console.log("data hämtad när vi försöker hitta en poll", this.data);
             resolve(); // Resolve the promise when the data is retrieved
           });
         });
@@ -122,9 +115,6 @@ export default {
         } else {
           this.pollId = this.gamecode;
           this.$router.push('/quiz/' + this.pollId);
-          console.log('gamecode = pollId i joinview');
-          console.log("Här är gamecode: ", this.gamecode);
-          console.log("Här är pollId: ", this.pollId);
         }
       } catch (error) {
         console.error('Error fetching data:', error);

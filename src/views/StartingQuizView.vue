@@ -1,17 +1,17 @@
 <template>
     <header>
-        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" style="width: 3vw; height: 3vw;"/>
+        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </header>
     <h2>
-        {{uiLabels.city}}{{ questionNumber }}
+        {{ uiLabels.city }}{{ questionNumber }}
     </h2>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-    {{data.pollId}}
+    {{ data.pollId }}
     <audio ref="audioPlayer" autoplay loop>
-      <source src="/img/train1.mp3" type="audio/mp3" />
-      Your browser does not support the audio element.
+        <source src="/img/train1.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
     </audio>
 
     <footer>
@@ -23,7 +23,7 @@
   
 <script>
 import io from 'socket.io-client';
-import avatar from '../assets/avatar.json';
+//import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
@@ -34,14 +34,9 @@ export default {
         return {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
-            quizName: '',
-            question: "",
-            answers: ["", ""],
             questionNumber: 0,
             data: {},
             uiLabels: {},
-            selectedAvatar: null,
-            avatars: avatar,
             fuseWidth: 100,
             isMuted: false,
             yourName: ""
@@ -62,22 +57,23 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.on("dataUpdate", (data) => {
-            this.data = data;
-        });
-        socket.on("pollCreated", (data) => {
-            this.data = data;
-        });
+        // socket.on("dataUpdate", (data) => {
+        //     this.data = data;
+        //     console.log("lyssnar på data update", data);
+        // });
+        // socket.on("pollCreated", (data) => {
+        //     this.data = data;
+        //     console.log("lyssnar på pollCreated", data);
+        // });
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
-            console.log("hämtar info från update number", this.questionNumber)
         });
-        socket.on("updateQuestionNumber", (data) => {
-            this.questionNumber = data;
-            console.log("hämtar info från update number", this.questionNumber)
-        });
+        // socket.on("updateQuestionNumber", (data) => {
+        //     this.questionNumber = data;
+        //     console.log("hämtar info från update number i updateQuestionNumber", this.questionNumber)
+        // });
         this.startFuseTimer();
-        
+
 
     },
     methods: {
@@ -85,7 +81,7 @@ export default {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             clearInterval(this.fuseTimer);
-            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);            
+            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
         },
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;
@@ -96,30 +92,31 @@ export default {
             this.isMuted = !this.isMuted;
         },
 
-    startFuseTimer: function () {
-        clearInterval(this.fuseTimer);
+        startFuseTimer: function () {
+            clearInterval(this.fuseTimer);
 
-        // Adjust the timer interval based on your preference
-        const timerInterval = 10; // 1 second
+            // Adjust the timer interval based on your preference
+            const timerInterval = 10; // 1 second
 
-        this.fuseTimer = setInterval(() => {
-            // Decrease the fuse width by a certain percentage
-            this.fuseWidth -= 0.1; // Adjust as needed
+            this.fuseTimer = setInterval(() => {
+                // Decrease the fuse width by a certain percentage
+                this.fuseWidth -= 0.1; // Adjust as needed
 
-            // Check if the fuse is completely burned
-            if (this.fuseWidth <= 0) {
-                // Handle the event when the fuse is burned out
-                this.handleFuseBurnout();
-            }
-        },timerInterval);
+                // Check if the fuse is completely burned
+                if (this.fuseWidth <= 0) {
+                    // Handle the event when the fuse is burned out
+                    this.handleFuseBurnout();
+                }
+            }, timerInterval);
+        }
     }
-}}
+}
 </script>  
 
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
-.muteButton{
+.muteButton {
     position: absolute;
     width: 2vw;
     padding: 2vw;
@@ -130,7 +127,7 @@ export default {
 h1 {
     position: center;
     margin-top: 10vw;
- 
+
 }
 
 h2 {
@@ -150,11 +147,11 @@ h2 {
     margin-top: 10vw;
 }
 
-@media screen and (max-width: 800px)  {
+@media screen and (max-width: 800px) {
 
-h1{
-    font-size: 7.7vh;
-}
+    h1 {
+        font-size: 7.7vh;
+    }
 
 }
 </style>

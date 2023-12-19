@@ -1,6 +1,6 @@
 <template>
     <header>
-        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" style="width: 3vw; height: 3vw;" />
+        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </header>
     <h2>
         {{ uiLabels.city }}{{ questionNumber }}
@@ -11,8 +11,8 @@
     </h1>
     {{ data.pollId }}
     <audio ref="audioPlayer" autoplay loop>
-      <source src="/img/train1.mp3" type="audio/mp3" />
-      Your browser does not support the audio element.
+        <source src="/img/train1.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
     </audio>
 
     <footer>
@@ -24,7 +24,7 @@
   
 <script>
 import io from 'socket.io-client';
-import avatar from '../assets/avatar.json';
+//import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
@@ -35,14 +35,9 @@ export default {
         return {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
-            quizName: '',
-            question: "",
-            answers: ["", ""],
             questionNumber: 0,
             data: {},
             uiLabels: {},
-            selectedAvatar: null,
-            avatars: avatar,
             fuseWidth: 100,
             isMuted: false,
             yourName: ""
@@ -67,23 +62,23 @@ export default {
             console.log(data, "Hej kom igen dataUpdate")
             this.data = data;
         });
-        socket.on("pollCreated", (data) => {
-            console.log(data, "Hej kom igen pollcreated")
-            this.data = data;
-        });
+        // socket.on("pollCreated", (data) => {
+        //     console.log(data, "Hej kom igen pollcreated")
+        //     this.data = data;
+        // });
         this.startFuseTimer();
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
-            console.log("hämtar info från update number", this.questionNumber)
+            console.log("hämtar info från update number i currentcity ", this.questionNumber)
         });
-        socket.on("fullPole", (data) => {
-            this.data = data;
-            console.log("this is data", data);
-        });
-        socket.on("thisPlayer", (data) => {
-            this.yourName = data;
-            console.log(this.yourName, "Hej kom igen thisPlayer")
-        });
+        // socket.on("fullPole", (data) => {
+        //     this.data = data;
+        //     console.log("this is data ifrån fullPole", data);
+        // });
+        // socket.on("thisPlayer", (data) => {
+        //     this.yourName = data;
+        //     console.log(this.yourName, "Hej kom igen thisPlayer lyssnaren")
+        // });
 
     },
     methods: {
@@ -95,20 +90,18 @@ export default {
         },
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;
-
             // Toggle the muted attribute
             audioPlayer.muted = !audioPlayer.muted;
-
             this.isMuted = !this.isMuted;
         },
 
         startFuseTimer: function () {
             clearInterval(this.fuseTimer);
-
             // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
 
             this.fuseTimer = setInterval(() => {
+
                 // Decrease the fuse width by a certain percentage
                 this.fuseWidth -= 0.1; // Adjust as needed
 
@@ -134,18 +127,6 @@ export default {
     margin-top: -10vw;
 }
 
-h1 {
-    position: center;
-    margin-top: 10vw;
-}
-
-h2 {
-    position: center;
-    margin-top: 10vw;
-}
-</style>
-
-<style scoped>
 h1 {
     position: center;
     margin-top: 10vw;
