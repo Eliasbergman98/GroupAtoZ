@@ -194,10 +194,6 @@ export default {
             this.answerClue = "";
             this.timesPressedButton = 0;
 
-
-            //this.addPlayerAnswer();
-            //this.startFuseTimer();
-            //console.log(this.addPlayerAnswer)
         },
         checkIfCreator() {
             if (this.yourName === this.quizName) {
@@ -245,21 +241,6 @@ export default {
                         this.$router.push('/afterclue/' + this.pollId + '/' + this.yourName);
                     }
 
-
-                    // Check if you've already redirected to avoid multiple redirects
-                    // if (!this.isRedirected) {
-                    //     this.isRedirected = true;
-                    //     console.log(this.isRedirected)
-                    //     this.clueNumber == 0;
-
-                    //     console.log("Redirecting to the next page");
-
-                    //            // Use a Vue nextTick to ensure that the DOM has been updated
-
-                    //     this.$router.push('/afterclue/' + this.pollId);
-
-                    // }
-
                 }
             }
         },
@@ -274,7 +255,7 @@ export default {
 
             this.fuseTimer = setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.1; // Adjust as needed
+                this.fuseWidth -= 0.5; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {

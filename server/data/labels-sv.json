@@ -67,5 +67,6 @@
 	"rightAnswer": "RÄTT SVAR!",
 	"rightAnswerMessage": "Woohoo! Nu kan du chilla tills resten av spelarna är klara",
 	"wrongAnswer": "FEL SVAR!",
-	"wrongAnswerMessage": "Tyvärr svarade du fel...Bättre lycka nästa gång!"
+	"wrongAnswerMessage": "Tyvärr svarade du fel...Bättre lycka nästa gång!",
+	"noPlayersJoined": "Kan inte starta spelet, inga spelare har anslutit!"
 }
