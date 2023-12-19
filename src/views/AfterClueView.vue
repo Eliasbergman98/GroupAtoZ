@@ -24,8 +24,6 @@ export default {
             pollId: "",
             quizName: '',
             cities: {},
-            question: "",
-            answers: ["", ""],
             questionNumber: 0,
             data: {},
             uiLabels: {},
@@ -33,7 +31,8 @@ export default {
             avatars: avatar,
             fuseWidth: 100,
             yourName: "",
-            creator: false
+            creator: false,
+            participants: [] 
         }
     },
     created: function () {
@@ -48,25 +47,26 @@ export default {
         socket.on("dataUpdate", (data) => {
             this.data = data;
         });
-        socket.on("pollCreated", (data) => {
-            this.data = data;
-        });
+        // socket.on("pollCreated", (data) => {
+        //     this.data = data;
+        //     console.log("hello in pollcreated")
+        // });
         socket.emit("getPoll", this.pollId);
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
-            console.log("hämtar info från update number", this.questionNumber)
+            console.log("hämtar info från update number i currentcity", this.questionNumber)
         });
-        socket.on("updateQuestionNumber", (data) => {
-            this.questionNumber = data;
-            console.log("hämtar info från update number", this.questionNumber)
-        });
+        // socket.on("updateQuestionNumber", (data) => {
+        //     this.questionNumber = data;
+        //     console.log("hämtar info från update number i updatequestionNumber", this.questionNumber)
+        // });
         socket.on("fullPole", (data) => {
             this.data = data;
             this.questionNumber = data.currentQuestion;
             this.cities = data.cities;
             this.quizName = data.quizName;
             this.checkIfCreator();
-            console.log("här kommer våra städer", this.cities)
+            this.nextQuestion();
         });
         socket.on("creatorClicked", (data) => {
             console.log("CREATORCLICKED THE BUTTON", this.pollId)
@@ -85,6 +85,9 @@ export default {
             if (this.yourName === this.quizName) {
                 this.creator = true;
             }
+        },
+        nextQuestion() {
+            this.questionNumber +=1
         }
     }
 }
