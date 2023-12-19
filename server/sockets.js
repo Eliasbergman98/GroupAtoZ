@@ -33,9 +33,9 @@ function sockets(io, socket, data) {
     io.to(pollId).emit('creatorClicked', pollId);
   });
 
-  socket.on('getThisParticipant', function (pollId, name, answer) {
+  socket.on('getThisParticipant', function (pollId, name) {
     console.log("spelare hämtad")
-    io.to(pollId).emit('thisPlayer', data.createParticipant(pollId, name, answer))
+    io.to(pollId).emit('thisPlayer', data.createParticipant(pollId, name))
   })
 
   socket.on('cityUpdate', function (pollId) {
@@ -52,6 +52,11 @@ function sockets(io, socket, data) {
     data.removeCity(d.pollId, d.city);
     socket.emit('dataUpdate', data.getCities(d.pollId));
 
+  });
+  
+  socket.on('playerExited', function (d) {
+    data.removePlayer(d.pollId, d.name);
+    io.to(d.pollId).emit('participantsUpdate', data.getParticipants(d.pollId));
   });
 
   socket.on('editQuestion', function (d) {
@@ -86,7 +91,7 @@ function sockets(io, socket, data) {
   })
   socket.on("checkAnswer", function (d) {
     console.log("Socket checkanswer")
-    data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber);
+    socket.emit("yourPoints", data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber, d.rightAnswer));
   });
 }
 

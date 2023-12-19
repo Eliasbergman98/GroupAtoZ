@@ -70,7 +70,8 @@ export default {
             dataLoaded: false,
             buttonClicked: false,
             yourName: "",
-            creator: false
+            creator: false,
+            rightAnswer: false
         }
     },
     created: function () {
@@ -119,7 +120,13 @@ export default {
         addPlayerAnswer: function () {
             this.buttonClicked = true;
             // this.answers.push(this.answerClue);
-            socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber })
+            if (this.rightAnswer != true){
+            socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber, rightAnswer: this.rightAnswer })
+            socket.on("yourPoints", (data) => {
+            this.rightAnswer = data;
+            console.log("var det rätt svar? ", this.rightAnswer)
+        });
+    }
             console.log(this.answerClue, ": enskilt svar")
             console.log(this.answers, ": svarslista")
         },

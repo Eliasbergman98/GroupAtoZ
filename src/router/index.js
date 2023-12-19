@@ -9,7 +9,7 @@ const router = createRouter({
       name: 'Start',
       component: StartView
     },
-      {
+    {
       path: '/join/',
       name: 'JoinView',
       component: () => import('../views/JoinView.vue')
@@ -55,7 +55,7 @@ const router = createRouter({
       component: () => import('../views/ClueView.vue')
     },
     {
-    path: '/afterclue/:pollId/:yourName',
+      path: '/afterclue/:pollId/:yourName',
       name: 'AfterClueView',
       component: () => import('../views/AfterClueView.vue')
     },
@@ -69,26 +69,12 @@ const router = createRouter({
       name: 'StartingQuizPlayerView',
       component: () => import('../views/StartingQuizPlayerView.vue'),
     },
-    // {
-    //   path: '/startingquizplayer/:pollId/:yourName',  // Add :yourName to the route
-    //   name: 'StartingQuizPlayerView',
-    //   component: StartingQuizPlayerView,
-    //   props: (route) => ({
-    //     pollId: route.params.pollId,
-    //     yourName: route.params.yourName,
-    //   }),
-    // },
-    
     {
       path: '/lastresult/:pollId',
       name: 'LastResultView',
       component: () => import('../views/LastResultView.vue')
     },
-    {
-      path: '/afterclueplayer/:pollId',
-        name: 'AfterCluePlayerView',
-        component: () => import('../views/AfterCluePlayerView.vue')
-      },
+
   ]
 })
 

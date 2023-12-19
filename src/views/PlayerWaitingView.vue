@@ -18,7 +18,7 @@
             </div>
             <section class="button-container">
                 <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
-                <router-link to="//"><button id="exitGamebutton">{{ uiLabels.exitGame }}</button></router-link>
+                <button v-on:click="exitGame" id="exitGamebutton">{{ uiLabels.exitGame }}</button>
                 <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
             </section>
         </div>
@@ -81,7 +81,7 @@ export default {
             this.participants = participants;
             this.getParticipantName(this.participants);
             console.log("hej här kommer nya joinare", this.participants)
-        })
+        });
 
         socket.on("creatorStarting", (pollId) => {
             socket.emit("getThisParticipant", this.pollId, this.yourName )
@@ -90,6 +90,12 @@ export default {
 
     },
     methods: {
+
+         exitGame(){
+            socket.emit("playerExited", { pollId: this.pollId, name: this.yourName })
+            this.$router.push('//');
+        },
+
         updatePlayerColumns() {
             this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
         },
