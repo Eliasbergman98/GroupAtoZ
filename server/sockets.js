@@ -86,7 +86,7 @@ function sockets(io, socket, data) {
   })
   socket.on("checkAnswer", function (d) {
     console.log("Socket checkanswer")
-    data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber);
+    socket.emit("yourPoints", data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber, d.rightAnswer));
   });
 }
 

@@ -194,9 +194,10 @@ Data.prototype.submitAnswer = function (pollId, answer) {
   }
 }
 
-Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber) {
+Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAnswer) {
   const poll = this.polls[pollId];
-  console.log("in CheckAnswer", pollId, answer, name, clueNumber)
+  if (typeof poll !== 'undefined') {
+  console.log("in CheckAnswer", pollId, answer, name, clueNumber, rightAnswer)
   let city = Object.keys(poll.cities)[poll.currentQuestion - 1].toLowerCase();
   answer = answer.toLowerCase();
   console.log("city", city)
@@ -205,14 +206,17 @@ Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber) {
   if (answer != "") {
     if (clueNumber === 0 && answer === city) {
       pointsWon = 6;
+      rightAnswer = true;
     }
     if (clueNumber === 1 && answer === city) {
       pointsWon = 4;
+      rightAnswer = true;
     }
     if (clueNumber === 2 && answer === city) {
       pointsWon = 2;
+      rightAnswer = true;
     }
-    if (typeof poll !== 'undefined') {
+    
       for (let i = 0; i < poll.participants.length; i++) {
         if (poll.participants[i].name === name) {
           poll.participants[i].points += pointsWon;
@@ -221,6 +225,7 @@ Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber) {
           console.log("pointsWon", pointsWon);
         }
       }
+      return rightAnswer
     }
   }
 }
