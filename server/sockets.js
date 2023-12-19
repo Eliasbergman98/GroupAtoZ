@@ -53,6 +53,11 @@ function sockets(io, socket, data) {
     socket.emit('dataUpdate', data.getCities(d.pollId));
 
   });
+  
+  socket.on('playerExited', function (d) {
+    data.removePlayer(d.pollId, d.name);
+    io.to(d.pollId).emit('participantsUpdate', data.getParticipants(d.pollId));
+  });
 
   socket.on('editQuestion', function (d) {
     data.editQuestion(d.pollId, d.index, { city: d.city, clue1: d.clue1, clue2: d.clue2, clue3: d.clue3 });

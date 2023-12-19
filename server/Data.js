@@ -96,6 +96,21 @@ Data.prototype.removeCity = function (pollId, city) {
   }
 }
 
+Data.prototype.removePlayer = function (pollId, name) {
+  const poll = this.polls[pollId];
+  console.log("player removed from poll", pollId, name);
+  if (typeof poll !== 'undefined') {
+    for (let i = 0; i < poll.participants.length; i++) {
+      if (poll.participants[i].name === name) {
+          poll.participants.splice(i, 1);
+        
+      }
+    }
+
+    console.log("removed participant:", poll.participants)
+  }
+}
+
 Data.prototype.addParticipant = function (pollId, name, selectedAvatar, quizName) {
   const poll = this.polls[pollId];
   console.log("participant added", pollId, name, selectedAvatar);
