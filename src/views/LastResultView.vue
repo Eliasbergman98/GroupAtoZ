@@ -8,7 +8,7 @@
             <h1>{{uiLabels.theWinner}}</h1>
             <div id="pics">
                 <!-- v-bind:src="data.selectedAvatar" -->
-                <img class="podium" src="/img/Podium-removebg-preview.png">
+                <img class="podium" src="/img/Podium-removebg-preview1.png">
                 <img class="emoji a" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f921/512.gif" width="20"
                     height="20" target="_blank">
                 <img class="emoji b" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f608/512.gif" width="20"
@@ -199,6 +199,48 @@ h2 {
     to {
         transform: translateY(120vh) rotate(45deg);
     }
+}
+@media screen and (max-width: 800px){
+    h1{
+        font-size: 12vw;
+    }
+    .podium{
+        height: 80vw;
+        width: 80vw;
+        top: 60vw;
+        left: 10vw;
+    }
+    .emoji {
+    height: 15vw;
+    width: 15vw;
+}
+    .a {
+    top: 75vw;
+    right: 42.5vw;
+}
+.b {
+    top: 83.5vw;
+    right: 66.3vw;
+}
+.c {
+    top: 87.3vw;
+    right: 18.2vw;
+}
+#name1 {
+    top: 142vw;
+    left: 20vw;
+}
+h2 {
+    font-size: 5vw;
+}
+#name2 {
+    top: 140vw;
+    left: 45.5vw;
+}
+#name3 {
+    top: 142vw;
+    left: 70vw;
+}
 }
 </style>
   
