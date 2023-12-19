@@ -155,13 +155,11 @@ h2 {
 .columns-wrapper {
     display: flex;
     justify-content: space-around;
-    /* Adjust this property based on your layout requirements */
 }
 
 .column {
     flex-grow: 1;
     margin: 0 10px;
-    /* Adjust the margin based on your layout preferences */
 }
 
 
@@ -287,7 +285,6 @@ h2 {
     .scroll-wrapper {
         overflow-y: auto;
         height: 50vw;
-        /* Ensure the wrapper takes the full height of the container */
     }
 
     .emojies {

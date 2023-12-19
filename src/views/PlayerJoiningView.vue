@@ -6,8 +6,7 @@
     </header>
     <div class="arrow">
         <button>
-            <router-link :to="'/createquestions/' + pollId"><button id="goBack"> <img id="arrow" src="/img/arrow.png"
-                        style="width: 3vw;">
+            <router-link :to="'/createquestions/' + pollId"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
                 </button></router-link>
         </button>
     </div>
@@ -72,9 +71,6 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels
         })
-        // socket.on("dataUpdate", (data) =>
-        //     this.data = data
-        // )
         socket.on("participantsUpdate", (participants) =>
             this.participants = participants,
             console.log("hej här kommer nya joinare i participantsupdate", this.participants)
@@ -91,14 +87,16 @@ export default {
     },
     methods: {
         sendInfo: function () {
+            console.log("så här många players", this.participants)
+            if (this.participants != 0){
             socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber })
             this.$router.push('/startingquiz/' + this.pollId + "/" + this.quizName)
+        }
         },
         toggleMusic() {
-            // Access the audio player from the AppView component
             const audioPlayer = this.$root.$refs.audioPlayer;
             audioPlayer.play();
-            this.showMysteryButton = false; // Hide the mysteryButton
+            this.showMysteryButton = false;
         },
         toggleMute() {
             const audioPlayer = this.$root.$refs.audioPlayer;
@@ -106,16 +104,13 @@ export default {
             this.isMuted = !this.isMuted;
         },
         stopMusicAndStartGame() {
-            // Access the audio player from the AppView component
             const audioPlayer = this.$root.$refs.audioPlayer;
 
-            // Pause the music if it's playing
             if (!audioPlayer.paused) {
                 audioPlayer.pause();
                 audioPlayer.currentTime = 0;
             }
 
-            // Start the game
             this.sendInfo();
         },
     }
@@ -162,7 +157,6 @@ export default {
 .scroll-wrapper {
     overflow-y: auto;
     height: 30vw;
-    /* Ensure the wrapper takes the full height of the container */
 }
 
 .scroll-wrapper ul {
@@ -247,8 +241,6 @@ export default {
         overflow-y: auto;
         max-height: 200vh;
         height: auto;
-
-        /* Ensure the wrapper takes the full height of the container */
     }
 
     .poll {

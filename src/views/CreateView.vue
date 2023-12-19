@@ -6,7 +6,7 @@
   </header>
 
   <div class="arrow">
-    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
+    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
       </button></router-link>
   </div>
   <h1>
@@ -65,7 +65,6 @@ export default {
     }
   },
   computed: {
-    // Compute the image source based on the button state
     buttonImage() {
       return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
     }
@@ -78,9 +77,6 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
-    // socket.on("dataUpdate", (data) =>
-    //   this.data = data
-    // )
     socket.on("pollCreated", (data) => console.log("pollId created:", data))
   },
   methods: {
@@ -101,10 +97,9 @@ export default {
       this.selectedAvatarUrl = this.avatars[index].url;
     },
     toggleMusic() {
-      // Access the audio player from the AppView component
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.play();
-      this.showMysteryButton = false; // Hide the mysteryButton
+      this.showMysteryButton = false;
     },
     toggleMute() {
       const audioPlayer = this.$root.$refs.audioPlayer;
@@ -210,18 +205,6 @@ export default {
   height: 60%;
   margin-left: 0.5vw;
 }
-
-.arrow {
-  background-color: rgb(163, 163, 243);
-  text-align: left;
-  padding: 1vw 0 0 1vw;
-}
-
-.arrow button {
-  background-color: rgb(163, 163, 243);
-  border: 1px solid rgb(163, 163, 243);
-}
-
 .emojies {
   width: 2vw;
   height: 2vw;

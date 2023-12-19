@@ -5,7 +5,7 @@
         </div>
     </header>
     <div class="arrow">
-        <router-link to="/join/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
+        <router-link to="/join/"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
             </button></router-link>
     </div>
     <main>
@@ -38,7 +38,6 @@
 </template>
   
 <script>
-// @ is an alias to /src
 import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
@@ -77,12 +76,6 @@ export default {
     created: function () {
         this.pollId = this.$route.params.pollId
         socket.emit('joinPoll', this.pollId)
-        // socket.on("newQuestion", q =>
-        //     this.question = q
-        // )
-        // socket.on("dataUpdate", answers =>
-        //     this.submittedAnswers = answers
-        // )
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels
@@ -100,10 +93,9 @@ export default {
             this.selectedAvatarUrl = this.avatars[index].url;
         },
         toggleMusic() {
-            // Access the audio player from the AppView component
             const audioPlayer = this.$root.$refs.audioPlayer;
             audioPlayer.play();
-            this.showMysteryButton = false; // Hide the mysteryButton
+            this.showMysteryButton = false;
         },
         toggleMute() {
             const audioPlayer = this.$root.$refs.audioPlayer;
@@ -111,20 +103,16 @@ export default {
             this.isMuted = !this.isMuted;
         },
         stopMusicAndStartGame() {
-            // Access the audio player from the AppView component
             const audioPlayer = this.$root.$refs.audioPlayer;
 
-            // Pause the music if it's playing
             if (!audioPlayer.paused) {
                 audioPlayer.pause();
                 audioPlayer.currentTime = 0;
             }
 
-            // Start the game
             this.addParticipant();
         },
         addParticipant: async function () {
-            // Check if 'yourName' or 'selectedAvatarUrl' is empty
             if (this.yourName === '' || this.selectedAvatar === null) {
                 this.alertContentText = this.uiLabels.nameAvatarAlert;
                 this.$refs.alertComponent.openAlert();
@@ -138,16 +126,12 @@ export default {
             }
 
             try {
-                // Use a promise to wait for the result of socket.emit
                 const addParticipantResult = await new Promise((resolve, reject) => {
-                    // Emit 'addParticipant' event to the server
                     socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl, quizName: this.quizName });
                     socket.on("checkPlayer", (data) => {
-                        // Resolve the promise with the received data
                         resolve(data);
                     });
                 });
-                // Set 'checkName' with the result from the server
                 this.checkName = addParticipantResult;
 
                 if (this.checkName === "invalidName") {
@@ -155,7 +139,6 @@ export default {
                     this.$refs.alertComponent.openAlert();
                     this.checkName = "";
                 } else {
-                    // navigate to the specified route if conditions are false
                     this.$router.push('/playerwaiting/' + this.pollId);
                 }
             } catch (error) {
@@ -173,7 +156,6 @@ export default {
 }
 
 h1 {
-    /* margin-left: 6vw; */
     font-size: 6vw;
 
 }

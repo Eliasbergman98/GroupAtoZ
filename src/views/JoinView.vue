@@ -5,9 +5,9 @@
     </div>
   </header>
   <div class="arrow">
-    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;">
-      </button></router-link>
+    <router-link to="//"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
+
   <main>
     <section>
       <img id="brake" src="/img/brake.png">
@@ -53,7 +53,6 @@ export default {
 
   },
   computed: {
-    // Compute the image source based on the button state
     buttonImage() {
       return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
     }
@@ -64,9 +63,6 @@ export default {
     socket.on("newQuestion", q =>
       this.question = q
     )
-    // socket.on("dataUpdate", answers =>
-    //   this.submittedAnswers = answers
-    // )
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
@@ -79,10 +75,9 @@ export default {
   },
   methods: {
     toggleMusic() {
-      // Access the audio player from the AppView component
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.play();
-      this.showMysteryButton = false; // Hide the mysteryButton
+      this.showMysteryButton = false;
     },
     toggleMute() {
       const audioPlayer = this.$root.$refs.audioPlayer;
@@ -91,19 +86,18 @@ export default {
     },
     addGameCode: async function () {
       this.pollId = this.gameCode
-      // Use a Promise to wait for the asynchronous operation
+
       const fetchData = () => {
         return new Promise((resolve) => {
           socket.emit("getPoll", this.gamecode);
           socket.on("fullPole", (data) => {
             this.data = data;
-            resolve(); // Resolve the promise when the data is retrieved
+            resolve(); 
           });
         });
       };
 
       try {
-        // Wait for the data to be retrieved before proceeding
         await fetchData();
 
         if (this.gamecode === '') {

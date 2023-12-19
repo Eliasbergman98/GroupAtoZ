@@ -14,7 +14,6 @@ h1 {
   font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
   font-size: 6vw;
-  /*font-style: italic;*/
   color: rgb(177, 27, 27);
   text-shadow:
     -0.075vw -0.075vw 0 #000,
@@ -74,7 +73,6 @@ img[id=sweimg]:hover,
   width: 3vw;
   height: 3vw;
   padding: 0.5vw 0 0 0.5vw;
-  /* Adjusted padding */
   margin-left: 45vw;
   margin-top: 1vw;
 }
@@ -86,7 +84,6 @@ img[id=sweimg]:hover,
     width: 5vw;
     height: 5vw;
     padding: 0.5vw 0 0 0.5vw;
-    /* Adjusted padding */
     margin-left: 42vw;
     margin-top: 2vw;
   }
@@ -104,9 +101,4 @@ img[id=sweimg]:hover,
     border: 1px solid rgb(163, 163, 243);
     text-align: left;
   }
-
-  #goBack {
-    width: 3vw;
-  }
-
 }
