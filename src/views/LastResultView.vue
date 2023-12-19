@@ -3,10 +3,9 @@
         <header>
         </header>
         <main>
-            <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto"
-                :style="{ left: confetto.left, animationDuration: confetto.animationDuration }"></div>
+            <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto" :style="{ left: confetto.left, animationDuration: confetto.animationDuration }"></div>
 
-            <h1>{{ uiLabels.theWinner }}</h1>
+            <h1>{{uiLabels.theWinner}}</h1>
             <div id="pics">
                 <!-- v-bind:src="data.selectedAvatar" -->
                 <img class="podium" src="/img/Podium-removebg-preview.png">
@@ -86,17 +85,15 @@ export default {
             socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber });
             this.$router.push('/startingquiz/' + this.pollId);
         },
-        generateConfetti() {
+        generateConfetti: function () {
             for (let i = 0; i < 50; i++) {
-                // Generate random color for each confetto
-                const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
                 this.confettiArray.push({
                     left: `${Math.random() * 100}vw`,
                     animationDuration: `${Math.random() * 2 + 1}s`,
-                    backgroundColor: randomColor
+                    
                 });
             }
-        },
+        }
     },
 }
 </script>
@@ -165,6 +162,8 @@ h2 {
     justify-content: space-between;
 }
 
+
+
 #name3 {
     position: absolute;
     display: flex;
@@ -190,6 +189,7 @@ h2 {
     position: absolute;
     width: 10px;
     height: 10px;
+    background-color: #ffcc00;
     border-radius: 50%;
     transform: rotate(45deg);
     animation: fallAnimation linear infinite;

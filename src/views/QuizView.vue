@@ -96,6 +96,7 @@ export default {
         socket.emit("getPoll", this.pollId);
         socket.on("fullPole", (data) => {
             this.data = data;
+            this.quizName = data.quizName;
             console.log("data hämtad", this.pollId)
 
         });
@@ -150,7 +151,7 @@ export default {
                 // Use a promise to wait for the result of socket.emit
                 const addParticipantResult = await new Promise((resolve, reject) => {
                     // Emit 'addParticipant' event to the server
-                    socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl });
+                    socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl, quizName: this.quizName });
                     socket.on("checkPlayer", (data) => {
                         // Resolve the promise with the received data
                         resolve(data);
@@ -230,7 +231,7 @@ h1 {
     text-align: center;
     font-size: 2vw;
     width: 50vw;
-    height: 10vw;
+    height: 21vh;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
@@ -275,5 +276,48 @@ h1 {
 
 .selected {
     background-color: green;
+}
+@media screen and (max-width: 800px){
+h1{
+    font-size: 12vw;
+}
+.player{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.a{
+   margin-left: 0vw;
+   padding-top: 1vh;
+   padding-left: 2vw;
+   font-size: 5vw;
+   width: 90vw;
+   height: 10vw;
+}
+#yourname{
+    font-size: 4vw;
+}
+.b{
+    width: 90vw;
+    height: 40vh;
+    margin-left: 0vw;
+    font-size: 5vw;
+}
+.emojis{
+    height: 5vw;
+    width: 5vw;
+    margin-top: 1vw;
+  margin-left: 1vw;
+}
+.c{
+    margin-right: 40vw;
+}
+#donebutton{
+  height: 10vh;
+  width: 50vw;
+  font-size: 4vh;
+  margin-bottom: 2vh;
+}
+
 }
 </style>

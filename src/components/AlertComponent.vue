@@ -142,5 +142,29 @@ export default {
   margin-left: 3vw;
   width: 6vw;
 }
+
+@media screen and (max-width: 800px) {
+.custom-alert{
+  font-size: 6vw;
+  }
+.alert-box {
+  width: 50vw;
+  height: auto;
+}
+#yesbutton {
+  font-size: 2.5vw;
+  margin-top: 2vw;
+  margin-left: 9vw;
+  margin-right: 6vw;
+  width: 12vw;
+}
+
+#nobutton {
+  font-size: 2.5vw;
+  margin-top: 3vw;
+  margin-left: 2vw;
+  width: 12vw;
+}
+}
 </style>
   

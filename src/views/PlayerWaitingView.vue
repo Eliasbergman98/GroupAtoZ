@@ -3,6 +3,7 @@
         {{ data.quizName }}
     </h1>
     <h2>{{ uiLabels.waitingForHost }}</h2>
+    {{  yourName }}
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
@@ -47,6 +48,7 @@ export default {
             participants: [],
             playerColumns: [],
             playersPerColumn: 8,
+            yourName: ""
         }
     },
 
@@ -75,13 +77,15 @@ export default {
             this.data = data;
         });
 
-        socket.on("participantsUpdate", (participants) =>
-            this.participants = participants,
+        socket.on("participantsUpdate", (participants) => {
+            this.participants = participants;
+            this.getParticipantName(this.participants);
             console.log("hej här kommer nya joinare", this.participants)
-        )
+        })
 
         socket.on("creatorStarting", (pollId) => {
-            this.$router.push('/startingquizplayer/' + this.pollId);
+            socket.emit("getThisParticipant", this.pollId, this.yourName )
+            this.$router.push('/startingquizplayer/' + this.pollId + '/' + this.yourName);
         });
 
     },
@@ -95,6 +99,13 @@ export default {
                 result.push(array.slice(i, i + size));
             }
             return result;
+        },
+        getParticipantName() {
+            console.log("getParticipantName called");
+            if (this.participants.length > 0 && this.yourName === "") {
+                this.yourName = this.participants[this.participants.length - 1].name;
+                console.log("I getParticipantName", this.yourName);
+            }
         },
     },
 }

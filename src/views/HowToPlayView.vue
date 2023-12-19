@@ -13,10 +13,6 @@
       {{ uiLabels.heading }}
     </h1>
   </div>
-  <!-- <audio id="audioPlayer" autoplay loop>
-      <source src="/img/villeTrainSounds.mp3" type="audio/mp3" />
-      Your browser does not support the audio element.
-  </audio> -->
   <section id="box-container">
   <section id="aboutus" class="text">
     <h2>{{ uiLabels.aboutText }}</h2>
@@ -136,5 +132,39 @@ export default {
 .arrow button{
   background-color: rgb(163, 163, 243);
   border: 1vw solid rgb(163, 163, 243);
+}
+
+@media screen and (max-width: 800px) {
+
+h1{
+  font-size: 10vw;
+}
+
+#box-container{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+
+}
+
+#aboutus, #howtoplay, #howtocreate {
+  border: 0.2vw solid black;
+  color: white;
+  background-color: green;
+  margin: 1vw;
+  margin-bottom: 5vh;
+  padding: 1vw;
+  height: auto;
+  width: 80vw;
+  border-radius: 1.5vw;
+}
+.text {
+	text-shadow:
+		-0.05vw -0.05vw 0 #000,
+		0.05vw -0.05vw 0 #000,
+		-0.05vw 0.05vw 0 #000,
+		0.05vw 0.05vw 0 #000;
+    font-size: 3vw;
+}
 }
 </style>

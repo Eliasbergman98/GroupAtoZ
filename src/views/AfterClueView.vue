@@ -1,14 +1,13 @@
 <template>
     <h2>
-        {{uiLabels.city}}{{ questionNumber }}
+        {{ uiLabels.city }}{{ questionNumber }}
     </h2>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-    {{data.pollId}}
-
-    <div>
-    <button v-on:click="handleFuseBurnout"> </button>
+    {{ data.pollId }}
+    <div v-if="creator">
+        <button v-on:click="handleFuseBurnout"> </button>
     </div>
 </template>
   
@@ -32,11 +31,14 @@ export default {
             uiLabels: {},
             selectedAvatar: null,
             avatars: avatar,
-            fuseWidth: 100
+            fuseWidth: 100,
+            yourName: "",
+            creator: false
         }
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
+        this.yourName = this.$route.params.yourName;
         socket.emit("pageLoaded", this.lang);
         socket.emit("joinPoll", this.pollId);
         socket.emit("getCity", this.pollId);
@@ -58,18 +60,18 @@ export default {
             this.questionNumber = data;
             console.log("hämtar info från update number", this.questionNumber)
         });
-        socket.on("fullPole", (data)=> { 
-                this.data = data;
-                this.questionNumber = data.currentQuestion;
-                this.cities = data.cities;
-                console.log("här kommer våra städer", this.cities)
-
-            });
-            socket.on("creatorClicked", (data) => {
-            console.log("CREATORCLICKED THE BUTTON", this.pollId)
-            this.$router.push('/clue/' + this.pollId);
+        socket.on("fullPole", (data) => {
+            this.data = data;
+            this.questionNumber = data.currentQuestion;
+            this.cities = data.cities;
+            this.quizName = data.quizName;
+            this.checkIfCreator();
+            console.log("här kommer våra städer", this.cities)
         });
-
+        socket.on("creatorClicked", (data) => {
+            console.log("CREATORCLICKED THE BUTTON", this.pollId)
+            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
+        });
     },
     methods: {
         handleFuseBurnout() {
@@ -78,9 +80,12 @@ export default {
             socket.emit("cityUpdate", this.pollId);
             socket.emit("creatorClick", this.pollId);
             clearInterval(this.fuseTimer);
-              
-
         },
+        checkIfCreator() {
+            if (this.yourName === this.quizName) {
+                this.creator = true;
+            }
+        }
     }
 }
 </script>  
