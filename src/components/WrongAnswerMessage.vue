@@ -1,7 +1,7 @@
 <template>
-    <div v-if="showMessage" class="right-answer-message">
-      <h2>{{ uiLabels.rightAnswer }}</h2>
-      <p>{{ uiLabels.rightAnswerMessage }}</p>
+    <div v-if="showWrongMessage" class="wrong-answer-message">
+      <h2>{{ uiLabels.wrongAnswer }}</h2>
+      <p>{{ uiLabels.wrongAnswerMessage }}</p>
     </div>
   </template>
   
@@ -12,15 +12,15 @@
       buttonClicked: Boolean,
       rightAnswer: Boolean,
     },
-    // watch: {
-    //   rightAnswer: function (newVal) {
-    //     if (newVal) {
-    //       this.showRightAnswerMessage();
-    //     }
-    //   },
-    // },
+    watch: {
+      rightAnswer: function (newVal) {
+        if (newVal) {
+          this.showRightAnswerMessage();
+        }
+      },
+    },
     computed: {
-      showMessage() {
+      showWrongMessage() {
         console.log('Button Clicked:', this.buttonClicked);
         console.log('Right Answer:', this.rightAnswer);
         return this.buttonClicked && this.rightAnswer;
@@ -36,11 +36,11 @@
   
 
 <style scoped>
-.right-answer-message {
+.wrong-answer-message {
     text-align: center;
     margin: 20px;
     padding: 10px;
-    background-color: #8eff8e;
+    background-color: #d22035;
     border-radius: 10px;
 }
 </style>

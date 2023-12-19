@@ -65,5 +65,7 @@
 	"joining": "Joining",
 	"waitingForAnswers": "Waiting for players to submit answers...",
 	"rightAnswer": "CORRECT ANSWER!",
-	"rightAnswerMessage": "Woohoo! Now you can sit back and relax until the other players are done"
+	"rightAnswerMessage": "Woohoo! Now you can sit back and relax until the other players are done",
+	"wrongAnswer": "WRONG ANSWER!",
+	"wrongAnswerMessage": "Sorry, the answer is not correct. Better luck next time!"
 }
