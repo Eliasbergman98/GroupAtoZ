@@ -23,15 +23,18 @@ h1 {
     0.075vw 0.075vw 0 #000;
 }
 
-.arrow {
+#arrow {
   background-color: rgb(163, 163, 243);
   text-align: left;
-  padding: 1vw 0 0 1vw;
+  width: 3vw;
+  margin-left: -49vw;
+  margin-top: 1vw;
 }
 
 .arrow button {
   background-color: rgb(163, 163, 243);
   border: 1px solid rgb(163, 163, 243);
+  text-align: left;
 }
 
 #joinbutton:hover,
@@ -88,21 +91,22 @@ img[id=sweimg]:hover,
     margin-top: 2vw;
   }
 
-  .arrow {
+  #arrow {
     background-color: rgb(163, 163, 243);
     text-align: left;
-    padding: 1vw 0 0 1vw;
-    width: 5vw;
+    width: 6vw;
+    margin-left: -47vw;
+    margin-top: 1vw;
   }
-  
+
   .arrow button {
     background-color: rgb(163, 163, 243);
     border: 1px solid rgb(163, 163, 243);
-    width: 5vw;
+    text-align: left;
   }
 
-  #goBack{
-    width:3vw;
+  #goBack {
+    width: 3vw;
   }
-  
+
 }

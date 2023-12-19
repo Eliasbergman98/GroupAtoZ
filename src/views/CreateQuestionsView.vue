@@ -6,7 +6,7 @@
   </header>
   
   <div class="arrow">
-    <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
+    <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
 
   <div class="poll">
@@ -375,17 +375,6 @@ export default {
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
   border-radius: 20px;
-}
-
-.arrow {
-  background-color: rgb(163, 163, 243);
-  text-align: left;
-  padding: 1vw 0 0 1vw;
-}
-
-.arrow button {
-  background-color: rgb(163, 163, 243);
-  border: 1px solid rgb(163, 163, 243);
 }
 
 #title {
