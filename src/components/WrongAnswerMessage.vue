@@ -12,23 +12,11 @@
       buttonClicked: Boolean,
       rightAnswer: Boolean,
     },
-    watch: {
-      rightAnswer: function (newVal) {
-        if (newVal) {
-          this.showRightAnswerMessage();
-        }
-      },
-    },
     computed: {
       showWrongMessage() {
         console.log('Button Clicked:', this.buttonClicked);
         console.log('Right Answer:', this.rightAnswer);
-        return this.buttonClicked && this.rightAnswer;
-      },
-    },
-    methods: {
-      showRightAnswerMessage() {
-        console.log('Showing right answer message');
+        return this.buttonClicked && !this.rightAnswer;
       },
     },
   };
