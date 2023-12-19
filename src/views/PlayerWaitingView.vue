@@ -3,7 +3,6 @@
         {{ data.quizName }}
     </h1>
     <h2>{{ uiLabels.waitingForHost }}</h2>
-    {{ yourName }}
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
