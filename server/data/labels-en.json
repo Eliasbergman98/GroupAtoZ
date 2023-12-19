@@ -63,5 +63,7 @@
 	"waitingForHost": "WAITING FOR HOST TO START GAME...",
 	"theWinner": "THE WINNER IS...",
 	"joining": "Joining",
-	"waitingForAnswers": "Waiting for players to submit answers..."
+	"waitingForAnswers": "Waiting for players to submit answers...",
+	"rightAnswer": "CORRECT ANSWER!",
+	"rightAnswerMessage": "Woohoo! Now you can sit back and relax until the other players are done"
 }
