@@ -93,6 +93,7 @@ function sockets(io, socket, data) {
     console.log("Socket checkanswer")
     socket.emit("yourPoints", data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber, d.rightAnswer));
   });
+  
 }
 
 export { sockets };
