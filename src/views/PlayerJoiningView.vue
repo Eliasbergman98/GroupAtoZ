@@ -31,11 +31,13 @@
         </div>
         <div class="gameInfo c">
             <button id="createbutton" v-on:click="stopMusicAndStartGame"> {{ uiLabels.startGame }}</button>
+            <AlertComponent ref="alertComponent" :alertContentText="alertContentText"></AlertComponent>
         </div>
     </div>
 </template>
   
 <script>
+import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 import pressToMuteImage from "/img/soundon.png";
@@ -44,6 +46,9 @@ const socket = io("localhost:3000");
 
 export default {
     name: 'PlayerJoiningView',
+    components: {
+        AlertComponent,
+    },
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
@@ -57,7 +62,8 @@ export default {
             participantCount: 0,
             isMuted: false,
             showMysteryButton: true,
-            quizName: ""
+            quizName: "",
+            alertContentText: "",
         }
     },
     computed: {
@@ -88,10 +94,10 @@ export default {
     methods: {
         sendInfo: function () {
             console.log("så här många players", this.participants)
-            if (this.participants != 0){
-            socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber })
-            this.$router.push('/startingquiz/' + this.pollId + "/" + this.quizName)
-        }
+            if (this.participants != 0) {
+                socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber })
+                this.$router.push('/startingquiz/' + this.pollId + "/" + this.quizName)
+            }
         },
         toggleMusic() {
             const audioPlayer = this.$root.$refs.audioPlayer;
@@ -106,6 +112,12 @@ export default {
         stopMusicAndStartGame() {
             const audioPlayer = this.$root.$refs.audioPlayer;
 
+            if (this.participants.length === 0) {
+                this.alertContentText = this.uiLabels.noPlayersJoined;
+                this.$refs.alertComponent.openAlert();
+                return;
+            }
+
             if (!audioPlayer.paused) {
                 audioPlayer.pause();
                 audioPlayer.currentTime = 0;
@@ -113,6 +125,8 @@ export default {
 
             this.sendInfo();
         },
+
+
     }
 }
 </script>
@@ -250,5 +264,6 @@ export default {
         align-items: center;
 
     }
-}</style>
+}
+</style>
 

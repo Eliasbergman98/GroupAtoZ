@@ -65,5 +65,6 @@
 	"joining": "Joining",
 	"waitingForAnswers": "Waiting for players to submit answers...",
 	"rightAnswer": "CORRECT ANSWER!",
-	"rightAnswerMessage": "Woohoo! Now you can sit back and relax until the other players are done"
+	"rightAnswerMessage": "Woohoo! Now you can sit back and relax until the other players are done",
+	"noPlayersJoined": "Can't start the game, no players have joined!"
 }

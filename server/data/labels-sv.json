@@ -65,5 +65,6 @@
 	"joining": "Går med i ",
 	"waitingForAnswers": "Väntar på att spelarna ska svara...",
 	"rightAnswer": "RÄTT SVAR!",
-	"rightAnswerMessage": "Woohoo! Nu kan du chilla tills resten av spelarna är klara"
+	"rightAnswerMessage": "Woohoo! Nu kan du chilla tills resten av spelarna är klara",
+	"noPlayersJoined": "Kan inte starta spelet, inga spelare har anslutit!"
 }
