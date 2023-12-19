@@ -5,13 +5,7 @@ import { readFileSync } from "fs";
 // Store data in an object to keep the global namespace clean
 function Data() {
   this.polls = {};
-  // this.polls['test']= {
-  //  lang: "en",
-  //  quizName: "testquiz",
-  //  cities: { "uppsala": {clue1: "veronica maggio", clue2: "Mares", clue3: "ångan"}},
-  // answers: [],
-  //   participants: []
-  //  }
+
 }
 
 /***********************************************
@@ -37,19 +31,15 @@ Data.prototype.createPoll = function (pollId, lang = "en", quizName, selectedAva
     poll.currentQuestion = 0;
     this.polls[pollId] = poll;
     poll.participants = [];
-    console.log("poll created in data", pollId, poll);
   }
-  console.log("poll created before return", pollId);
   return this.polls[pollId];
 }
 
-Data.prototype.createParticipant = function (pollId, name, answer) {
+Data.prototype.createParticipant = function (pollId, name) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
     for (let i = 0; i < poll.participants.length; i++) {
       if (poll.participants[i].name === name) {
-        // poll.participants[i].answers.push(answer);
-        console.log("answer push", name)
       }
     }
   }
@@ -57,48 +47,29 @@ Data.prototype.createParticipant = function (pollId, name, answer) {
 }
 
 Data.prototype.getPoll = function (pollId) {
-  console.log("in data getfunction:", this.polls)
   return this.polls[pollId] || {};
 }
 
-// Data.prototype.addQuestion = function(pollId, city, clue1, clue2, clue3) {
-//   const poll = this.polls[pollId];
-//   console.log("question added to", pollId, city, clue1, clue2, clue3);
-//   if (typeof poll !== 'undefined') {
-//     poll.questions.push(city);
-//   }
-// }
 Data.prototype.addCity = function (pollId, city, clue1, clue2, clue3) {
   const poll = this.polls[pollId];
-  console.log("question added to", pollId, city);
   if (typeof poll !== 'undefined') {
     poll.cities[city] = {
       clue1: clue1,
       clue2: clue2,
       clue3: clue3,
     };
-    console.log("added city:", city)
   }
 }
 
 Data.prototype.removeCity = function (pollId, city) {
   const poll = this.polls[pollId];
-  console.log("question removed from", pollId, city);
   if (typeof poll !== 'undefined') {
     delete poll.cities[city];
-    //  poll.cities[city] = {
-    //   clue1: clue1,
-    //   clue2: clue2,
-    //   clue3: clue3,
-    //};
-
-    console.log("removed city:", city)
   }
 }
 
 Data.prototype.removePlayer = function (pollId, name) {
   const poll = this.polls[pollId];
-  console.log("player removed from poll", pollId, name);
   if (typeof poll !== 'undefined') {
     for (let i = 0; i < poll.participants.length; i++) {
       if (poll.participants[i].name === name) {
@@ -106,22 +77,17 @@ Data.prototype.removePlayer = function (pollId, name) {
         
       }
     }
-
-    console.log("removed participant:", poll.participants)
   }
 }
 
 Data.prototype.addParticipant = function (pollId, name, selectedAvatar, quizName) {
   const poll = this.polls[pollId];
-  console.log("participant added", pollId, name, selectedAvatar);
   if (typeof poll !== 'undefined') {
     if (quizName === name) {
       return "invalidName"
     }
     for (let i = 0; i < poll.participants.length; i++) {
-      console.log("nu är jag i data och ska loopa över participants", poll.quizName);
       if (poll.participants[i].name === name) {
-        console.log("nu hittade vi ett likadant namn åh nej", poll.participants[i].name)
         return "invalidName"
       }
     }
@@ -164,9 +130,6 @@ Data.prototype.getNewCity = function (pollId) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
     poll.currentQuestion += 1;
-
-    console.log("in data and adding to currentquestion", poll.currentQuestion)
-
     return poll.currentQuestion;
   }
   return 50

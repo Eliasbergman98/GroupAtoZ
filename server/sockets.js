@@ -33,9 +33,9 @@ function sockets(io, socket, data) {
     io.to(pollId).emit('creatorClicked', pollId);
   });
 
-  socket.on('getThisParticipant', function (pollId, name, answer) {
+  socket.on('getThisParticipant', function (pollId, name) {
     console.log("spelare hämtad")
-    io.to(pollId).emit('thisPlayer', data.createParticipant(pollId, name, answer))
+    io.to(pollId).emit('thisPlayer', data.createParticipant(pollId, name))
   })
 
   socket.on('cityUpdate', function (pollId) {
