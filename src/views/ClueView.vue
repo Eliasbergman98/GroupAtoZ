@@ -25,18 +25,18 @@
             </div>
             <div v-else>
                 <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text">
-                <button v-on:click="addPlayerAnswer" class="clueAnswer" :class="{ 'green-button': buttonClicked }">
+                <button v-on:click="addPlayerAnswer" class="clueAnswer" :class="{ 'green-button': isButtonGreen, 'no-hover': buttonClicked }">
                     <div v-if=!buttonClicked>
                         {{ uiLabels.addAnswer }}
                     </div>
-                    <div v-else-if=buttonClicked>
+                    <div v-else=buttonClicked>
                         {{ uiLabels.thankYou }}
                     </div>
                 </button>
             </div>
         </div>
     </div>
-    <footer>
+    <footer>    
         <div class="fuse-container">
             <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
         </div>
@@ -71,8 +71,15 @@ export default {
             buttonClicked: false,
             yourName: "",
             creator: false,
-            rightAnswer: false
+            rightAnswer: false,
+            timesPressedButton: 0,
+
         }
+    },
+    computed: {
+    isButtonGreen() {
+        return this.answerClue !== "" && !this.buttonClicked;// &&   //&& !this.buttonClicked
+        },
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
@@ -119,22 +126,38 @@ export default {
         },
         addPlayerAnswer: function () {
             this.buttonClicked = true;
-            // this.answers.push(this.answerClue);
-            if (this.rightAnswer != true){
-            socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber, rightAnswer: this.rightAnswer })
-            socket.on("yourPoints", (data) => {
-            this.rightAnswer = data;
-            console.log("var det rätt svar? ", this.rightAnswer)
-        });
-    }
+            console.log(this.timesPressedButton, "antal gånger tryckt")
+            if (this.answerClue === "" && this.timesPressedButton < 1){
+                console.log("här borde det komma in")
+                this.buttonClicked = false;
+                return;
+                
+            }
+            else if (this.rightAnswer != true && this.timesPressedButton < 1){
+                socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber, rightAnswer: this.rightAnswer })
+                socket.on("yourPoints", (data) => {
+                this.rightAnswer = data;
+                console.log("var det rätt svar? ", this.rightAnswer)
+                });
+                console
+                this.timesPressedButton =+ 1;
+                this.answerClue = "";
+                console.log(this.timesPressedButton, "antal gånger tryckt")
+
+
+            }
             console.log(this.answerClue, ": enskilt svar")
             console.log(this.answers, ": svarslista")
+            console.log("här borde det komma in x2")
+
         },
         handleFuseBurnout() {
             this.fuseWidth = 100;
             this.buttonClicked = false;
             this.handleClues();
             this.answerClue = "";
+            this.timesPressedButton = 0;
+
 
             //this.addPlayerAnswer();
             //this.startFuseTimer();
@@ -215,7 +238,7 @@ export default {
 
             this.fuseTimer = setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.05; // Adjust as needed
+                this.fuseWidth -= 0.5; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
@@ -277,6 +300,10 @@ export default {
 .green-button {
     background-color: green;
 }
+.no-hover:hover {
+    cursor: default;
+    background-color: gray;
+}
 
 .labelSize {
     margin-top: 1vw;
@@ -333,10 +360,8 @@ h2 {
         position: center;
         margin-left: 5vw;
         margin-bottom: 10vw;
+        padding-top: 0.8vw;         
 
-        padding-top: 1.5vw;         
-        background-color: gray;
-        border: 2px solid black;
     }
     .labelSize{
         font-size: 3vw;
