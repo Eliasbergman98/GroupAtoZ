@@ -215,6 +215,7 @@ export default {
       console.log(this.submittedCities2, "EFTER")
       console.log("stadnamn", this.city);
 
+      this.city = "";
 
     }
 
@@ -418,6 +419,7 @@ export default {
   grid-template-rows: 10vw 10vw 10vw 10vw 5vw 50vw 14vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 6vw;
+  margin-top: 5vw;
   background-size: cover;
 
 }
@@ -513,8 +515,8 @@ export default {
   height: 3vw;
   width: 3vw;
   position: relative;
-  top: 3vh;
-  right: 10vw;
+  top: 1vw;
+  right: -17vw;
 }
 
 

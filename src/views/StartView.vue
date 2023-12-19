@@ -17,9 +17,7 @@
       <img id="brake" src="/img/brake.png">
       <h1>{{ uiLabels.heading }}</h1>
       <div>
-        <!--<img id="map" src="/img/map.webp" style="width: 150px;">-->
         <img id="earth" src="/img/spinning_globe.gif">
-        <!--<img id="train" src="/img/train.gif" style="width: 150px;"><-->
       </div>
       <h2>{{ uiLabels["sales-pitch2"] }}</h2>
     </section>
@@ -44,7 +42,7 @@ export default {
   data: function () {
     return {
       uiLabels: {},
-      id: "",
+      //id: "",
       lang: localStorage.getItem("lang") || "en",
       isMuted: false,
       showMysteryButton: true,
@@ -79,7 +77,7 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
-        },
+    },
   }
 }
 </script>
@@ -204,7 +202,7 @@ h2 {
     margin-top: 5vw;
     width: 40vw;
   }
-  
+
 
   #sweimg {
     margin-left: 20px;
