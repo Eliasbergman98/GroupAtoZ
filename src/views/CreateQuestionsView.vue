@@ -6,7 +6,7 @@
   </header>
   
   <div class="arrow">
-    <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
+    <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
 
   <div class="poll">
@@ -215,6 +215,7 @@ export default {
       console.log(this.submittedCities2, "EFTER")
       console.log("stadnamn", this.city);
 
+      this.city = "";
 
     }
 
@@ -377,17 +378,6 @@ export default {
   border-radius: 20px;
 }
 
-.arrow {
-  background-color: rgb(163, 163, 243);
-  text-align: left;
-  padding: 1vw 0 0 1vw;
-}
-
-.arrow button {
-  background-color: rgb(163, 163, 243);
-  border: 1px solid rgb(163, 163, 243);
-}
-
 #title {
   font-weight: bolder;
   font-size: larger;
@@ -429,6 +419,7 @@ export default {
   grid-template-rows: 10vw 10vw 10vw 10vw 5vw 50vw 14vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 6vw;
+  margin-top: 5vw;
   background-size: cover;
 
 }
@@ -524,8 +515,8 @@ export default {
   height: 3vw;
   width: 3vw;
   position: relative;
-  top: 3vh;
-  right: 10vw;
+  top: 1vw;
+  right: -17vw;
 }
 
 

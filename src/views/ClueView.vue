@@ -2,37 +2,51 @@
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-    {{ pollId }}
-    {{ Object.values(cities)[questionNumber - 1] }}
     <div class="clueBox">
-        <div class="tester" v-if="cities && Object.values(cities).length > 0">
-            <p v-if="clueNumber === 0">
-                {{ uiLabels.clue6p }} <br>
-            <div class="labelSize">{{ Object.values(cities)[questionNumber - 1].clue1 }}</div> <br>
-            </p>
-            <p v-else-if="clueNumber === 1">
-                {{ uiLabels.clue4p }} <br>
-            <div class="labelSize">{{ Object.values(cities)[questionNumber - 1].clue2 }}</div> <br>
-            </p>
-            <p v-else-if="clueNumber === 2">
-                {{ uiLabels.clue2p }} <br>
-            <div class="labelSize">{{ Object.values(cities)[questionNumber - 1].clue3 }}</div> <br>
-            </p>
-            <p v-else-if="clueNumber > 2">
-            </p>
-            <div v-if="creator">
-                {{uiLabels.waitingForAnswers}}
+        <div v-if="cities && Object.values(cities).length > 0">
+            <div v-if="showRightAnswer && rightAnswer && !wrongAnswer">
+                <right-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
+                    :rightAnswer="rightAnswer"></right-answer-message>
+            </div>
+            <div v-else-if="!showRightAnswer && !rightAnswer && wrongAnswer">
+                <wrong-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
+                    :rightAnswer="rightAnswer"></wrong-answer-message>
             </div>
             <div v-else>
-                <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text">
-                <button v-on:click="addPlayerAnswer" class="clueAnswer" :class="{ 'green-button': buttonClicked }">
-                    <div v-if=!buttonClicked>
-                        {{ uiLabels.addAnswer }}
+                <div class="clueBox">
+                    <div class="tester">
+                        <p v-if="clueNumber === 0">
+                            {{ uiLabels.clue6p }} <br>
+                        <div class="labelSize">{{ Object.values(cities)[questionNumber - 1].clue1 }}</div> <br>
+                        </p>
+                        <p v-else-if="clueNumber === 1">
+                            {{ uiLabels.clue4p }} <br>
+                        <div class="labelSize">{{ Object.values(cities)[questionNumber - 1].clue2 }}</div> <br>
+                        </p>
+                        <p v-else-if="clueNumber === 2">
+                            {{ uiLabels.clue2p }} <br>
+                        <div class="labelSize">{{ Object.values(cities)[questionNumber - 1].clue3 }}</div> <br>
+                        </p>
+                        <p v-else-if="clueNumber > 2"></p>
+                        <div v-if="creator">
+                            {{ uiLabels.waitingForAnswers }}
+                        </div>
+                        <div v-else>
+                            <div v-if="!rightAnswer && !showRightAnswer">
+                                <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text">
+                                <button v-on:click="addPlayerAnswer" class="clueAnswer"
+                                    :class="{ 'green-button': isButtonGreen, 'no-hover': buttonClicked }">
+                                    <div v-if=!buttonClicked>
+                                        {{ uiLabels.addAnswer }}
+                                    </div>
+                                    <div v-else=buttonClicked>
+                                        {{ uiLabels.thankYou }}
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div v-else-if=buttonClicked>
-                        {{ uiLabels.thankYou }}
-                    </div>
-                </button>
+                </div>
             </div>
         </div>
     </div>
@@ -47,9 +61,15 @@
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
+import RightAnswerMessage from '@/components/RightAnswerMessage.vue';
+import WrongAnswerMessage from '@/components/WrongAnswerMessage.vue';
 
 export default {
     name: 'ClueView',
+    components: {
+        RightAnswerMessage,
+        WrongAnswerMessage
+    },
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
@@ -70,8 +90,17 @@ export default {
             dataLoaded: false,
             buttonClicked: false,
             yourName: "",
-            creator: false
+            creator: false,
+            rightAnswer: false,
+            wrongAnswer: false,
+            timesPressedButton: 0,
+            showRightAnswer: false
         }
+    },
+    computed: {
+        isButtonGreen() {
+            return this.answerClue !== "" && !this.buttonClicked;// &&   //&& !this.buttonClicked
+        },
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
@@ -101,6 +130,11 @@ export default {
             this.startFuseTimer();
             this.checkIfCreator();
         });
+
+        socket.on("yourPoints", (data) => {
+            this.rightAnswer = data;
+            console.log("var det rätt svar? ", this.rightAnswer);
+        });
     },
     methods: {
         createPoll: function () {
@@ -117,21 +151,51 @@ export default {
             this.selectedAvatar = index;
         },
         addPlayerAnswer: function () {
+            console.log("In addPlayerAnswer", this.rightAnswer)
             this.buttonClicked = true;
-            // this.answers.push(this.answerClue);
-            socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber })
+            console.log(this.timesPressedButton, "antal gånger tryckt")
+            if (this.answerClue === "" && this.timesPressedButton < 1) {
+                console.log("här borde det komma in")
+                this.buttonClicked = false;
+                return;
+            }
+            else if (this.rightAnswer != true && this.timesPressedButton < 1) {
+                socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber, rightAnswer: this.rightAnswer })
+                socket.on("yourPoints", (data) => {
+                    this.rightAnswer = data;
+                    console.log("var det rätt svar? ", this.rightAnswer)
+                    if (this.rightAnswer) {
+                        this.showRightAnswer = true;
+                        console.log("showRightAnswer: ", this.showRightAnswer)
+                    }
+                    else {
+                        this.wrongAnswer = true;
+                    }
+                });
+                console.log("this.rightanswer utanför socket ", this.rightAnswer)
+                this.timesPressedButton = + 1;
+                this.answerClue = "";
+                console.log(this.timesPressedButton, "antal gånger tryckt")
+
+            }
             console.log(this.answerClue, ": enskilt svar")
             console.log(this.answers, ": svarslista")
+            console.log("här borde det komma in x2")
+
         },
         handleFuseBurnout() {
+            if (this.rightAnswer) {
+                this.showRightAnswer = false;
+            }
+            else {
+                this.wrongAnswer = false;
+            }
             this.fuseWidth = 100;
             this.buttonClicked = false;
             this.handleClues();
             this.answerClue = "";
+            this.timesPressedButton = 0;
 
-            //this.addPlayerAnswer();
-            //this.startFuseTimer();
-            //console.log(this.addPlayerAnswer)
         },
         checkIfCreator() {
             if (this.yourName === this.quizName) {
@@ -179,21 +243,6 @@ export default {
                         this.$router.push('/afterclue/' + this.pollId + '/' + this.yourName);
                     }
 
-
-                    // Check if you've already redirected to avoid multiple redirects
-                    // if (!this.isRedirected) {
-                    //     this.isRedirected = true;
-                    //     console.log(this.isRedirected)
-                    //     this.clueNumber == 0;
-
-                    //     console.log("Redirecting to the next page");
-
-                    //            // Use a Vue nextTick to ensure that the DOM has been updated
-
-                    //     this.$router.push('/afterclue/' + this.pollId);
-
-                    // }
-
                 }
             }
         },
@@ -208,7 +257,7 @@ export default {
 
             this.fuseTimer = setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.05; // Adjust as needed
+                this.fuseWidth -= 0.1; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
@@ -271,6 +320,11 @@ export default {
     background-color: green;
 }
 
+.no-hover:hover {
+    cursor: default;
+    background-color: gray;
+}
+
 .labelSize {
     margin-top: 1vw;
     font-size: 1.2vw;
@@ -286,54 +340,56 @@ h2 {
     margin-top: 10vw;
 }
 
-    h2 {
-        position: center;
-        margin-top: 10vw;
-    }
+h2 {
+    position: center;
+    margin-top: 10vw;
+}
 
-@media screen and (max-width: 500px)  {
+@media screen and (max-width: 500px) {
 
-    h1{
+    h1 {
         font-size: 12vw;
     }
+
     .tester {
-    border-radius: 20px;
-    text-align: center;
-    font-size: 3vw;
-    width: 80vw;
-    height: 40vw;
-    background-size: cover;
-    background-color: rgb(201, 241, 244);
-    border: 2px solid black;
-    margin: 2vw auto 20vw auto;
-    padding-bottom: 0vw ;   
+        border-radius: 20px;
+        text-align: center;
+        font-size: 3vw;
+        width: 80vw;
+        height: 40vw;
+        background-size: cover;
+        background-color: rgb(201, 241, 244);
+        border: 2px solid black;
+        margin: 2vw auto 20vw auto;
+        padding-bottom: 0vw;
     }
-    .tester input{
+
+    .tester input {
         font-size: 1.5vw;
         margin-bottom: 10vw;
         margin-left: 9vw;
         height: 5vw;
         width: 50vw;
     }
-    p{
+
+    p {
         height: 10vw;
     }
-    
-    .clueAnswer{
+
+    .clueAnswer {
         font-size: 1.5vw;
         height: 5vw;
         width: 10vw;
         position: center;
         margin-left: 5vw;
         margin-bottom: 10vw;
+        padding-top: 0.8vw;
 
-        padding-top: 1.5vw;         
-        background-color: gray;
-        border: 2px solid black;
     }
-    .labelSize{
+
+    .labelSize {
         font-size: 3vw;
     }
 
 }
-    </style>
+</style>

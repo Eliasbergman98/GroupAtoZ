@@ -63,5 +63,10 @@
 	"waitingForHost": "VÄNTAR PÅ ATT SPELET SKA STARTAS...",
 	"theWinner": "VINNAREN ÄR...",
 	"joining": "Går med i ",
-	"waitingForAnswers": "Väntar på att spelarna ska svara..."
+	"waitingForAnswers": "Väntar på att spelarna ska svara...",
+	"rightAnswer": "RÄTT SVAR!",
+	"rightAnswerMessage": "Woohoo! Nu kan du chilla tills resten av spelarna är klara!",
+	"wrongAnswer": "FEL SVAR!",
+	"wrongAnswerMessage": "Tyvärr svarade du fel...Bättre lycka nästa gång!",
+	"noPlayersJoined": "Kan inte starta spelet, inga spelare har anslutit!"
 }

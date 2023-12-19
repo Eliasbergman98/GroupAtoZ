@@ -5,7 +5,8 @@
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-    {{ data.pollId }}
+    {{ participants }}
+    <img src="" alt="">
     <div v-if="creator">
         <button v-on:click="handleFuseBurnout"> </button>
     </div>
@@ -24,8 +25,6 @@ export default {
             pollId: "",
             quizName: '',
             cities: {},
-            question: "",
-            answers: ["", ""],
             questionNumber: 0,
             data: {},
             uiLabels: {},
@@ -33,7 +32,8 @@ export default {
             avatars: avatar,
             fuseWidth: 100,
             yourName: "",
-            creator: false
+            creator: false,
+            participants: [] 
         }
     },
     created: function () {
@@ -48,25 +48,28 @@ export default {
         socket.on("dataUpdate", (data) => {
             this.data = data;
         });
-        socket.on("pollCreated", (data) => {
-            this.data = data;
-        });
+        // socket.on("pollCreated", (data) => {
+        //     this.data = data;
+        //     console.log("hello in pollcreated")
+        // });
         socket.emit("getPoll", this.pollId);
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
-            console.log("hämtar info från update number", this.questionNumber)
+            console.log("hämtar info från update number i currentcity", this.questionNumber)
         });
-        socket.on("updateQuestionNumber", (data) => {
-            this.questionNumber = data;
-            console.log("hämtar info från update number", this.questionNumber)
-        });
+        // socket.on("updateQuestionNumber", (data) => {
+        //     this.questionNumber = data;
+        //     console.log("hämtar info från update number i updatequestionNumber", this.questionNumber)
+        // });
         socket.on("fullPole", (data) => {
             this.data = data;
             this.questionNumber = data.currentQuestion;
             this.cities = data.cities;
             this.quizName = data.quizName;
+            this.participants = data.participants;
             this.checkIfCreator();
-            console.log("här kommer våra städer", this.cities)
+            this.nextQuestion();
+            this.playerWithMostPoints();
         });
         socket.on("creatorClicked", (data) => {
             console.log("CREATORCLICKED THE BUTTON", this.pollId)
@@ -85,6 +88,22 @@ export default {
             if (this.yourName === this.quizName) {
                 this.creator = true;
             }
+        },
+        nextQuestion() {
+            this.questionNumber +=1
+        },
+        playerWithMostPoints(){
+    //         let participantWithHighestPoint = this.participants[0];
+    //         for (let i = 1; i < this.participants.length; i++) {
+    //             const currentParticipant = this.participants[i];
+
+    //             if(currentParticipant.points > participantWithHighestPoint.points){
+    //                 participantWithHighestPoint = currentParticipant;
+    //             }
+        
+    //   }
+      //console.log("Detta är spelaren med högst poäng: ", participantWithHighestPoint )
+      this.participants.sort((a, b) => b.points - a.points);
         }
     }
 }

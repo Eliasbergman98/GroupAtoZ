@@ -5,7 +5,7 @@
     </div>
   </header>
   <div class="arrow">
-    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
+    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
   <div>
     <img id="brake" src="/img/brake.png">
@@ -51,7 +51,6 @@ export default {
     }
   },
   computed: {
-        // Compute the image source based on the button state
         buttonImage() {
             return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
         }
@@ -69,10 +68,9 @@ export default {
       socket.emit("switchLanguage", this.lang)
     },
     toggleMusic() {
-      // Access the audio player from the AppView component
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.play();
-      this.showMysteryButton = false; // Hide the mysteryButton
+      this.showMysteryButton = false;
     },
     toggleMute() {
       const audioPlayer = this.$root.$refs.audioPlayer;
@@ -90,7 +88,7 @@ export default {
     position: absolute;
     width: 3vw;
     height: 3vw;
-    padding: 0.5vw 0 0 0.5vw; /* Adjusted padding */
+    padding: 0.5vw 0 0 0.5vw;
     margin-left: 45vw;
     margin-top: 1vw;
 }
@@ -123,15 +121,6 @@ export default {
 		-0.05vw 0.05vw 0 #000,
 		0.05vw 0.05vw 0 #000;
     font-size: 1.15vw;
-}
-.arrow{
-  background-color: rgb(163, 163, 243);
-  text-align: left;
-  padding: 1vw 0 0 1vw;
-}
-.arrow button{
-  background-color: rgb(163, 163, 243);
-  border: 1vw solid rgb(163, 163, 243);
 }
 
 @media screen and (max-width: 800px) {
