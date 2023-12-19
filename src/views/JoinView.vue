@@ -1,7 +1,7 @@
 <template>
-    <header>
+  <header>
     <div>
-      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </div>
   </header>
   <div class="arrow">
@@ -10,13 +10,10 @@
   </div>
   <main>
     <section>
-      <img src="/img/brake.png" style="width: 200px;">
+      <img id="brake" src="/img/brake.png">
       <h1 id="heading">
         {{ uiLabels.heading }}
       </h1>
-      <div id="gamecodeheading">
-        {{ uiLabels.gameCode }}:
-      </div>
       <div>
         <input type="text" id="gamecode" v-model="gamecode" :placeholder="uiLabels.enterCode">
       </div>
@@ -60,10 +57,10 @@ export default {
 
   },
   computed: {
-        // Compute the image source based on the button state
-        buttonImage() {
-            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
-        }
+    // Compute the image source based on the button state
+    buttonImage() {
+      return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+    }
   },
   created: function () {
     this.pollId = this.$route.params.id
@@ -97,7 +94,7 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
-      },
+    },
     addGameCode: async function () {
       this.pollId = this.gameCode
       // Use a Promise to wait for the asynchronous operation
@@ -120,7 +117,7 @@ export default {
           this.alertContentText = this.uiLabels.gameCodeAlert;
           this.$refs.alertComponent.openAlert();
         } else if (Object.keys(this.data).length === 0) {
-          this.alertContentText = this.uiLabels.gameCodeAlert; 
+          this.alertContentText = this.uiLabels.gameCodeAlert;
           this.$refs.alertComponent.openAlert();
         } else {
           this.pollId = this.gamecode;
@@ -138,6 +135,11 @@ export default {
 </script>
 
 <style scoped>
+#brake {
+  margin-top: -5.5vw;
+  width: 15vw;
+}
+
 #joinbutton:hover {
   background-color: green;
 }
@@ -148,23 +150,53 @@ export default {
   color: white;
   background-color: gray;
   border: 2px solid black;
-  padding: 20px;
+  padding: 2vw;
   border-radius: 20px;
-  margin-bottom: 5vw;
-  margin-left: 60vw;
+  margin: -10vw;
 }
 
-#gamecode,
-#gamecodeheading {
+#gamecode {
   padding: 20px;
   font-weight: bold;
 }
 
 #gamecode {
-  margin-bottom: 4vw;
+  margin-bottom: 5vw;
+  margin-top: 2vw;
 }
 
 #heading {
   margin-bottom: 1vw;
+}
+
+@media screen and (max-width:800px) {
+
+  #brake {
+    margin-top: -5.5vw;
+    width: 30vw;
+  }
+
+  #joinbutton {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 7vw;
+    color: white;
+    background-color: gray;
+    border: 2px solid black;
+    padding: 5vw;
+    border-radius: 20px;
+    margin: 5vw;
+  }
+
+  #gamecode {
+    margin-top: 1vw;
+    padding: 5vw;
+    font-weight: bold;
+    font-size: 5.5vw;
+  }
+
+  #heading {
+    margin-bottom: 1vw;
+    font-size: 13vw;
+  }
 }
 </style>

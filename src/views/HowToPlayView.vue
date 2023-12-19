@@ -8,7 +8,7 @@
     <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png" style="width: 3vw;"> </button></router-link>
   </div>
   <div>
-    <img id="brake" src="/img/brake.png" style="width: 15vw;">
+    <img id="brake" src="/img/brake.png">
     <h1>
       {{ uiLabels.heading }}
     </h1>
@@ -100,7 +100,8 @@ export default {
 }
 
 #brake {
-  margin-top:-7vw;
+  margin-top:-7.5vw;
+  width: 15vw;
 }
 
 #box-container{
@@ -119,7 +120,6 @@ export default {
   border-radius: 1.5vw;
 }
 
-/*Svart outline taget från Fred Meyer https://wpshout.com/quick-guides/create-text-outline-css/#gref */
 .text {
 	text-shadow:
 		-0.05vw -0.05vw 0 #000,

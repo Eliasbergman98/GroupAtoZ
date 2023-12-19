@@ -65,13 +65,44 @@ img[id=sweimg]:hover,
   padding: 1.7vw;
   width: 9em;
 }
-.muteButton{
+
+.muteButton {
   position: absolute;
   width: 3vw;
   height: 3vw;
-  padding: 0.5vw 0 0 0.5vw; /* Adjusted padding */
+  padding: 0.5vw 0 0 0.5vw;
+  /* Adjusted padding */
   margin-left: 45vw;
   margin-top: 1vw;
 }
 
+@media screen and (max-width:800px) {
 
+  .muteButton {
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+    padding: 0.5vw 0 0 0.5vw;
+    /* Adjusted padding */
+    margin-left: 42vw;
+    margin-top: 2vw;
+  }
+
+  .arrow {
+    background-color: rgb(163, 163, 243);
+    text-align: left;
+    padding: 1vw 0 0 1vw;
+    width: 5vw;
+  }
+  
+  .arrow button {
+    background-color: rgb(163, 163, 243);
+    border: 1px solid rgb(163, 163, 243);
+    width: 5vw;
+  }
+
+  #goBack{
+    width:3vw;
+  }
+  
+}

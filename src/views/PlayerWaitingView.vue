@@ -221,5 +221,81 @@ h2 {
     padding: 0;
     margin: 0;
 }
+
+@media screen and(max-width:800px) {
+    #exitGamebutton {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 1.7vw;
+        background-color: red;
+        border: 0.2vw solid black;
+        border-radius: 1.5vw;
+        padding: 1.7vw;
+        width: 12em;
+        color: white;
+    }
+
+    #gameIDbutton {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 1.7vw;
+        background-color: green;
+        border: 0.2vw solid black;
+        border-radius: 1.5vw;
+        padding: 1.7vw;
+        width: 12em;
+        color: white;
+    }
+
+    #playerJoinedbutton {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 1.7vw;
+        background-color: green;
+        border: 0.2vw solid black;
+        border-radius: 1.5vw;
+        padding: 1.7vw;
+        width: 12em;
+        color: white;
+    }
+
+    .poll {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 1.7vw;
+        color: black;
+        position: center;
+    }
+
+    .button-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        padding: 1em;
+        margin-bottom: 2vw;
+        ;
+        margin-left: 3vw;
+    }
+
+    .participants {
+        position: absolute;
+    }
+
+    .emojies {
+        width: 2vw;
+        height: 2vw;
+    }
+
+    .scroll-wrapper {
+        overflow-y: auto;
+        height: 30vw;
+        /* Ensure the wrapper takes the full height of the container */
+    }
+
+    .scroll-wrapper ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+}
 </style>
 
