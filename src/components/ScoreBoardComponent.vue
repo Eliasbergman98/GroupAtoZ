@@ -1,6 +1,7 @@
 <template>
     <div class="score-board-component">
         <h2> {{ uiLabels.midScoreHeading }} {{ questionNumber - 1 }}</h2>
+       <div> {{ uiLabels.rightAnswerText }} {{ Object.keys(cities)[questionNumber - 1] }} </div>
         <p> {{ topParticipantsText }}</p>
         <div class="participant-list">
             <div class="participant-item" v-for="person in topParticipants" :key="person.name">
