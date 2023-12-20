@@ -160,6 +160,10 @@ export default {
 
 @media screen and (max-width:800px) {
 
+  h1{
+    margin-top:10vw;
+  }
+
   #brake {
     margin-top: -5.5vw;
     width: 30vw;
@@ -172,12 +176,12 @@ export default {
     background-color: gray;
     border: 2px solid black;
     padding: 5vw;
-    border-radius: 20px;
     margin: 5vw;
+    margin-top:20vw;
   }
 
   #gamecode {
-    margin-top: 1vw;
+    margin-top: 20vw;
     padding: 5vw;
     font-weight: bold;
     font-size:200%;

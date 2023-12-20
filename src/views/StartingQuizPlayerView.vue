@@ -129,4 +129,16 @@ h2 {
     position: center;
     margin-top: 10vw;
 }
+
+@media screen and (max-width:800px) {
+    h1 {
+        position: center;
+        margin-top: 10vw;
+    }
+
+    h2 {
+        position: center;
+        margin-top: 10vw;
+    }
+}
 </style>

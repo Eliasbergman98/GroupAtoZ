@@ -73,10 +73,10 @@ export default {
 
     this.id = this.$route.params.id;
 
-    socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
+    socket.emit("pageLoaded", this.lang);
     socket.on("pollCreated", (data) => console.log("pollId created:", data))
   },
   methods: {
@@ -244,7 +244,7 @@ export default {
   #gameName {
     font-size: 4vw;
     padding-top: 3vw;
-    width: 22vw;
+    width: 25vw;
     margin-bottom: 3vw;
   }
 
@@ -275,6 +275,7 @@ export default {
     grid-row-start: 16;
     grid-column-start: 1;
     margin-left: 25vw;
+    margin-top: 17vh;
 
   }
 

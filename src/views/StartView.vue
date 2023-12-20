@@ -33,8 +33,8 @@
 import io from 'socket.io-client';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
+sessionStorage.setItem("localhost","localhost:3000");
 //sessionStorage.setItem("AliciasWifi","192.168.0.33:3000");
-sessionStorage.setItem("localhost","192.168.0.33:3000");
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
@@ -199,15 +199,15 @@ h2 {
   }
 
   #earth {
-    margin-top: -3vw;
-    margin-bottom: -3vw;
+    margin-top: -10vw;
+    margin-bottom: -5vw;
     width: 40vw;
   }
 
 
   h1 {
     font-size: 12vw;
-    margin-top: 5vh;
+    margin-top: 0vh;
   }
 
   h2 {
