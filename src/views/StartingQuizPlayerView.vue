@@ -119,13 +119,6 @@ export default {
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
-.muteButton {
-    position: absolute;
-    width: 2vw;
-    padding: 2vw;
-    margin-left: 42vw;
-    margin-top: -10vw;
-}
 
 h1 {
     position: center;

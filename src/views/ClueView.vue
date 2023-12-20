@@ -1,7 +1,14 @@
 <template>
+    <header>
+        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
+    </header> <br>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
+    <audio ref="audioPlayer" autoplay loop>
+        <source src="/img/clueMusic.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+    </audio>
     <div class="clueBox">
         <div v-if="cities && Object.values(cities).length > 0">
             <div v-if="showRightAnswer && rightAnswer && !wrongAnswer">
@@ -63,6 +70,8 @@ import avatar from '../assets/avatar.json';
 const socket = io(sessionStorage.getItem("localhost"));
 import RightAnswerMessage from '@/components/RightAnswerMessage.vue';
 import WrongAnswerMessage from '@/components/WrongAnswerMessage.vue';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 
 export default {
     name: 'ClueView',
@@ -86,6 +95,7 @@ export default {
             answerClue: "",
             cities: {},
             clueNumber: 0,
+            isMuted: false,
             isRedirected: false,
             dataLoaded: false,
             buttonClicked: false,
@@ -98,9 +108,14 @@ export default {
         }
     },
     computed: {
+        buttonImage() {
+            console.log("nu trycker du");
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        },
         isButtonGreen() {
             return this.answerClue !== "" && !this.buttonClicked;// &&   //&& !this.buttonClicked
-        },
+        }
+                // Compute the image source based on the button state
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
@@ -149,6 +164,14 @@ export default {
         },
         selectAvatar(index) {
             this.selectedAvatar = index;
+        },
+        toggleMute() {
+            const audioPlayer = this.$refs.audioPlayer;
+
+            // Toggle the muted attribute
+            audioPlayer.muted = !audioPlayer.muted;
+
+            this.isMuted = !this.isMuted;
         },
         addPlayerAnswer: function () {
             console.log("In addPlayerAnswer", this.rightAnswer)
@@ -257,7 +280,7 @@ export default {
 
             this.fuseTimer = setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.1; // Adjust as needed
+                this.fuseWidth -= 0.01; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
@@ -272,6 +295,8 @@ export default {
 
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
+
+
 
 .clueBox {
 
@@ -345,7 +370,7 @@ h2 {
     margin-top: 10vw;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
 
     h1 {
         font-size: 12vw;
@@ -386,10 +411,17 @@ h2 {
         padding-top: 0.8vw;
 
     }
-
     .labelSize {
         font-size: 3vw;
     }
-
+    .muteButton {
+    position: absolute;
+    width: 7vw;
+    height: 7vw;
+    padding: 0.5vw 0 0 0.5vw;
+    /* Adjusted padding */
+    margin-left: 40vw;
+    margin-top: 3.5vw;
+  }
 }
 </style>

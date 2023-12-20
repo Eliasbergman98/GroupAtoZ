@@ -125,16 +125,6 @@ body {
   width: 5vw;
 }
 
-.muteButton {
-  position: absolute;
-  width: 3vw;
-  height: 3vw;
-  padding: 0.5vw 0 0 0.5vw;
-  /* Adjusted padding */
-  margin-left: 45vw;
-  margin-top: 1vw;
-}
-
 .mysteryButton:hover,
 .muteButton:hover {
   cursor: pointer;
@@ -190,15 +180,6 @@ h2 {
     height: 10vw;
   }
 
-  .muteButton {
-    position: absolute;
-    width: 7vw;
-    height: 7vw;
-    padding: 0.5vw 0 0 0.5vw;
-    /* Adjusted padding */
-    margin-left: 40vw;
-    margin-top: 3.5vw;
-  }
 
   #brake {
     margin-top: 5vw;
