@@ -73,5 +73,7 @@
 	"midScoreText": "Den nuvarande ledaren är ",
 	"midScoreText1": "med helt otroliga ",
 	"points": " poäng!",
-	"nextCity": "Nästa Stad"
+	"nextCity": "Nästa Stad",
+	"rightAnswerText": "Det rätta svaret var ",
+	"midScoreTextMultiple": "De nuvarande ledarna är"
 }

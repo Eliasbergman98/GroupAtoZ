@@ -8,12 +8,12 @@
         </h1>
     </div>
     <div v-else>
-        <score-board-component :uiLabels="uiLabels" :nextCity="nextCity"
-            :participants="participants"></score-board-component>
+        <score-board-component :uiLabels="uiLabels" :participants="participants" :cities="cities"
+            :questionNumber="questionNumber"></score-board-component>
     </div>
     <img src="" alt="">
     <div v-if="creator && !nextCity">
-        <button id="nextcitybutton" v-on:click="movingToNextCity"> {{uiLabels.nextCity}} </button>
+        <button id="nextcitybutton" v-on:click="movingToNextCity"> {{ uiLabels.nextCity }} </button>
     </div>
     <footer v-if="nextCity">
         <div class="fuse-container">
@@ -85,6 +85,7 @@ export default {
             this.checkIfCreator();
             this.nextQuestion();
             this.playerWithMostPoints();
+            clearInterval(this.fuseTimer);
         });
         socket.on("creatorClicked", (data) => {
             this.nextCity = true;

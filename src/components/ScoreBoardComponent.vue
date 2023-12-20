@@ -1,10 +1,9 @@
 <template>
     <div class="score-board-component">
-        <h2> {{ uiLabels.midScoreHeading }}</h2>
-        <p> {{ uiLabels.midScoreText }} {{ participants[0].name }} {{ uiLabels.midScoreText1 }} {{ participants[0].points }}
-            {{ uiLabels.points }}</p>
+        <h2> {{ uiLabels.midScoreHeading }} {{ questionNumber - 1 }}</h2>
+        <p> {{ topParticipantsText }}</p>
         <div class="participant-list">
-            <div class="participant-item" v-for="person in participants" :key="participants.name">
+            <div class="participant-item" v-for="person in topParticipants" :key="person.name">
                 {{ person.name }}
                 <div>
                     <img class="emojies" v-bind:src="person.avatar" target="_blank">
@@ -19,17 +18,40 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 export default {
     props: {
         uiLabels: Object,
-        nextCity: Boolean,
-        participants: Array
-    }
-    //     methods: {
+        participants: Array,
+        cities: Object,
+        questionNumber: Number
+    },
+    computed: {
+        topParticipants() {
+            if (this.participants.length === 0) {
+                return [];
+            }
 
-};
+            const highestPoints = this.participants.reduce((maxPoints, person) => Math.max(maxPoints, person.points), 0);
+
+            return this.participants.filter(person => person.points === highestPoints);
+        },
+        topParticipantsText() {
+            const topParticipants = this.topParticipants;
+
+            if (topParticipants.length === 1) {
+                return `${this.uiLabels.midScoreText} ${topParticipants[0].name} ${this.uiLabels.midScoreText1} ${topParticipants[0].points} ${this.uiLabels.points}`;
+            } else if (topParticipants.length > 1) {
+                const names = topParticipants.map(person => person.name).join(', ');
+                return `${this.uiLabels.midScoreTextMultiple} ${names} ${this.uiLabels.midScoreText1} ${topParticipants[0].points} ${this.uiLabels.points}`;
+            } else {
+                return 'No participants';
+            }
+        }
+
+    }
+}
 </script>
   
 
