@@ -258,7 +258,7 @@ export default {
     }
 
     .poll {
-
+        margin-top: 2vw;
         display: flex;
         flex-direction: column;
         align-items: center;
