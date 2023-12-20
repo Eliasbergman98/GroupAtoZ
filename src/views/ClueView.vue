@@ -1,7 +1,7 @@
 <template>
     <header>
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
-    </header>
+    </header> <br>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
@@ -95,6 +95,7 @@ export default {
             answerClue: "",
             cities: {},
             clueNumber: 0,
+            isMuted: false,
             isRedirected: false,
             dataLoaded: false,
             buttonClicked: false,
@@ -107,13 +108,14 @@ export default {
         }
     },
     computed: {
+        buttonImage() {
+            console.log("nu trycker du");
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        },
         isButtonGreen() {
             return this.answerClue !== "" && !this.buttonClicked;// &&   //&& !this.buttonClicked
-        },
-                // Compute the image source based on the button state
-        buttonImage() {
-            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
         }
+                // Compute the image source based on the button state
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
@@ -278,7 +280,7 @@ export default {
 
             this.fuseTimer = setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.1; // Adjust as needed
+                this.fuseWidth -= 0.01; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
@@ -293,6 +295,8 @@ export default {
 
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
+
+
 
 .clueBox {
 
@@ -366,7 +370,7 @@ h2 {
     margin-top: 10vw;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
 
     h1 {
         font-size: 12vw;
@@ -410,5 +414,14 @@ h2 {
     .labelSize {
         font-size: 3vw;
     }
+    .muteButton {
+    position: absolute;
+    width: 7vw;
+    height: 7vw;
+    padding: 0.5vw 0 0 0.5vw;
+    /* Adjusted padding */
+    margin-left: 40vw;
+    margin-top: 3.5vw;
+  }
 }
 </style>
