@@ -62,7 +62,6 @@ import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
-//import avatar from '../assets/avatar.json';
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
@@ -72,17 +71,10 @@ export default {
   },
   data: function () {
     return {
-      //showRightSection: false,
       lang: localStorage.getItem("lang") || "en",
       pollId: "",
-      //question: "",
-      //answers: ["", ""],
-      questionNumber: 0,
       data: {},
       uiLabels: {},
-      //selectedAvatar: null,
-      //avatars: avatar,
-      //quizName: "",
       city: "",
       clue1: "",
       clue2: "",
@@ -90,7 +82,6 @@ export default {
       alertContentText: "",
       inCreateQuestionsView: true,
       // Separate variables to hold submitted data
-      // submittedCities: [], 
       submittedCities2: {},
       isMuted: false,
       showMysteryButton: true,
@@ -113,27 +104,12 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-
-    // socket.on("dataUpdate", (data) =>
-    //   this.data = data);
-
-    //console.log("Updated quizName:", this.pollId)
     socket.emit("getPoll", this.pollId);
-    //socket.on("pollCreated", (data) => console.log("pollId created in createquestion:", data));
-    // socket.on("fullPole", (data) => {
-    //   this.data = data;
-    //   console.log("in createquest", this.pollId, this.data)
-
-    // });
-
   },
   methods: {
     createPoll: function () {
       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, selectedAvatar: this.selectedAvatarUrl })
     },
-    // addPollName: function () {
-    //   this.pollNameId.push("");
-    // },
     toggleMusic() {
       // Access the audio player from the AppView component
       const audioPlayer = this.$root.$refs.audioPlayer;
@@ -170,7 +146,8 @@ export default {
       }
       else {
         socket.emit("addQuestion", {
-          //vill emit dessa som nyckel-stad och värden-clues?
+          //vill emit dessa som nyckel-stad och värden-clues? 
+          // man emitar på detta sättet, det är inte så dom blir inlagda i objektet cities sen utan det sker i data /alicia
           pollId: this.pollId,
           city: this.city,
           clue1: this.clue1,
@@ -178,7 +155,7 @@ export default {
           clue3: this.clue3
         });
       }
-      //kan typ göra om denna kanske, vet ej om den e onödig
+      //kan typ göra om denna kanske, vet ej om den e onödig?
       if (!this.submittedCities2[this.city]) {
         this.submittedCities2[this.city] = [];
         this.submittedCities2[this.city].push(
@@ -192,25 +169,11 @@ export default {
         this.clue3 = "";
       }
     },
-    // addAnswer: function () {
-    //   this.answers.push("");
-    // },
-    // runQuestion: function () {
-    //   socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
-    // },
-    // selectAvatar(index) {
-    //   this.selectedAvatar = index;
-    //   console.log(this.data.selectedAvatar)
-    // },
     removeCity: function (cityData) {
       this.city = cityData;
-      //console.log(this.submittedCities2, "INNAN")
       socket.emit("removeCity", { pollId: this.pollId, city: this.city });
       // Remove the city from the local submittedCities2 object
       delete this.submittedCities2[cityData];
-      //console.log(this.submittedCities2, "EFTER")
-      //console.log("stadnamn", this.city);
-
       this.city = "";
 
     }
@@ -526,4 +489,5 @@ export default {
   }
 
 
-}</style>
+}
+</style>
