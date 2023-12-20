@@ -4,7 +4,7 @@
        <div> {{ uiLabels.rightAnswerText }} {{ Object.keys(cities)[questionNumber - 1] }} </div>
         <p> {{ topParticipantsText }}</p>
         <div class="participant-list">
-            <div class="participant-item" v-for="person in topParticipants" :key="person.name">
+            <div class="participant-item" v-for="person in participants" :key="person.name">
                 {{ person.name }}
                 <div>
                     <img class="emojies" v-bind:src="person.avatar" target="_blank">
