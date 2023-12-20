@@ -33,7 +33,9 @@
 import io from 'socket.io-client';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
-const socket = io("localhost:3000");
+//sessionStorage.setItem("AliciasWifi","192.168.0.33:3000");
+sessionStorage.setItem("localhost","192.168.0.33:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
   name: 'StartView',

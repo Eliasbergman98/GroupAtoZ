@@ -2,7 +2,7 @@
     <h1>
         {{ data.quizName }}
     </h1>
-    <h2>{{ uiLabels.waitingForHost }}</h2>
+    <h2>{{ uiLabels.waitingForHost }}</h2>  
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
@@ -27,7 +27,7 @@
 <script>
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
     name: 'PlayerWaitingView',
@@ -93,7 +93,7 @@ export default {
 
          exitGame(){
             socket.emit("playerExited", { pollId: this.pollId, name: this.yourName })
-            this.$router.push('//');
+            this.$router.push('/');
             this.applyFunctionBasedOnMediaQuery();
         },
 

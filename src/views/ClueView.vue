@@ -60,7 +60,7 @@
 <script>
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 import RightAnswerMessage from '@/components/RightAnswerMessage.vue';
 import WrongAnswerMessage from '@/components/WrongAnswerMessage.vue';
 

@@ -10,7 +10,7 @@
   </div>
 
   <div class="poll">
-    <div class="gameInfo a">
+    <div class="gameInfo a">  
       <div id="title"> {{ uiLabels.city1 }} </div>
       <input class="fillInfo" v-model="city" type="text" />
     </div>
@@ -64,7 +64,7 @@ import io from 'socket.io-client';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
 import avatar from '../assets/avatar.json';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
   name: 'CreateQuestions',
