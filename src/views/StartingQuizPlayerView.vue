@@ -25,7 +25,7 @@
 <script>
 import io from 'socket.io-client';
 //import avatar from '../assets/avatar.json';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
 
@@ -119,13 +119,6 @@ export default {
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
-.muteButton {
-    position: absolute;
-    width: 2vw;
-    padding: 2vw;
-    margin-left: 42vw;
-    margin-top: -10vw;
-}
 
 h1 {
     position: center;

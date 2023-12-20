@@ -33,7 +33,9 @@
 import io from 'socket.io-client';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
-const socket = io("localhost:3000");
+//sessionStorage.setItem("AliciasWifi","192.168.0.33:3000");
+sessionStorage.setItem("localhost","192.168.0.33:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
   name: 'StartView',
@@ -123,16 +125,6 @@ body {
   width: 5vw;
 }
 
-.muteButton {
-  position: absolute;
-  width: 3vw;
-  height: 3vw;
-  padding: 0.5vw 0 0 0.5vw;
-  /* Adjusted padding */
-  margin-left: 45vw;
-  margin-top: 1vw;
-}
-
 .mysteryButton:hover,
 .muteButton:hover {
   cursor: pointer;
@@ -188,15 +180,6 @@ h2 {
     height: 10vw;
   }
 
-  .muteButton {
-    position: absolute;
-    width: 7vw;
-    height: 7vw;
-    padding: 0.5vw 0 0 0.5vw;
-    /* Adjusted padding */
-    margin-left: 40vw;
-    margin-top: 3.5vw;
-  }
 
   #brake {
     margin-top: 5vw;

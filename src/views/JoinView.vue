@@ -32,7 +32,7 @@ import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
   name: 'JoinView',
@@ -140,13 +140,18 @@ export default {
 }
 
 #gamecode {
-  padding: 20px;
+  font-size:200%;
+  padding: 2vw;
   font-weight: bold;
-}
-
-#gamecode {
+  width: 25%;
   margin-bottom: 5vw;
   margin-top: 2vw;
+}
+
+#gamecode::placeholder {
+  font-size: 100%;
+  color: #999;
+  text-align: center;
 }
 
 #heading {
@@ -175,8 +180,15 @@ export default {
     margin-top: 1vw;
     padding: 5vw;
     font-weight: bold;
-    font-size: 5.5vw;
+    font-size:200%;
+    width: 50%;
   }
+
+  #gamecode::placeholder {
+  font-size: 3vw;
+  color: #999;
+  text-align: center;
+}
 
   #heading {
     margin-bottom: 1vw;

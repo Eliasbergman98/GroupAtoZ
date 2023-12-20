@@ -25,7 +25,7 @@
 <script>
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 import ScoreBoardComponent from '@/components/ScoreBoardComponent.vue';
 
 export default {

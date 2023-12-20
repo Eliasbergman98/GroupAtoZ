@@ -43,7 +43,7 @@ import avatar from '../assets/avatar.json';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
 import AlertComponent from '@/components/AlertComponent.vue';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
   name: 'CreateView',
