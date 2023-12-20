@@ -85,7 +85,7 @@ export default {
             this.checkIfCreator();
             this.nextQuestion();
             this.playerWithMostPoints();
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
         });
         socket.on("creatorClicked", (data) => {
             this.nextCity = true;
@@ -95,7 +95,7 @@ export default {
     },
     methods: {
         movingToNextCity() {
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
             this.nextCity = true;
             socket.emit("creatorClick", this.pollId);
             socket.emit("cityUpdate", this.pollId);
@@ -105,7 +105,7 @@ export default {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
         },
         checkIfCreator() {
             if (this.yourName === this.quizName) {
@@ -119,21 +119,21 @@ export default {
             this.participants.sort((a, b) => b.points - a.points);
         },
         startFuseTimer: function () {
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
 
             // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
 
-            this.fuseTimer = setInterval(() => {
+            sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.1; // Adjust as needed
+                this.fuseWidth -= 0.2; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval);
+            }, timerInterval) );
         }
     }
 }

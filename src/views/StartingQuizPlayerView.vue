@@ -85,7 +85,7 @@ export default {
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
             this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
         },
         toggleMute() {
@@ -96,21 +96,20 @@ export default {
         },
 
         startFuseTimer: function () {
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
             // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
 
-            this.fuseTimer = setInterval(() => {
-
+            sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.1; // Adjust as needed
+                this.fuseWidth -= 0.2; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval);
+            }, timerInterval) );
         }
     }
 }

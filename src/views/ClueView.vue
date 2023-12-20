@@ -104,7 +104,7 @@ export default {
             rightAnswer: false,
             wrongAnswer: false,
             timesPressedButton: 0,
-            showRightAnswer: false
+            showRightAnswer: false,
         }
     },
     computed: {
@@ -115,7 +115,7 @@ export default {
         isButtonGreen() {
             return this.answerClue !== "" && !this.buttonClicked;// &&   //&& !this.buttonClicked
         }
-                // Compute the image source based on the button state
+        // Compute the image source based on the button state
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
@@ -234,7 +234,7 @@ export default {
             }
             const lengthCities = Object.keys(this.cities).length;
             //console.log(lengthCities);
-            if (this.cities && Object.keys(this.cities).length > 0 && lengthCities > 0) {
+            if (this.cities && lengthCities > 0) {
                 this.clueNumber += 1;
                 for (const cityName in this.cities) {
                     console.log(this.clueNumber + "detta är numret")
@@ -248,23 +248,23 @@ export default {
                         }
                         else if (this.clueNumber === 3) {
                             console.log(`${cityName}: ${city.clue3}`);
+                            clearInterval(sessionStorage.getItem("fuseTimer"));
+                            this.clueNumber == 0;
+                            console.log("nästa stad");
+                            console.log(this.isRedirected)
+
+                            if (Object.keys(this.cities).length === this.questionNumber) {
+                                this.$router.push('/lastresult/' + this.pollId);
+                            }
+                            else {
+                                this.$router.push('/afterclue/' + this.pollId + '/' + this.yourName);
+                            }
                         }
                     }
                 }
                 if (this.clueNumber === 3 && !this.isRedirected) {
                     this.isRedirected = true;
-                    this.clueNumber == 0;
-                    console.log("nästa stad");
-                    console.log(this.isRedirected)
-                    clearInterval(this.fuseTimer);
-                    if (Object.keys(this.cities).length === this.questionNumber) {
-                        clearInterval(this.fuseTimer);
-                        this.$router.push('/lastresult/' + this.pollId);
-                    }
-                    else {
-                        clearInterval(this.fuseTimer);
-                        this.$router.push('/afterclue/' + this.pollId + '/' + this.yourName);
-                    }
+
 
                 }
             }
@@ -273,21 +273,21 @@ export default {
 
 
         startFuseTimer: function () {
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
 
             // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
-
-            this.fuseTimer = setInterval(() => {
+            sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.01; // Adjust as needed
+                this.fuseWidth -= 0.2; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval);
+            }, timerInterval) );
+            
         }
     }
 }
@@ -411,17 +411,19 @@ h2 {
         padding-top: 0.8vw;
 
     }
+
     .labelSize {
         font-size: 3vw;
     }
+
     .muteButton {
-    position: absolute;
-    width: 7vw;
-    height: 7vw;
-    padding: 0.5vw 0 0 0.5vw;
-    /* Adjusted padding */
-    margin-left: 40vw;
-    margin-top: 3.5vw;
-  }
+        position: absolute;
+        width: 7vw;
+        height: 7vw;
+        padding: 0.5vw 0 0 0.5vw;
+        /* Adjusted padding */
+        margin-left: 40vw;
+        margin-top: 3.5vw;
+    }
 }
 </style>
