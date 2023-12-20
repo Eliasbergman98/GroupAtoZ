@@ -5,11 +5,9 @@
     <h2>
         {{ uiLabels.city }}{{ questionNumber }}
     </h2>
-    <div> {{ yourName }}</div>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
-    {{ data.pollId }}
     <audio ref="audioPlayer" autoplay loop>
         <source src="/img/train1.mp3" type="audio/mp3" />
         Your browser does not support the audio element.
@@ -24,7 +22,6 @@
   
 <script>
 import io from 'socket.io-client';
-//import avatar from '../assets/avatar.json';
 const socket = io(sessionStorage.getItem("localhost"));
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
@@ -36,7 +33,6 @@ export default {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
             questionNumber: 0,
-            data: {},
             uiLabels: {},
             fuseWidth: 100,
             isMuted: false,
@@ -58,28 +54,11 @@ export default {
             this.uiLabels = labels;
         });
         socket.emit("joinPoll", this.pollId);
-        socket.on("dataUpdate", (data) => {
-            console.log(data, "Hej kom igen dataUpdate")
-            this.data = data;
-        });
-        // socket.on("pollCreated", (data) => {
-        //     console.log(data, "Hej kom igen pollcreated")
-        //     this.data = data;
-        // });
         this.startFuseTimer();
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
             console.log("hämtar info från update number i currentcity ", this.questionNumber)
         });
-        // socket.on("fullPole", (data) => {
-        //     this.data = data;
-        //     console.log("this is data ifrån fullPole", data);
-        // });
-        // socket.on("thisPlayer", (data) => {
-        //     this.yourName = data;
-        //     console.log(this.yourName, "Hej kom igen thisPlayer lyssnaren")
-        // });
-
     },
     methods: {
         handleFuseBurnout() {
@@ -109,7 +88,7 @@ export default {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval) );
+            }, timerInterval));
         }
     }
 }

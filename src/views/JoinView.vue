@@ -43,8 +43,8 @@ export default {
     return {
       gamecode: "",
       pollId: "inactive poll",
-      submittedAnswers: {},
       uiLabels: {},
+      data: {},
       lang: localStorage.getItem("lang") || "en",
       alertContentText: "",
       isMuted: false,
@@ -59,18 +59,11 @@ export default {
   },
   created: function () {
     this.pollId = this.$route.params.id
-    socket.emit('joinPoll', this.pollId)
-    socket.on("newQuestion", q =>
-      this.question = q
-    )
+
+    socket.emit('joinPoll', this.pollId);
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
-    })
-    socket.on("pollCreated", (data) => console.log("pollId created:", data))
-    socket.emit("getPoll", this.gamecode);
-    socket.on("fullPole", (data) => {
-      this.data = data;
     });
   },
   methods: {
@@ -85,14 +78,13 @@ export default {
       this.isMuted = !this.isMuted;
     },
     addGameCode: async function () {
-      this.pollId = this.gameCode
 
       const fetchData = () => {
         return new Promise((resolve) => {
           socket.emit("getPoll", this.gamecode);
           socket.on("fullPole", (data) => {
             this.data = data;
-            resolve(); 
+            resolve();
           });
         });
       };
@@ -140,7 +132,7 @@ export default {
 }
 
 #gamecode {
-  font-size:200%;
+  font-size: 200%;
   padding: 2vw;
   font-weight: bold;
   width: 25%;
@@ -160,8 +152,8 @@ export default {
 
 @media screen and (max-width:800px) {
 
-  h1{
-    margin-top:10vw;
+  h1 {
+    margin-top: 10vw;
   }
 
   #brake {
@@ -177,22 +169,22 @@ export default {
     border: 2px solid black;
     padding: 5vw;
     margin: 5vw;
-    margin-top:20vw;
+    margin-top: 20vw;
   }
 
   #gamecode {
     margin-top: 20vw;
     padding: 5vw;
     font-weight: bold;
-    font-size:200%;
+    font-size: 200%;
     width: 50%;
   }
 
   #gamecode::placeholder {
-  font-size: 3vw;
-  color: #999;
-  text-align: center;
-}
+    font-size: 3vw;
+    color: #999;
+    text-align: center;
+  }
 
   #heading {
     margin-bottom: 1vw;

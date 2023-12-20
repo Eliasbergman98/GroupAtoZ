@@ -4,27 +4,27 @@
       <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </div>
   </header>
-  
+
   <div class="arrow">
     <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
 
   <div class="poll">
-    <div class="gameInfo a">  
+    <div class="gameInfo a">
       <div id="title"> {{ uiLabels.city1 }} </div>
-      <input class="fillInfo" v-model="city" type="text" />
+      <input class="fillInfo" v-model="city" name="cityname" type="text" />
     </div>
     <div class="gameInfo b">
       <div id="title"> {{ uiLabels.clue1 }} </div>
-      <textarea class="fillInfo" v-model="clue1" rows="2"></textarea>
+      <textarea class="fillInfo" v-model="clue1" name="clue1" rows="2"></textarea>
     </div>
     <div class="gameInfo c">
       <div id="title"> {{ uiLabels.clue2 }} </div>
-      <textarea class="fillInfo" v-model="clue2" rows="2"></textarea>
+      <textarea class="fillInfo" v-model="clue2" name="clue2" rows="2"></textarea>
     </div>
     <div class="gameInfo d">
       <div id="title"> {{ uiLabels.clue3 }} </div>
-      <textarea class="fillInfo" v-model="clue3" rows="2"></textarea>
+      <textarea class="fillInfo" v-model="clue3" name="clue3" rows="2"></textarea>
     </div>
     <div class="gameInfo f">
       <button class="addTown" v-on:click="addQuestion"> {{
@@ -37,8 +37,7 @@
       <hr>
       <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
         <p>
-          <img id="redCrossRemove" src="/img/redcross.png "
-            v-on:click="removeCity(cityData)">
+          <img id="redCrossRemove" src="/img/redcross.png " v-on:click="removeCity(cityData)">
         <div id="city">{{ uiLabels.city }} <div id="info"> {{ cityData }}</div>
         </div>
         <div id="clue"> {{ uiLabels.clues }} </div>
@@ -63,7 +62,7 @@ import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
-import avatar from '../assets/avatar.json';
+//import avatar from '../assets/avatar.json';
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
@@ -73,17 +72,17 @@ export default {
   },
   data: function () {
     return {
-      showRightSection: false,
+      //showRightSection: false,
       lang: localStorage.getItem("lang") || "en",
       pollId: "",
-      question: "",
-      answers: ["", ""],
+      //question: "",
+      //answers: ["", ""],
       questionNumber: 0,
       data: {},
       uiLabels: {},
-      selectedAvatar: null,
-      avatars: avatar,
-      quizName: "",
+      //selectedAvatar: null,
+      //avatars: avatar,
+      //quizName: "",
       city: "",
       clue1: "",
       clue2: "",
@@ -115,25 +114,26 @@ export default {
       this.uiLabels = labels;
     });
 
-    socket.on("dataUpdate", (data) =>
-      this.data = data);
+    // socket.on("dataUpdate", (data) =>
+    //   this.data = data);
 
-    console.log("Updated quizName:", this.pollId)
+    //console.log("Updated quizName:", this.pollId)
     socket.emit("getPoll", this.pollId);
-    socket.on("pollCreated", (data) => console.log("pollId created in createquestion:", data));
-    socket.on("fullPole", (data) => {
-      console.log("in createquest", this.pollId)
-      this.data = data;
-    });
+    //socket.on("pollCreated", (data) => console.log("pollId created in createquestion:", data));
+    // socket.on("fullPole", (data) => {
+    //   this.data = data;
+    //   console.log("in createquest", this.pollId, this.data)
+
+    // });
 
   },
   methods: {
     createPoll: function () {
       socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, selectedAvatar: this.selectedAvatarUrl })
     },
-    addPollName: function () {
-      this.pollNameId.push("");
-    },
+    // addPollName: function () {
+    //   this.pollNameId.push("");
+    // },
     toggleMusic() {
       // Access the audio player from the AppView component
       const audioPlayer = this.$root.$refs.audioPlayer;
@@ -177,12 +177,8 @@ export default {
           clue2: this.clue2,
           clue3: this.clue3
         });
-        console.log("emitting city info:", this.pollId,
-          this.city,
-          this.clue1,
-          this.clue2,
-          this.clue3)
       }
+      //kan typ göra om denna kanske, vet ej om den e onödig
       if (!this.submittedCities2[this.city]) {
         this.submittedCities2[this.city] = [];
         this.submittedCities2[this.city].push(
@@ -196,24 +192,24 @@ export default {
         this.clue3 = "";
       }
     },
-    addAnswer: function () {
-      this.answers.push("");
-    },
-    runQuestion: function () {
-      socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
-    },
-    selectAvatar(index) {
-      this.selectedAvatar = index;
-      console.log(this.data.selectedAvatar)
-    },
+    // addAnswer: function () {
+    //   this.answers.push("");
+    // },
+    // runQuestion: function () {
+    //   socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber })
+    // },
+    // selectAvatar(index) {
+    //   this.selectedAvatar = index;
+    //   console.log(this.data.selectedAvatar)
+    // },
     removeCity: function (cityData) {
       this.city = cityData;
-      console.log(this.submittedCities2, "INNAN")
+      //console.log(this.submittedCities2, "INNAN")
       socket.emit("removeCity", { pollId: this.pollId, city: this.city });
       // Remove the city from the local submittedCities2 object
       delete this.submittedCities2[cityData];
-      console.log(this.submittedCities2, "EFTER")
-      console.log("stadnamn", this.city);
+      //console.log(this.submittedCities2, "EFTER")
+      //console.log("stadnamn", this.city);
 
       this.city = "";
 
@@ -330,10 +326,12 @@ export default {
   background-color: rgb(201, 241, 244);
   margin-left: 10vw;
 }
-#greentick{
+
+#greentick {
   height: 1.2vw;
   width: 1.2vw;
 }
+
 .right-section {
   grid-row-start: 1;
   grid-column-start: 4;
@@ -411,113 +409,121 @@ export default {
 #title {
   padding-top: 2vh;
 }
+
 @media screen and (max-width: 800px) {
   .poll {
-  position: relative;
-  display: grid;
-  grid-template-columns: 39vw 39vw 9.1vw;
-  grid-template-rows: 10vw 10vw 10vw 10vw 5vw 50vw 14vw;
-  background-color: rgb(163, 163, 243);
-  grid-gap: 6vw;
-  margin-top: 5vw;
-  background-size: cover;
+    position: relative;
+    display: grid;
+    grid-template-columns: 39vw 39vw 9.1vw;
+    grid-template-rows: 10vw 10vw 10vw 10vw 5vw 50vw 14vw;
+    background-color: rgb(163, 163, 243);
+    grid-gap: 6vw;
+    margin-top: 5vw;
+    background-size: cover;
 
-}
-.a,
-.b,
-.c,
-.d {
-  padding: 10em auto 2em 2em;
-  text-align: left;
-  padding-left: 5vw;
-  padding-top: 2vw;
-  font-size: 4vw;
-  width: 75vw;
-  height: 10vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  margin-left: 10vw;
-  display: flex;
-  overflow: hidden;
-}
+  }
 
-.addTown {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  font-size: 4vw;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  border-radius: 20px;
-}
+  .a,
+  .b,
+  .c,
+  .d {
+    padding: 10em auto 2em 2em;
+    text-align: left;
+    padding-left: 5vw;
+    padding-top: 2vw;
+    font-size: 4vw;
+    width: 75vw;
+    height: 10vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin-left: 10vw;
+    display: flex;
+    overflow: hidden;
+  }
 
-.f {
-  padding: 10vw auto 2vw 2vw;
-  text-align: center;
-  font-size: 4vw;
-  width: 80vw;
-  height: 10vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  margin-left: 10vw;
-}
-.fillInfo {
-  height: 5vw;
-  width: 35vw;
-  margin-top: 1.7vw;
-  border-color: black;
-  border-top: 1vw;
-  border-left: 1vw;
-  border-right: 1vw;
-  max-height: 6vh;
-  max-width: 30vw;
-  margin-left: 1vw;
-  font-size: 2.8vw;
-  background-color: rgb(201, 241, 244);
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-.e {
-  grid-row-start: 7;
-  grid-column-start: 1;
-  margin-left: 4.5vw;
-  width: 80vw;
-}
-.createbutton{
-  height: 10vh;
-  width: 50vw;
-  font-size: 4vh;
-  margin-left: 20vw;
-  margin-top: 10vw;
-}
-.right-section {
-  grid-row-start: 6;
-  grid-column-start: 1;
-  font-size: 2.4vw;
-  margin-left: 30vw;
-  margin-top: 3vw;
-  width: 40vw;
-  height: 58vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  border: 0.2vw solid black;
-  border-radius: 20px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-style: oblique;
-  overflow-y: auto;
-}
-  #greentick{
+  .addTown {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 4vw;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    border-radius: 20px;
+  }
+
+  .f {
+    padding: 10vw auto 2vw 2vw;
+    text-align: center;
+    font-size: 4vw;
+    width: 80vw;
+    height: 10vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    margin-left: 10vw;
+  }
+
+  .fillInfo {
+    height: 5vw;
+    width: 35vw;
+    margin-top: 1.7vw;
+    border-color: black;
+    border-top: 1vw;
+    border-left: 1vw;
+    border-right: 1vw;
+    max-height: 6vh;
+    max-width: 30vw;
+    margin-left: 1vw;
+    font-size: 2.8vw;
+    background-color: rgb(201, 241, 244);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
+  .e {
+    grid-row-start: 7;
+    grid-column-start: 1;
+    margin-left: 4.5vw;
+    width: 80vw;
+  }
+
+  .createbutton {
+    height: 10vh;
+    width: 50vw;
+    font-size: 4vh;
+    margin-left: 20vw;
+    margin-top: 10vw;
+  }
+
+  .right-section {
+    grid-row-start: 6;
+    grid-column-start: 1;
+    font-size: 2.4vw;
+    margin-left: 30vw;
+    margin-top: 3vw;
+    width: 40vw;
+    height: 58vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    border: 0.2vw solid black;
+    border-radius: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: oblique;
+    overflow-y: auto;
+  }
+
+  #greentick {
     width: 3vw;
     height: 3vw;
   }
-#redCrossRemove{
-  height: 3vw;
-  width: 3vw;
-  position: relative;
-  top: 1vw;
-  right: -17vw;
-}
+
+  #redCrossRemove {
+    height: 3vw;
+    width: 3vw;
+    position: relative;
+    top: 1vw;
+    right: -17vw;
+  }
 
 
 }</style>

@@ -17,7 +17,8 @@
     <div class="gameInfo a">
       <div id="gameName">
         {{ uiLabels.chooseName }} </div>
-      <input v-model="quizName" class="addQuizName" type="text" :placeholder="uiLabels.enterGameName" maxlength="20">
+      <input v-model="quizName" class="addQuizName" name="quizname" type="text" :placeholder="uiLabels.enterGameName"
+        maxlength="20">
     </div>
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>
@@ -70,14 +71,13 @@ export default {
     }
   },
   created: function () {
-
     this.id = this.$route.params.id;
 
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
     socket.emit("pageLoaded", this.lang);
-    socket.on("pollCreated", (data) => console.log("pollId created:", data))
+    //socket.on("pollCreated", (data) => console.log("pollId created in createview:", data))     TA INTE BORT DENNA
   },
   methods: {
     createPoll: function () {
@@ -205,6 +205,7 @@ export default {
   height: 60%;
   margin-left: 0.5vw;
 }
+
 .emojies {
   width: 2vw;
   height: 2vw;
