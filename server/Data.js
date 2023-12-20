@@ -31,6 +31,7 @@ Data.prototype.createPoll = function (pollId, lang = "en", quizName, selectedAva
     poll.currentQuestion = 0;
     this.polls[pollId] = poll;
     poll.participants = [];
+    console.log("I data currentquestion:", poll.currentQuestion)
   }
   return this.polls[pollId];
 }

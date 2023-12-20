@@ -65,5 +65,13 @@
 	"joining": "Går med i ",
 	"waitingForAnswers": "Väntar på att spelarna ska svara...",
 	"rightAnswer": "RÄTT SVAR!",
-	"rightAnswerMessage": "Woohoo! Nu kan du chilla tills resten av spelarna är klara"
+	"rightAnswerMessage": "Woohoo! Nu kan du chilla tills resten av spelarna är klara!",
+	"wrongAnswer": "FEL SVAR!",
+	"wrongAnswerMessage": "Tyvärr svarade du fel...Bättre lycka nästa gång!",
+	"noPlayersJoined": "Kan inte starta spelet, inga spelare har anslutit!",
+	"midScoreHeading": "POÄNGSTÄLLNING FÖR STAD ",
+	"midScoreText": "Den nuvarande ledaren är ",
+	"midScoreText1": "med helt otroliga ",
+	"points": " poäng!",
+	"nextCity": "Nästa Stad"
 }

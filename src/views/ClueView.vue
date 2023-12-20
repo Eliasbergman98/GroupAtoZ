@@ -4,13 +4,15 @@
     </h1>
     <div class="clueBox">
         <div v-if="cities && Object.values(cities).length > 0">
-            <div v-if="showRightAnswer && rightAnswer">
-                <!-- Display the right-answer-message component -->
+            <div v-if="showRightAnswer && rightAnswer && !wrongAnswer">
                 <right-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
                     :rightAnswer="rightAnswer"></right-answer-message>
             </div>
+            <div v-else-if="!showRightAnswer && !rightAnswer && wrongAnswer">
+                <wrong-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
+                    :rightAnswer="rightAnswer"></wrong-answer-message>
+            </div>
             <div v-else>
-                <!-- Display the clueBox when rightAnswer is false -->
                 <div class="clueBox">
                     <div class="tester">
                         <p v-if="clueNumber === 0">
@@ -42,7 +44,6 @@
                                     </div>
                                 </button>
                             </div>
-                            <!-- <div v-else></div> -->
                         </div>
                     </div>
                 </div>
@@ -61,11 +62,13 @@ import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
 import RightAnswerMessage from '@/components/RightAnswerMessage.vue';
+import WrongAnswerMessage from '@/components/WrongAnswerMessage.vue';
 
 export default {
     name: 'ClueView',
     components: {
         RightAnswerMessage,
+        WrongAnswerMessage
     },
     data: function () {
         return {
@@ -89,6 +92,7 @@ export default {
             yourName: "",
             creator: false,
             rightAnswer: false,
+            wrongAnswer: false,
             timesPressedButton: 0,
             showRightAnswer: false
         }
@@ -130,9 +134,6 @@ export default {
         socket.on("yourPoints", (data) => {
             this.rightAnswer = data;
             console.log("var det rätt svar? ", this.rightAnswer);
-            if (this.rightAnswer) {
-                this.showRightAnswerMessage();
-            }
         });
     },
     methods: {
@@ -164,9 +165,12 @@ export default {
                     this.rightAnswer = data;
                     console.log("var det rätt svar? ", this.rightAnswer)
                     if (this.rightAnswer) {
-                    this.showRightAnswer = true;
-                    console.log("showRightAnswer: ", this.showRightAnswer)
-                }
+                        this.showRightAnswer = true;
+                        console.log("showRightAnswer: ", this.showRightAnswer)
+                    }
+                    else {
+                        this.wrongAnswer = true;
+                    }
                 });
                 console.log("this.rightanswer utanför socket ", this.rightAnswer)
                 this.timesPressedButton = + 1;
@@ -179,14 +183,12 @@ export default {
             console.log("här borde det komma in x2")
 
         },
-        showRightAnswerMessage() {
-            console.log('Showing right answer message');
-            // Add any additional logic for displaying the message
-        },
-
         handleFuseBurnout() {
             if (this.rightAnswer) {
                 this.showRightAnswer = false;
+            }
+            else {
+                this.wrongAnswer = false;
             }
             this.fuseWidth = 100;
             this.buttonClicked = false;
@@ -194,10 +196,6 @@ export default {
             this.answerClue = "";
             this.timesPressedButton = 0;
 
-
-            //this.addPlayerAnswer();
-            //this.startFuseTimer();
-            //console.log(this.addPlayerAnswer)
         },
         checkIfCreator() {
             if (this.yourName === this.quizName) {
@@ -238,27 +236,12 @@ export default {
                     clearInterval(this.fuseTimer);
                     if (Object.keys(this.cities).length === this.questionNumber) {
                         clearInterval(this.fuseTimer);
-                        this.$router.push('/');
+                        this.$router.push('/lastresult/' + this.pollId);
                     }
                     else {
                         clearInterval(this.fuseTimer);
                         this.$router.push('/afterclue/' + this.pollId + '/' + this.yourName);
                     }
-
-
-                    // Check if you've already redirected to avoid multiple redirects
-                    // if (!this.isRedirected) {
-                    //     this.isRedirected = true;
-                    //     console.log(this.isRedirected)
-                    //     this.clueNumber == 0;
-
-                    //     console.log("Redirecting to the next page");
-
-                    //            // Use a Vue nextTick to ensure that the DOM has been updated
-
-                    //     this.$router.push('/afterclue/' + this.pollId);
-
-                    // }
 
                 }
             }
