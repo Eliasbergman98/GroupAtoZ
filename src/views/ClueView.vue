@@ -1,7 +1,14 @@
 <template>
+    <header>
+        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
+    </header>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
+    <audio ref="audioPlayer" autoplay loop>
+        <source src="/img/clueMusic.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+    </audio>
     <div class="clueBox">
         <div v-if="cities && Object.values(cities).length > 0">
             <div v-if="showRightAnswer && rightAnswer && !wrongAnswer">
@@ -63,6 +70,8 @@ import avatar from '../assets/avatar.json';
 const socket = io("localhost:3000");
 import RightAnswerMessage from '@/components/RightAnswerMessage.vue';
 import WrongAnswerMessage from '@/components/WrongAnswerMessage.vue';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 
 export default {
     name: 'ClueView',
@@ -101,6 +110,10 @@ export default {
         isButtonGreen() {
             return this.answerClue !== "" && !this.buttonClicked;// &&   //&& !this.buttonClicked
         },
+                // Compute the image source based on the button state
+        buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        }
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
@@ -149,6 +162,14 @@ export default {
         },
         selectAvatar(index) {
             this.selectedAvatar = index;
+        },
+        toggleMute() {
+            const audioPlayer = this.$refs.audioPlayer;
+
+            // Toggle the muted attribute
+            audioPlayer.muted = !audioPlayer.muted;
+
+            this.isMuted = !this.isMuted;
         },
         addPlayerAnswer: function () {
             console.log("In addPlayerAnswer", this.rightAnswer)
@@ -386,10 +407,8 @@ h2 {
         padding-top: 0.8vw;
 
     }
-
     .labelSize {
         font-size: 3vw;
     }
-
 }
 </style>
