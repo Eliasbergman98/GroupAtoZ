@@ -66,7 +66,6 @@
     
 <script>
 import io from 'socket.io-client';
-import avatar from '../assets/avatar.json';
 const socket = io(sessionStorage.getItem("localhost"));
 import RightAnswerMessage from '@/components/RightAnswerMessage.vue';
 import WrongAnswerMessage from '@/components/WrongAnswerMessage.vue';
@@ -84,13 +83,9 @@ export default {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
             quizName: '',
-            question: "",
-            answers: [],
             questionNumber: 0,
             data: {},
             uiLabels: {},
-            selectedAvatar: null,
-            avatars: avatar,
             fuseWidth: 100,
             answerClue: "",
             cities: {},
@@ -128,20 +123,13 @@ export default {
         });
         socket.on("dataUpdate", (data) => {
             this.data = data;
-
-        });
-        socket.on("pollCreated", (data) => {
-            this.data = data;
         });
         socket.on("fullPole", (data) => {
             this.data = data;
             this.cities = data.cities;
-            this.city = data.cities.city;
             this.quizName = data.quizName;
             this.questionNumber = data.currentQuestion;
-            console.log("Initial data.cities:", this.cities);
             this.dataLoaded = true;
-            console.log(this.dataLoaded);
             this.startFuseTimer();
             this.checkIfCreator();
         });
@@ -152,19 +140,6 @@ export default {
         });
     },
     methods: {
-        createPoll: function () {
-            socket.emit("createPoll", { pollId: this.pollId, lang: this.lang });
-        },
-        addQuizName: function () {
-            socket.emit("addQuizName", this.quizName);
-            socket.on("addQuizName", (data) => console.log("addQuizName"));
-        },
-        runQuestion: function () {
-            socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber });
-        },
-        selectAvatar(index) {
-            this.selectedAvatar = index;
-        },
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;
 
@@ -279,7 +254,7 @@ export default {
             const timerInterval = 10; // 1 second
             sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.2; // Adjust as needed
+                this.fuseWidth -= 0.09; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {

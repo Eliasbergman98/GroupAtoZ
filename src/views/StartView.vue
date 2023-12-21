@@ -35,7 +35,7 @@ import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
 sessionStorage.setItem("localhost","localhost:3000");
 //sessionStorage.setItem("AliciasWifi","192.168.0.33:3000");
-//sessionStorage.setItem("JuggarnasWifi", "")
+//sessionStorage.setItem("localhost", "192.168.50.56:3000");
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
