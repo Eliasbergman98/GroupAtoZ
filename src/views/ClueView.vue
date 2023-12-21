@@ -104,7 +104,6 @@ export default {
     },
     computed: {
         buttonImage() {
-            console.log("nu trycker du");
             return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
         },
         isButtonGreen() {
@@ -121,9 +120,6 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.on("dataUpdate", (data) => {
-            this.data = data;
-        });
         socket.on("fullPole", (data) => {
             this.data = data;
             this.cities = data.cities;
@@ -136,7 +132,6 @@ export default {
 
         socket.on("yourPoints", (data) => {
             this.rightAnswer = data;
-            console.log("var det rätt svar? ", this.rightAnswer);
         });
     },
     methods: {
@@ -149,9 +144,7 @@ export default {
             this.isMuted = !this.isMuted;
         },
         addPlayerAnswer: function () {
-            console.log("In addPlayerAnswer", this.rightAnswer)
             this.buttonClicked = true;
-            console.log(this.timesPressedButton, "antal gånger tryckt")
             if (this.answerClue === "" && this.timesPressedButton < 1) {
                 console.log("här borde det komma in")
                 this.buttonClicked = false;
@@ -170,15 +163,10 @@ export default {
                         this.wrongAnswer = true;
                     }
                 });
-                console.log("this.rightanswer utanför socket ", this.rightAnswer)
                 this.timesPressedButton = + 1;
                 this.answerClue = "";
-                console.log(this.timesPressedButton, "antal gånger tryckt")
 
             }
-            console.log(this.answerClue, ": enskilt svar")
-            console.log(this.answers, ": svarslista")
-            console.log("här borde det komma in x2")
 
         },
         handleFuseBurnout() {
@@ -198,9 +186,7 @@ export default {
         checkIfCreator() {
             if (this.yourName === this.quizName) {
                 this.creator = true;
-                console.log("In CheckIfCreator IF", this.creator)
             }
-            console.log("In CheckIfCreator", this.creator)
         },
         handleClues() {
             if (!this.dataLoaded) {
@@ -254,7 +240,7 @@ export default {
             const timerInterval = 10; // 1 second
             sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.09; // Adjust as needed
+                this.fuseWidth -= 0.07; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {

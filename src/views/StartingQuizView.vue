@@ -82,7 +82,7 @@ export default {
             const timerInterval = 10; // 1 second
             sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.2; // Adjust as needed
+                this.fuseWidth -= 0.1; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
