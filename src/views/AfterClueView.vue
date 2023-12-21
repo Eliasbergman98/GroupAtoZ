@@ -24,7 +24,6 @@
   
 <script>
 import io from 'socket.io-client';
-import avatar from '../assets/avatar.json';
 const socket = io(sessionStorage.getItem("localhost"));
 import ScoreBoardComponent from '@/components/ScoreBoardComponent.vue';
 
@@ -42,8 +41,6 @@ export default {
             questionNumber: 0,
             data: {},
             uiLabels: {},
-            selectedAvatar: null,
-            avatars: avatar,
             fuseWidth: 100,
             yourName: "",
             creator: false,
@@ -60,22 +57,14 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.on("dataUpdate", (data) => {
-            this.data = data;
-        });
-        // socket.on("pollCreated", (data) => {
+        // socket.on("dataUpdate", (data) => {
         //     this.data = data;
-        //     console.log("hello in pollcreated")
         // });
         socket.emit("getPoll", this.pollId);
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
             console.log("hämtar info från update number i currentcity", this.questionNumber)
         });
-        // socket.on("updateQuestionNumber", (data) => {
-        //     this.questionNumber = data;
-        //     console.log("hämtar info från update number i updatequestionNumber", this.questionNumber)
-        // });
         socket.on("fullPole", (data) => {
             this.data = data;
             this.questionNumber = data.currentQuestion;
