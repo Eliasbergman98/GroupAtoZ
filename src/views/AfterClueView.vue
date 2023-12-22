@@ -1,7 +1,7 @@
 <template>
     <div v-if="nextCity">
         <h2>
-            {{ uiLabels.city }}{{ questionNumber }}
+            {{ uiLabels.city }} {{ questionNumber }}/{{ Object.keys(cities).length }}
         </h2>
         <h1>
             {{ uiLabels.whereTo }}
@@ -138,6 +138,7 @@ h1 {
 
 h2 {
     position: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin-top: 10vw;
 }
 </style>

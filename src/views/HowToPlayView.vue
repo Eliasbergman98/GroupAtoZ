@@ -94,7 +94,7 @@ export default {
 }
 
 #brake {
-  margin-top:-7.5vw;
+  margin-top:-12vh;
   width: 15vw;
 }
 

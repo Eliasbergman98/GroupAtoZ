@@ -10,7 +10,7 @@
       </button></router-link>
   </div>
   <h1>
-    {{ uiLabels.heading }}
+    {{ uiLabels.createGame }}
   </h1>
   {{ pollId }}
   <div class="poll">

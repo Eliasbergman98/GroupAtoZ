@@ -12,7 +12,7 @@
     <section>
       <img id="brake" src="/img/brake.png">
       <h1 id="heading">
-        {{ uiLabels.heading }}
+        {{ uiLabels.joinQuiz }}
       </h1>
       <div>
         <input type="text" id="gamecode" v-model="gamecode" :placeholder="uiLabels.enterCode">

@@ -260,7 +260,6 @@ export default {
 
 
 .clueBox {
-
     display: grid;
     background-color: rgb(163, 163, 243);
     background-size: cover;
@@ -268,7 +267,7 @@ export default {
 }
 
 .tester {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: left;
     position: center;
     border-radius: 20px;
@@ -280,6 +279,7 @@ export default {
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin: 2vw auto 0 auto;
+    margin-top: 1vw;
 }
 
 .tester input {
@@ -289,12 +289,17 @@ export default {
 
 .clueAnswer {
     font-size: 1vw;
-    height: 2vw;
+    height: 5.5vh;
     width: 10vw;
     position: right;
-    margin-left: 5vw;
+    margin-left: 2vw;
     background-color: gray;
     border: 2px solid black;
+    border-radius: 1vw;
+    padding: 1vh;
+    text-align: center;
+    margin-bottom: 1.5vh;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .clueAnswer:hover {

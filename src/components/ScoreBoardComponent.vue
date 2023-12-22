@@ -59,6 +59,10 @@ export default {
 
 <style scoped>
 
+h2 {
+    color:rgb(72, 95, 224);
+}
+
 .right-answer,
 .top-participant {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

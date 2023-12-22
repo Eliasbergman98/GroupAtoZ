@@ -8,7 +8,9 @@
   <div class="arrow">
     <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
-
+  <h1>
+    {{ uiLabels.createGame }}
+  </h1>
   <div class="poll">
     <div class="gameInfo a">
       <div id="title"> {{ uiLabels.city1 }} </div>
