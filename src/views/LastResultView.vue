@@ -4,26 +4,25 @@
         </header>
         <main>
             <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto" :style="{ left: confetto.left, animationDuration: confetto.animationDuration }"></div>
-
             <h1>{{uiLabels.theWinner}}</h1>
             <div id="pics">
                 <!-- v-bind:src="data.selectedAvatar" -->
                 <img class="podium" src="/img/Podium-removebg-preview1.png">
-                <img class="emoji a" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f921/512.gif" width="20"
+                <img class="emoji a" :src="participants[0].avatar" width="20"
                     height="20" target="_blank">
-                <img class="emoji b" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f608/512.gif" width="20"
+                <img class="emoji b" :src="participants[1].avatar" width="20"
                     height="20" target="_blank">
-                <img class="emoji c" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f974/512.gif" width="20"
+                <img class="emoji c" :src="participants[1].avatar" width="20"
                     height="20" target="_blank">
 
                 <div id="name1">
-                    <h2>Alicia</h2>
+                    <h2>{{ participants[1].name }}</h2>
                 </div>
                 <div id="name2">
-                    <h2>zzzzzzzzzzz</h2>
+                    <h2>{{ participants[0].name }}</h2>
                 </div>
                 <div id="name3">
-                    <h2>Alicia</h2>
+                    <h2>{{ participants[1].name }}</h2>
                 </div>
             </div>
         </main>
@@ -78,9 +77,14 @@ export default {
         socket.on("fullPole", (data) => {
             console.log("in joiningview", this.pollId)
             this.data = data;
+            this.participants = data.participants;
+            this.playerWithMostPoints();
         });
     },
     methods: {
+        playerWithMostPoints() {
+            this.participants.sort((a, b) => b.points - a.points);
+        },
         sendInfo: function () {
             socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber });
             this.$router.push('/startingquiz/' + this.pollId);
@@ -201,6 +205,7 @@ h2 {
     }
 }
 @media screen and (max-width: 800px){
+ 
     h1{
         font-size: 12vw;
     }
@@ -240,6 +245,15 @@ h2 {
 #name3 {
     top: 142vw;
     left: 70vw;
+}
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow:hidden;
+    pointer-events: none;
 }
 }
 </style>
