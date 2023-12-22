@@ -17,7 +17,8 @@
     <div class="gameInfo a">
       <div id="gameName">
         {{ uiLabels.chooseName }} </div>
-      <input v-model="quizName" class="addQuizName" type="text" :placeholder="uiLabels.enterGameName" maxlength="20">
+      <input v-model="quizName" class="addQuizName" name="quizname" type="text" :placeholder="uiLabels.enterGameName"
+        maxlength="20">
     </div>
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>
@@ -43,7 +44,7 @@ import avatar from '../assets/avatar.json';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
 import AlertComponent from '@/components/AlertComponent.vue';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
   name: 'CreateView',
@@ -70,14 +71,13 @@ export default {
     }
   },
   created: function () {
-
     this.id = this.$route.params.id;
 
-    socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
-    socket.on("pollCreated", (data) => console.log("pollId created:", data))
+    socket.emit("pageLoaded", this.lang);
+    //socket.on("pollCreated", (data) => console.log("pollId created in createview:", data))     TA INTE BORT DENNA
   },
   methods: {
     createPoll: function () {
@@ -205,6 +205,7 @@ export default {
   height: 60%;
   margin-left: 0.5vw;
 }
+
 .emojies {
   width: 2vw;
   height: 2vw;
@@ -244,7 +245,7 @@ export default {
   #gameName {
     font-size: 4vw;
     padding-top: 3vw;
-    width: 22vw;
+    width: 25vw;
     margin-bottom: 3vw;
   }
 
@@ -275,6 +276,7 @@ export default {
     grid-row-start: 16;
     grid-column-start: 1;
     margin-left: 25vw;
+    margin-top: 17vh;
 
   }
 

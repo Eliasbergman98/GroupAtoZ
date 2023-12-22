@@ -1,7 +1,14 @@
 <template>
+    <header>
+        <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
+    </header> <br>
     <h1>
         {{ uiLabels.whereTo }}
     </h1>
+    <audio ref="audioPlayer" autoplay loop>
+        <source src="/img/clueMusic.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+    </audio>
     <div class="clueBox">
         <div v-if="cities && Object.values(cities).length > 0">
             <div v-if="showRightAnswer && rightAnswer && !wrongAnswer">
@@ -59,10 +66,11 @@
     
 <script>
 import io from 'socket.io-client';
-import avatar from '../assets/avatar.json';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 import RightAnswerMessage from '@/components/RightAnswerMessage.vue';
 import WrongAnswerMessage from '@/components/WrongAnswerMessage.vue';
+import pressToMuteImage from "/img/soundon.png";
+import pressToUnmuteImage from "/img/soundoff.png";
 
 export default {
     name: 'ClueView',
@@ -75,17 +83,14 @@ export default {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
             quizName: '',
-            question: "",
-            answers: [],
             questionNumber: 0,
             data: {},
             uiLabels: {},
-            selectedAvatar: null,
-            avatars: avatar,
             fuseWidth: 100,
             answerClue: "",
             cities: {},
             clueNumber: 0,
+            isMuted: false,
             isRedirected: false,
             dataLoaded: false,
             buttonClicked: false,
@@ -94,13 +99,17 @@ export default {
             rightAnswer: false,
             wrongAnswer: false,
             timesPressedButton: 0,
-            showRightAnswer: false
+            showRightAnswer: false,
         }
     },
     computed: {
+        buttonImage() {
+            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+        },
         isButtonGreen() {
             return this.answerClue !== "" && !this.buttonClicked;// &&   //&& !this.buttonClicked
-        },
+        }
+        // Compute the image source based on the button state
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
@@ -111,49 +120,31 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.on("dataUpdate", (data) => {
-            this.data = data;
-
-        });
-        socket.on("pollCreated", (data) => {
-            this.data = data;
-        });
         socket.on("fullPole", (data) => {
             this.data = data;
             this.cities = data.cities;
-            this.city = data.cities.city;
             this.quizName = data.quizName;
             this.questionNumber = data.currentQuestion;
-            console.log("Initial data.cities:", this.cities);
             this.dataLoaded = true;
-            console.log(this.dataLoaded);
             this.startFuseTimer();
             this.checkIfCreator();
         });
 
         socket.on("yourPoints", (data) => {
             this.rightAnswer = data;
-            console.log("var det rätt svar? ", this.rightAnswer);
         });
     },
     methods: {
-        createPoll: function () {
-            socket.emit("createPoll", { pollId: this.pollId, lang: this.lang });
-        },
-        addQuizName: function () {
-            socket.emit("addQuizName", this.quizName);
-            socket.on("addQuizName", (data) => console.log("addQuizName"));
-        },
-        runQuestion: function () {
-            socket.emit("runQuestion", { pollId: this.pollId, questionNumber: this.questionNumber });
-        },
-        selectAvatar(index) {
-            this.selectedAvatar = index;
+        toggleMute() {
+            const audioPlayer = this.$refs.audioPlayer;
+
+            // Toggle the muted attribute
+            audioPlayer.muted = !audioPlayer.muted;
+
+            this.isMuted = !this.isMuted;
         },
         addPlayerAnswer: function () {
-            console.log("In addPlayerAnswer", this.rightAnswer)
             this.buttonClicked = true;
-            console.log(this.timesPressedButton, "antal gånger tryckt")
             if (this.answerClue === "" && this.timesPressedButton < 1) {
                 console.log("här borde det komma in")
                 this.buttonClicked = false;
@@ -172,15 +163,10 @@ export default {
                         this.wrongAnswer = true;
                     }
                 });
-                console.log("this.rightanswer utanför socket ", this.rightAnswer)
                 this.timesPressedButton = + 1;
                 this.answerClue = "";
-                console.log(this.timesPressedButton, "antal gånger tryckt")
 
             }
-            console.log(this.answerClue, ": enskilt svar")
-            console.log(this.answers, ": svarslista")
-            console.log("här borde det komma in x2")
 
         },
         handleFuseBurnout() {
@@ -200,9 +186,7 @@ export default {
         checkIfCreator() {
             if (this.yourName === this.quizName) {
                 this.creator = true;
-                console.log("In CheckIfCreator IF", this.creator)
             }
-            console.log("In CheckIfCreator", this.creator)
         },
         handleClues() {
             if (!this.dataLoaded) {
@@ -211,7 +195,7 @@ export default {
             }
             const lengthCities = Object.keys(this.cities).length;
             //console.log(lengthCities);
-            if (this.cities && Object.keys(this.cities).length > 0 && lengthCities > 0) {
+            if (this.cities && lengthCities > 0) {
                 this.clueNumber += 1;
                 for (const cityName in this.cities) {
                     console.log(this.clueNumber + "detta är numret")
@@ -225,23 +209,23 @@ export default {
                         }
                         else if (this.clueNumber === 3) {
                             console.log(`${cityName}: ${city.clue3}`);
+                            clearInterval(sessionStorage.getItem("fuseTimer"));
+                            this.clueNumber == 0;
+                            console.log("nästa stad");
+                            console.log(this.isRedirected)
+
+                            if (Object.keys(this.cities).length === this.questionNumber) {
+                                this.$router.push('/lastresult/' + this.pollId);
+                            }
+                            else {
+                                this.$router.push('/afterclue/' + this.pollId + '/' + this.yourName);
+                            }
                         }
                     }
                 }
                 if (this.clueNumber === 3 && !this.isRedirected) {
                     this.isRedirected = true;
-                    this.clueNumber == 0;
-                    console.log("nästa stad");
-                    console.log(this.isRedirected)
-                    clearInterval(this.fuseTimer);
-                    if (Object.keys(this.cities).length === this.questionNumber) {
-                        clearInterval(this.fuseTimer);
-                        this.$router.push('/lastresult/' + this.pollId);
-                    }
-                    else {
-                        clearInterval(this.fuseTimer);
-                        this.$router.push('/afterclue/' + this.pollId + '/' + this.yourName);
-                    }
+
 
                 }
             }
@@ -250,21 +234,21 @@ export default {
 
 
         startFuseTimer: function () {
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
 
             // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
-
-            this.fuseTimer = setInterval(() => {
+            sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.1; // Adjust as needed
+                this.fuseWidth -= 0.07; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval);
+            }, timerInterval) );
+            
         }
     }
 }
@@ -272,6 +256,8 @@ export default {
 
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
+
+
 
 .clueBox {
 
@@ -345,7 +331,7 @@ h2 {
     margin-top: 10vw;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
 
     h1 {
         font-size: 12vw;
@@ -391,5 +377,14 @@ h2 {
         font-size: 3vw;
     }
 
+    .muteButton {
+        position: absolute;
+        width: 7vw;
+        height: 7vw;
+        padding: 0.5vw 0 0 0.5vw;
+        /* Adjusted padding */
+        margin-left: 40vw;
+        margin-top: 3.5vw;
+    }
 }
 </style>

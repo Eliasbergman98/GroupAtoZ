@@ -10,7 +10,7 @@
     </div>
     <main>
         <h1>
-            {{ uiLabels.joining }} {{ data.quizName }}
+            {{ uiLabels.joining }} {{ quizName }}
         </h1>
         <section class="player">
             <div class="gameInfo a" id="name">
@@ -43,7 +43,7 @@ import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
     name: 'QuizView',
@@ -56,7 +56,6 @@ export default {
             avatars: avatar,
             uiLabels: {},
             lang: localStorage.getItem("lang") || "en",
-            data: {},
             quizName: '',
             yourName: '',
             pollId: "",
@@ -64,9 +63,7 @@ export default {
             checkName: "",
             isMuted: false,
             showMysteryButton: true,
-
         }
-
     },
     computed: {
         buttonImage() {
@@ -75,6 +72,7 @@ export default {
     },
     created: function () {
         this.pollId = this.$route.params.pollId
+
         socket.emit('joinPoll', this.pollId)
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
@@ -82,7 +80,6 @@ export default {
         })
         socket.emit("getPoll", this.pollId);
         socket.on("fullPole", (data) => {
-            this.data = data;
             this.quizName = data.quizName;
         });
 
@@ -126,7 +123,7 @@ export default {
             }
 
             try {
-                const addParticipantResult = await new Promise((resolve, reject) => {
+                const addParticipantResult = await new Promise((resolve) => {
                     socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl, quizName: this.quizName });
                     socket.on("checkPlayer", (data) => {
                         resolve(data);
@@ -299,4 +296,5 @@ h1 {
         margin-bottom: 2vh;
     }
 
-}</style>
+}
+</style>

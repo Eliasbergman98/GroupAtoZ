@@ -73,5 +73,7 @@
 	"midScoreText": "Currently at the top of the scoreboard is ",
 	"midScoreText1": "with an impressive score of ",
 	"points": " points!",
-	"nextCity": "Next City"
+	"nextCity": "Next City",
+	"rightAnswerText": "The correct answer was ",
+	"midScoreTextMultiple": "Currently at the top of the scoreboard are "
 }

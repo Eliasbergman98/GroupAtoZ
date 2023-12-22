@@ -8,12 +8,12 @@
         </h1>
     </div>
     <div v-else>
-        <score-board-component :uiLabels="uiLabels" :nextCity="nextCity"
-            :participants="participants"></score-board-component>
+        <score-board-component :uiLabels="uiLabels" :participants="participants" :cities="cities"
+            :questionNumber="questionNumber"></score-board-component>
     </div>
     <img src="" alt="">
     <div v-if="creator && !nextCity">
-        <button id="nextcitybutton" v-on:click="movingToNextCity"> {{uiLabels.nextCity}} </button>
+        <button id="nextcitybutton" v-on:click="movingToNextCity"> {{ uiLabels.nextCity }} </button>
     </div>
     <footer v-if="nextCity">
         <div class="fuse-container">
@@ -24,8 +24,7 @@
   
 <script>
 import io from 'socket.io-client';
-import avatar from '../assets/avatar.json';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 import ScoreBoardComponent from '@/components/ScoreBoardComponent.vue';
 
 export default {
@@ -42,8 +41,6 @@ export default {
             questionNumber: 0,
             data: {},
             uiLabels: {},
-            selectedAvatar: null,
-            avatars: avatar,
             fuseWidth: 100,
             yourName: "",
             creator: false,
@@ -60,22 +57,14 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.on("dataUpdate", (data) => {
-            this.data = data;
-        });
-        // socket.on("pollCreated", (data) => {
+        // socket.on("dataUpdate", (data) => {
         //     this.data = data;
-        //     console.log("hello in pollcreated")
         // });
         socket.emit("getPoll", this.pollId);
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
             console.log("hämtar info från update number i currentcity", this.questionNumber)
         });
-        // socket.on("updateQuestionNumber", (data) => {
-        //     this.questionNumber = data;
-        //     console.log("hämtar info från update number i updatequestionNumber", this.questionNumber)
-        // });
         socket.on("fullPole", (data) => {
             this.data = data;
             this.questionNumber = data.currentQuestion;
@@ -85,6 +74,7 @@ export default {
             this.checkIfCreator();
             this.nextQuestion();
             this.playerWithMostPoints();
+            clearInterval(sessionStorage.getItem("fuseTimer"));
         });
         socket.on("creatorClicked", (data) => {
             this.nextCity = true;
@@ -94,7 +84,7 @@ export default {
     },
     methods: {
         movingToNextCity() {
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
             this.nextCity = true;
             socket.emit("creatorClick", this.pollId);
             socket.emit("cityUpdate", this.pollId);
@@ -104,7 +94,7 @@ export default {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
         },
         checkIfCreator() {
             if (this.yourName === this.quizName) {
@@ -118,21 +108,21 @@ export default {
             this.participants.sort((a, b) => b.points - a.points);
         },
         startFuseTimer: function () {
-            clearInterval(this.fuseTimer);
+            clearInterval(sessionStorage.getItem("fuseTimer"));
 
             // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
 
-            this.fuseTimer = setInterval(() => {
+            sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.1; // Adjust as needed
+                this.fuseWidth -= 0.2; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval);
+            }, timerInterval) );
         }
     }
 }

@@ -136,43 +136,6 @@ Data.prototype.getNewCity = function (pollId) {
   return 50
 }
 
-Data.prototype.editQuestion = function (pollId, index, newQuestion) {
-  const poll = this.polls[pollId];
-  if (typeof poll !== 'undefined') {
-    poll.questions[index] = newQuestion;
-  }
-}
-
-Data.prototype.getQuestion = function (pollId, qId = null) {
-  const poll = this.polls[pollId];
-  console.log("question requested for ", pollId, qId);
-  if (typeof poll !== 'undefined') {
-    if (qId !== null) {
-      poll.currentQuestion = qId;
-    }
-    return poll.questions[poll.currentQuestion];
-  }
-  return []
-}
-
-Data.prototype.submitAnswer = function (pollId, answer) {
-  const poll = this.polls[pollId];
-  console.log("answer submitted for ", pollId, answer);
-  if (typeof poll !== 'undefined') {
-    let answers = poll.answers[poll.currentQuestion];
-    if (typeof answers !== 'object') {
-      answers = {};
-      answers[answer] = 1;
-      poll.answers.push(answers);
-    }
-    else if (typeof answers[answer] === 'undefined')
-      answers[answer] = 1;
-    else
-      answers[answer] += 1
-    console.log("answers looks like ", answers, typeof answers);
-  }
-}
-
 Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAnswer) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
@@ -207,16 +170,5 @@ Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAn
       return rightAnswer
     }
   }
-}
-
-Data.prototype.getAnswers = function (pollId) {
-  const poll = this.polls[pollId];
-  if (typeof poll !== 'undefined') {
-    const answers = poll.answers[poll.currentQuestion];
-    if (typeof poll.questions[poll.currentQuestion] !== 'undefined') {
-      return { city: poll.questions[poll.currentQuestion].city, a: answers };
-    }
-  }
-  return {}
 }
 export { Data };

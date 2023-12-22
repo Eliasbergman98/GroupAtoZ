@@ -42,7 +42,7 @@ import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
     name: 'PlayerJoiningView',
@@ -258,7 +258,7 @@ export default {
     }
 
     .poll {
-
+        margin-top: 2vw;
         display: flex;
         flex-direction: column;
         align-items: center;

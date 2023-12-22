@@ -26,8 +26,7 @@
   
 <script>
 import io from 'socket.io-client';
-import avatar from '../assets/avatar.json';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
     name: 'PlayerWaitingView',
@@ -35,15 +34,8 @@ export default {
         return {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
-            quizName: '',
-            question: "",
-            answers: ["", ""],
-            questionNumber: 0,
             data: {},
             uiLabels: {},
-            selectedAvatar: null,
-            avatars: avatar,
-            fuseWidth: 100,
             participants: [],
             playerColumns: [],
             playersPerColumn: 6,
@@ -63,37 +55,28 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.on("dataUpdate", (data) => {
-            this.data = data;
-        });
-        socket.on("pollCreated", (data) => {
-            this.data = data;
-        });
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
         socket.on("fullPole", (data) => {
-            console.log("in joiningview", this.pollId)
             this.data = data;
         });
-
         socket.on("participantsUpdate", (participants) => {
             this.participants = participants;
             this.getParticipantName(this.participants);
-            console.log("hej här kommer nya joinare", this.participants)
+            console.log("hej här kommer nya joinare i playerwaiting", this.participants)
         });
-
         socket.on("creatorStarting", (pollId) => {
             socket.emit("getThisParticipant", this.pollId, this.yourName)
             this.$router.push('/startingquizplayer/' + this.pollId + '/' + this.yourName);
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
-
     },
+
     methods: {
 
-         exitGame(){
+        exitGame() {
             socket.emit("playerExited", { pollId: this.pollId, name: this.yourName })
-            this.$router.push('//');
+            this.$router.push('/');
             this.applyFunctionBasedOnMediaQuery();
         },
 
@@ -109,10 +92,8 @@ export default {
             return result;
         },
         getParticipantName() {
-            console.log("getParticipantName called");
             if (this.participants.length > 0 && this.yourName === "") {
                 this.yourName = this.participants[this.participants.length - 1].name;
-                console.log("I getParticipantName", this.yourName);
             }
         },
         applyFunctionBasedOnMediaQuery() {
@@ -301,5 +282,6 @@ h2 {
         width: 7vw;
         height: 7vw;
     }
-}</style>
+}
+</style>
 

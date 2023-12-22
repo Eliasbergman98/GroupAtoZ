@@ -32,7 +32,7 @@
 <script>
 import io from 'socket.io-client';
 import avatar from '../assets/avatar.json';
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
     name: 'LastResult',
