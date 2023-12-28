@@ -4,18 +4,22 @@
             <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
         </div>
     </header>
-    <div class="arrow">
+    <!-- <div class="arrow">
         <button>
             <router-link :to="'/createquestions/' + pollId"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
                 </button></router-link>
         </button>
+    </div> -->
+    <div>
+        <h1>
+            {{ uiLabels.waitingForPlayers }}
+        </h1>
     </div>
-
     <div class="poll">
         <div class="gameInfo b">
             {{ quizName }} <img class="emojies" v-bind:src="data.selectedAvatar" target="_blank"> <br>
             <hr>
-            {{ uiLabels.gameTag }} {{ pollId }} <br>
+            {{ uiLabels.gameCode }}: {{ pollId }} <br>
             {{ participants.length }} {{ uiLabels.participantCount }}
         </div>
         <div class="gameInfo a">
@@ -132,13 +136,27 @@ export default {
 </script>
   
 <style scoped>
+h1 {
+    font-size: 4vw;
+    margin-top: 10vh;
+}
+
+.muteButton {
+  position: absolute;
+  width: 2.5vw;
+  height: 2.5vw;
+  padding: 0.5vw 0 0 0.5vw;
+  margin-left: 45vw;
+  margin-top: -8vh;
+}
+
 .poll {
     position: relative;
     display: grid;
     grid-template-columns: 30vw 10vw 1vw;
     grid-template-rows: 5vw 15vw 14vw;
     background-color: rgb(163, 163, 243);
-    grid-gap: 3vw;
+    grid-gap: 1vw;
     background-size: cover;
     font-size: 2vw;
 }
@@ -156,8 +174,8 @@ export default {
     grid-column-start: 1;
     padding: 10em auto 2em 2em;
     text-align: left;
-    width: 30vw;
-    height: 38vw;
+    width: 35vw;
+    height: 25vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
@@ -184,13 +202,13 @@ export default {
     grid-column-start: 2;
     text-align: left;
     position: relative;
-    width: 30vw;
+    width: 35vw;
     height: 10vw;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 10vw;
     border-radius: 20px;
-    margin-left: 15vw;
+    margin-left: 20vw;
     padding: 0.7em 0 0 1em;
 }
 
@@ -198,7 +216,8 @@ export default {
     grid-row-start: 3;
     grid-column-start: 4;
     justify-self: center;
-    margin-top: 8vw;
+    margin-top: -18vh;
+    margin-left: 14vw;
 }
 
 #createbutton:hover {

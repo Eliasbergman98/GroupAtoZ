@@ -89,11 +89,11 @@ h2 {
     padding: 10em auto 2em 2em;
     font-size: 2vw;
     width: 50vw;
-    height: 40vw;
+    height: 70vh;
     background-size: cover;
-    /* border-radius: 2vw;
+    border-radius: 2vw;
     background-color: rgb(201, 241, 244);
-    border: 2px solid black; */
+    border: 2px solid black;
     margin-left: 25vw;
     margin-top: 3vw;
 }

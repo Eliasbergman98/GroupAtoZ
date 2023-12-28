@@ -10,7 +10,7 @@
       </button></router-link>
   </div>
   <h1>
-    {{ uiLabels.createGame }}
+    {{ uiLabels.createYourGame }}
   </h1>
   {{ pollId }}
   <div class="poll">
@@ -23,15 +23,17 @@
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>
       <div id="avatarZone">
-        <img class="avatar">
-        <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
-          :class="{ 'selected': selectedAvatar === index }">
-          <img class="emojies" v-bind:src="avatar.url" alt="😄">
-        </button>
+        <div v-for="(avatarRow, rowIndex) in Math.ceil(avatars.length / 8)" :key="rowIndex" class="avatar-row">
+          <button v-for="(avatar, colIndex) in avatars.slice(rowIndex * 8, (rowIndex + 1) * 8)" :key="colIndex"
+            @click="selectAvatar(rowIndex * 8 + colIndex)"
+            :class="{ 'selected': selectedAvatar === rowIndex * 8 + colIndex }">
+            <img class="emojis" v-bind:src="avatar.url" alt="😄" width="32" height="32">
+          </button>
+        </div>
       </div>
     </div>
     <div class="gameInfo c">
-      <button class="createbutton" v-on:click="createPoll"> {{ uiLabels.createGame }}</button>
+      <button id="createbutton" v-on:click="createPoll" :class="{ 'green-button': quizName !== '' }"> {{ uiLabels.next }}</button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
       </AlertComponent>
     </div>
@@ -112,16 +114,20 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-size: 5vw;
+}
+
 .poll {
   position: relative;
   display: grid;
   grid-template-columns: 24vw 26vw 30w;
   grid-template-rows: 5vw 5vw 10vw;
   background-color: rgb(163, 163, 243);
-  grid-gap: 4vw;
+  grid-gap: 1vw;
   background-size: cover;
+  margin-top: -6vh;
 }
-
 
 .gameInfo {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -141,7 +147,7 @@ export default {
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
-  margin-left: 24vw;
+  margin-left: 25vw;
   display: flex;
 
 }
@@ -152,13 +158,13 @@ export default {
   text-align: center;
   font-size: 2vw;
   width: 50vw;
-  height: 21vh;
+  height: 26vh;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
-  margin-left: 24vw;
+  margin-left: 25vw;
   padding-top: 2vw;
-  padding-bottom: 5vw;
+  padding-bottom: 4vw;
 }
 
 #avatarZone {
@@ -170,16 +176,10 @@ export default {
 .c {
   grid-row-start: 2;
   grid-column-start: 3;
-  margin-top: 23vh;
+  margin-top: 42vh;
   width: 10vw;
   height: 2vh;
-  margin-left: -12vw;
-}
-
-.createbutton:hover,
-#addQuizNameBtn:hover {
-  cursor: pointer;
-  background-color: green;
+  margin-left: -32.5vw;
 }
 
 .selected {
@@ -201,14 +201,9 @@ export default {
   background-color: inherit;
   border: none;
   margin-top: 0.8vw;
-  width: 73%;
+  width: 70%;
   height: 60%;
   margin-left: 0.5vw;
-}
-
-.emojies {
-  width: 2vw;
-  height: 2vw;
 }
 
 #addQuizName::placeholder {
@@ -233,11 +228,13 @@ export default {
     background-color: rgb(163, 163, 243);
     grid-gap: 4vw;
     background-size: cover;
+    margin-top: 2vw;
   }
 
   .a {
     display: flex;
     margin-left: 5vw;
+    margin-top: 2vw;
     width: 90vw;
     height: 10vw;
   }
@@ -257,7 +254,7 @@ export default {
   }
 
   .b {
-    margin-top: 10vw;
+    margin-top: 5vw;
     width: 90vw;
     margin-left: 5vw;
     font-size: 8vw;
@@ -286,4 +283,5 @@ export default {
     font-size: 4vh;
     margin-bottom: 2vh;
   }
-}</style>
+}
+</style>

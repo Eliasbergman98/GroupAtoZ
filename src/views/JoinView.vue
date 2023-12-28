@@ -19,7 +19,8 @@
       </div>
     </section>
     <div>
-      <button id="joinbutton" v-on:click="addGameCode"> {{ uiLabels.joinQuiz }} </button>
+      <button id="joinbutton" v-on:click="addGameCode" :class="{ 'green-button': gamecode !== '' }"> {{ uiLabels.joinQuiz
+      }} </button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
       </AlertComponent>
     </div>
@@ -116,26 +117,15 @@ export default {
   width: 15vw;
 }
 
-#joinbutton:hover {
-  background-color: green;
-}
-
 #joinbutton {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 14pt;
-  color: white;
-  background-color: gray;
-  border: 2px solid black;
-  padding: 2vw;
-  border-radius: 20px;
-  margin: -10vw;
+  margin: -8vw;
 }
 
 #gamecode {
-  font-size: 200%;
+  font-size: 90%;
   padding: 2vw;
   font-weight: bold;
-  width: 25%;
+  width: 15vw;
   margin-bottom: 5vw;
   margin-top: 2vw;
 }

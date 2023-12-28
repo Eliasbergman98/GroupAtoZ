@@ -9,6 +9,7 @@
 	"changeLanguage": "Change to English",
 	"about": "Hur man spelar",
 	"createGame": "Skapa spel",
+	"createYourGame": "Skapa ditt spel",
 	"addTown": "Lägg till stad",
 	"joinQuiz": "Gå med i spel",
 	"heading": "På Rälsen",
@@ -33,12 +34,12 @@
 	"doneButton": "Klar",
 	"startGame": "Starta spel",
 	"players": "Spelare:",
-	"gameTag": "Spel ID:",
+	"gameTag": "Spel-ID:",
 	"clues": "Ledtrådar:",
 	"clue6p": "Första ledtråden - 6 poäng: ",
 	"clue4p": "Andra ledtråden - 4 poäng: ",
 	"clue2p": "Tredje ledtråden - 2 poäng: ",
-	"myCities": "Mina Städer",
+	"myCities": "Dina städer",
 	"addAnswer": "Lägg till svar",
 	"thankYou": "Bra Gissat",
 	"city": "Stad:",
@@ -75,5 +76,8 @@
 	"points": " poäng!",
 	"nextCity": "Nästa Stad",
 	"rightAnswerText": "Det rätta svaret var ",
-	"midScoreTextMultiple": "De nuvarande ledarna är"
+	"midScoreTextMultiple": "De nuvarande ledarna är",
+	"placeholderCities": "När du har lagt till minst en stad så kommer städerna för ditt spel att visas här.",
+	"next": "Nästa",
+	"waitingForPlayers": "Väntar på att spelare ska ansluta..."
 }

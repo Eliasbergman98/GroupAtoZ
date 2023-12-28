@@ -50,8 +50,17 @@ img[id=sweimg]:hover,
 #nobutton:hover,
 #redCrossRemove,
 .muteButton,
-#nextcitybutton {
+#nextcitybutton,
+#addQuizNameBtn:hover,
+.addTown:hover {
   cursor: pointer;
+}
+
+#joinbutton.green-button,
+#createbutton.green-button,
+.addTown.green-button,
+#donebutton.green-button {
+  background-color: green;
 }
 
 #howtoplaybutton,
@@ -59,7 +68,8 @@ img[id=sweimg]:hover,
 #joinbutton,
 .createbutton,
 #donebutton,
-#nextcitybutton {
+#nextcitybutton,
+.addTown {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.7vw;
   color: white;
@@ -72,11 +82,11 @@ img[id=sweimg]:hover,
 
 .muteButton {
   position: absolute;
-  width: 3vw;
-  height: 3vw;
+  width: 2.5vw;
+  height: 2.5vw;
   padding: 0.5vw 0 0 0.5vw;
   margin-left: 45vw;
-  margin-top: 1vw;
+  margin-top: 2vh;
 }
 
 @media screen and (max-width:800px) {

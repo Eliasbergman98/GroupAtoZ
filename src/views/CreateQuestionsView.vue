@@ -4,12 +4,11 @@
       <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </div>
   </header>
-
   <div class="arrow">
     <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
   <h1>
-    {{ uiLabels.createGame }}
+    {{ uiLabels.createYourGame }}
   </h1>
   <div class="poll">
     <div class="gameInfo a">
@@ -29,14 +28,19 @@
       <textarea class="fillInfo" v-model="clue3" name="clue3" rows="2"></textarea>
     </div>
     <div class="gameInfo f">
-      <button class="addTown" v-on:click="addQuestion"> {{
-        uiLabels.addTown }} <img id="greentick" src="/img/greentick.png"></button>
+      <button class="addTown" v-on:click="addQuestion"
+        :class="{ 'green-button': cityname !== '' && clue1 !== '' && clue2 !== '' && clue2 !== '' && clue3 !== '' }"> {{
+          uiLabels.addTown }} <img id="greentick" src="/img/greentick.png"></button>
     </div>
-    <div v-if="Object.keys(submittedCities2).length > 0" class="right-section">
+    <div class="right-section">
       <div id="title">
         {{ uiLabels.myCities }}
       </div>
       <hr>
+      <div v-if="Object.keys(submittedCities2).length == 0">
+        <br>
+        {{ uiLabels.placeholderCities }}
+      </div>
       <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
         <p>
           <img id="redCrossRemove" src="/img/redcross.png " v-on:click="removeCity(cityData)">
@@ -50,7 +54,7 @@
       </div>
     </div>
     <div class="gameInfo e">
-      <button class="createbutton" v-on:click="sendInfo"> {{ uiLabels.createGame }} </button>
+      <button id="createbutton" v-on:click="sendInfo" :class="{ 'green-button': Object.keys(submittedCities2).length > 0 }"> {{ uiLabels.createGame }} </button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText"
         :inCreateQuestionsView="inCreateQuestionsView">
       </AlertComponent>
@@ -183,71 +187,77 @@ export default {
 
   },
 }
-
 </script>
   
 <style scoped>
+h1 {
+  font-size: 5vw;
+  margin-top: -5vh;
+}
+
 .fillInfo {
   height: 2vw;
-  width: 30vw;
-  margin-top: 1.7vw;
+  width: 25vw;
+  margin-top: 1.5vh;
   border-color: black;
-  border-top: 1vw;
+  border-top: 1vh;
   border-left: 1vw;
   border-right: 1vw;
-  max-height: 6vh;
-  max-width: 30vw;
+  max-height: 5vh;
+  max-width: 20vw;
   margin-left: 1vw;
   font-size: 1.4vw;
   background-color: rgb(201, 241, 244);
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-#saveButton {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 1.5vw;
-  color: white;
-  background-color: green;
-  border: 2px solid black;
-  padding: 1vw;
-  border-radius: 2px;
-}
-
 .poll {
+  margin-top: -2vh;
   position: relative;
   display: grid;
   grid-template-columns: 30vw 30vw 7vw;
   grid-template-rows: 7vw 7vw 7vw 7vw 7vw;
-  background-color: rgb(163, 163, 243);
-  grid-gap: 1vw;
   background-size: cover;
 }
 
 
 .gameInfo {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  width: 30vw;
-  height: 1vw;
+  /* width: 30vw;
+  height: 1vw; */
   text-align: left;
   position: left;
-  border-radius: 20px;
+  border-radius: 2vw;
 
 }
 
-.a,
-.b,
-.c,
-.d {
+.a {
   padding: 10em auto 2em 2em;
   text-align: left;
   padding-left: 5vw;
-  font-size: 2vw;
-  width: 50vw;
-  height: 5vw;
+  font-size: 3vh;
+  width: 40vw;
+  height: 10vh;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
-  margin-left: 10vw;
+  margin-left: 6vw;
+  display: flex;
+  overflow: hidden;
+}
+
+.b,
+.c,
+.d {
+  text-align: left;
+  padding-left: 5vw;
+  font-size: 3vh;
+  width: 40vw;
+  height: 10vh;
+  background-size: cover;
+  background-color: rgb(201, 241, 244);
+  border: 2px solid black;
+  margin-left: 6vw;
   display: flex;
   overflow: hidden;
 }
@@ -279,18 +289,17 @@ export default {
   width: 2vw;
 }
 
+/* 
 .f {
   grid-row-start: 5;
   grid-column-start: 1;
   padding: 10vw auto 2vw 2vw;
   text-align: center;
   font-size: 3vw;
-  width: 55vw;
-  height: 5vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   margin-left: 10vw;
-}
+} */
 
 #greentick {
   height: 1.2vw;
@@ -299,17 +308,18 @@ export default {
 
 .right-section {
   grid-row-start: 1;
-  grid-column-start: 4;
+  grid-column-start: 3;
   font-size: 1.2vw;
-  width: 20vw;
-  height: 21vw;
+  width: 40vw;
+  height: 55.5vh;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 0.2vw solid black;
-  border-radius: 20px;
+  border-radius: 2vw;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-style: oblique;
   overflow-y: auto;
+  margin-left: -5vw;
 }
 
 .right-section::-webkit-scrollbar {
@@ -320,25 +330,14 @@ export default {
   background-color: rgba(0, 0, 0, 0);
 }
 
-.createbutton:hover {
-  cursor: pointer;
-  background-color: green;
-}
-
-.addTown:hover {
-  cursor: pointer;
-  background-color: green;
-}
-
 .addTown {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  font-size: 2vw;
-  background-color: rgb(201, 241, 244);
-  border: 2px solid black;
-  border-radius: 20px;
+  margin-top: 60vh;
+  margin-left: 6vw;
+}
+
+#createbutton {
+  margin-top: -1.5vh;
+  margin-left: 8vw;
 }
 
 #title {
@@ -363,8 +362,8 @@ export default {
 #redCrossRemove {
   height: 1.2vw;
   width: 1.2vw;
-  margin-left: 18vw;
-  margin-top: -1vw;
+  margin-left: 38vw;
+  margin-top: -2vh;
 }
 
 #info {
@@ -376,6 +375,12 @@ export default {
 }
 
 @media screen and (max-width: 800px) {
+
+  h1 {
+    margin-top: 2vw;
+    font-size: 8vw;
+  }
+
   .poll {
     position: relative;
     display: grid;
@@ -407,18 +412,18 @@ export default {
     overflow: hidden;
   }
 
-  .addTown {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    font-size: 4vw;
-    background-color: rgb(201, 241, 244);
-    border: 2px solid black;
-    border-radius: 20px;
-  }
+  /* .addTown {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 1.7vw;
+  color: white;
+  background-color: gray;
+  border: 0.2vw solid black;
+  border-radius: 1.5vw;
+  padding: 1.7vw;
+  width: 9em;
+  } */
 
-  .f {
+  /* .f {
     padding: 10vw auto 2vw 2vw;
     text-align: center;
     font-size: 4vw;
@@ -427,7 +432,7 @@ export default {
     background-size: cover;
     background-color: rgb(201, 241, 244);
     margin-left: 10vw;
-  }
+  } */
 
   .fillInfo {
     height: 5vw;
@@ -457,17 +462,26 @@ export default {
     width: 50vw;
     font-size: 4vh;
     margin-left: 20vw;
-    margin-top: 10vw;
+    margin-top: 33vw;
+    margin-bottom: 5vw;
+  }
+
+  .addTown {
+    height: 10vh;
+    width: 50vw;
+    font-size: 4vh;
+    margin-left: -20vw;
+    margin-top: 65vw;
   }
 
   .right-section {
     grid-row-start: 6;
     grid-column-start: 1;
     font-size: 2.4vw;
-    margin-left: 30vw;
-    margin-top: 3vw;
-    width: 40vw;
-    height: 58vw;
+    margin-left: 10vw;
+    margin-top: 15vw;
+    width: 80vw;
+    height: 70vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 0.2vw solid black;
@@ -487,7 +501,7 @@ export default {
     width: 3vw;
     position: relative;
     top: 1vw;
-    right: -17vw;
+    right: -38vw;
   }
 
 

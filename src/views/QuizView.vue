@@ -17,19 +17,20 @@
                 {{ uiLabels.yourName }}:
                 <input type="text" id="yourname" v-model="yourName" :placeholder="uiLabels.enterName">
             </div>
-
             <div class="gameInfo b">
                 {{ uiLabels.chooseAvatar }} <br>
                 <div id="avatarZone">
-                    <img class="avatar">
-                    <button v-for="(avatar, index) in avatars" :key="index" @click="selectAvatar(index)"
-                        :class="{ 'selected': selectedAvatar === index }">
-                        <img class="emojis" v-bind:src="avatar.url" alt="😄" width="32" height="32">
-                    </button>
+                    <div v-for="(avatarRow, rowIndex) in Math.ceil(avatars.length / 8)" :key="rowIndex" class="avatar-row">
+                        <button v-for="(avatar, colIndex) in avatars.slice(rowIndex * 8, (rowIndex + 1) * 8)"
+                            :key="colIndex" @click="selectAvatar(rowIndex * 8 + colIndex)"
+                            :class="{ 'selected': selectedAvatar === rowIndex * 8 + colIndex }">
+                            <img class="emojis" v-bind:src="avatar.url" alt="😄" width="32" height="32">
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="gameInfo c">
-                <button v-on:click="stopMusicAndStartGame" id="donebutton"> {{ uiLabels.doneButton }}</button>
+                <button id="donebutton" v-on:click="stopMusicAndStartGame" :class="{ 'green-button': yourName !== '' }"> {{ uiLabels.doneButton }}</button>
                 <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
                 </AlertComponent>
             </div>
@@ -147,14 +148,8 @@ export default {
 </script>
 
 <style scoped>
-.emojis {
-    width: 2vw;
-    height: 2vw;
-}
-
 h1 {
-    font-size: 6vw;
-
+    font-size: 5vw;
 }
 
 .player {
@@ -163,8 +158,9 @@ h1 {
     grid-template-columns: 50vw 35vw;
     grid-template-rows: 5vw 5vw;
     background-color: rgb(163, 163, 243);
-    grid-gap: 3vw;
+    grid-gap: 1vw;
     background-size: cover;
+    margin-top: -6vh;
 }
 
 .gameInfo {
@@ -179,7 +175,7 @@ h1 {
 .a {
     grid-row-start: 1;
     grid-column-start: 1;
-    padding: 10em auto 2em 2em;
+    /* padding: 10em auto 2em 2em; */
     text-align: center;
     font-size: 2vw;
     width: 50vw;
@@ -187,8 +183,8 @@ h1 {
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
-    margin-left: 24vw;
-    margin-top: 3px;
+    margin-left: 25vw;
+    /* margin-top: 3px; */
 
 }
 
@@ -198,12 +194,12 @@ h1 {
     text-align: center;
     font-size: 2vw;
     width: 50vw;
-    height: 21vh;
+    height: 26vh;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
-    margin-left: 24vw;
-    margin-top: 2.8vh;
+    margin-left: 25vw;
+    /* margin-top: 2vh; */
     padding-top: 2vw;
     padding-bottom: 4vw;
 }
@@ -217,9 +213,9 @@ h1 {
 .c {
     grid-row-start: 2;
     grid-column-start: 3;
-    width: 2vw;
-    margin-top: 11.7vw;
-    margin-left: -8.9vw;
+    width: 10vw;
+    margin-top: 42vh;
+    margin-left: -27vw;
     height: 2vw;
 }
 
@@ -234,7 +230,7 @@ h1 {
     background-color: inherit;
     border: none;
     padding: 1vw;
-    width: 73%;
+    width: 70%;
     margin-left: 0.5vw;
     position: relative;
 }
@@ -253,6 +249,7 @@ h1 {
     }
 
     .player {
+        margin-top: 2vw;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -286,7 +283,8 @@ h1 {
     }
 
     .c {
-        margin-right: 40vw;
+        margin-right: 15vw;
+        margin-top: 5vh;
     }
 
     #donebutton {

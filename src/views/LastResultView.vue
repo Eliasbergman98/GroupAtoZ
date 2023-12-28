@@ -3,26 +3,25 @@
         <header>
         </header>
         <main>
-            <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto" :style="{ left: confetto.left, animationDuration: confetto.animationDuration }"></div>
-            <h1>{{uiLabels.theWinner}}</h1>
+            <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto"
+                :style="{ left: confetto.left, animationDuration: confetto.animationDuration }"></div>
+            <h1>{{ uiLabels.theWinner }}</h1>
             <div id="pics">
-                <!-- v-bind:src="data.selectedAvatar" -->
                 <img class="podium" src="/img/Podium-removebg-preview1.png">
-                <img class="emoji a" :src="participants[0].avatar" width="20"
-                    height="20" target="_blank">
-                <img class="emoji b" :src="participants[1].avatar" width="20"
-                    height="20" target="_blank">
-                <img class="emoji c" :src="participants[1].avatar" width="20"
-                    height="20" target="_blank">
-
-                <div id="name1">
+                <img v-if="participants[0]" class="emoji a" :src="participants[0].avatar" width="20" height="20"
+                    target="_blank">
+                <img v-if="participants[1]" class="emoji b" :src="participants[1].avatar" width="20" height="20"
+                    target="_blank">
+                <img v-if="participants[2]" class="emoji c" :src="participants[2].avatar" width="20" height="20"
+                    target="_blank">
+                <div v-if="participants[1]" id="name1">
                     <h2>{{ participants[1].name }}</h2>
                 </div>
-                <div id="name2">
+                <div v-if="participants[0]" id="name2">
                     <h2>{{ participants[0].name }}</h2>
                 </div>
-                <div id="name3">
-                    <h2>{{ participants[1].name }}</h2>
+                <div v-if="participants[2]" id="name3">
+                    <h2>{{ participants[2].name }}</h2>
                 </div>
             </div>
         </main>
@@ -94,7 +93,7 @@ export default {
                 this.confettiArray.push({
                     left: `${Math.random() * 100}vw`,
                     animationDuration: `${Math.random() * 2 + 1}s`,
-                    
+
                 });
             }
         }
@@ -191,8 +190,8 @@ h2 {
 
 .confetto {
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 1vw;
+    height: 1vw;
     background-color: #ffcc00;
     border-radius: 50%;
     transform: rotate(45deg);
@@ -204,57 +203,67 @@ h2 {
         transform: translateY(120vh) rotate(45deg);
     }
 }
-@media screen and (max-width: 800px){
- 
-    h1{
+
+@media screen and (max-width: 800px) {
+
+    h1 {
         font-size: 12vw;
     }
-    .podium{
+
+    .podium {
         height: 80vw;
         width: 80vw;
         top: 60vw;
         left: 10vw;
     }
+
     .emoji {
-    height: 15vw;
-    width: 15vw;
-}
+        height: 15vw;
+        width: 15vw;
+    }
+
     .a {
-    top: 75vw;
-    right: 42.5vw;
-}
-.b {
-    top: 83.5vw;
-    right: 66.3vw;
-}
-.c {
-    top: 87.3vw;
-    right: 18.2vw;
-}
-#name1 {
-    top: 142vw;
-    left: 20vw;
-}
-h2 {
-    font-size: 5vw;
-}
-#name2 {
-    top: 140vw;
-    left: 45.5vw;
-}
-#name3 {
-    top: 142vw;
-    left: 70vw;
-}
-.confetti-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow:hidden;
-    pointer-events: none;
-}
-}
-</style>
+        top: 75vw;
+        right: 42.5vw;
+    }
+
+    .b {
+        top: 83.5vw;
+        right: 66.3vw;
+    }
+
+    .c {
+        top: 87.3vw;
+        right: 18.2vw;
+    }
+
+    #name1 {
+        top: 142vw;
+        left: 20vw;
+    }
+
+    h2 {
+        font-size: 5vw;
+    }
+
+    #name2 {
+        top: 140vw;
+        left: 45.5vw;
+    }
+
+    #name3 {
+        top: 142vw;
+        left: 70vw;
+    }
+
+    .confetti-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        pointer-events: none;
+    }
+}</style>
   
