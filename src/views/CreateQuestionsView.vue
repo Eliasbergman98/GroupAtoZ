@@ -54,7 +54,8 @@
       </div>
     </div>
     <div class="gameInfo e">
-      <button id="createbutton" v-on:click="sendInfo" :class="{ 'green-button': Object.keys(submittedCities2).length > 0 }"> {{ uiLabels.createGame }} </button>
+      <button id="createbutton" v-on:click="sendInfo"
+        :class="{ 'green-button': Object.keys(submittedCities2).length > 0 }"> {{ uiLabels.createGame }} </button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText"
         :inCreateQuestionsView="inCreateQuestionsView">
       </AlertComponent>
@@ -140,6 +141,13 @@ export default {
       }
     },
     addQuestion: function () {
+      for (let i = 0; i < Object.keys(this.submittedCities2).length; i++) {
+        if (this.city === Object.keys(this.submittedCities2)[i]) {
+          this.alertContentText = this.uiLabels.sameCityAlert;
+          this.$refs.alertComponent.openAlert();
+          return;
+        }
+      }
       if (!this.areFieldsFilled) {
         this.alertContentText = this.uiLabels.emptyCityAlert;
         this.$refs.alertComponent.openAlert();
