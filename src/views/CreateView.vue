@@ -88,7 +88,7 @@ export default {
         this.$refs.alertComponent.openAlert();
       }
       else {
-        this.pollId = Math.floor(Math.random() * 10000);
+        this.pollId = Math.floor(Math.random() * 100000);
         socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatarUrl })
         this.$router.push('/createquestions/' + this.pollId);
       }

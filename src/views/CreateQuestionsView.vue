@@ -223,8 +223,8 @@ h1 {
 
 .gameInfo {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  /* width: 30vw;
-  height: 1vw; */
+  width: 30vw;
+  height: 1vw;
   text-align: left;
   position: left;
   border-radius: 2vw;
