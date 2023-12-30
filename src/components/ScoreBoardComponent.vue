@@ -89,13 +89,13 @@ h2 {
     padding: 10em auto 2em 2em;
     font-size: 2vw;
     width: 50vw;
-    height: 70vh;
+    height: 77vh;
     background-size: cover;
     border-radius: 2vw;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 25vw;
-    margin-top: 3vw;
+    margin-top: 3vh;
 }
 
 .participant-list {
@@ -103,8 +103,8 @@ h2 {
   margin-left: 1vw;
   margin-right: 4vw;
   text-align: left;
-  /* max-height: 20vw;
-  overflow-y: auto; */
+  max-height: 15vw;
+  overflow-y: auto;
 }
 
 .participant-item {
