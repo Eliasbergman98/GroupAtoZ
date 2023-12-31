@@ -1,10 +1,11 @@
 <template>
     <header>
+        <div>
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
+    </div>
     </header>
     <h2>
-        {{ uiLabels.city }} {{ questionNumber }}
-        <!-- {{ uiLabels.city }} 1/{{ Object.keys(cities).length }} -->
+        {{ uiLabels.city }} {{ questionNumber }}/{{ Object.keys(cities).length }}
     </h2>
     <h1>
         {{ uiLabels.whereTo }}
@@ -13,7 +14,6 @@
         <source src="/img/train1.mp3" type="audio/mp3" />
         Your browser does not support the audio element.
     </audio>
-
     <footer>
         <div class="fuse-container">
             <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
@@ -37,7 +37,8 @@ export default {
             uiLabels: {},
             fuseWidth: 100,
             isMuted: false,
-            yourName: ""
+            yourName: "",
+            cities: {}
         }
     },
     computed: {
@@ -50,7 +51,8 @@ export default {
         this.pollId = this.$route.params.pollId;
         this.yourName = this.$route.params.yourName;
         socket.emit("pageLoaded", this.lang);
-        socket.emit("getCity", this.pollId)
+        socket.emit("getCity", this.pollId);
+        socket.emit("getPoll", this.pollId);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
@@ -59,6 +61,9 @@ export default {
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
             console.log("hämtar info från update number i currentcity ", this.questionNumber)
+        });
+        socket.on("fullPole", (data) => {
+            this.cities = data.cities;
         });
     },
     methods: {
@@ -82,7 +87,7 @@ export default {
 
             sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.1; // Adjust as needed
+                this.fuseWidth -= 0.00000001; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
@@ -98,27 +103,34 @@ export default {
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
-
+/* .muteButton {
+  position: absolute;
+  width: 2.5vw;
+  height: 2.5vw;
+  padding: 0.5vw 0 0 0.5vw;
+  margin-left: 45vw;
+  margin-top: -8vh;
+} */
 h1 {
     position: center;
-    margin-top: 10vw;
+    /* margin-top: 10vw; */
 }
 
 h2 {
     position: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-top: 10vw;
+    /* margin-top: 10vw; */
 }
 
 @media screen and (max-width:800px) {
     h1 {
         position: center;
-        margin-top: 10vw;
+        /* margin-top: 10vw; */
     }
 
     h2 {
         position: center;
-        margin-top: 10vw;
+        /* margin-top: 10vw; */
     }
 }
 </style>

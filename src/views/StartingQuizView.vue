@@ -1,10 +1,11 @@
 <template>
     <header>
+        <div>
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
+    </div>
     </header>
     <h2>
-        {{ uiLabels.city }} {{ questionNumber }}
-        <!-- {{ uiLabels.city }} 1/{{ Object.keys(cities).length }} -->
+        {{ uiLabels.city }} {{ questionNumber }}/{{ Object.keys(cities).length }}
     </h2>
     <h1>
         {{ uiLabels.whereTo }}
@@ -13,7 +14,6 @@
         <source src="/img/train1.mp3" type="audio/mp3" />
         Your browser does not support the audio element.
     </audio>
-
     <footer>
         <div class="fuse-container">
             <img id="fuseLine" src="/img/redbar.png" :style="{ width: fuseWidth + 'vw', height: '30vw' }">
@@ -37,7 +37,8 @@ export default {
             uiLabels: {},
             fuseWidth: 100,
             isMuted: false,
-            yourName: ""
+            yourName: "",
+            cities: {}
         }
     },
     computed: {
@@ -51,12 +52,17 @@ export default {
         this.yourName = this.$route.params.yourName;
         socket.emit("cityUpdate", this.pollId);
         socket.emit("pageLoaded", this.lang);
+        socket.emit("getPoll", this.pollId)
         socket.emit("getCity", this.pollId);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
+        });
+        socket.on("fullPole", (data) => {
+            console.log(data);
+            this.cities = data.cities;
         });
         this.startFuseTimer();
     },
@@ -83,7 +89,7 @@ export default {
             const timerInterval = 10; // 1 second
             sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.1; // Adjust as needed
+                this.fuseWidth -= 0.00000001; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
@@ -102,6 +108,14 @@ h1 {
     position: center;
     margin-top: 10vw;
 }
+ /* .muteButton {
+  position: absolute;
+  width: 2.5vw;
+  height: 2.5vw;
+  padding: 0.5vw 0 0 0.5vw;
+  margin-left: 45vw;
+  margin-top: -8vh;
+}  */
 
 h2 {
     position: center;

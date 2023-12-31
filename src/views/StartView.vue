@@ -125,8 +125,7 @@ body {
   width: 5vw;
 }
 
-.mysteryButton:hover,
-.muteButton:hover {
+.mysteryButton:hover{
   cursor: pointer;
 }
 
