@@ -1,15 +1,7 @@
 <template>
     <header>
-        <div>
             <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
-        </div>
     </header>
-    <!-- <div class="arrow">
-        <button>
-            <router-link :to="'/createquestions/' + pollId"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
-                </button></router-link>
-        </button>
-    </div> -->
     <div>
         <h1>
             {{ uiLabels.waitingForPlayers }}

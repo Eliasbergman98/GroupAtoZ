@@ -37,11 +37,11 @@
         {{ uiLabels.myCities }}
       </div>
       <hr>
-      <div v-if="Object.keys(submittedCities2).length == 0">
+      <div v-if="Object.keys(submittedCities).length == 0">
         <br>
         {{ uiLabels.placeholderCities }}
       </div>
-      <div v-for="(cityName, cityData) in submittedCities2" :key="cityName">
+      <div v-for="(cityName, cityData) in submittedCities" :key="cityName">
         <p>
           <img id="redCrossRemove" src="/img/redcross.png " v-on:click="removeCity(cityData)">
         <div id="city">{{ uiLabels.city }} <div id="info"> {{ cityData }}</div>
@@ -55,7 +55,7 @@
     </div>
     <div class="gameInfo e">
       <button id="createbutton" v-on:click="sendInfo"
-        :class="{ 'green-button': Object.keys(submittedCities2).length > 0 }"> {{ uiLabels.createGame }} </button>
+        :class="{ 'green-button': Object.keys(submittedCities).length > 0 }"> {{ uiLabels.createGame }} </button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText"
         :inCreateQuestionsView="inCreateQuestionsView">
       </AlertComponent>
@@ -89,7 +89,7 @@ export default {
       alertContentText: "",
       inCreateQuestionsView: true,
       // Separate variables to hold submitted data
-      submittedCities2: {},
+      submittedCities: {},
       isMuted: false,
       showMysteryButton: true,
     }
@@ -129,7 +129,7 @@ export default {
       this.isMuted = !this.isMuted;
     },
     sendInfo: function () {
-      if (Object.keys(this.submittedCities2).length === 0) {
+      if (Object.keys(this.submittedCities).length === 0) {
         this.alertContentText = this.uiLabels.emptyGameAlert;
         this.$refs.alertComponent.openAlert();
       }
@@ -141,8 +141,8 @@ export default {
       }
     },
     addQuestion: function () {
-      for (let i = 0; i < Object.keys(this.submittedCities2).length; i++) {
-        if (this.city === Object.keys(this.submittedCities2)[i]) {
+      for (let i = 0; i < Object.keys(this.submittedCities).length; i++) {
+        if (this.city.toLowerCase() === Object.keys(this.submittedCities)[i].toLowerCase()) {
           this.alertContentText = this.uiLabels.sameCityAlert;
           this.$refs.alertComponent.openAlert();
           return;
@@ -153,15 +153,13 @@ export default {
         this.$refs.alertComponent.openAlert();
         return;
       }
-      if (Object.keys(this.submittedCities2).length >= 5) {
+      if (Object.keys(this.submittedCities).length >= 5) {
         this.alertContentText = this.uiLabels.maxCitiesAlert;
         this.$refs.alertComponent.openAlert();
         return;
       }
       else {
         socket.emit("addQuestion", {
-          //vill emit dessa som nyckel-stad och värden-clues? 
-          // man emitar på detta sättet, det är inte så dom blir inlagda i objektet cities sen utan det sker i data /alicia
           pollId: this.pollId,
           city: this.city,
           clue1: this.clue1,
@@ -170,9 +168,9 @@ export default {
         });
       }
       //kan typ göra om denna kanske, vet ej om den e onödig?
-      if (!this.submittedCities2[this.city]) {
-        this.submittedCities2[this.city] = [];
-        this.submittedCities2[this.city].push(
+      if (!this.submittedCities[this.city]) {
+        this.submittedCities[this.city] = [];
+        this.submittedCities[this.city].push(
           this.clue1,
           this.clue2,
           this.clue3
@@ -187,7 +185,7 @@ export default {
       this.city = cityData;
       socket.emit("removeCity", { pollId: this.pollId, city: this.city });
       // Remove the city from the local submittedCities2 object
-      delete this.submittedCities2[cityData];
+      delete this.submittedCities[cityData];
       this.city = "";
 
     }

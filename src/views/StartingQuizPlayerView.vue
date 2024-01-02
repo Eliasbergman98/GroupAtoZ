@@ -1,8 +1,6 @@
 <template>
     <header>
-        <div>
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
-    </div>
     </header>
     <h2>
         {{ uiLabels.city }} {{ questionNumber }}/{{ Object.keys(cities).length }}
@@ -103,34 +101,34 @@ export default {
 <style scoped>
 /*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
-/* .muteButton {
+.muteButton {
   position: absolute;
   width: 2.5vw;
   height: 2.5vw;
   padding: 0.5vw 0 0 0.5vw;
   margin-left: 45vw;
   margin-top: -8vh;
-} */
+}
 h1 {
     position: center;
-    /* margin-top: 10vw; */
+    margin-top: 10vw;
 }
 
 h2 {
     position: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    /* margin-top: 10vw; */
+    margin-top: 10vw;
 }
 
 @media screen and (max-width:800px) {
     h1 {
         position: center;
-        /* margin-top: 10vw; */
+        margin-top: 10vw; 
     }
 
     h2 {
         position: center;
-        /* margin-top: 10vw; */
+        margin-top: 10vw; 
     }
 }
 </style>

@@ -1,8 +1,6 @@
 <template>
     <header>
-        <div>
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
-    </div>
     </header>
     <h2>
         {{ uiLabels.city }} {{ questionNumber }}/{{ Object.keys(cities).length }}
@@ -108,14 +106,14 @@ h1 {
     position: center;
     margin-top: 10vw;
 }
- /* .muteButton {
+ .muteButton {
   position: absolute;
   width: 2.5vw;
   height: 2.5vw;
   padding: 0.5vw 0 0 0.5vw;
   margin-left: 45vw;
   margin-top: -8vh;
-}  */
+}
 
 h2 {
     position: center;
