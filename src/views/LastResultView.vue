@@ -24,6 +24,7 @@
                     <h2>{{ participants[2].name }}</h2>
                 </div>
             </div>
+            <button v-on:click="backToStart" id="backToStartButton">{{ uiLabels.backToStart }}</button>
         </main>
     </div>
 </template>
@@ -83,6 +84,9 @@ export default {
     methods: {
         playerWithMostPoints() {
             this.participants.sort((a, b) => b.points - a.points);
+        },
+        backToStart() {
+            this.$router.push('/');
         },
         sendInfo: function () {
             socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber });
@@ -197,6 +201,10 @@ h2 {
     transform: rotate(45deg);
     animation: fallAnimation linear infinite;
 }
+#backToStartButton{
+    margin-left: 75vw;
+    margin-top: 50vh;
+}
 
 @keyframes fallAnimation {
     to {
@@ -213,7 +221,7 @@ h2 {
     .podium {
         height: 80vw;
         width: 80vw;
-        top: 60vw;
+        top: 50vw;
         left: 10vw;
     }
 
@@ -223,22 +231,22 @@ h2 {
     }
 
     .a {
-        top: 75vw;
+        top: 65vw;
         right: 42.5vw;
     }
 
     .b {
-        top: 83.5vw;
+        top: 73.5vw;
         right: 66.3vw;
     }
 
     .c {
-        top: 87.3vw;
+        top: 77.3vw;
         right: 18.2vw;
     }
 
     #name1 {
-        top: 142vw;
+        top: 132vw;
         left: 20vw;
     }
 
@@ -247,23 +255,29 @@ h2 {
     }
 
     #name2 {
-        top: 140vw;
+        top: 130vw;
         left: 45.5vw;
     }
 
     #name3 {
-        top: 142vw;
+        top: 132vw;
         left: 70vw;
     }
 
     .confetti-container {
-        position: fixed;
+        position:static; 
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
-        overflow: hidden;
-        pointer-events: none;
     }
-}</style>
+    #backToStartButton{
+        position: absolute;
+        margin-top: 800px;
+        margin-left: 200px;
+
+    }
+    
+}
+</style>
   

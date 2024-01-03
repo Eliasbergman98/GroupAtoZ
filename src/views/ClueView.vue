@@ -59,7 +59,7 @@
     </div>
     <footer>
         <div class="fuse-container">
-            <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
+            <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '15vw' }">
         </div>
     </footer>
 </template>
@@ -86,7 +86,7 @@ export default {
             questionNumber: 0,
             data: {},
             uiLabels: {},
-            fuseWidth: 100,
+            fuseWidth: 98,
             answerClue: "",
             cities: {},
             clueNumber: 0,
@@ -176,7 +176,7 @@ export default {
             else {
                 this.wrongAnswer = false;
             }
-            this.fuseWidth = 100;
+            this.fuseWidth = 98;
             this.buttonClicked = false;
             this.handleClues();
             this.answerClue = "";
@@ -323,7 +323,7 @@ export default {
 
 h1 {
     position: center;
-    margin-top: 10vw;
+    margin-top: 2vw;
 }
 
 h2 {
@@ -340,6 +340,7 @@ h2 {
 
     h1 {
         font-size: 12vw;
+        margin-top: 5vw;
     }
 
     .tester {
@@ -388,8 +389,8 @@ h2 {
         height: 7vw;
         padding: 0.5vw 0 0 0.5vw;
         /* Adjusted padding */
-        margin-left: 40vw;
-        margin-top: 3.5vw;
+        margin-left: 40.2vw;
+        margin-top: 3vw;
     }
 }
 </style>
