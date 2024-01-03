@@ -114,7 +114,6 @@ export default {
 }
 
 #yesbutton {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.5vw;
   position: left;
   background-color: green;
@@ -129,7 +128,6 @@ export default {
 }
 
 #nobutton {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.5vw;
   position: right;
   background-color: red;
