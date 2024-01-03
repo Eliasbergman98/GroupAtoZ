@@ -65,7 +65,6 @@ h2 {
 
 .right-answer,
 .top-participant {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: black;
     font-size: 2vw;
 }
@@ -84,7 +83,6 @@ h2 {
 }
 
 .score-board-component {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     position: center;
     padding: 10em auto 2em 2em;
     font-size: 2vw;
