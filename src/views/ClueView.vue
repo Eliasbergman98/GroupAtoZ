@@ -298,7 +298,6 @@ export default {
     padding: 1vh;
     text-align: center;
     margin-bottom: 1.5vh;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .clueAnswer:hover {

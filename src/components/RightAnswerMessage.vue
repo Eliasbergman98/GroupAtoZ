@@ -25,7 +25,6 @@
 
 <style scoped>
 .right-answer-message {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     position: center;
     padding: 10em auto 2em 2em;
     font-size: 2vw;

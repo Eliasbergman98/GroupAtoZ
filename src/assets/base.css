@@ -71,8 +71,22 @@ img[id=sweimg]:hover,
 #donebutton,
 #nextcitybutton,
 .addTown,
+#backToStartButton, 
+#yesbutton,
+#nobutton,
+.clueAnswer {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
+#howtoplaybutton,
+#createbutton,
+#joinbutton,
+.createbutton,
+#donebutton,
+#nextcitybutton,
+.addTown,
 #backToStartButton {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.7vw;
   color: white;
   background-color: gray;
