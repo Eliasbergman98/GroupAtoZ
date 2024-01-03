@@ -17,7 +17,7 @@
     </div>
     <footer v-if="nextCity">
         <div class="fuse-container">
-            <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
+            <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '15vw' }">
         </div>
     </footer>
 </template>
@@ -41,7 +41,7 @@ export default {
             questionNumber: 0,
             data: {},
             uiLabels: {},
-            fuseWidth: 100,
+            fuseWidth: 98,
             yourName: "",
             creator: false,
             participants: [],
@@ -145,5 +145,12 @@ h2 {
 #nextcitybutton {
 margin-left: 35vw;
 background-color: green;
+}
+@media screen and (max-width:800px) {
+    h1 {
+        margin-top: 20VW;
+        font-size: 7.7vh;
+    }
+
 }
 </style>
