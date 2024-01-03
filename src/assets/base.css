@@ -52,7 +52,8 @@ img[id=sweimg]:hover,
 .muteButton,
 #nextcitybutton,
 #addQuizNameBtn:hover,
-.addTown:hover {
+.addTown:hover,
+#backToStartButton:hover {
   cursor: pointer;
 }
 
@@ -69,7 +70,8 @@ img[id=sweimg]:hover,
 .createbutton,
 #donebutton,
 #nextcitybutton,
-.addTown {
+.addTown,
+#backToStartButton {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.7vw;
   color: white;

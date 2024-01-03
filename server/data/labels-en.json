@@ -80,5 +80,6 @@
 	"placeholderCities": "Once you have added at least one city, the cities for your game will be shown here.",
 	"next": "Next",
 	"waitingForPlayers": "Waiting for players to join...",
-	"sameCityAlert": "Please add a different city. You have already added this one."
+	"sameCityAlert": "Please add a different city. You have already added this one.",
+	"backToStart": "Back to startpage"
 }
