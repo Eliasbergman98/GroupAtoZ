@@ -132,7 +132,6 @@ h1 {
 h2 {
     margin-top: -3vw;
     text-align: center;
-    font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
     text-transform: uppercase;
     font-size: 3vw;
     color: green;
@@ -157,9 +156,8 @@ h2 {
 
 
 #exitGamebutton {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 1.7vw;
-    background-color: red;
+    background-color: rgb(177, 27, 27);
     border: 0.2vw solid black;
     border-radius: 1.5vw;
     padding: 1.7vw;
@@ -168,7 +166,6 @@ h2 {
 }
 
 #gameIDbutton {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 1.7vw;
     background-color: green;
     border: 0.2vw solid black;
@@ -179,7 +176,6 @@ h2 {
 }
 
 #playerJoinedbutton {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 1.7vw;
     background-color: green;
     border: 0.2vw solid black;
@@ -190,7 +186,6 @@ h2 {
 }
 
 .poll {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 1.7vw;
     color: black;
     position: center;
@@ -204,7 +199,7 @@ h2 {
     justify-content: space-between;
     padding: 1em;
     margin-bottom: 2vw;
-    margin-left: 10vw;
+    margin-left: 8vw;
 }
 
 .participants {
@@ -219,7 +214,7 @@ h2 {
 .scroll-wrapper {
     overflow-y: auto;
     height: 15vw;
-    /* Ensure the wrapper takes the full height of the container */
+
 }
 
 .scroll-wrapper ul {
@@ -230,11 +225,11 @@ h2 {
 
 @media screen and (max-width:800px) {
     h1 {
-        font-size: 12vw;
+        font-size: 10vw;
     }
 
     h2 {
-        font-size: 8vw;
+        font-size: 7vw;
     }
 
     .poll {
