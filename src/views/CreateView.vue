@@ -27,7 +27,7 @@
           <button v-for="(avatar, colIndex) in avatars.slice(rowIndex * 8, (rowIndex + 1) * 8)" :key="colIndex"
             @click="selectAvatar(rowIndex * 8 + colIndex)"
             :class="{ 'selected': selectedAvatar === rowIndex * 8 + colIndex }">
-            <img class="emojis" v-bind:src="avatar.url" alt="😄" width="32" height="32">
+            <img class="emojis" v-bind:src="avatar.url">
           </button>
         </div>
       </div>
@@ -115,10 +115,12 @@ export default {
 
 <style scoped>
 h1 {
+  margin-top: -2vw;
   font-size: 5vw;
 }
 
 .poll {
+  top: 5vw;
   position: relative;
   display: grid;
   grid-template-columns: 24vw 26vw 30vw;
@@ -126,7 +128,7 @@ h1 {
   background-color: rgb(163, 163, 243);
   grid-gap: 1vw;
   background-size: cover;
-  margin-top: -6vh;
+  margin-top: -6vw;
 }
 
 .gameInfo {
@@ -138,7 +140,8 @@ h1 {
 }
 
 .a {
-  grid-row-start: 1;
+  margin-top: -7vw;
+  grid-row-start: 2;
   grid-column-start: 1;
   font-size: 2vw;
   width: 50vw;
@@ -157,7 +160,7 @@ h1 {
   text-align: center;
   font-size: 2vw;
   width: 50vw;
-  height: 26vh;
+  height: 15vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
@@ -167,15 +170,15 @@ h1 {
 }
 
 #avatarZone {
-  width: 75%;
-  margin-left: 12.5%;
-  margin-top: 3vh;
+  width: 100%;
+  margin-left: 0%;
+  margin-top: 3vw;
 }
 
 .c {
   grid-row-start: 2;
   grid-column-start: 3;
-  margin-top: 42vh;
+  margin-top: 20vw;
   width: 10vw;
   height: 2vh;
   margin-left: 8vw;
@@ -183,6 +186,11 @@ h1 {
 
 .selected {
   background-color: green;
+}
+.emojis{
+  width: 3vw;
+  height: 3vw;
+
 }
 
 #gameName {
@@ -202,6 +210,10 @@ h1 {
   height: 60%;
   margin-left: 0.5vw;
 }
+
+#createbutton {
+    margin-top: 3vw;
+  }
 
 #addQuizName::placeholder {
   color: gray;
@@ -235,7 +247,7 @@ h1 {
   .a {
     display: flex;
     margin-left: 5vw;
-    margin-top: 2vw;
+    margin-top: -18vw;
     width: 90vw;
     height: 10vw;
   }
@@ -252,30 +264,27 @@ h1 {
     font-size: 3.8vw;
     height: 5vw;
     padding-top: 2vw;
-    margin-left: -4vw;
+    margin-left: -1vw;
   }
 
   .b {
-    margin-top: 3vh;
+    margin-top: 3vw;
     width: 90vw;
     margin-left: 5vw;
     font-size: 5vw;
-    height: 20vh;
+    height: 30vw;
 
   }
-
-  .emojis {
-    height: 4vw;
-    width: 4vw;
-    margin-top: 1vw;
-    margin-left: 1vw;
-  }
-
+  
   .c {
     grid-row-start: 16;
     grid-column-start: 1;
     margin-left: 26vw;
-    margin-top: -3vh;
+    margin-top: -20vw;
+  }
+  .emojis{
+    height: 4vw;
+    width: 4vw;
   }
 
   #createbutton {
@@ -289,6 +298,9 @@ h1 {
     /* margin-top: -1vh; */
     width: 90vw;
     margin-left: -10vw;
+  }
+  #avatarZone{
+    margin-left: 10vw;
   }
 }
 </style>

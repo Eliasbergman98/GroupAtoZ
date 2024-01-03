@@ -273,8 +273,11 @@ h2 {
     }
     #backToStartButton{
         position: absolute;
-        margin-top: 800px;
-        margin-left: 200px;
+        height: 10vh;
+        width: 50vw;
+        font-size: 3vh;
+        margin-top: 110vw;
+        margin-left: -25vw;
 
     }
     
