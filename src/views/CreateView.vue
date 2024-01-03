@@ -145,7 +145,7 @@ h1 {
   grid-column-start: 1;
   font-size: 2vw;
   width: 50vw;
-  height: 60px;
+  height: 5vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
@@ -264,7 +264,7 @@ h1 {
     font-size: 3.8vw;
     height: 5vw;
     padding-top: 2vw;
-    margin-left: -4vw;
+    margin-left: -1vw;
   }
 
   .b {
@@ -281,6 +281,10 @@ h1 {
     grid-column-start: 1;
     margin-left: 26vw;
     margin-top: -20vw;
+  }
+  .emojis{
+    height: 4vw;
+    width: 4vw;
   }
 
   #createbutton {
