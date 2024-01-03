@@ -267,7 +267,6 @@ export default {
 }
 
 .tester {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: left;
     position: center;
     border-radius: 20px;
@@ -299,7 +298,6 @@ export default {
     padding: 1vh;
     text-align: center;
     margin-bottom: 1.5vh;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .clueAnswer:hover {

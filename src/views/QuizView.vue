@@ -165,7 +165,7 @@ h1 {
 }
 
 .gameInfo {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
     width: 50vw;
     height: 20vw;
     text-align: left;
@@ -238,6 +238,10 @@ h1 {
 
 #yourname::placeholder {
     color: gray;
+}
+
+#name, .b {
+  font-weight: bold;
 }
 
 .selected {

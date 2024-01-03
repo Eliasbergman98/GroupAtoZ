@@ -119,7 +119,6 @@ h1 {
 
 h2 {
     position: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 @media screen and (max-width:800px) {

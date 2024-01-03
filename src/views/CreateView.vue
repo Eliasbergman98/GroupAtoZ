@@ -132,7 +132,6 @@ h1 {
 }
 
 .gameInfo {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 50vw;
   height: 20vw;
   text-align: left;
@@ -187,7 +186,6 @@ h1 {
 
 .selected {
   background-color: green;
-
 }
 .emojis{
   width: 3vw;
@@ -196,7 +194,6 @@ h1 {
 }
 
 #gameName {
-  font-weight: bold;
   font-size: 2vw;
   margin-left: 0.5vw;
   padding-top: 1vw;
@@ -224,6 +221,10 @@ h1 {
 
 #title {
   padding-top: 4vh;
+}
+
+#gameName, .b {
+  font-weight: bold;
 }
 
 @media screen and (max-width: 800px) {

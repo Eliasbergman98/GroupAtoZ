@@ -66,7 +66,6 @@ export default {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 1.7vw;
 }
 
@@ -115,7 +114,6 @@ export default {
 }
 
 #yesbutton {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 1.5vw;
   position: left;
   background-color: green;
@@ -130,7 +128,6 @@ export default {
 }
 
 #nobutton {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 1.5vw;
   position: right;
   background-color: red;

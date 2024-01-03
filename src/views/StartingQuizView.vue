@@ -127,7 +127,6 @@ h1 {
 
 h2 {
     position: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     /* margin-top: 10vw; */
 }
 
