@@ -337,7 +337,8 @@ h1 {
 
 .addTown {
   margin-top: 60vh;
-  margin-left: 6vw;
+  margin-left: 4vw;
+  width: 10em;
 }
 
 #createbutton {

@@ -239,6 +239,10 @@ h1 {
     color: gray;
 }
 
+#name, .b {
+  font-weight: bold;
+}
+
 .selected {
     background-color: green;
 }
