@@ -144,17 +144,6 @@ h2 {
     animation: flash 2.3s infinite;
 }
 
-.columns-wrapper {
-    display: flex;
-    justify-content: space-around;
-}
-
-.column {
-    flex-grow: 1;
-    margin: 0 10px;
-}
-
-
 #exitGamebutton {
     font-size: 1.7vw;
     background-color: rgb(177, 27, 27);
@@ -216,11 +205,20 @@ h2 {
     height: 15vw;
 
 }
-
 .scroll-wrapper ul {
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+.columns-wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.column {
+    flex-grow: 1;
+    margin: 0 10px;
 }
 
 @media screen and (max-width:800px) {

@@ -192,17 +192,6 @@ h2 {
     animation: flash 2.3s infinite;
 }
 
-.columns-wrapper {
-    display: flex;
-    justify-content: space-around;
-}
-
-.column {
-    flex-grow: 1;
-    margin: 0 10px;
-}
-
-
 #createbutton {
     font-size: 1.7vw;
     background-color: green;
@@ -242,49 +231,41 @@ h2 {
 .button-container {
     margin-top: 2vw;
     position: relative;
-    display: grid;
-    grid-template-columns: 30vw 10vw 1vw;
-    grid-template-rows: 5vw 15vw 14vw;
-    background-color: rgb(163, 163, 243);
-    grid-gap: 1vw;
-    background-size: cover;
-    font-size: 2vw;
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    margin-bottom: 2vw;
+    margin-left: 8vw;
 }
 
-.gameInfo {
-    width: 50vw;
-    height: 1vw;
-    text-align: left;
-    position: left;
+.participants {
+    position: absolute;
 }
 
-.a {
-    grid-row-start: 1;
-    grid-column-start: 1;
-    padding: 10em auto 2em 2em;
-    text-align: left;
-    width: 35vw;
-    height: 25vw;
-    background-size: cover;
-    background-color: rgb(201, 241, 244);
-    border: 2px solid black;
-    margin-left: 10vw;
-    border-radius: 20px;
-    margin-right: 3vw;
-    padding: 0.7em 0 0 1em;
-    overflow-y: hidden;
+.emojies {
+    width: 2vw;
+    height: 2vw;
 }
-
 .scroll-wrapper {
     overflow-y: auto;
     height: 15vw;
-    /* Ensure the wrapper takes the full height of the container */
 }
 
 .scroll-wrapper ul {
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+.columns-wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.column {
+    flex-grow: 1;
+    margin: 0 10px;
 }
 
 @media screen and (max-width:800px) {
