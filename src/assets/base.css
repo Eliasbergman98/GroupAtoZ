@@ -53,7 +53,8 @@ img[id=sweimg]:hover,
 #nextcitybutton,
 #addQuizNameBtn:hover,
 .addTown:hover,
-#backToStartButton:hover {
+#backToStartButton:hover,  
+.addTown {
   cursor: pointer;
 }
 
@@ -71,7 +72,8 @@ img[id=sweimg]:hover,
 #donebutton,
 #nextcitybutton,
 .addTown,
-#backToStartButton {
+#backToStartButton,  
+.addTown {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 1.7vw;
   color: white;
@@ -95,12 +97,11 @@ img[id=sweimg]:hover,
 
   .muteButton {
     position: absolute;
-    width: 7vw;
-    height: 7vw;
+    width: 5vw;
+    height: 5vw;
     padding: 0.5vw 0 0 0.5vw;
     /* Adjusted padding */
     margin-left: 40vw;
-    margin-top: 3vw;
   }
 
   #arrow {
