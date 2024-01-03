@@ -154,7 +154,8 @@ body {
 
 #howtoplaybutton {
   margin-left: 2vw;
-  margin-right: 2vw;
+  margin-right: 1vw;
+  width: 10em;
   background-color: green;
 }
 

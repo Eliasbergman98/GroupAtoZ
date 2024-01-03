@@ -161,7 +161,7 @@ h1 {
     background-color: rgb(163, 163, 243);
     grid-gap: 1vw;
     background-size: cover;
-    margin-top: -6vh;
+    margin-top: -3vw;
 }
 
 .gameInfo {
@@ -195,7 +195,7 @@ h1 {
     text-align: center;
     font-size: 2vw;
     width: 50vw;
-    height: 26vh;
+    height: 13vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
@@ -206,16 +206,16 @@ h1 {
 }
 
 #avatarZone {
-    width: 75%;
-    margin-left: 12.5%;
-    margin-top: 3vh;
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 2vw;
 }
 
 .c {
     grid-row-start: 2;
     grid-column-start: 3;
     width: 10vw;
-    margin-top: 42vh;
+    margin-top: 20vw;
     margin-left: -27vw;
     height: 2vw;
 }
@@ -240,8 +240,16 @@ h1 {
     color: gray;
 }
 
+#name, .b {
+  font-weight: bold;
+}
+
 .selected {
     background-color: green;
+}
+.emojis{
+    height:2vw;
+    width: 2vw;
 }
 
 @media screen and (max-width: 800px) {
@@ -257,7 +265,7 @@ h1 {
     }
 
     .a {
-        margin-left: 0vw;
+        margin-left: -5vw;
         /* padding-top: 1vh;
         padding-left: 2vw; */
         font-size: 5vw;
@@ -272,9 +280,9 @@ h1 {
     }
     .b {
         width: 90vw;
-        height: 20vh;
-        margin-left: 0vw;
-        margin-top: 1vh;
+        height: 30vw;
+        margin-left: -5vw;
+        margin-top: 1vw;
         font-size: 5vw;
     }
 
@@ -286,21 +294,24 @@ h1 {
     }
 
     .c {
-        margin-right: 14vw;
+        margin-left: -40vw;
         /* margin-left: 26vw; */
-        margin-top: 3vh;
+        margin-top: 2vw;
     }
 
     #donebutton {
-        height: 10vh;
+        height: 10vw;
         width: 50vw;
-        font-size: 4vh;
-        margin-bottom: 2vh;
+        font-size: 2vw;
+        margin-bottom: 2vw;
     }
 
     .avatar-row {
         width: 91vw;
         margin-left: -10vw;
+    }
+    #avatarZone{
+        margin-left: 10vw;
     }
 }
 </style>
