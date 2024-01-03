@@ -40,4 +40,13 @@
     text-align: center;
 }
 
+@media screen and (max-width: 800px) {
+  .wrong-answer-message{
+        margin: 2vw auto 20vw auto;
+        font-size: 3vw;
+        width: 80vw;
+        height: 40vw;
+      }
+}
+
 </style>

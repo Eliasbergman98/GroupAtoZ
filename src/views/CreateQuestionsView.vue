@@ -204,7 +204,7 @@ h1 {
 .fillInfo {
   height: 2vw;
   width: 25vw;
-  margin-top: 1.5vh;
+  margin-top: 1.5vw;
   border-color: black;
   border-top: 1vh;
   border-left: 1vw;
@@ -214,11 +214,10 @@ h1 {
   margin-left: 1vw;
   font-size: 1.4vw;
   background-color: rgb(201, 241, 244);
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .poll {
-  margin-top: -2vh;
+  margin-top: 2vw;
   position: relative;
   display: grid;
   grid-template-columns: 30vw 30vw 7vw;
@@ -228,7 +227,6 @@ h1 {
 
 
 .gameInfo {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 30vw;
   height: 1vw;
   text-align: left;
@@ -243,7 +241,7 @@ h1 {
   padding-left: 5vw;
   font-size: 3vh;
   width: 40vw;
-  height: 10vh;
+  height: 5vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
@@ -259,7 +257,7 @@ h1 {
   padding-left: 5vw;
   font-size: 3vh;
   width: 40vw;
-  height: 10vh;
+  height: 5vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
   border: 2px solid black;
@@ -294,6 +292,10 @@ h1 {
   margin-left: 4.5vw;
   width: 2vw;
 }
+.f{
+  grid-row-start: 5;
+  grid-column-start: 1;
+}
 
 /* 
 .f {
@@ -317,10 +319,10 @@ h1 {
   grid-column-start: 3;
   font-size: 1.2vw;
   width: 40vw;
-  height: 55.5vh;
+  height: 25.8vw;
   background-size: cover;
   background-color: rgb(201, 241, 244);
-  border: 0.2vw solid black;
+  border: 2px solid black;
   border-radius: 2vw;
   font-style: oblique;
   overflow-y: auto;
@@ -336,12 +338,13 @@ h1 {
 }
 
 .addTown {
-  margin-top: 60vh;
-  margin-left: 6vw;
+  grid-row-start: 5;
+  grid-column-start: 1;
+  /* margin-top: 60vh; */
+  margin-left: 36vw;
 }
 
 #createbutton {
-  margin-top: -1.5vh;
   margin-left: 8vw;
 }
 
@@ -379,10 +382,10 @@ h1 {
   padding-top: 2vh;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
 
   h1 {
-    margin-top: 2vw;
+    margin-top: 10vw;
     font-size: 8vw;
   }
 
@@ -390,7 +393,7 @@ h1 {
     position: relative;
     display: grid;
     grid-template-columns: 39vw 39vw 9.1vw;
-    grid-template-rows: 10vw 10vw 10vw 10vw 5vw 50vw 14vw;
+    grid-template-rows: 17vw 17vw 17vw 17vw 5vw 50vw 14vw;
     background-color: rgb(163, 163, 243);
     grid-gap: 6vw;
     margin-top: 5vw;
@@ -408,13 +411,18 @@ h1 {
     padding-top: 2vw;
     font-size: 4vw;
     width: 75vw;
-    height: 10vw;
+    height: 15vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 10vw;
+    margin-top: 5vw;
     display: flex;
     overflow: hidden;
+  }
+
+  .f{
+    margin-top: 5vw
   }
 
   /* .addTown {
@@ -447,12 +455,11 @@ h1 {
     border-top: 1vw;
     border-left: 1vw;
     border-right: 1vw;
-    max-height: 6vh;
+    max-height: 6vw;
     max-width: 30vw;
     margin-left: 1vw;
     font-size: 2.8vw;
     background-color: rgb(201, 241, 244);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
 
   .e {
@@ -462,12 +469,12 @@ h1 {
     width: 80vw;
   }
 
-  .createbutton {
-    height: 10vh;
+  #createbutton {
+    height: 11vh;
     width: 50vw;
     font-size: 4vh;
     margin-left: 20vw;
-    margin-top: 33vw;
+    margin-top: 55vw;
     margin-bottom: 5vw;
   }
 
@@ -475,8 +482,7 @@ h1 {
     height: 10vh;
     width: 50vw;
     font-size: 4vh;
-    margin-left: -20vw;
-    margin-top: 65vw;
+    margin-left: 24.5vw;
   }
 
   .right-section {
@@ -484,14 +490,13 @@ h1 {
     grid-column-start: 1;
     font-size: 2.4vw;
     margin-left: 10vw;
-    margin-top: 15vw;
+    margin-top: 35vw;
     width: 80vw;
     height: 70vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 0.2vw solid black;
     border-radius: 20px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: oblique;
     overflow-y: auto;
   }
