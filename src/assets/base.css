@@ -90,6 +90,13 @@ img[id=sweimg]:hover,
   margin-left: 45vw;
   margin-top: 2vh;
 }
+#arrow {
+  background-color: rgb(163, 163, 243);
+  text-align: left;
+  width: 3vw;
+  margin-left: -49vw;
+  margin-top: 2vh;
+}
 
 @media screen and (max-width:800px) {
 
@@ -106,9 +113,10 @@ img[id=sweimg]:hover,
   #arrow {
     background-color: rgb(163, 163, 243);
     text-align: left;
-    width: 6vw;
+    width: 8vw;
+    height: 8vw;
     margin-left: -47vw;
-    margin-top: 1vw;
+    margin-top: 3vw;
   }
 
   .arrow button {
