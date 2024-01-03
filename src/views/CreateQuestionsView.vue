@@ -322,7 +322,6 @@ h1 {
   background-color: rgb(201, 241, 244);
   border: 0.2vw solid black;
   border-radius: 2vw;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-style: oblique;
   overflow-y: auto;
   margin-left: -5vw;

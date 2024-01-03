@@ -267,7 +267,6 @@ export default {
 }
 
 .tester {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: left;
     position: center;
     border-radius: 20px;

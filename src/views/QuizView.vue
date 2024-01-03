@@ -165,7 +165,6 @@ h1 {
 }
 
 .gameInfo {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 50vw;
     height: 20vw;
     text-align: left;
