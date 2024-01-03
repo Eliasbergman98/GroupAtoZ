@@ -165,6 +165,7 @@ h1 {
 }
 
 .gameInfo {
+    font-weight: bold;
     width: 50vw;
     height: 20vw;
     text-align: left;
