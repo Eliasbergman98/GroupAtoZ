@@ -80,5 +80,6 @@
 	"placeholderCities": "När du har lagt till minst en stad så kommer städerna för ditt spel att visas här.",
 	"next": "Nästa",
 	"waitingForPlayers": "Väntar på att spelare ska ansluta...",
-	"sameCityAlert": "Vänligen lägg till en annan stad. Du har redan lagt till denna."
+	"sameCityAlert": "Vänligen lägg till en annan stad. Du har redan lagt till denna.",
+	"backToStart": "Tillbaka till startsidan"
 }
