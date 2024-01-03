@@ -52,7 +52,8 @@ img[id=sweimg]:hover,
 .muteButton,
 #nextcitybutton,
 #addQuizNameBtn:hover,
-.addTown:hover {
+.addTown:hover,
+#backToStartButton:hover {
   cursor: pointer;
 }
 
@@ -69,8 +70,23 @@ img[id=sweimg]:hover,
 .createbutton,
 #donebutton,
 #nextcitybutton,
-.addTown {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+.addTown,
+#backToStartButton, 
+#yesbutton,
+#nobutton,
+.clueAnswer {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
+#howtoplaybutton,
+#createbutton,
+#joinbutton,
+.createbutton,
+#donebutton,
+#nextcitybutton,
+.addTown,
+#backToStartButton {
   font-size: 1.7vw;
   color: white;
   background-color: gray;
@@ -86,6 +102,13 @@ img[id=sweimg]:hover,
   height: 2.5vw;
   padding: 0.5vw 0 0 0.5vw;
   margin-left: 45vw;
+  margin-top: 2vh;
+}
+#arrow {
+  background-color: rgb(163, 163, 243);
+  text-align: left;
+  width: 3vw;
+  margin-left: -49vw;
   margin-top: 2vh;
 }
 
@@ -104,9 +127,10 @@ img[id=sweimg]:hover,
   #arrow {
     background-color: rgb(163, 163, 243);
     text-align: left;
-    width: 6vw;
+    width: 8vw;
+    height: 8vw;
     margin-left: -47vw;
-    margin-top: 1vw;
+    margin-top: 3vw;
   }
 
   .arrow button {

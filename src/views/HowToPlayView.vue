@@ -8,7 +8,7 @@
     <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
   <div>
-    <img id="brake" src="/img/brake.png">
+    <img id="brake" src="/img/brake.png" :style="{position: absolute}">
     <h1>
       {{ uiLabels.heading }}
     </h1>
@@ -84,17 +84,8 @@ export default {
 
 <style scoped>
 
-.muteButton{
-    position: absolute;
-    width: 3vw;
-    height: 3vw;
-    padding: 0.5vw 0 0 0.5vw;
-    margin-left: 45vw;
-    margin-top: 1vw;
-}
-
 #brake {
-  margin-top:-12vh;
+  margin-top:-5vw;
   width: 15vw;
 }
 

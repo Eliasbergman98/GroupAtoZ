@@ -2,19 +2,21 @@
     <header>
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </header>
-    <h2>
-        {{ uiLabels.city }} {{ questionNumber }}/{{ Object.keys(cities).length }}
-    </h2>
-    <h1>
-        {{ uiLabels.whereTo }}
-    </h1>
+    <div class="titelClass">
+        <h2>
+            {{ uiLabels.city }} {{ questionNumber }}/{{ Object.keys(cities).length }}
+        </h2>
+        <h1>
+            {{ uiLabels.whereTo }}
+        </h1>
+    </div>
     <audio ref="audioPlayer" autoplay loop>
         <source src="/img/train1.mp3" type="audio/mp3" />
         Your browser does not support the audio element.
     </audio>
     <footer>
         <div class="fuse-container">
-            <img id="fuseLine" src="/img/test1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
+            <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '15vw'}">
         </div>
     </footer>
 </template>
@@ -33,7 +35,7 @@ export default {
             pollId: "",
             questionNumber: 0,
             uiLabels: {},
-            fuseWidth: 100,
+            fuseWidth: 98,
             isMuted: false,
             yourName: "",
             cities: {}
@@ -85,7 +87,7 @@ export default {
 
             sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
-                this.fuseWidth -= 0.00000001; // Adjust as needed
+                this.fuseWidth -= 0.1; // Adjust as needed
 
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
@@ -99,36 +101,39 @@ export default {
 </script>  
 
 <style scoped>
-/*Explosion och keyframes gör inget atm, ska fixa det sen. */
-
+.titelClass{
+     margin-top: 5vw;
+}
 .muteButton {
-  position: absolute;
+  position: relative;
   width: 2.5vw;
   height: 2.5vw;
   padding: 0.5vw 0 0 0.5vw;
-  margin-left: 45vw;
-  margin-top: -8vh;
-}
+  margin-left: 92vw;
+  
+} 
 h1 {
     position: center;
-    margin-top: 10vw;
+    /* margin-top: 10vw; */
 }
 
 h2 {
     position: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-top: 10vw;
 }
 
 @media screen and (max-width:800px) {
     h1 {
-        position: center;
-        margin-top: 10vw; 
+        margin-top: 20VW;
+        font-size: 7.7vh;
     }
+    .muteButton {
+    width: 7vw;
+    height: 7vw;
+    padding: 0.5vw 0 0 0.5vw;
+    /* Adjusted padding */
+    margin-left: 88vw;
+    margin-top: 3vw;
+  }
 
-    h2 {
-        position: center;
-        margin-top: 10vw; 
-    }
 }
 </style>

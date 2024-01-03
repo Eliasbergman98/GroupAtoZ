@@ -30,7 +30,8 @@
                 </div>
             </div>
             <div class="gameInfo c">
-                <button id="donebutton" v-on:click="stopMusicAndStartGame" :class="{ 'green-button': yourName !== '' }"> {{ uiLabels.doneButton }}</button>
+                <button id="donebutton" v-on:click="stopMusicAndStartGame" :class="{ 'green-button': yourName !== '' }"> {{
+                    uiLabels.doneButton }}</button>
                 <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
                 </AlertComponent>
             </div>
@@ -164,7 +165,7 @@ h1 {
 }
 
 .gameInfo {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
     width: 50vw;
     height: 20vw;
     text-align: left;
@@ -239,6 +240,10 @@ h1 {
     color: gray;
 }
 
+#name, .b {
+  font-weight: bold;
+}
+
 .selected {
     background-color: green;
 }
@@ -257,8 +262,8 @@ h1 {
 
     .a {
         margin-left: 0vw;
-        padding-top: 1vh;
-        padding-left: 2vw;
+        /* padding-top: 1vh;
+        padding-left: 2vw; */
         font-size: 5vw;
         width: 90vw;
         height: 10vw;
@@ -266,25 +271,28 @@ h1 {
 
     #yourname {
         font-size: 4vw;
+        padding-top: 3vw;
+        margin-bottom: 3vw;
     }
-
     .b {
         width: 90vw;
-        height: 40vh;
+        height: 20vh;
         margin-left: 0vw;
+        margin-top: 1vh;
         font-size: 5vw;
     }
 
     .emojis {
-        height: 5vw;
-        width: 5vw;
+        height: 4vw;
+        width: 4vw;
         margin-top: 1vw;
         margin-left: 1vw;
     }
 
     .c {
-        margin-right: 15vw;
-        margin-top: 5vh;
+        margin-right: 14vw;
+        /* margin-left: 26vw; */
+        margin-top: 3vh;
     }
 
     #donebutton {
@@ -294,5 +302,9 @@ h1 {
         margin-bottom: 2vh;
     }
 
+    .avatar-row {
+        width: 91vw;
+        margin-left: -10vw;
+    }
 }
 </style>

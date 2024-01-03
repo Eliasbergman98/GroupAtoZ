@@ -242,21 +242,37 @@ h2 {
 .button-container {
     margin-top: 2vw;
     position: relative;
-    width: 80vw;
-    display: flex;
-    justify-content: space-between;
-    padding: 1em;
-    margin-bottom: 2vw;
-    margin-left: 8vw;
+    display: grid;
+    grid-template-columns: 30vw 10vw 1vw;
+    grid-template-rows: 5vw 15vw 14vw;
+    background-color: rgb(163, 163, 243);
+    grid-gap: 1vw;
+    background-size: cover;
+    font-size: 2vw;
 }
 
-.participants {
-    position: absolute;
+.gameInfo {
+    width: 50vw;
+    height: 1vw;
+    text-align: left;
+    position: left;
 }
 
-.emojies {
-    width: 2vw;
-    height: 2vw;
+.a {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    padding: 10em auto 2em 2em;
+    text-align: left;
+    width: 35vw;
+    height: 25vw;
+    background-size: cover;
+    background-color: rgb(201, 241, 244);
+    border: 2px solid black;
+    margin-left: 10vw;
+    border-radius: 20px;
+    margin-right: 3vw;
+    padding: 0.7em 0 0 1em;
+    overflow-y: hidden;
 }
 
 .scroll-wrapper {

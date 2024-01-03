@@ -121,7 +121,7 @@ h1 {
 .poll {
   position: relative;
   display: grid;
-  grid-template-columns: 24vw 26vw 30w;
+  grid-template-columns: 24vw 26vw 30vw;
   grid-template-rows: 5vw 5vw 10vw;
   background-color: rgb(163, 163, 243);
   grid-gap: 1vw;
@@ -130,7 +130,6 @@ h1 {
 }
 
 .gameInfo {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 50vw;
   height: 20vw;
   text-align: left;
@@ -179,16 +178,14 @@ h1 {
   margin-top: 42vh;
   width: 10vw;
   height: 2vh;
-  margin-left: -32.5vw;
+  margin-left: 8vw;
 }
 
 .selected {
   background-color: green;
-
 }
 
 #gameName {
-  font-weight: bold;
   font-size: 2vw;
   margin-left: 0.5vw;
   padding-top: 1vw;
@@ -214,6 +211,10 @@ h1 {
   padding-top: 4vh;
 }
 
+#gameName, .b {
+  font-weight: bold;
+}
+
 @media screen and (max-width: 800px) {
   h1 {
     font-size: 12vw;
@@ -223,7 +224,7 @@ h1 {
   .poll {
     position: relative;
     display: grid;
-    grid-template-columns: 24vw 16vw 10w;
+    grid-template-columns: 24vw 16vw 10vw;
     grid-template-rows: 5vw 5vw 10vw;
     background-color: rgb(163, 163, 243);
     grid-gap: 4vw;
@@ -247,24 +248,25 @@ h1 {
   }
 
   .addQuizName {
-    width: 55vw;
+    width: 60vw;
     font-size: 3.8vw;
     height: 5vw;
-    padding-top: 2.5vw;
+    padding-top: 2vw;
+    margin-left: -4vw;
   }
 
   .b {
-    margin-top: 5vw;
+    margin-top: 3vh;
     width: 90vw;
     margin-left: 5vw;
-    font-size: 8vw;
-    height: 40vh;
+    font-size: 5vw;
+    height: 20vh;
 
   }
 
-  .emojies {
-    height: 5vw;
-    width: 5vw;
+  .emojis {
+    height: 4vw;
+    width: 4vw;
     margin-top: 1vw;
     margin-left: 1vw;
   }
@@ -272,16 +274,21 @@ h1 {
   .c {
     grid-row-start: 16;
     grid-column-start: 1;
-    margin-left: 25vw;
-    margin-top: 17vh;
-
+    margin-left: 26vw;
+    margin-top: -3vh;
   }
 
-  .createbutton {
+  #createbutton {
     height: 10vh;
     width: 50vw;
     font-size: 4vh;
     margin-bottom: 2vh;
+  }
+
+  .avatar-row {
+    /* margin-top: -1vh; */
+    width: 90vw;
+    margin-left: -10vw;
   }
 }
 </style>
