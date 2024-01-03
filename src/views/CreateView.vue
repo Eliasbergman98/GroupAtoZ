@@ -155,6 +155,7 @@ h1 {
 }
 
 .b {
+  margin-top: -1vw;
   grid-row-start: 2;
   grid-column-start: 1;
   text-align: center;
@@ -212,7 +213,7 @@ h1 {
 }
 
 #createbutton {
-    margin-top: 3vw;
+    margin-top: 1vw;
   }
 
 #addQuizName::placeholder {
