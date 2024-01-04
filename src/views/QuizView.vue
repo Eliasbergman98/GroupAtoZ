@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="gameInfo c">
-                <button id="donebutton" v-on:click="stopMusicAndStartGame" :class="{ 'green-button': yourName !== '' }"> {{
+                <button id="donebutton" v-on:click="stopMusicAndStartGame" :class="{ 'green-button': yourName !== '' && selectedAvatar !== null}"> {{
                     uiLabels.doneButton }}</button>
                 <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
                 </AlertComponent>
