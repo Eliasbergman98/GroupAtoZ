@@ -202,6 +202,7 @@ h1 {
 }
 
 .fillInfo {
+  font-family: Helvetica, Arial, sans-serif; 
   height: 2vw;
   width: 25vw;
   margin-top: 1.5vw;
