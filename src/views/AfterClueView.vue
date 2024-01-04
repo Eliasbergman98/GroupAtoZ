@@ -15,6 +15,8 @@
     <div v-if="creator && !nextCity">
         <button id="nextcitybutton" v-on:click="movingToNextCity"> {{ uiLabels.nextCity }} </button>
     </div>
+    <div v-else-if="!creator && !nextCity" id="waiting-next-city">
+        {{ uiLabels.waitingNextCity }}</div>
     <footer v-if="nextCity">
         <div class="fuse-container">
             <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '15vw' }">
@@ -122,7 +124,7 @@ export default {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval) );
+            }, timerInterval));
         }
     }
 }
@@ -142,14 +144,28 @@ h2 {
 }
 
 #nextcitybutton {
-margin-left: 35vw;
-background-color: green;
+    margin-left: 35vw;
+    background-color: green;
 }
-@media screen and (max-width:800px) {
+
+#waiting-next-city {
+    font-size: 3vw;
+    font-weight: bold;
+}
+
+@media screen and (max-width:900px) {
     h1 {
         margin-top: 20VW;
         font-size: 7.7vh;
     }
-
+    #nextcitybutton {
+        margin-left: 60vw;
+        font-size: 7vw;
+        color: white;
+        border: 2px solid black;
+        padding: 3vw;
+        margin: 5vw;
+    }
 }
+
 </style>
