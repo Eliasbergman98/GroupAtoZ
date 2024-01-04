@@ -7,7 +7,7 @@
 
   <div class="arrow">
     <router-link to="/"> <img id="arrow" src="/img/arrow.png">
-     </router-link>
+    </router-link>
   </div>
   <h1>
     {{ uiLabels.createYourGame }}
@@ -80,10 +80,11 @@ export default {
     })
     socket.emit("pageLoaded", this.lang);
     //socket.on("pollCreated", (data) => console.log("pollId created in createview:", data))     TA INTE BORT DENNA
-        // Check sessionStorage for muted state
-        const isMuted = sessionStorage.getItem("isMuted");
-      if (isMuted) {
-        this.isMuted = JSON.parse(isMuted);}
+    // Check sessionStorage for muted state
+    const isMuted = sessionStorage.getItem("isMuted");
+    if (isMuted) {
+      this.isMuted = JSON.parse(isMuted);
+    }
   },
   methods: {
     createPoll: function () {
@@ -194,7 +195,8 @@ h1 {
 .selected {
   background-color: green;
 }
-.emojis{
+
+.emojis {
   width: 3vw;
   height: 3vw;
 
@@ -217,14 +219,15 @@ h1 {
   height: 60%;
   margin-left: 0.5vw;
 }
-.muteButton{
+
+.muteButton {
   margin-top: -1vw;
 
 }
 
 #createbutton {
-    margin-top: 1vw;
-  }
+  margin-top: 1vw;
+}
 
 #addQuizName::placeholder {
   color: gray;
@@ -233,16 +236,24 @@ h1 {
 #title {
   padding-top: 4vh;
 }
-#arrow{
+
+#arrow {
   position: absolute;
   top: -0.2vw;
 }
 
-#gameName, .b {
+#gameName,
+.b {
   font-weight: bold;
 }
 
 @media screen and (max-width: 800px) {
+
+  .muteButton {
+    margin-top: -3vw;
+
+  }
+
   h1 {
     font-size: 11.5vw;
     margin-top: 5vw;
@@ -291,14 +302,15 @@ h1 {
     height: 30vw;
 
   }
-  
+
   .c {
     grid-row-start: 3;
     grid-column-start: 1;
     margin-left: 25vw;
     margin-top: 23vw;
   }
-  .emojis{
+
+  .emojis {
     height: 4vw;
     width: 4vw;
   }
@@ -315,8 +327,8 @@ h1 {
     width: 90vw;
     margin-left: -10vw;
   }
-  #avatarZone{
+
+  #avatarZone {
     margin-left: 10vw;
   }
-}
-</style>
+}</style>
