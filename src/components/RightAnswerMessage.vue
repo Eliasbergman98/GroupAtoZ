@@ -38,4 +38,13 @@
     margin-top: 3vw;
     text-align: center;
 }
+
+@media screen and (max-width: 800px) {
+  .right-answer-message{
+        margin: 2vw auto 20vw auto;
+        font-size: 3vw;
+        width: 80vw;
+        height: 40vw;
+      }
+}
 </style>
