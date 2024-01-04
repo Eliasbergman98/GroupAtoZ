@@ -80,6 +80,10 @@ export default {
     })
     socket.emit("pageLoaded", this.lang);
     //socket.on("pollCreated", (data) => console.log("pollId created in createview:", data))     TA INTE BORT DENNA
+        // Check sessionStorage for muted state
+        const isMuted = sessionStorage.getItem("isMuted");
+      if (isMuted) {
+        this.isMuted = JSON.parse(isMuted);}
   },
   methods: {
     createPoll: function () {
@@ -107,6 +111,8 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
+      sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
     },
   }
 

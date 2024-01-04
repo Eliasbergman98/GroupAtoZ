@@ -5,13 +5,13 @@
       <img id="ukimg" src="/img/ukflag.png" v-on:click="switchLanguage('en')">
     </div>
     <div>
-      <img v-if="showMysteryButton" class="mysteryButton" @click="toggleMusic" src="/img/dontPress.png"
+      <img v-if="showMysteryButton" class="mysteryButton" @click="toggleMusic" src="/img/playbutton.png"
         alt="Toggle Mute" />
       <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
 
     </div>
   </header>
-
+<!-- sessionstorage, i createdhooken på efterföljande sidor, spara state, -->
   <main>
     <section id="section1">
       <img id="brake" src="/img/brake.png">
@@ -62,6 +62,11 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels
     });
+
+    // Check sessionStorage for muted state
+    const isMuted = sessionStorage.getItem("isMuted");
+      if (isMuted) {
+        this.isMuted = JSON.parse(isMuted);}
   },
   methods: {
     switchLanguage: function (lang) {
@@ -79,6 +84,8 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
+      sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
     },
   }
 }
@@ -116,17 +123,6 @@ body {
 #ukimg {
   margin-right: 10px;
   width: 4vw;
-}
-
-.mysteryButton {
-  position: absolute;
-  margin-left: 39vw;
-  margin-top: 0.5vw;
-  width: 5vw;
-}
-
-.mysteryButton:hover{
-  cursor: pointer;
 }
 
 .button-container {
@@ -171,15 +167,6 @@ h2 {
 }
 
 @media screen and (max-width: 800px) {
-
-  .mysteryButton {
-    position: absolute;
-    margin-left: 28vw;
-    margin-top: 2vw;
-    width: 10vw;
-    height: 10vw;
-  }
-
 
   #brake {
     margin-top: 5vw;
@@ -226,7 +213,6 @@ h2 {
   #joinbutton {
     margin: 4vw 0;
     width: 75vw;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 7vw;
     border: 0.3vw solid black;
   }

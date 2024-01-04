@@ -84,6 +84,10 @@ export default {
         socket.on("fullPole", (data) => {
             this.quizName = data.quizName;
         });
+            // Check sessionStorage for muted state
+        const isMuted = sessionStorage.getItem("isMuted");
+            if (isMuted) {
+                this.isMuted = JSON.parse(isMuted);}
 
     },
     methods: {
@@ -100,6 +104,8 @@ export default {
             const audioPlayer = this.$root.$refs.audioPlayer;
             audioPlayer.muted = !audioPlayer.muted;
             this.isMuted = !this.isMuted;
+            sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
         },
         stopMusicAndStartGame() {
             const audioPlayer = this.$root.$refs.audioPlayer;

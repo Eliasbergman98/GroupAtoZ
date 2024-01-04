@@ -112,6 +112,10 @@ export default {
       this.uiLabels = labels;
     });
     socket.emit("getPoll", this.pollId);
+    // Check sessionStorage for muted state
+      const isMuted = sessionStorage.getItem("isMuted");
+    if (isMuted) {
+      this.isMuted = JSON.parse(isMuted);}
   },
   methods: {
     createPoll: function () {
@@ -127,6 +131,8 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
+      sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
     },
     sendInfo: function () {
       if (Object.keys(this.submittedCities).length === 0) {
@@ -197,7 +203,7 @@ export default {
   
 <style scoped>
 h1 {
-  font-size: 5vw;
+  font-size: 4.7vw;
   margin-top: -5vh;
 }
 
