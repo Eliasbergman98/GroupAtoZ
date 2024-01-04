@@ -152,10 +152,8 @@ export default {
   }
 
   #joinbutton {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 7vw;
     color: white;
-    background-color: gray;
     border: 2px solid black;
     padding: 5vw;
     margin: 5vw;

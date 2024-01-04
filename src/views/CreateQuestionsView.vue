@@ -424,7 +424,7 @@ h1 {
   }
 
   .f{
-    margin-top: 5vw
+    margin-top: 5vw;
   }
 
   /* .addTown {

@@ -295,7 +295,6 @@ h1 {
 
     .c {
         margin-left: -40vw;
-        /* margin-left: 26vw; */
         margin-top: 2vw;
     }
 
