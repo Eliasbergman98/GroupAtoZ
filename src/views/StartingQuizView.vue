@@ -137,13 +137,13 @@ h2 {
         font-size: 7.7vh;
     }
     .muteButton {
-    width: 7vw;
-    height: 7vw;
-    padding: 0.5vw 0 0 0.5vw;
-    /* Adjusted padding */
-    margin-left: 88vw;
-    margin-top: 3vw;
-  }
+        position: absolute;
+        width: 4vw;
+        height: 4vw;
+        padding: 0.5vw 0 0 0.5vw;
+        margin-left: 42vw;
+        margin-top: -2vw;
+    }
 
 }
 </style>

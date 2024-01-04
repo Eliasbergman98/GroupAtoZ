@@ -34,6 +34,7 @@
     </div>
     <div class="gameInfo c">
       <button id="createbutton" v-on:click="createPoll" :class="{ 'green-button': quizName !== '' && selectedAvatar !== null }"> {{ uiLabels.next }}</button>
+      <button id="createbutton" v-on:click="createPoll" :class="{ 'green-button': quizName !== '' && selectedAvatar !== null}"> {{ uiLabels.next }}</button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
       </AlertComponent>
     </div>
@@ -80,6 +81,10 @@ export default {
     })
     socket.emit("pageLoaded", this.lang);
     //socket.on("pollCreated", (data) => console.log("pollId created in createview:", data))     TA INTE BORT DENNA
+        // Check sessionStorage for muted state
+        const isMuted = sessionStorage.getItem("isMuted");
+      if (isMuted) {
+        this.isMuted = JSON.parse(isMuted);}
   },
   methods: {
     createPoll: function () {
@@ -107,6 +112,8 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
+      sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
     },
   }
 
@@ -211,6 +218,10 @@ h1 {
   height: 60%;
   margin-left: 0.5vw;
 }
+.muteButton{
+  margin-top: -1vw;
+
+}
 
 #createbutton {
     margin-top: 1vw;
@@ -225,9 +236,6 @@ h1 {
 }
 #arrow{
   position: absolute;
-  top: -0.2vw;
-}
-.muteButton {
   top: -0.2vw;
 }
 

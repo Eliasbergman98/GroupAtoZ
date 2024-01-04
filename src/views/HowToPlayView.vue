@@ -22,7 +22,8 @@
   <section id="howtoplay" class="text">
     <h2>{{ uiLabels.aboutText2 }}</h2>
     <p>{{ uiLabels.information2 }}</p>
-    <p style="margin-bottom:1em">{{ uiLabels.information25 }}</p>
+    <p>{{ uiLabels.information25 }}</p>
+    <p style="margin-bottom:1em">{{ uiLabels.extraPoints }}</p>
   </section>
   <section id="howtocreate" class="text">
     <h2> {{ uiLabels.createGame1 }} </h2>
@@ -60,6 +61,11 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
+    // Check sessionStorage for muted state
+    const isMuted = sessionStorage.getItem("isMuted");
+      if (isMuted) {
+        this.isMuted = JSON.parse(isMuted);
+      }
   },
   methods: {
     switchLanguage: function (lang) {
@@ -76,6 +82,8 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
+      sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
       },
   }
 }
@@ -83,6 +91,7 @@ export default {
 
 
 <style scoped>
+
 
 #brake {
   margin-top:-5vw;
@@ -98,9 +107,9 @@ export default {
   color: white;
   background-color: green;
   margin: 1vw;
-  margin-top: -1vw;
+  margin-top: -2vw;
   padding: 1vw;
-  height: 19vw;
+  height: 23vw;
   width: 26vw;
   border-radius: 1.5vw;
 }

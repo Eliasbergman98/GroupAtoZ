@@ -112,6 +112,10 @@ export default {
       this.uiLabels = labels;
     });
     socket.emit("getPoll", this.pollId);
+    // Check sessionStorage for muted state
+      const isMuted = sessionStorage.getItem("isMuted");
+    if (isMuted) {
+      this.isMuted = JSON.parse(isMuted);}
   },
   methods: {
     createPoll: function () {
@@ -127,6 +131,8 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
+      sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
     },
     sendInfo: function () {
       if (Object.keys(this.submittedCities).length === 0) {
@@ -387,6 +393,29 @@ h1 {
 
 @media screen and (max-width: 1000px) {
 
+  .muteButton {
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+    padding: 0.5vw 0 0 0.5vw;
+    margin-left: 40vw;
+  }
+
+  #arrow {
+    background-color: rgb(163, 163, 243);
+    text-align: left;
+    width: 7vw;
+    height: 7vw;
+    margin-left: -47vw;
+    margin-top: 1vw;
+  }
+
+  .arrow button {
+    background-color: rgb(163, 163, 243);
+    border: 1px solid rgb(163, 163, 243);
+    text-align: left;
+  }
+
   h1 {
     margin-top: 10vw;
     font-size: 8vw;
@@ -425,7 +454,7 @@ h1 {
   }
 
   .f{
-    margin-top: 5vw
+    margin-top: 5vw;
   }
 
   /* .addTown {
