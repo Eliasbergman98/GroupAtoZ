@@ -28,7 +28,7 @@
                 </div> -->
             </div>
             <div class="score-board-component">
-                <h3>{{ uiLabels.midScoreHeading }}</h3>
+                <h3>{{ uiLabels.resultScore }}</h3>
                 <div class="participant-list">
                     <ol>
                         <li v-for="(person, index) in participants" :key="person.name" class="participant-item">
