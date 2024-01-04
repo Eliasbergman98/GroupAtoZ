@@ -33,11 +33,6 @@ function sockets(io, socket, data) {
     io.to(pollId).emit('creatorClicked', pollId);
   });
 
-  socket.on('getThisParticipant', function (pollId, name) {
-    console.log("spelare hämtad")
-    io.to(pollId).emit('thisPlayer', data.createParticipant(pollId, name))
-  })
-
   socket.on('cityUpdate', function (pollId) {
     console.log("i socket och vill updaterar questionnumber")
     io.to(pollId).emit('updateQuestionNumber', data.getNewCity(pollId));
@@ -74,8 +69,11 @@ function sockets(io, socket, data) {
   })
   socket.on("checkAnswer", function (d) {
     console.log("Socket checkanswer")
-    socket.emit("yourPoints", data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber, d.rightAnswer));
+    socket.emit("yourPoints", data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber, d.rightAnswer, d.answerTime));
   });
+  socket.on("newClue", function(pollId){
+    data.resetAnswerTime(pollId);
+  })
 
 }
 

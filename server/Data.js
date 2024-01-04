@@ -28,6 +28,7 @@ Data.prototype.createPoll = function (pollId, lang = "en", quizName, selectedAva
     poll.lang = lang;
     poll.questions = [];
     poll.answers = [];
+    poll.answerTime = 0;
     poll.currentQuestion = 0;
     this.polls[pollId] = poll;
     poll.participants = [];
@@ -95,7 +96,8 @@ Data.prototype.addParticipant = function (pollId, name, selectedAvatar, quizName
     let participant = {
       name: name,
       avatar: selectedAvatar,
-      points: 0
+      points: 0,
+      time: 0
     }
     poll.participants.push(participant);
   }
@@ -125,7 +127,7 @@ Data.prototype.getCurrentCity = function (pollId) {
 
     return poll.currentQuestion;
   }
-  return {}
+  return null
 }
 Data.prototype.getNewCity = function (pollId) {
   const poll = this.polls[pollId];
@@ -133,10 +135,30 @@ Data.prototype.getNewCity = function (pollId) {
     poll.currentQuestion += 1;
     return poll.currentQuestion;
   }
-  return 50
+  return null
+}
+Data.prototype.checkAnswerTime = function (pollId, answerTime){
+  const poll = this.polls[pollId];
+  if (typeof poll !== 'undefined' && poll.participants.length > 1) {
+  console.log("i checkanswertime", poll, answerTime)
+  if(poll.answerTime === 0){
+    poll.answerTime = answerTime;
+    return true
+  }
+  return false
+}
+  
+   
+}
+Data.prototype.resetAnswerTime = function (pollId){
+  const poll = this.polls[pollId];
+  console.log("I restetAnswerTime", poll.answerTime)
+  if(poll.answerTime != 0){
+    poll.answerTime = 0;
+  }
 }
 
-Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAnswer) {
+Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAnswer, answerTime) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
   console.log("in CheckAnswer", pollId, answer, name, clueNumber, rightAnswer)
@@ -149,19 +171,30 @@ Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAn
     if (clueNumber === 0 && answer === city) {
       pointsWon = 6;
       rightAnswer = true;
+      if(this.checkAnswerTime(pollId)){
+        console.log("I checkanswer och lägger till poäng", answerTime)
+        pointsWon +=1;
+      }
     }
     if (clueNumber === 1 && answer === city) {
       pointsWon = 4;
       rightAnswer = true;
+      if(this.checkAnswerTime(pollId)){
+        pointsWon +=1;
+      }
     }
     if (clueNumber === 2 && answer === city) {
       pointsWon = 2;
       rightAnswer = true;
+      if(this.checkAnswerTime(pollId)){
+        pointsWon +=1;
+      }
     }
     
       for (let i = 0; i < poll.participants.length; i++) {
         if (poll.participants[i].name === name) {
           poll.participants[i].points += pointsWon;
+          poll.participants[i].time += answerTime;
           console.log("points", poll.participants[i].points);
           console.log("participant", poll.participants[i]);
           console.log("pointsWon", pointsWon);
