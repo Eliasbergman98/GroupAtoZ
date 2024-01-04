@@ -178,6 +178,7 @@ h2 {
     font-size: 1.7vw;
     color: black;
     position: center;
+    font-weight: bold;
 }
 
 .button-container {
@@ -198,6 +199,7 @@ h2 {
 .emojies {
     width: 2vw;
     height: 2vw;
+    margin-bottom:-0.4vw;
 }
 
 .scroll-wrapper {
@@ -232,6 +234,7 @@ h2 {
 
     .poll {
         font-size: 8vw;
+        font-weight: bold;
     }
 
     .button-container {
@@ -274,6 +277,7 @@ h2 {
     .emojies {
         width: 7vw;
         height: 7vw;
+        margin-bottom: -0.4vw;
     }
 }
 </style>

@@ -81,5 +81,6 @@
 	"next": "Next",
 	"waitingForPlayers": "Waiting for players to join...",
 	"sameCityAlert": "Please add a different city. You have already added this one.",
-	"backToStart": "Back to startpage"
+	"backToStart": "Back to startpage",
+	"waitingNextCity": "Waiting for the next city..."
 }

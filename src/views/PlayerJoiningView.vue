@@ -192,45 +192,34 @@ h2 {
     animation: flash 2.3s infinite;
 }
 
-#createbutton {
+#createbutton,#gameIDbutton,#playerJoinedbutton {
     font-size: 1.7vw;
-    background-color: green;
     border: 0.2vw solid black;
     border-radius: 1.5vw;
     padding: 1.7vw;
     width: 12em;
     color: white;
 }
-
 #gameIDbutton {
-    font-size: 1.7vw;
     background-color: rgb(177, 27, 27);
-    border: 0.2vw solid black;
-    border-radius: 1.5vw;
-    padding: 1.7vw;
-    width: 12em;
-    color: white;
 }
-
 #playerJoinedbutton {
-    font-size: 1.7vw;
     background-color: rgb(177, 27, 27);
-    border: 0.2vw solid black;
-    border-radius: 1.5vw;
-    padding: 1.7vw;
-    width: 12em;
-    color: white;
+}
+#createbutton{
+    background-color: green;
 }
 
 .poll {
     font-size: 1.7vw;
     color: black;
     position: center;
+    font-weight: bold;
 }
 
 .button-container {
     margin-top: 2vw;
-    position: relative;
+    position:relative;
     width: 80vw;
     display: flex;
     justify-content: space-between;
@@ -246,6 +235,7 @@ h2 {
 .emojies {
     width: 2vw;
     height: 2vw;
+    margin-bottom: -0.4vw;
 }
 .scroll-wrapper {
     overflow-y: auto;
@@ -256,8 +246,8 @@ h2 {
     list-style: none;
     padding: 0;
     margin: 0;
+    align-items: center;
 }
-
 .columns-wrapper {
     display: flex;
     justify-content: space-around;
@@ -279,6 +269,7 @@ h2 {
 
     .poll {
         font-size: 8vw;
+        font-weight: bold;
     }
 
     .button-container {
@@ -321,6 +312,7 @@ h2 {
     .emojies {
         width: 7vw;
         height: 7vw;
+        margin-bottom: -0.4vw;
     }
 }
 </style>
