@@ -20,9 +20,10 @@
         </div>
         <div class="button-container">
             <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
-            <button id="createbutton" v-on:click="stopMusicAndStartGame"> {{ uiLabels.startGame }}</button>
+            <button v-on:click="endGame" id="endGamebutton">{{ uiLabels.endGame }}</button>
             <AlertComponent ref="alertComponent" :alertContentText="alertContentText"></AlertComponent>
             <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
+            <button id="createbutton" v-on:click="stopMusicAndStartGame"> {{ uiLabels.startGame }}</button>
         </div>
     </div>
 </template>
@@ -99,6 +100,12 @@ export default {
                 this.isMuted = JSON.parse(isMuted);}
     },
     methods: {
+
+        endGame() {
+            socket.emit("playerExited", { pollId: this.pollId, name: this.yourName })
+            this.$router.push('/');
+            this.applyFunctionBasedOnMediaQuery();
+        },
         sendInfo: function () {
             console.log("så här många players", this.participants)
             if (this.participants != 0) {
@@ -197,21 +204,32 @@ h2 {
     animation: flash 2.3s infinite;
 }
 
-#createbutton,#gameIDbutton,#playerJoinedbutton {
+#createbutton,
+#gameIDbutton,
+#playerJoinedbutton,
+#endGamebutton {
     font-size: 1.7vw;
     border: 0.2vw solid black;
     border-radius: 1.5vw;
     padding: 1.7vw;
-    width: 12em;
+    width: 40em;
     color: white;
+    margin: 10px;
 }
+
 #gameIDbutton {
-    background-color: rgb(177, 27, 27);
+    background-color: blue;
 }
+
+#endGamebutton {
+    background-color: red;
+}
+
 #playerJoinedbutton {
     background-color: rgb(177, 27, 27);
 }
-#createbutton{
+
+#createbutton {
     background-color: green;
 }
 
@@ -224,7 +242,7 @@ h2 {
 
 .button-container {
     margin-top: 2vw;
-    position:relative;
+    position: relative;
     width: 80vw;
     display: flex;
     justify-content: space-between;
@@ -242,6 +260,7 @@ h2 {
     height: 2vw;
     margin-bottom: -0.4vw;
 }
+
 .scroll-wrapper {
     overflow-y: auto;
     height: 15vw;
@@ -253,6 +272,7 @@ h2 {
     margin: 0;
     align-items: center;
 }
+
 .columns-wrapper {
     display: flex;
     justify-content: space-around;
@@ -284,6 +304,15 @@ h2 {
     }
 
     #gameIDbutton {
+        width: 60vw;
+        height: 10vh;
+        font-size: 3.6vh;
+        margin-left: -10vw;
+        border-radius: 5vw;
+        margin-bottom: 20px;
+    }
+
+    #endGamebutton {
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;

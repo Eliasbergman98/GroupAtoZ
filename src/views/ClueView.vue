@@ -339,7 +339,7 @@ h2 {
 
     h1 {
         font-size: 12vw;
-        margin-top: 5vw;
+        margin-top: 10vw;
     }
 
     .tester {
@@ -384,12 +384,11 @@ h2 {
 
     .muteButton {
         position: absolute;
-        width: 7vw;
-        height: 7vw;
+        width: 4vw;
+        height: 4vw;
         padding: 0.5vw 0 0 0.5vw;
-        /* Adjusted padding */
-        margin-left: 40.2vw;
-        margin-top: 3vw;
+        margin-left: 42vw;
+        margin-top: 2vw;
     }
 }
 </style>

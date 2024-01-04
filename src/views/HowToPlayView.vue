@@ -22,7 +22,8 @@
   <section id="howtoplay" class="text">
     <h2>{{ uiLabels.aboutText2 }}</h2>
     <p>{{ uiLabels.information2 }}</p>
-    <p style="margin-bottom:1em">{{ uiLabels.information25 }}</p>
+    <p>{{ uiLabels.information25 }}</p>
+    <p style="margin-bottom:1em">{{ uiLabels.extraPoints }}</p>
   </section>
   <section id="howtocreate" class="text">
     <h2> {{ uiLabels.createGame1 }} </h2>
