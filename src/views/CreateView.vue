@@ -34,7 +34,6 @@
     </div>
     <div class="gameInfo c">
       <button id="createbutton" v-on:click="createPoll" :class="{ 'green-button': quizName !== '' && selectedAvatar !== null }"> {{ uiLabels.next }}</button>
-      <button id="createbutton" v-on:click="createPoll" :class="{ 'green-button': quizName !== '' && selectedAvatar !== null}"> {{ uiLabels.next }}</button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
       </AlertComponent>
     </div>
