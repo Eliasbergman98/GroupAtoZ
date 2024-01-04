@@ -84,6 +84,10 @@ export default {
         socket.on("fullPole", (data) => {
             this.quizName = data.quizName;
         });
+            // Check sessionStorage for muted state
+        const isMuted = sessionStorage.getItem("isMuted");
+            if (isMuted) {
+                this.isMuted = JSON.parse(isMuted);}
 
     },
     methods: {
@@ -100,6 +104,8 @@ export default {
             const audioPlayer = this.$root.$refs.audioPlayer;
             audioPlayer.muted = !audioPlayer.muted;
             this.isMuted = !this.isMuted;
+            sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
         },
         stopMusicAndStartGame() {
             const audioPlayer = this.$root.$refs.audioPlayer;
@@ -206,9 +212,9 @@ h1 {
 }
 
 #avatarZone {
-    width: 100%;
-    margin-left: 0%;
-    margin-top: 2vw;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 1vw;
 }
 
 .c {
@@ -248,8 +254,8 @@ h1 {
     background-color: green;
 }
 .emojis{
-    height:2vw;
-    width: 2vw;
+    height:3vw;
+    width: 3vw;
 }
 
 @media screen and (max-width: 800px) {
@@ -265,7 +271,7 @@ h1 {
     }
 
     .a {
-        margin-left: -5vw;
+        margin-left: 0vw;
         /* padding-top: 1vh;
         padding-left: 2vw; */
         font-size: 5vw;
@@ -281,7 +287,7 @@ h1 {
     .b {
         width: 90vw;
         height: 30vw;
-        margin-left: -5vw;
+        margin-left: 0vw;
         margin-top: 1vw;
         font-size: 5vw;
     }
@@ -289,8 +295,7 @@ h1 {
     .emojis {
         height: 4vw;
         width: 4vw;
-        margin-top: 1vw;
-        margin-left: 1vw;
+      
     }
 
     .c {
@@ -301,7 +306,7 @@ h1 {
     #donebutton {
         height: 10vw;
         width: 50vw;
-        font-size: 2vw;
+        font-size: 3vw;
         margin-bottom: 2vw;
     }
 

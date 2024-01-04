@@ -94,6 +94,10 @@ export default {
             console.log("lyssnar på fullPole och detta ör quizname: ", this.quizName)
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
+            // Check sessionStorage for muted state
+        const isMuted = sessionStorage.getItem("isMuted");
+            if (isMuted) {
+                this.isMuted = JSON.parse(isMuted);}
     },
     methods: {
 
@@ -118,6 +122,7 @@ export default {
             const audioPlayer = this.$root.$refs.audioPlayer;
             audioPlayer.muted = !audioPlayer.muted;
             this.isMuted = !this.isMuted;
+            sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
         },
         stopMusicAndStartGame() {
             const audioPlayer = this.$root.$refs.audioPlayer;

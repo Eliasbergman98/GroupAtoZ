@@ -61,6 +61,11 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
+    // Check sessionStorage for muted state
+    const isMuted = sessionStorage.getItem("isMuted");
+      if (isMuted) {
+        this.isMuted = JSON.parse(isMuted);
+      }
   },
   methods: {
     switchLanguage: function (lang) {
@@ -77,6 +82,8 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
+      sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
       },
   }
 }
@@ -84,6 +91,7 @@ export default {
 
 
 <style scoped>
+
 
 #brake {
   margin-top:-5vw;
