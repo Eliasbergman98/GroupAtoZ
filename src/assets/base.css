@@ -74,7 +74,11 @@ img[id=sweimg]:hover,
 #backToStartButton,
 #yesbutton,
 #nobutton,
-.clueAnswer {
+.clueAnswer,
+#exitGamebutton,
+#gameIDbutton,
+#playerJoinedbutton
+ {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
