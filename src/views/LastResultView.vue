@@ -8,7 +8,7 @@
         <main>
             <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto"
                 :style="{ left: confetto.left, animationDuration: confetto.animationDuration }"></div>
-            <h1>{{ uiLabels.theWinner }}</h1>
+            <h1>{{ uiLabels.resultScore }}</h1>
             <div id="pics">
                 <img class="podium" src="/img/Podium-removebg-preview1.png">
                 <img v-if="participants[0]" class="emoji a" :src="participants[0].avatar" width="20" height="20"
@@ -28,7 +28,7 @@
                 </div> -->
             </div>
             <div class="score-board-component">
-                <h3>{{ uiLabels.midScoreHeading }}</h3>
+                <h3>{{ uiLabels.scoreboard }}</h3>
                 <div class="participant-list">
                     <ol>
                         <li v-for="(person, index) in participants" :key="person.name" class="participant-item">
