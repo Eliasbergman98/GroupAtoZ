@@ -5,7 +5,7 @@
     </div>
   </header>
   <div class="arrow">
-    <router-link to="//"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
+    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
 
   <main>
