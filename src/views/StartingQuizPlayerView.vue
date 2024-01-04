@@ -50,9 +50,7 @@ export default {
     created: function () {
         this.pollId = this.$route.params.pollId;
         this.yourName = this.$route.params.yourName;
-        socket.emit("pageLoaded", this.lang);
-        socket.emit("getCity", this.pollId);
-        socket.emit("getPoll", this.pollId);
+        
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
@@ -65,6 +63,9 @@ export default {
         socket.on("fullPole", (data) => {
             this.cities = data.cities;
         });
+        socket.emit("pageLoaded", this.lang);
+        socket.emit("getCity", this.pollId);
+        socket.emit("getPoll", this.pollId);
     },
     methods: {
         handleFuseBurnout() {

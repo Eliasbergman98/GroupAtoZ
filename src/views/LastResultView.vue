@@ -31,7 +31,6 @@
   
 <script>
 import io from 'socket.io-client';
-import avatar from '../assets/avatar.json';
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
@@ -46,15 +45,9 @@ export default {
             confettiArray: [],
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
-            question: "",
-            answers: ["", ""],
             questionNumber: 0,
-            data: {},
             uiLabels: {},
-            selectedAvatar: null,
-            avatars: avatar,
             participants: [],
-            participantCount: 0
         }
     },
     created: function () {
@@ -63,9 +56,6 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels
         })
-        socket.on("dataUpdate", (data) =>
-            this.data = data
-        )
         socket.on("participantsUpdate", (participants) =>
             this.participants = participants,
             console.log("hej här kommer nya joinare", this.participants)
@@ -83,8 +73,38 @@ export default {
     },
     methods: {
         playerWithMostPoints() {
-            this.participants.sort((a, b) => b.points - a.points);
+             this.participants = this.participants.sort((a, b) => {
+                // Only sort on age if not identical
+                if (a.points < b.points) return -1;
+                if (a.points > b.points) return 1;
+                 // Sort on name
+                 if (a.time > b.time) return -1;
+                 if (a.time < b.time) return 1;
+                 // Both idential, return 0
+                 return 0;
+             })
+            // // Sortera först efter poäng i fallande ordning
+            // this.participants.sort((a, b) => b.points - a.points);
+
+            // // Om poängen är lika, sortera efter tid i stigande ordning
+            // this.participants.sort((a, b) => (a.points === b.points) ? a.time - b.time : 0);
+
+            console.log("Nya participantslistan:", this.participants);
+
+
         },
+        // playerWithMostPoints() {
+        //     this.participants.sort((a, b) => {
+        //         if (b.points !== a.points) {
+        //             return b.points - a.points; // Sortera i fallande ordning baserat på poäng
+        //         }
+        //         return b.time - a.time; // Sortera i stigande ordning baserat på tid om poängen är lika
+        //     });
+
+        //     console.log("Nya participantslistan:", this.participants);
+        // },
+
+
         backToStart() {
             this.$router.push('/');
         },
@@ -201,7 +221,8 @@ h2 {
     transform: rotate(45deg);
     animation: fallAnimation linear infinite;
 }
-#backToStartButton{
+
+#backToStartButton {
     margin-left: 75vw;
     margin-top: 50vh;
 }
@@ -265,13 +286,14 @@ h2 {
     }
 
     .confetti-container {
-        position:static; 
+        position: static;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
     }
-    #backToStartButton{
+
+    #backToStartButton {
         position: absolute;
         height: 10vh;
         width: 50vw;
@@ -280,7 +302,7 @@ h2 {
         margin-left: -25vw;
 
     }
-    
+
 }
 </style>
   
