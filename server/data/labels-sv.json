@@ -86,5 +86,7 @@
 	"endGame": "Avsluta spel",
 	"resultScore": "Slutresultat",
 	"extraPoints": "Det lönar sig att vara kvick! Den första som svarar rätt på varje ledtråd får extrapoäng. Om flera spelare har samma poäng vinner den som svarat snabbast.",
-	"scoreboard": "Poängtavla"
+	"scoreboard": "Poängtavla",
+	"extraPointText": "Du svarade snabbast och fick ett extrapoäng!",
+	"fastestAnswer": "SNABBAST SVAR!"
 }

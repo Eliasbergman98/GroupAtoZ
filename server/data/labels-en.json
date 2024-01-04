@@ -86,5 +86,7 @@
 	"endGame": "End Game",
 	"resultScore": "Final results",
 	"extraPoints": "Being fast is rewarded! The player who gets the right answer first on each clue will earn extra points. If several players have the same amount of points, the one with the fastest answering time will win.",
-	"scoreboard": "Scoreboard"
+	"scoreboard": "Scoreboard",
+	"extraPointText": "You answered the fastest and recieved an extra point!",
+	"fastestAnswer": "FASTEST ANSWER!"
 }

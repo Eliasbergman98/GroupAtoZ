@@ -190,17 +190,22 @@ Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAn
         pointsWon +=1;
       }
     }
-    
+    let extraPoint = false
       for (let i = 0; i < poll.participants.length; i++) {
         if (poll.participants[i].name === name) {
           poll.participants[i].points += pointsWon;
-          poll.participants[i].time += answerTime;
+          if(rightAnswer){
+            poll.participants[i].time += answerTime;
+          }
           console.log("points", poll.participants[i].points);
           console.log("participant", poll.participants[i]);
           console.log("pointsWon", pointsWon);
         }
+        if(pointsWon % 2 != 0){
+          extraPoint = true;
+        }
       }
-      return rightAnswer
+      return [rightAnswer, extraPoint]
     }
   }
 }
