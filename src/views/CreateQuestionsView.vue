@@ -393,6 +393,29 @@ h1 {
 
 @media screen and (max-width: 1000px) {
 
+  .muteButton {
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+    padding: 0.5vw 0 0 0.5vw;
+    margin-left: 40vw;
+  }
+
+  #arrow {
+    background-color: rgb(163, 163, 243);
+    text-align: left;
+    width: 7vw;
+    height: 7vw;
+    margin-left: -47vw;
+    margin-top: 1vw;
+  }
+
+  .arrow button {
+    background-color: rgb(163, 163, 243);
+    border: 1px solid rgb(163, 163, 243);
+    text-align: left;
+  }
+
   h1 {
     margin-top: 10vw;
     font-size: 8vw;

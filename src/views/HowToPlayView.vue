@@ -107,9 +107,9 @@ export default {
   color: white;
   background-color: green;
   margin: 1vw;
-  margin-top: -1vw;
+  margin-top: -2vw;
   padding: 1vw;
-  height: 19vw;
+  height: 23vw;
   width: 26vw;
   border-radius: 1.5vw;
 }
