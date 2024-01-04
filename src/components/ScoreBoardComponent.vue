@@ -15,10 +15,10 @@
             </ol>
         </div>
         <div class="right-answer-box">
-        <p class="right-answer">{{ uiLabels.rightAnswerText }}:
-            {{ Object.keys(cities)[questionNumber - 2] }}
-        </p>
-    </div>
+            <p class="right-answer">{{ uiLabels.rightAnswerText }}:
+                {{ Object.keys(cities)[questionNumber - 2] }}
+            </p>
+        </div>
     </div>
 </template>
   
@@ -58,9 +58,8 @@ export default {
   
 
 <style scoped>
-
 h2 {
-    color:rgb(72, 95, 224);
+    color: rgb(72, 95, 224);
 }
 
 .right-answer,
@@ -87,7 +86,7 @@ h2 {
     padding: 10em auto 2em 2em;
     font-size: 2vw;
     width: 50vw;
-    height: 77vh;
+    height: 36vw;
     background-size: cover;
     border-radius: 2vw;
     background-color: rgb(201, 241, 244);
@@ -97,12 +96,12 @@ h2 {
 }
 
 .participant-list {
-  padding: 10em auto 2em 2em;
-  margin-left: 1vw;
-  margin-right: 4vw;
-  text-align: left;
-  max-height: 15vw;
-  overflow-y: auto;
+    padding: 10em auto 2em 2em;
+    margin-left: 1vw;
+    margin-right: 4vw;
+    text-align: left;
+    max-height: 15vw;
+    overflow-y: auto;
 }
 
 .participant-item {
@@ -122,4 +121,22 @@ h2 {
 
 .points {
     text-align: right;
-}</style>
+}
+
+@media screen and (max-width:900px) {
+    .score-board-component {
+        width: 80vw;
+        height: 50vw;
+        margin-left: 10vw;
+        margin-top: 10vh;
+    }
+
+    h2 {
+        font-size: 5vw;
+    }
+
+    .participant-list {
+        max-height: 20vw;
+    }
+}
+</style>

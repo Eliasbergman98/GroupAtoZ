@@ -122,7 +122,7 @@ export default {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval) );
+            }, timerInterval));
         }
     }
 }
@@ -142,14 +142,23 @@ h2 {
 }
 
 #nextcitybutton {
-margin-left: 35vw;
-background-color: green;
+    margin-left: 35vw;
+    background-color: green;
 }
-@media screen and (max-width:800px) {
+
+@media screen and (max-width:900px) {
     h1 {
         margin-top: 20VW;
         font-size: 7.7vh;
     }
-
+    #nextcitybutton {
+        margin-left: 60vw;
+        font-size: 7vw;
+        color: white;
+        border: 2px solid black;
+        padding: 3vw;
+        margin: 5vw;
+    }
 }
+
 </style>
