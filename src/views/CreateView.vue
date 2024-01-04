@@ -6,8 +6,8 @@
   </header>
 
   <div class="arrow">
-    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
-      </button></router-link>
+    <router-link to="/"> <img id="arrow" src="/img/arrow.png">
+     </router-link>
   </div>
   <h1>
     {{ uiLabels.createYourGame }}
@@ -115,7 +115,7 @@ export default {
 
 <style scoped>
 h1 {
-  margin-top: -2vw;
+  margin-top: 2vw;
   font-size: 5vw;
 }
 
@@ -171,9 +171,9 @@ h1 {
 }
 
 #avatarZone {
-  width: 100%;
-  margin-left: 0%;
-  margin-top: 3vw;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 1vw;
 }
 
 .c {
@@ -223,6 +223,13 @@ h1 {
 #title {
   padding-top: 4vh;
 }
+#arrow{
+  position: absolute;
+  top: -0.2vw;
+}
+.muteButton {
+  top: -0.2vw;
+}
 
 #gameName, .b {
   font-weight: bold;
@@ -230,7 +237,8 @@ h1 {
 
 @media screen and (max-width: 800px) {
   h1 {
-    font-size: 12vw;
+    font-size: 11.5vw;
+    margin-top: 5vw;
 
   }
 
@@ -269,7 +277,7 @@ h1 {
   }
 
   .b {
-    margin-top: 3vw;
+    margin-top: -6vw;
     width: 90vw;
     margin-left: 5vw;
     font-size: 5vw;
@@ -278,10 +286,10 @@ h1 {
   }
   
   .c {
-    grid-row-start: 16;
+    grid-row-start: 3;
     grid-column-start: 1;
-    margin-left: 26vw;
-    margin-top: -20vw;
+    margin-left: 25vw;
+    margin-top: 23vw;
   }
   .emojis{
     height: 4vw;
@@ -289,9 +297,9 @@ h1 {
   }
 
   #createbutton {
-    height: 10vh;
+    height: 10vw;
     width: 50vw;
-    font-size: 4vh;
+    font-size: 3vw;
     margin-bottom: 2vh;
   }
 
