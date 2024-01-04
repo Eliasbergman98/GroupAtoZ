@@ -1,6 +1,9 @@
 <template>
     <div class="confetti-container">
         <header>
+            <div class="arrow">
+    <router-link to="/"><img id="arrow" src="/img/arrow.png"> </router-link>
+  </div>
         </header>
         <main>
             <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto"
@@ -14,7 +17,7 @@
                     target="_blank">
                 <img v-if="participants[2]" class="emoji c" :src="participants[2].avatar" width="20" height="20"
                     target="_blank">
-                <div v-if="participants[1]" id="name1">
+                <!-- <div v-if="participants[1]" id="name1">
                     <h2>{{ participants[1].name }}</h2>
                 </div>
                 <div v-if="participants[0]" id="name2">
@@ -22,16 +25,29 @@
                 </div>
                 <div v-if="participants[2]" id="name3">
                     <h2>{{ participants[2].name }}</h2>
+                </div> -->
+            </div>
+            <div class="score-board-component">
+                <h3>{{ uiLabels.resultScore }}</h3>
+                <div class="participant-list">
+                    <ol>
+                        <li v-for="(person, index) in participants" :key="person.name" class="participant-item">
+                            <div class="participant-info">
+                                <div class="name-avatar">
+                                    {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank">
+                                </div>
+                                <span class="points">{{ person.points }}</span>
+                            </div>
+                        </li>
+                    </ol>
                 </div>
             </div>
-            <button v-on:click="backToStart" id="backToStartButton">{{ uiLabels.backToStart }}</button>
         </main>
     </div>
 </template>
   
 <script>
 import io from 'socket.io-client';
-import avatar from '../assets/avatar.json';
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
@@ -46,15 +62,9 @@ export default {
             confettiArray: [],
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
-            question: "",
-            answers: ["", ""],
             questionNumber: 0,
-            data: {},
             uiLabels: {},
-            selectedAvatar: null,
-            avatars: avatar,
             participants: [],
-            participantCount: 0
         }
     },
     created: function () {
@@ -63,9 +73,6 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels
         })
-        socket.on("dataUpdate", (data) =>
-            this.data = data
-        )
         socket.on("participantsUpdate", (participants) =>
             this.participants = participants,
             console.log("hej här kommer nya joinare", this.participants)
@@ -83,8 +90,38 @@ export default {
     },
     methods: {
         playerWithMostPoints() {
-            this.participants.sort((a, b) => b.points - a.points);
+             this.participants = this.participants.sort((a, b) => {
+                // Only sort on age if not identical
+                if (a.points < b.points) return -1;
+                if (a.points > b.points) return 1;
+                 // Sort on name
+                 if (a.time > b.time) return -1;
+                 if (a.time < b.time) return 1;
+                 // Both idential, return 0
+                 return 0;
+             })
+            // // Sortera först efter poäng i fallande ordning
+            // this.participants.sort((a, b) => b.points - a.points);
+
+            // // Om poängen är lika, sortera efter tid i stigande ordning
+            // this.participants.sort((a, b) => (a.points === b.points) ? a.time - b.time : 0);
+
+            console.log("Nya participantslistan:", this.participants);
+
+
         },
+        // playerWithMostPoints() {
+        //     this.participants.sort((a, b) => {
+        //         if (b.points !== a.points) {
+        //             return b.points - a.points; // Sortera i fallande ordning baserat på poäng
+        //         }
+        //         return b.time - a.time; // Sortera i stigande ordning baserat på tid om poängen är lika
+        //     });
+
+        //     console.log("Nya participantslistan:", this.participants);
+        // },
+
+
         backToStart() {
             this.$router.push('/');
         },
@@ -106,41 +143,47 @@ export default {
 </script>
   
 <style scoped>
+h1{
+    margin-top: auto;
+}
 .podium {
     position: absolute;
-    height: 40vw;
-    width: 40vw;
-    right: 30vw;
-    top: 5vw;
+    height: 30vw;
+    width: 30vw;
+    left: 7.5vw;
+    top: 10vw;
 
 }
-
+#arrow{
+    position: relative;
+    left:-22vw;
+}
 .emoji {
     position: absolute;
-    height: 9vw;
-    width: 9vw;
+    height: 7vw;
+    width: 7vw;
 }
 
 .a {
-    top: 12vw;
-    right: 45.5vw;
+    top: 14.5vw;
+    left: 19vw;
 }
 
 .b {
-    top: 15.5vw;
-    right: 57.3vw;
+    top: 18vw;
+    left: 10vw;
 }
 
 .c {
-    top: 17.3vw;
-    right: 33.2vw;
+    top: 19vw;
+    left: 28.2vw;
 }
 
 #name1 {
     position: absolute;
     display: flex;
-    top: 42vw;
-    left: 33vw;
+    top: 39vw;
+    left: 9vw;
     height: 3vw;
     width: 10vw;
     font-size: 1vw;
@@ -152,30 +195,29 @@ h2 {
     transform: translateX(-50%);
     text-align: center;
     margin: 0;
-    /* Remove default margin */
     padding: 0;
-    /* Remove default padding */
     font-size: 1.5vw;
+}
+h3{
+    font-weight: bold;
 }
 
 #name2 {
     position: absolute;
     display: flex;
-    top: 42vw;
-    left: 45.5vw;
+    top: 38vw;
+    left: 18vw;
     height: 3vw;
     width: 10vw;
     font-size: 1vw;
     justify-content: space-between;
 }
 
-
-
 #name3 {
     position: absolute;
     display: flex;
-    top: 42vw;
-    left: 58vw;
+    top: 39vw;
+    left: 27vw;
     height: 3vw;
     width: 10vw;
     font-size: 1vw;
@@ -188,8 +230,6 @@ h2 {
     left: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
-    pointer-events: none;
 }
 
 .confetto {
@@ -201,9 +241,65 @@ h2 {
     transform: rotate(45deg);
     animation: fallAnimation linear infinite;
 }
-#backToStartButton{
-    margin-left: 75vw;
-    margin-top: 50vh;
+
+/* #backToStartButton {
+    position: absolute;
+    left: 75vw;
+    top: 35vw;
+    
+} */
+
+.participant-item {
+    padding: 1vw;
+    margin-bottom: 0.5vw;
+}
+
+.participant-item:nth-child(odd) {
+    background-color: rgb(168, 89, 208);
+}
+
+.participant-item:nth-child(even) {
+    background-color: #5567ce;
+}
+
+.score-board-component {
+    position: absolute;
+    padding: 10em auto 2em 2em;
+    font-size: 2vw;
+    width: 45vw;
+    height: 32vw;
+    border-radius: 2vw;
+    background-color: none;
+    left: 50vw;
+    
+}
+
+.participant-list {
+    padding: 10em auto 2em 2em;
+    margin-left: 1vw;
+    margin-right: 4vw;
+    text-align: left;
+    max-height: 35vw;
+    overflow-y: auto;
+}
+
+.participant-item {
+    list-style-type: none;
+}
+
+.participant-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.emojies {
+    width: 2vw;
+    height: 2vw;
+}
+
+.points {
+    text-align: right;
 }
 
 @keyframes fallAnimation {
@@ -218,10 +314,14 @@ h2 {
         font-size: 12vw;
     }
 
+    h3{
+        margin-left: 6vw;
+        font-size: 5vw;
+    }
     .podium {
         height: 80vw;
         width: 80vw;
-        top: 50vw;
+        top: 30vw;
         left: 10vw;
     }
 
@@ -231,18 +331,18 @@ h2 {
     }
 
     .a {
-        top: 65vw;
-        right: 42.5vw;
+        top: 45vw;
+        left: 42.5vw;
     }
 
     .b {
-        top: 73.5vw;
-        right: 66.3vw;
+        top: 53.5vw;
+        left: 19vw;
     }
 
     .c {
-        top: 77.3vw;
-        right: 18.2vw;
+        top: 57.3vw;
+        left: 66.7vw;
     }
 
     #name1 {
@@ -265,13 +365,14 @@ h2 {
     }
 
     .confetti-container {
-        position:static; 
+        position: static;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
     }
-    #backToStartButton{
+
+    /* #backToStartButton {
         position: absolute;
         height: 10vh;
         width: 50vw;
@@ -279,8 +380,41 @@ h2 {
         margin-top: 110vw;
         margin-left: -25vw;
 
-    }
+    } */
+    .score-board-component {
+    position: absolute;
+    padding: 10em auto 2em 2em;
+    font-size: 2vw;
+    width: 85vw;
+    height: 52vw;
+    border-radius: 2vw;
+    background-color: none;
+    top: 110vw;
+    left: 5vw;
     
+}
+
+.participant-list {
+    padding: 10em auto 2em 2em;
+    margin-left: 1vw;
+    margin-right: 4vw;
+    text-align: left;
+    max-height: 50vw;
+    overflow-y: auto;
+    font-size: large;
+    
+}
+
+.participant-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.emojies {
+    width: 4vw;
+    height: 4vw;
+}
 }
 </style>
   

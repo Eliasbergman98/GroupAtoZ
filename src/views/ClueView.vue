@@ -151,7 +151,7 @@ export default {
                 return;
             }
             else if (this.rightAnswer != true && this.timesPressedButton < 1) {
-                socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber, rightAnswer: this.rightAnswer })
+                socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber, rightAnswer: this.rightAnswer, answerTime: this.fuseWidth })
                 socket.on("yourPoints", (data) => {
                     this.rightAnswer = data;
                     console.log("var det rätt svar? ", this.rightAnswer)
@@ -177,6 +177,7 @@ export default {
                 this.wrongAnswer = false;
             }
             this.fuseWidth = 98;
+            socket.emit("newClue", this.pollId)
             this.buttonClicked = false;
             this.handleClues();
             this.answerClue = "";
