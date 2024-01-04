@@ -217,6 +217,10 @@ h1 {
   height: 60%;
   margin-left: 0.5vw;
 }
+.muteButton{
+  margin-top: -1vw;
+
+}
 
 #createbutton {
     margin-top: 1vw;
@@ -231,9 +235,6 @@ h1 {
 }
 #arrow{
   position: absolute;
-  top: -0.2vw;
-}
-.muteButton {
   top: -0.2vw;
 }
 
