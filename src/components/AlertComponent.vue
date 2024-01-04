@@ -90,6 +90,7 @@ export default {
   border-radius: 20px;
   width: 25vw;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
 }
 
 .alert-header {

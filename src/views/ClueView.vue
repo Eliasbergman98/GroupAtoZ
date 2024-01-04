@@ -279,6 +279,7 @@ export default {
     border: 2px solid black;
     margin: 2vw auto 0 auto;
     margin-top: 1vw;
+    font-weight: bold;
 }
 
 .tester input {

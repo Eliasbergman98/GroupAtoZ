@@ -15,6 +15,8 @@
     <div v-if="creator && !nextCity">
         <button id="nextcitybutton" v-on:click="movingToNextCity"> {{ uiLabels.nextCity }} </button>
     </div>
+    <div v-else-if="!creator && !nextCity" id="waiting-next-city">
+        {{ uiLabels.waitingNextCity }}</div>
     <footer v-if="nextCity">
         <div class="fuse-container">
             <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '15vw' }">
@@ -144,6 +146,11 @@ h2 {
 #nextcitybutton {
     margin-left: 35vw;
     background-color: green;
+}
+
+#waiting-next-city {
+    font-size: 3vw;
+    font-weight: bold;
 }
 
 @media screen and (max-width:900px) {

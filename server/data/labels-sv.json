@@ -20,8 +20,8 @@
 	"information2": "Spelet går ut på lista ut svaret på frågan med hjälp av så få ledtrådar som möjligt. Ju snabbare du svarar rätt, desto mer poäng får du.",
 	"information25": "När tiden går ges fler ledtrådar och poängen för rätt svar minskar.",
 	"createGame1": "Hur man skapar ett spel",
-	"information3": "1. Fyll i svaret på frågan och fyll sedan i dina ledtrådar",
-	"information4": "2. Lägg till frågan i spelet och utforma fler frågor med ledtrådar",
+	"information3": "1. Fyll i svaret på frågan och fyll sedan i dina ledtrådar.",
+	"information4": "2. Lägg till frågan i spelet och utforma fler frågor med ledtrådar.",
 	"information5": "3. Klicka på 'Skapa Spel' och bjud in dina vänner med hjälp av ditt unika Poll ID.",
 	"information6": "4. Färdig! Vänta på att dina vänner ansluter och starta sedan spelet!",
 	"gameCode": "Spelkod",
@@ -81,5 +81,6 @@
 	"next": "Nästa",
 	"waitingForPlayers": "Väntar på att spelare ska ansluta...",
 	"sameCityAlert": "Vänligen lägg till en annan stad. Du har redan lagt till denna.",
-	"backToStart": "Tillbaka till startsidan"
+	"backToStart": "Tillbaka till startsidan",
+	"waitingNextCity": "Väntar på nästa stad..."
 }
