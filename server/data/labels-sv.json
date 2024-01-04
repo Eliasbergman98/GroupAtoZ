@@ -82,5 +82,7 @@
 	"waitingForPlayers": "Väntar på att spelare ska ansluta...",
 	"sameCityAlert": "Vänligen lägg till en annan stad. Du har redan lagt till denna.",
 	"backToStart": "Tillbaka till startsidan",
-	"waitingNextCity": "Väntar på nästa stad..."
+	"waitingNextCity": "Väntar på nästa stad...",
+	"endGame": "Avsluta spel",
+	"extraPoints": "Det lönar sig att vara kvick! Den första som svarar rätt på varje ledtråd får extrapoäng. Om flera spelare har samma poäng vinner den som svarat snabbast."
 }

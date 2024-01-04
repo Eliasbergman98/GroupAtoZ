@@ -112,6 +112,10 @@ export default {
       this.uiLabels = labels;
     });
     socket.emit("getPoll", this.pollId);
+    // Check sessionStorage for muted state
+      const isMuted = sessionStorage.getItem("isMuted");
+    if (isMuted) {
+      this.isMuted = JSON.parse(isMuted);}
   },
   methods: {
     createPoll: function () {
@@ -127,6 +131,8 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
+      sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
     },
     sendInfo: function () {
       if (Object.keys(this.submittedCities).length === 0) {
@@ -197,19 +203,20 @@ export default {
   
 <style scoped>
 h1 {
-  font-size: 5vw;
-  margin-top: -5vh;
+  font-size: 4.9vw;
+  margin-top: -3vw;
 }
 
 .fillInfo {
+  font-family: Helvetica, Arial, sans-serif; 
   height: 2vw;
   width: 25vw;
   margin-top: 1.5vw;
   border-color: black;
-  border-top: 1vh;
+  border-top: 0.5vw;
   border-left: 1vw;
   border-right: 1vw;
-  max-height: 5vh;
+  max-height: 2vw;
   max-width: 20vw;
   margin-left: 1vw;
   font-size: 1.4vw;
@@ -239,7 +246,7 @@ h1 {
   padding: 10em auto 2em 2em;
   text-align: left;
   padding-left: 5vw;
-  font-size: 3vh;
+  font-size: 1.5vw;
   width: 40vw;
   height: 5vw;
   background-size: cover;
@@ -255,7 +262,7 @@ h1 {
 .d {
   text-align: left;
   padding-left: 5vw;
-  font-size: 3vh;
+  font-size: 1.5vw;
   width: 40vw;
   height: 5vw;
   background-size: cover;
@@ -381,10 +388,33 @@ h1 {
 }
 
 #title {
-  padding-top: 2vh;
+  padding-top: 2vw;
 }
 
 @media screen and (max-width: 1000px) {
+
+  .muteButton {
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+    padding: 0.5vw 0 0 0.5vw;
+    margin-left: 40vw;
+  }
+
+  #arrow {
+    background-color: rgb(163, 163, 243);
+    text-align: left;
+    width: 7vw;
+    height: 7vw;
+    margin-left: -47vw;
+    margin-top: 1vw;
+  }
+
+  .arrow button {
+    background-color: rgb(163, 163, 243);
+    border: 1px solid rgb(163, 163, 243);
+    text-align: left;
+  }
 
   h1 {
     margin-top: 10vw;
@@ -424,7 +454,7 @@ h1 {
   }
 
   .f{
-    margin-top: 5vw
+    margin-top: 5vw;
   }
 
   /* .addTown {

@@ -6,8 +6,8 @@
   </header>
 
   <div class="arrow">
-    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
-      </button></router-link>
+    <router-link to="/"> <img id="arrow" src="/img/arrow.png">
+     </router-link>
   </div>
   <h1>
     {{ uiLabels.createYourGame }}
@@ -33,7 +33,8 @@
       </div>
     </div>
     <div class="gameInfo c">
-      <button id="createbutton" v-on:click="createPoll" :class="{ 'green-button': quizName !== '' }"> {{ uiLabels.next }}</button>
+      <button id="createbutton" v-on:click="createPoll" :class="{ 'green-button': quizName !== '' && selectedAvatar !== null }"> {{ uiLabels.next }}</button>
+      <button id="createbutton" v-on:click="createPoll" :class="{ 'green-button': quizName !== '' && selectedAvatar !== null}"> {{ uiLabels.next }}</button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
       </AlertComponent>
     </div>
@@ -80,6 +81,10 @@ export default {
     })
     socket.emit("pageLoaded", this.lang);
     //socket.on("pollCreated", (data) => console.log("pollId created in createview:", data))     TA INTE BORT DENNA
+        // Check sessionStorage for muted state
+        const isMuted = sessionStorage.getItem("isMuted");
+      if (isMuted) {
+        this.isMuted = JSON.parse(isMuted);}
   },
   methods: {
     createPoll: function () {
@@ -107,6 +112,8 @@ export default {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
+      sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
+
     },
   }
 
@@ -115,7 +122,7 @@ export default {
 
 <style scoped>
 h1 {
-  margin-top: -2vw;
+  margin-top: 2vw;
   font-size: 5vw;
 }
 
@@ -171,9 +178,9 @@ h1 {
 }
 
 #avatarZone {
-  width: 100%;
-  margin-left: 0%;
-  margin-top: 3vw;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 1vw;
 }
 
 .c {
@@ -211,6 +218,10 @@ h1 {
   height: 60%;
   margin-left: 0.5vw;
 }
+.muteButton{
+  margin-top: -1vw;
+
+}
 
 #createbutton {
     margin-top: 1vw;
@@ -223,6 +234,10 @@ h1 {
 #title {
   padding-top: 4vh;
 }
+#arrow{
+  position: absolute;
+  top: -0.2vw;
+}
 
 #gameName, .b {
   font-weight: bold;
@@ -230,7 +245,8 @@ h1 {
 
 @media screen and (max-width: 800px) {
   h1 {
-    font-size: 12vw;
+    font-size: 11.5vw;
+    margin-top: 5vw;
 
   }
 
@@ -269,7 +285,7 @@ h1 {
   }
 
   .b {
-    margin-top: 3vw;
+    margin-top: -6vw;
     width: 90vw;
     margin-left: 5vw;
     font-size: 5vw;
@@ -278,10 +294,10 @@ h1 {
   }
   
   .c {
-    grid-row-start: 16;
+    grid-row-start: 3;
     grid-column-start: 1;
-    margin-left: 26vw;
-    margin-top: -20vw;
+    margin-left: 25vw;
+    margin-top: 23vw;
   }
   .emojis{
     height: 4vw;
@@ -289,9 +305,9 @@ h1 {
   }
 
   #createbutton {
-    height: 10vh;
+    height: 10vw;
     width: 50vw;
-    font-size: 4vh;
+    font-size: 3vw;
     margin-bottom: 2vh;
   }
 

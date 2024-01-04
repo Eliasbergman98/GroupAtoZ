@@ -18,7 +18,7 @@
 	"information1": "Welcome to On the Rails - a game designed for family, friends, and colleagues. You finally have the exciting opportunity to make your own version of the immensely popular TV show 'On the Track.'",
 	"information15": "Select a location, create clues, and play the game to determine the ultimate 'On the Rails' champion!",
 	"information2": "The objective of the game is to figure out the answer to the question using the fewest possible clues. The quicker you correctly respond, the more points you earn.",
-	"information25": "As time passes, additional clues are provided, but the points awarded for a correct answer are reduced",
+	"information25": "As time passes, additional clues are provided, but the points awarded for a correct answer are reduced.",
 	"createGame1": "How To Create A Game",
 	"information3": "1. Fill in the answer to the question and then provide your clues.",
 	"information4": "2. Add the question to the game and create more questions with clues.",
@@ -82,5 +82,7 @@
 	"waitingForPlayers": "Waiting for players to join...",
 	"sameCityAlert": "Please add a different city. You have already added this one.",
 	"backToStart": "Back to startpage",
-	"waitingNextCity": "Waiting for the next city..."
+	"waitingNextCity": "Waiting for the next city...",
+	"endGame": "End Game",
+	"extraPoints": "Being fast is rewarded! The player who gets the right answer first on each clue will earn extra points. If several players have the same amount of points, the one with the fastest answering time will win."
 }

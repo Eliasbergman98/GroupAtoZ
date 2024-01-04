@@ -16,7 +16,7 @@
     </audio>
     <footer>
         <div class="fuse-container">
-            <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '15vw'}">
+            <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '15vw' }">
         </div>
     </footer>
 </template>
@@ -102,17 +102,19 @@ export default {
 </script>  
 
 <style scoped>
-.titelClass{
-     margin-top: 5vw;
+.titelClass {
+    margin-top: 5vw;
 }
+
 .muteButton {
-  position: relative;
-  width: 2.5vw;
-  height: 2.5vw;
-  padding: 0.5vw 0 0 0.5vw;
-  margin-left: 92vw;
-  
-} 
+    position: relative;
+    width: 2.5vw;
+    height: 2.5vw;
+    padding: 0.5vw 0 0 0.5vw;
+    margin-left: 92vw;
+
+}
+
 h1 {
     position: center;
     /* margin-top: 10vw; */
@@ -127,14 +129,15 @@ h2 {
         margin-top: 20VW;
         font-size: 7.7vh;
     }
+
     .muteButton {
-    width: 7vw;
-    height: 7vw;
-    padding: 0.5vw 0 0 0.5vw;
-    /* Adjusted padding */
-    margin-left: 88vw;
-    margin-top: 3vw;
-  }
+        position: absolute;
+        width: 4vw;
+        height: 4vw;
+        padding: 0.5vw 0 0 0.5vw;
+        margin-left: 42vw;
+        margin-top: -2vw;
+    }
 
 }
 </style>
