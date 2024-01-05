@@ -197,7 +197,7 @@ export default {
             clearInterval(sessionStorage.getItem("fuseTimer"));
             const timerInterval = 10; // 1 second
             sessionStorage.setItem("fuseTimer", setInterval(() => {
-                this.fuseWidth -= 0.07; // Adjust as needed
+                this.fuseWidth -= 0.00007; // Adjust as needed
                 if (this.fuseWidth <= 0) {
                     this.handleFuseBurnout();
                 }
@@ -212,6 +212,9 @@ export default {
     display: grid;
     background-size: cover;
 }
+#addPlayerAnswer{
+    margin-top: 3vw;
+}
 
 .tester {
     text-align: left;
@@ -220,7 +223,7 @@ export default {
     text-align: center;
     font-size: 2vw;
     width: 50vw;
-    height: 15vw;
+    height: 20vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
@@ -283,6 +286,9 @@ h2 {
         font-size: 12vw;
         margin-top: 10vw;
     }
+    #addPlayerAnswer{
+    margin-top: 10vw;
+}
 
     .tester {
         border-radius: 20px;
