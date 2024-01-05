@@ -42,12 +42,9 @@
                             <div v-if="!rightAnswer && !showRightAnswer">
                                 <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text">
                                 <button v-on:click="addPlayerAnswer" class="clueAnswer"
-                                    :class="{ 'green-button': isButtonGreen, 'no-hover': buttonClicked }">
-                                    <div v-if=!buttonClicked>
+                                    :class="{ 'green-button': answerClue !== '' }">
+                                    <div>
                                         {{ uiLabels.addAnswer }}
-                                    </div>
-                                    <div v-else=buttonClicked>
-                                        {{ uiLabels.thankYou }}
                                     </div>
                                 </button>
                             </div>
@@ -128,10 +125,7 @@ export default {
     methods: {
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;
-
-            // Toggle the muted attribute
             audioPlayer.muted = !audioPlayer.muted;
-
             this.isMuted = !this.isMuted;
         },
         addPlayerAnswer: function () {
@@ -175,7 +169,6 @@ export default {
             this.handleClues();
             this.answerClue = "";
             this.timesPressedButton = 0;
-
         },
         checkIfCreator() {
             if (this.yourName === this.quizName) {
@@ -185,21 +178,16 @@ export default {
         handleClues() {
             if (!this.dataLoaded) return;
             const lengthCities = Object.values(this.cities).length;
-
             if (this.cities && lengthCities > 0) {
                 this.clueNumber += 1;
-
                 for (const [cityName, city] of Object.entries(this.cities)) {
                     const clueNumber = this.clueNumber;
-
                     if (clueNumber <= 3) {
                         console.log(`${cityName}: ${city[`clue${clueNumber}`]}`);
                     }
-
                     if (clueNumber === 3) {
                         clearInterval(sessionStorage.getItem("fuseTimer"));
                         this.clueNumber = 0;
-
                         if (lengthCities === this.questionNumber) {
                             this.$router.push(`/lastresult/${this.pollId}`);
                         } else {
@@ -209,25 +197,15 @@ export default {
                 }
             }
         },
-
-
-
         startFuseTimer: function () {
             clearInterval(sessionStorage.getItem("fuseTimer"));
-
-            // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
             sessionStorage.setItem("fuseTimer", setInterval(() => {
-                // Decrease the fuse width by a certain percentage
                 this.fuseWidth -= 0.07; // Adjust as needed
-
-                // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
-                    // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
             }, timerInterval));
-
         }
     }
 }
@@ -237,7 +215,6 @@ export default {
 .clueBox {
     display: grid;
     background-size: cover;
-
 }
 
 .tester {
@@ -276,18 +253,12 @@ export default {
     color: white;
 }
 
-.clueAnswer:hover {
-    cursor: pointer;
-    background-color: green;
-}
-
 .green-button {
     background-color: green;
 }
 
-.no-hover:hover {
-    cursor: default;
-    background-color: gray;
+.clueAnswer:hover {
+    cursor: pointer;
 }
 
 .labelSize {
@@ -349,7 +320,6 @@ h2 {
         margin-left: 5vw;
         margin-bottom: 10vw;
         padding-top: 0.8vw;
-
     }
 
     .labelSize {
