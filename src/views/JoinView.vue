@@ -5,7 +5,7 @@
     </div>
   </header>
   <div class="arrow">
-    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
+    <router-link to="/"> <img id="arrow" src="/img/arrow.png"></router-link>
   </div>
 
   <main>
@@ -114,9 +114,13 @@ export default {
 
 <style scoped>
 #brake {
-  margin-top: -5.5vw;
+  margin-top: -5.15vw;
   width: 15vw;
 }
+#arrow {
+    margin-left: -94vw;
+    margin-top: 2vw;
+  }
 
 #joinbutton {
   margin: -8vw;
@@ -148,6 +152,7 @@ export default {
   }
 
   #arrow {
+    margin-left: -86vw;
     margin-top: 2vw;
   }
 
