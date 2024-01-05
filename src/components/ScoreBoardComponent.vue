@@ -84,7 +84,7 @@ h2 {
     padding: 10em auto 2em 2em;
     font-size: 2vw;
     width: 50vw;
-    height: 36vw;
+    height: 37vw;
     background-size: cover;
     border-radius: 2vw;
     background-color: rgb(201, 241, 244);

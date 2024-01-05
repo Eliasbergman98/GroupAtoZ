@@ -171,7 +171,7 @@ export default {
     border: 2px solid black;
     padding: 5vw;
     margin: 5vw;
-    margin-top: 20vw;
+    margin-top: 7vw;
   }
 
   #gamecode {
