@@ -18,9 +18,10 @@
             </div>
         </div>
         <div class="button-container">
-            <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
             <button v-on:click="exitGame" id="exitGamebutton">{{ uiLabels.exitGame }}</button>
-            
+            <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
+
+
         </div>
     </div>
 </template>
@@ -128,7 +129,6 @@ export default {
 
 h1 {
     text-align: center;
-    margin-top:1.8vw;
 }
 
 h2 {
@@ -146,9 +146,9 @@ h2 {
     animation: flash 2.3s infinite;
 }
 
-#exitGamebutton {
+#exitGamebutton,
+#playerJoinedbutton {
     font-size: 1.7vw;
-    background-color: rgb(177, 27, 27);
     border: 0.2vw solid black;
     border-radius: 1.5vw;
     padding: 1.7vw;
@@ -156,14 +156,12 @@ h2 {
     color: white;
 }
 
+#exitGamebutton {
+    background-color: rgb(177, 27, 27);
+}
+
 #playerJoinedbutton {
-    font-size: 1.7vw;
-    background-color: green;
-    border: 0.2vw solid black;
-    border-radius: 1.5vw;
-    padding: 1.7vw;
-    width: 12em;
-    color: white;
+    background-color: rgba(4, 51, 192, 0.966)
 }
 
 .poll {
@@ -171,17 +169,18 @@ h2 {
     color: black;
     position: center;
     font-weight: bold;
-    height:15vw;
+    height: 15vw;
 }
 
 .button-container {
-    margin-top: 2vw;
+    margin-top: -2vw;
     position: relative;
     width: 80vw;
     display: flex;
     justify-content: space-between;
     padding: 1em;
     margin-left: 8vw;
+    margin-bottom:100vw;
 }
 
 .participants {
@@ -191,7 +190,7 @@ h2 {
 .emojies {
     width: 2vw;
     height: 2vw;
-    margin-bottom:-0.4vw;
+    margin-bottom: -0.4vw;
 }
 
 .scroll-wrapper {
@@ -199,6 +198,7 @@ h2 {
     height: 15vw;
 
 }
+
 .scroll-wrapper ul {
     list-style: none;
     padding: 0;
@@ -237,15 +237,17 @@ h2 {
     }
 
     #exitGamebutton {
+        order: 2;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        
+
     }
 
     #playerJoinedbutton {
+        order: 1;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
