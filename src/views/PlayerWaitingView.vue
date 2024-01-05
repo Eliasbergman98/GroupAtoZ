@@ -2,6 +2,7 @@
     <h1>
         {{ data.quizName }}
     </h1>
+    <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
     <h2>{{ uiLabels.waitingForHost }}</h2>
     <div class="poll">
         <div class="columns-wrapper">
@@ -17,9 +18,10 @@
             </div>
         </div>
         <div class="button-container">
-            <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
             <button v-on:click="exitGame" id="exitGamebutton">{{ uiLabels.exitGame }}</button>
             <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
+
+
         </div>
     </div>
 </template>
@@ -130,7 +132,7 @@ h1 {
 }
 
 h2 {
-    margin-top: -3vw;
+    margin-top: -8vw;
     text-align: center;
     text-transform: uppercase;
     font-size: 3vw;
@@ -144,9 +146,9 @@ h2 {
     animation: flash 2.3s infinite;
 }
 
-#exitGamebutton {
+#exitGamebutton,
+#playerJoinedbutton {
     font-size: 1.7vw;
-    background-color: rgb(177, 27, 27);
     border: 0.2vw solid black;
     border-radius: 1.5vw;
     padding: 1.7vw;
@@ -154,24 +156,12 @@ h2 {
     color: white;
 }
 
-#gameIDbutton {
-    font-size: 1.7vw;
-    background-color: green;
-    border: 0.2vw solid black;
-    border-radius: 1.5vw;
-    padding: 1.7vw;
-    width: 12em;
-    color: white;
+#exitGamebutton {
+    background-color: rgb(177, 27, 27);
 }
 
 #playerJoinedbutton {
-    font-size: 1.7vw;
-    background-color: green;
-    border: 0.2vw solid black;
-    border-radius: 1.5vw;
-    padding: 1.7vw;
-    width: 12em;
-    color: white;
+    background-color: rgba(4, 51, 192, 0.966)
 }
 
 .poll {
@@ -179,17 +169,18 @@ h2 {
     color: black;
     position: center;
     font-weight: bold;
+    height: 15vw;
 }
 
 .button-container {
-    margin-top: 2vw;
+    margin-top: -2vw;
     position: relative;
     width: 80vw;
     display: flex;
     justify-content: space-between;
     padding: 1em;
-    margin-bottom: 2vw;
     margin-left: 8vw;
+    margin-bottom:100vw;
 }
 
 .participants {
@@ -199,7 +190,7 @@ h2 {
 .emojies {
     width: 2vw;
     height: 2vw;
-    margin-bottom:-0.4vw;
+    margin-bottom: -0.4vw;
 }
 
 .scroll-wrapper {
@@ -207,6 +198,7 @@ h2 {
     height: 15vw;
 
 }
+
 .scroll-wrapper ul {
     list-style: none;
     padding: 0;
@@ -216,6 +208,7 @@ h2 {
 .columns-wrapper {
     display: flex;
     justify-content: space-around;
+    min-height: 13vw;
 }
 
 .column {
@@ -243,30 +236,24 @@ h2 {
         align-items: center;
     }
 
-    #gameIDbutton {
-        width: 60vw;
-        height: 10vh;
-        font-size: 3.6vh;
-        margin-left: -10vw;
-        border-radius: 5vw;
-        margin-bottom: 20px;
-    }
-
     #exitGamebutton {
+        order: 2;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom: 20px;
+
     }
 
     #playerJoinedbutton {
+        order: 1;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
+        margin-bottom: 20px;
     }
 
     .scroll-wrapper {
