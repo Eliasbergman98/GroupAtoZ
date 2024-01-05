@@ -197,7 +197,7 @@ export default {
             clearInterval(sessionStorage.getItem("fuseTimer"));
             const timerInterval = 10; // 1 second
             sessionStorage.setItem("fuseTimer", setInterval(() => {
-                this.fuseWidth -= 0.07; // Adjust as needed
+                this.fuseWidth -= 0.035; // Adjust as needed
                 if (this.fuseWidth <= 0) {
                     this.handleFuseBurnout();
                 }

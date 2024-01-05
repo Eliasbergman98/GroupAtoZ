@@ -9,14 +9,12 @@
             <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto"
                 :style="{ left: confetto.left, animationDuration: confetto.animationDuration, backgroundColor: confetto.backgroundColor }">
             </div>
-            <h1>{{ uiLabels.resultScore }}  <br> {{ uiLabels.for }} {{ quizName }} </h1>
+            <h1>{{ uiLabels.resultScore }} <br> {{ quizName }}</h1>
             <div id="pics">
-                <img v-if="participants.length== 1" class="podium" src="/img/Podium-removebg-preview4 (2).png" 
+                <img v-if="participants.length == 1" class="podium" src="/img/Podium-removebg-preview4 (2).png"
                     target="_blank">
-                <img v-if="participants.length== 2" class="podium" src="/img/Podium-removebg-preview3.png" 
-                    target="_blank">
-                <img v-if="participants.length >2" class="podium" src="/img/Podium-removebg-preview1.png" 
-                    target="_blank">
+                <img v-if="participants.length == 2" class="podium" src="/img/Podium-removebg-preview3.png" target="_blank">
+                <img v-if="participants.length > 2" class="podium" src="/img/Podium-removebg-preview1.png" target="_blank">
                 <img v-if="participants[0]" class="emoji a" :src="participants[0].avatar" width="20" height="20"
                     target="_blank">
                 <img v-if="participants[1]" class="emoji b" :src="participants[1].avatar" width="20" height="20"
@@ -100,7 +98,7 @@ export default {
         },
         generateConfetti: function () {
             for (let i = 0; i < 50; i++) {
-                const color = Math.random() < 0.8 ? '#ffcc00' : '#ffffff'; 
+                const color = Math.random() < 0.8 ? '#ffcc00' : '#ffffff';
                 this.confettiArray.push({
                     left: `${Math.random() * 100}vw`,
                     animationDuration: `${Math.random() * 2 + 1}s`,
@@ -124,7 +122,7 @@ h1 {
     height: 30vw;
     width: 30vw;
     left: 7.5vw;
-    top: 10vw;
+    top: 15vw;
 
 }
 
@@ -140,64 +138,24 @@ h1 {
 }
 
 .a {
-    top: 14.5vw;
+    top: 19.5vw;
     left: 19vw;
 }
 
 .b {
-    top: 18vw;
+    top: 23vw;
     left: 10vw;
 }
 
 .c {
-    top: 19vw;
+    top: 24vw;
     left: 28.2vw;
 }
 
-#name1 {
-    position: absolute;
-    display: flex;
-    top: 39vw;
-    left: 9vw;
-    height: 3vw;
-    width: 10vw;
-    font-size: 1vw;
-}
-
-h2 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    font-size: 1.5vw;
-}
 
 h3 {
     font-weight: bold;
-}
-
-#name2 {
-    position: absolute;
-    display: flex;
-    top: 38vw;
-    left: 18vw;
-    height: 3vw;
-    width: 10vw;
-    font-size: 1vw;
-    justify-content: space-between;
-}
-
-#name3 {
-    position: absolute;
-    display: flex;
-    top: 39vw;
-    left: 27vw;
-    height: 3vw;
-    width: 10vw;
-    font-size: 1vw;
-    justify-content: space-between;
+    color: rgba(4, 51, 192, 0.966);
 }
 
 .confetti-container {
@@ -213,9 +171,6 @@ h3 {
     position: absolute;
     width: 1vw;
     height: 1vw;
-    /* background-color: #ffcc00; */
-    /* border-radius: 50%; */
-    /* transform: rotate(45deg); */
     animation: fallAnimation linear infinite;
     z-index: 1000;
 }
@@ -242,7 +197,7 @@ h3 {
     border-radius: 2vw;
     background-color: none;
     left: 50vw;
-
+    top: 15.2vw;
 }
 
 .participant-list {
@@ -250,7 +205,7 @@ h3 {
     margin-left: 1vw;
     margin-right: 4vw;
     text-align: left;
-    max-height: 35vw;
+    max-height: 20vw;
     overflow-y: auto;
 }
 
@@ -282,7 +237,7 @@ h3 {
 @media screen and (max-width: 800px) {
 
     h1 {
-        font-size: 12vw;
+        font-size: 7vw;
     }
 
     h3 {
@@ -322,10 +277,6 @@ h3 {
         left: 20vw;
     }
 
-    h2 {
-        font-size: 5vw;
-    }
-
     #name2 {
         top: 130vw;
         left: 45.5vw;
@@ -343,6 +294,7 @@ h3 {
         width: 100vw;
         height: 100vh;
     }
+
     .score-board-component {
         position: absolute;
         padding: 10em auto 2em 2em;
