@@ -12,8 +12,8 @@
     <div class="clueBox">
         <div v-if="cities && Object.values(cities).length > 0">
             <div v-if="showRightAnswer && rightAnswer && !wrongAnswer">
-                <right-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
-                    :rightAnswer="rightAnswer" :extraPoint="extraPoint"></right-answer-message>
+                <right-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked" :rightAnswer="rightAnswer"
+                    :extraPoint="extraPoint"></right-answer-message>
             </div>
             <div v-else-if="!showRightAnswer && !rightAnswer && wrongAnswer">
                 <wrong-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
@@ -84,14 +84,12 @@ export default {
             pollId: "",
             quizName: '',
             questionNumber: 0,
-            data: {},
             uiLabels: {},
             fuseWidth: 98,
             answerClue: "",
             cities: {},
             clueNumber: 0,
             isMuted: false,
-            isRedirected: false,
             dataLoaded: false,
             buttonClicked: false,
             yourName: "",
@@ -107,22 +105,17 @@ export default {
         buttonImage() {
             return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
         },
-        isButtonGreen() {
-            return this.answerClue !== "" && !this.buttonClicked;// &&   //&& !this.buttonClicked
-        }
-        // Compute the image source based on the button state
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
         this.yourName = this.$route.params.yourName;
-        this.isRedirected = false;
+
         socket.emit("getPoll", this.pollId);
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
         socket.on("fullPole", (data) => {
-            this.data = data;
             this.cities = data.cities;
             this.quizName = data.quizName;
             this.questionNumber = data.currentQuestion;
@@ -131,9 +124,6 @@ export default {
             this.checkIfCreator();
         });
 
-        // socket.on("yourPoints", (data) => {
-        //     this.rightAnswer = data;
-        // });
     },
     methods: {
         toggleMute() {
@@ -193,44 +183,29 @@ export default {
             }
         },
         handleClues() {
-            if (!this.dataLoaded) {
-                // Data hasn't been loaded yet, do not attempt to redirect
-                return;
-            }
-            const lengthCities = Object.keys(this.cities).length;
-            //console.log(lengthCities);
+            if (!this.dataLoaded) return;
+            const lengthCities = Object.values(this.cities).length;
+
             if (this.cities && lengthCities > 0) {
                 this.clueNumber += 1;
-                for (const cityName in this.cities) {
-                    console.log(this.clueNumber + "detta är numret")
-                    const city = this.cities[cityName];
-                    for (const cityClues in city) {
-                        if (this.clueNumber === 1) {
-                            console.log(`${cityName}: ${city.clue1}`);
-                        }
-                        else if (this.clueNumber === 2) {
-                            console.log(`${cityName}: ${city.clue2}`);
-                        }
-                        else if (this.clueNumber === 3) {
-                            console.log(`${cityName}: ${city.clue3}`);
-                            clearInterval(sessionStorage.getItem("fuseTimer"));
-                            this.clueNumber == 0;
-                            console.log("nästa stad");
-                            console.log(this.isRedirected)
 
-                            if (Object.keys(this.cities).length === this.questionNumber) {
-                                this.$router.push('/lastresult/' + this.pollId);
-                            }
-                            else {
-                                this.$router.push('/afterclue/' + this.pollId + '/' + this.yourName);
-                            }
+                for (const [cityName, city] of Object.entries(this.cities)) {
+                    const clueNumber = this.clueNumber;
+
+                    if (clueNumber <= 3) {
+                        console.log(`${cityName}: ${city[`clue${clueNumber}`]}`);
+                    }
+
+                    if (clueNumber === 3) {
+                        clearInterval(sessionStorage.getItem("fuseTimer"));
+                        this.clueNumber = 0;
+
+                        if (lengthCities === this.questionNumber) {
+                            this.$router.push(`/lastresult/${this.pollId}`);
+                        } else {
+                            this.$router.push(`/afterclue/${this.pollId}/${this.yourName}`);
                         }
                     }
-                }
-                if (this.clueNumber === 3 && !this.isRedirected) {
-                    this.isRedirected = true;
-
-
                 }
             }
         },
@@ -251,18 +226,14 @@ export default {
                     // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval) );
-            
+            }, timerInterval));
+
         }
     }
 }
 </script>  
 
 <style scoped>
-/*Explosion och keyframes gör inget atm, ska fixa det sen. */
-
-
-
 .clueBox {
     display: grid;
     background-color: rgb(163, 163, 243);
@@ -303,6 +274,7 @@ export default {
     padding: 1vh;
     text-align: center;
     margin-bottom: 1.5vh;
+    color: white;
 }
 
 .clueAnswer:hover {
