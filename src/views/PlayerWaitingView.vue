@@ -68,10 +68,12 @@ export default {
             console.log("hej här kommer nya joinare i playerwaiting", this.participants)
         });
         socket.on("creatorStarting", (pollId) => {
-            // socket.emit("getThisParticipant", this.pollId, this.yourName)
             this.$router.push('/startingquizplayer/' + this.pollId + '/' + this.yourName);
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
+        socket.on("gameEnded", (pollId) => {
+            this.$router.push('/');
+        })
     },
 
     methods: {
