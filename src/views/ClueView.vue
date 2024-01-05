@@ -212,6 +212,9 @@ export default {
     display: grid;
     background-size: cover;
 }
+#addPlayerAnswer{
+    margin-top: 3vw;
+}
 
 .tester {
     text-align: left;
@@ -220,7 +223,7 @@ export default {
     text-align: center;
     font-size: 2vw;
     width: 50vw;
-    height: 15vw;
+    height: 20vw;
     background-size: cover;
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
@@ -283,6 +286,9 @@ h2 {
         font-size: 12vw;
         margin-top: 10vw;
     }
+    #addPlayerAnswer{
+    margin-top: 10vw;
+}
 
     .tester {
         border-radius: 20px;
