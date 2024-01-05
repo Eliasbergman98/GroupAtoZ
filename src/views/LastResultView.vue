@@ -92,8 +92,8 @@ export default {
         playerWithMostPoints() {
              this.participants = this.participants.sort((a, b) => {
                 // Only sort on age if not identical
-                if (a.points < b.points) return -1;
                 if (a.points > b.points) return 1;
+                if (a.points < b.points) return -1;
                  // Sort on name
                  if (a.time > b.time) return -1;
                  if (a.time < b.time) return 1;
