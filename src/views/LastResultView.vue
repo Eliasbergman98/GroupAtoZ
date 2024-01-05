@@ -116,6 +116,7 @@ export default {
 <style scoped>
 h1 {
     margin-top: auto;
+    font-size: 4vw;
 }
 
 .podium {
@@ -205,6 +206,7 @@ h3 {
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index: 9999;
 }
 
 .confetto {
@@ -215,6 +217,7 @@ h3 {
     /* border-radius: 50%; */
     /* transform: rotate(45deg); */
     animation: fallAnimation linear infinite;
+    z-index: 1000;
 }
 
 .participant-item {
@@ -239,6 +242,7 @@ h3 {
     border-radius: 2vw;
     background-color: none;
     left: 50vw;
+
 }
 
 .participant-list {
