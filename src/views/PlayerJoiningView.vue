@@ -3,9 +3,9 @@
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </header>
 
-    <h1>{{ quizName }}</h1>
+    <h1>{{ quizName }} <img class="selected-avatar" v-bind:src="selectedAvatar" alt="Selected Avatar" /></h1>
     <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
-    <h2>{{ uiLabels.waitingForPlayers }}</h2>
+    <h5>{{ uiLabels.waitingForPlayers }}</h5>
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
@@ -46,7 +46,6 @@ export default {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
             questionNumber: 0,
-            // data: {},
             uiLabels: {},
             selectedAvatar: null,
             avatars: avatar,
@@ -64,7 +63,7 @@ export default {
     },
     computed: {
         buttonImage() {
-            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
         }
     },
 
@@ -88,6 +87,7 @@ export default {
         socket.on("fullPole", (data) => {
             // this.data = data;
             this.quizName = data.quizName;
+            this.selectedAvatar = data.selectedAvatar;
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
         // Check sessionStorage for muted state
@@ -99,7 +99,7 @@ export default {
     methods: {
 
         endGame() {
-            socket.emit("playerExited", { pollId: this.pollId, name: this.yourName })
+            socket.emit("creatorExited", this.pollId)
             this.$router.push('/');
             this.applyFunctionBasedOnMediaQuery();
         },
@@ -184,18 +184,7 @@ h1 {
     text-align: center;
 }
 
-h2 {
-    margin-top: -8vw;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 3vw;
-    color: green;
-    text-shadow:
-        -0.075vw -0.075vw 0 #000,
-        0.075vw -0.075vw 0 #000,
-        -0.075vw 0.075vw 0 #000,
-        0.075vw 0.075vw 0 #000;
-    padding: 10px;
+h5 {
     animation: flash 2.3s infinite;
 }
 
@@ -211,18 +200,18 @@ h2 {
 }
 
 #endGamebutton {
-    order:1;
+    order: 1;
     background-color: rgb(177, 27, 27);
 }
 
 #playerJoinedbutton {
-    order:2;
+    order: 2;
     background-color: rgba(4, 51, 192, 0.966);
 
 }
 
 #createbutton {
-    order:3;
+    order: 3;
     background-color: green;
 }
 
@@ -231,7 +220,7 @@ h2 {
     color: black;
     position: center;
     font-weight: bold;
-    height:15vw;
+    height: 15vw;
 }
 
 .button-container {
@@ -242,7 +231,7 @@ h2 {
     justify-content: space-between;
     padding: 1em;
     margin-left: 8vw;
-    margin-bottom:-10vw;
+    margin-bottom: -10vw;
 }
 
 .participants {
@@ -253,6 +242,13 @@ h2 {
     width: 2vw;
     height: 2vw;
     margin-bottom: -0.4vw;
+}
+
+.selected-avatar {
+    width: 4vw;
+    height: 4vw;
+    margin-left: -1.55vw;
+    margin-bottom: -0.2vw;
 }
 
 .scroll-wrapper {
@@ -289,12 +285,13 @@ h2 {
 
     h1 {
         font-size: 10vw;
-        margin-top: 1vw;
+        margin-top: -6vw;
     }
 
     h2 {
         font-size: 7vw;
     }
+
     .poll {
         font-size: 8vw;
         font-weight: bold;
@@ -307,34 +304,34 @@ h2 {
     }
 
     #endGamebutton {
-        order:3;
+        order: 3;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        
+
     }
 
     #createbutton {
-        order:1;
+        order: 1;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom:5vw;
-        
+        margin-bottom: 5vw;
+
     }
 
     #playerJoinedbutton {
-        order:2;
+        order: 2;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom:5vw;
+        margin-bottom: 5vw;
     }
 
     .scroll-wrapper {
@@ -346,6 +343,13 @@ h2 {
         width: 7vw;
         height: 7vw;
         margin-bottom: -0.4vw;
+    }
+
+    .selected-avatar {
+        width: 7vw;
+        height: 7vw;
+        margin-left: -4vw;
+        margin-bottom: -0.5vw;
     }
 }
 </style>

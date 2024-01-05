@@ -1,9 +1,9 @@
 <template>
     <h1>
-        {{ quizName }}
+        {{ quizName }}<img class="selected-avatar" v-bind:src="selectedAvatar" alt="Selected Avatar" />
     </h1>
     <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
-    <h2>{{ uiLabels.waitingForHost }}</h2>
+    <h5>{{ uiLabels.waitingForHost }}</h5>
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
@@ -20,8 +20,6 @@
         <div class="button-container">
             <button v-on:click="exitGame" id="exitGamebutton">{{ uiLabels.exitGame }}</button>
             <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
-
-
         </div>
     </div>
 </template>
@@ -62,6 +60,7 @@ export default {
         socket.emit("getPoll", this.pollId);
         socket.on("fullPole", (data) => {
             this.quizName = data.quizName;
+            this.selectedAvatar = data.selectedAvatar;
         });
         socket.on("participantsUpdate", (participants) => {
             this.participants = participants;
@@ -69,10 +68,12 @@ export default {
             console.log("hej här kommer nya joinare i playerwaiting", this.participants)
         });
         socket.on("creatorStarting", (pollId) => {
-            // socket.emit("getThisParticipant", this.pollId, this.yourName)
             this.$router.push('/startingquizplayer/' + this.pollId + '/' + this.yourName);
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
+        socket.on("gameEnded", (pollId) => {
+            this.$router.push('/');
+        })
     },
 
     methods: {
@@ -132,18 +133,7 @@ h1 {
     text-align: center;
 }
 
-h2 {
-    margin-top: -8vw;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 3vw;
-    color: green;
-    text-shadow:
-        -0.075vw -0.075vw 0 #000,
-        0.075vw -0.075vw 0 #000,
-        -0.075vw 0.075vw 0 #000,
-        0.075vw 0.075vw 0 #000;
-    padding: 10px;
+h5 {
     animation: flash 2.3s infinite;
 }
 
@@ -181,7 +171,7 @@ h2 {
     justify-content: space-between;
     padding: 1em;
     margin-left: 8vw;
-    margin-bottom:100vw;
+    margin-bottom: 100vw;
 }
 
 .participants {
@@ -192,6 +182,13 @@ h2 {
     width: 2vw;
     height: 2vw;
     margin-bottom: -0.4vw;
+}
+
+.selected-avatar {
+    width: 4vw;
+    height: 4vw;
+    margin-left: 2vw;
+    margin-bottom: -0.2vw;
 }
 
 .scroll-wrapper {
@@ -266,6 +263,13 @@ h2 {
         width: 7vw;
         height: 7vw;
         margin-bottom: -0.4vw;
+    }
+
+    .selected-avatar {
+        width: 7vw;
+        height: 7vw;
+        margin-left: 4vw;
+        margin-bottom: -0.5vw;
     }
 }
 </style>

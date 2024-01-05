@@ -44,7 +44,7 @@ export default {
     computed: {
         // Compute the image source based on the button state
         buttonImage() {
-            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
         }
     },
     created: function () {
