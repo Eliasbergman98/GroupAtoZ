@@ -13,7 +13,7 @@
         <div v-if="cities && Object.values(cities).length > 0">
             <div v-if="showRightAnswer && rightAnswer && !wrongAnswer">
                 <right-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
-                    :rightAnswer="rightAnswer"></right-answer-message>
+                    :rightAnswer="rightAnswer" :extraPoint="extraPoint"></right-answer-message>
             </div>
             <div v-else-if="!showRightAnswer && !rightAnswer && wrongAnswer">
                 <wrong-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
@@ -100,6 +100,7 @@ export default {
             wrongAnswer: false,
             timesPressedButton: 0,
             showRightAnswer: false,
+            extraPoint: false
         }
     },
     computed: {
@@ -130,9 +131,9 @@ export default {
             this.checkIfCreator();
         });
 
-        socket.on("yourPoints", (data) => {
-            this.rightAnswer = data;
-        });
+        // socket.on("yourPoints", (data) => {
+        //     this.rightAnswer = data;
+        // });
     },
     methods: {
         toggleMute() {
@@ -153,8 +154,10 @@ export default {
             else if (this.rightAnswer != true && this.timesPressedButton < 1) {
                 socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber, rightAnswer: this.rightAnswer, answerTime: this.fuseWidth })
                 socket.on("yourPoints", (data) => {
-                    this.rightAnswer = data;
+                    this.rightAnswer = data[0];
+                    this.extraPoint = data[1];
                     console.log("var det rätt svar? ", this.rightAnswer)
+                    console.log("var det ett extrapoäng? ", this.extraPoint)
                     if (this.rightAnswer) {
                         this.showRightAnswer = true;
                         console.log("showRightAnswer: ", this.showRightAnswer)
