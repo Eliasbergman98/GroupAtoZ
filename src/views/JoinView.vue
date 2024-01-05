@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     buttonImage() {
-      return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+      return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
     }
   },
   created: function () {
