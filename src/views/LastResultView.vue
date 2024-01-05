@@ -11,7 +11,12 @@
             </div>
             <h1>{{ uiLabels.resultScore }}</h1>
             <div id="pics">
-                <img class="podium" src="/img/Podium-removebg-preview1.png">
+                <img v-if="participants.length== 1" class="podium" src="/img/Podium-removebg-preview4 (2).png" 
+                    target="_blank">
+                <img v-if="participants.length== 2" class="podium" src="/img/Podium-removebg-preview3.png" 
+                    target="_blank">
+                <img v-if="participants.length >2" class="podium" src="/img/Podium-removebg-preview1.png" 
+                    target="_blank">
                 <img v-if="participants[0]" class="emoji a" :src="participants[0].avatar" width="20" height="20"
                     target="_blank">
                 <img v-if="participants[1]" class="emoji b" :src="participants[1].avatar" width="20" height="20"
