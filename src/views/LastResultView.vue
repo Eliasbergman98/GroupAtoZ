@@ -211,13 +211,6 @@ h3 {
     animation: fallAnimation linear infinite;
 }
 
-/* #backToStartButton {
-    position: absolute;
-    left: 75vw;
-    top: 35vw;
-    
-} */
-
 .participant-item {
     padding: 1vw;
     margin-bottom: 0.5vw;
@@ -341,16 +334,6 @@ h3 {
         width: 100vw;
         height: 100vh;
     }
-
-    /* #backToStartButton {
-        position: absolute;
-        height: 10vh;
-        width: 50vw;
-        font-size: 3vh;
-        margin-top: 110vw;
-        margin-left: -25vw;
-
-    } */
     .score-board-component {
         position: absolute;
         padding: 10em auto 2em 2em;
@@ -361,7 +344,6 @@ h3 {
         background-color: none;
         top: 110vw;
         left: 5vw;
-
     }
 
     .participant-list {
@@ -372,7 +354,6 @@ h3 {
         max-height: 50vw;
         overflow-y: auto;
         font-size: large;
-
     }
 
     .participant-info {
