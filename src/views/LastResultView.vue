@@ -239,7 +239,6 @@ h3 {
     border-radius: 2vw;
     background-color: none;
     left: 50vw;
-
 }
 
 .participant-list {
