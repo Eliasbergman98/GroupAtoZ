@@ -3,7 +3,7 @@
         {{ quizName }}
     </h1>
     <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
-    <h2>{{ uiLabels.waitingForHost }}</h2>
+    <h5>{{ uiLabels.waitingForHost }}</h5>
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
@@ -132,18 +132,7 @@ h1 {
     text-align: center;
 }
 
-h2 {
-    margin-top: -8vw;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 3vw;
-    color: green;
-    text-shadow:
-        -0.075vw -0.075vw 0 #000,
-        0.075vw -0.075vw 0 #000,
-        -0.075vw 0.075vw 0 #000,
-        0.075vw 0.075vw 0 #000;
-    padding: 10px;
+h5 {
     animation: flash 2.3s infinite;
 }
 
@@ -181,7 +170,7 @@ h2 {
     justify-content: space-between;
     padding: 1em;
     margin-left: 8vw;
-    margin-bottom:100vw;
+    margin-bottom: 100vw;
 }
 
 .participants {

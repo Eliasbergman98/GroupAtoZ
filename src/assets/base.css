@@ -22,12 +22,26 @@ h1 {
     0.075vw 0.075vw 0 #000;
 }
 
+h5 {
+  margin-top: -8vw;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 3vw;
+  color: rgba(4, 51, 192, 0.966);
+  text-shadow:
+      -0.075vw -0.075vw 0 #000,
+      0.075vw -0.075vw 0 #000,
+      -0.075vw 0.075vw 0 #000,
+      0.075vw 0.075vw 0 #000;
+  padding: 10px;
+}
+
 h6 {
   margin-top: -3vw;
   font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
   font-size: 4vw;
-  color: rgb(177, 27, 27);
+  color: rgba(4, 51, 192, 0.966);
   text-shadow:
       -0.075vw -0.075vw 0 #000,
       0.075vw -0.075vw 0 #000,

@@ -5,7 +5,7 @@
 
     <h1>{{ quizName }}</h1>
     <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
-    <h2>{{ uiLabels.waitingForPlayers }}</h2>
+    <h5>{{ uiLabels.waitingForPlayers }}</h5>
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
@@ -184,18 +184,7 @@ h1 {
     text-align: center;
 }
 
-h2 {
-    margin-top: -8vw;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 3vw;
-    color: green;
-    text-shadow:
-        -0.075vw -0.075vw 0 #000,
-        0.075vw -0.075vw 0 #000,
-        -0.075vw 0.075vw 0 #000,
-        0.075vw 0.075vw 0 #000;
-    padding: 10px;
+h5 {
     animation: flash 2.3s infinite;
 }
 
@@ -211,18 +200,18 @@ h2 {
 }
 
 #endGamebutton {
-    order:1;
+    order: 1;
     background-color: rgb(177, 27, 27);
 }
 
 #playerJoinedbutton {
-    order:2;
+    order: 2;
     background-color: rgba(4, 51, 192, 0.966);
 
 }
 
 #createbutton {
-    order:3;
+    order: 3;
     background-color: green;
 }
 
@@ -231,7 +220,7 @@ h2 {
     color: black;
     position: center;
     font-weight: bold;
-    height:15vw;
+    height: 15vw;
 }
 
 .button-container {
@@ -242,7 +231,7 @@ h2 {
     justify-content: space-between;
     padding: 1em;
     margin-left: 8vw;
-    margin-bottom:-10vw;
+    margin-bottom: -10vw;
 }
 
 .participants {
@@ -295,6 +284,7 @@ h2 {
     h2 {
         font-size: 7vw;
     }
+
     .poll {
         font-size: 8vw;
         font-weight: bold;
@@ -307,34 +297,34 @@ h2 {
     }
 
     #endGamebutton {
-        order:3;
+        order: 3;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        
+
     }
 
     #createbutton {
-        order:1;
+        order: 1;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom:5vw;
-        
+        margin-bottom: 5vw;
+
     }
 
     #playerJoinedbutton {
-        order:2;
+        order: 2;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom:5vw;
+        margin-bottom: 5vw;
     }
 
     .scroll-wrapper {
