@@ -41,7 +41,6 @@ export default {
             quizName: '',
             cities: {},
             questionNumber: 0,
-            // data: {},
             uiLabels: {},
             fuseWidth: 98,
             yourName: "",

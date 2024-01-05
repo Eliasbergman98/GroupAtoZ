@@ -5,7 +5,8 @@
     </div>
   </header>
   <div class="arrow">
-    <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
+    <router-link to="/"> <img id="arrow" src="/img/arrow.png">
+    </router-link>
   </div>
   <div>
     <img id="brake" src="/img/brake.png">
@@ -94,7 +95,7 @@ export default {
 
 
 #brake {
-  margin-top:-5vw;
+  margin-top:-1vw;
   width: 15vw;
 }
 
@@ -121,6 +122,10 @@ export default {
 		-0.05vw 0.05vw 0 #000,
 		0.05vw 0.05vw 0 #000;
     font-size: 1.15vw;
+}
+#arrow {
+  position: absolute;
+  top: -0.2vw;
 }
 
 @media screen and (max-width: 800px) {

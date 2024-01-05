@@ -51,7 +51,10 @@ function sockets(io, socket, data) {
     data.removePlayer(d.pollId, d.name);
     io.to(d.pollId).emit('participantsUpdate', data.getParticipants(d.pollId));
   });
-
+  
+  socket.on('creatorExited', function (pollId) {
+    io.to(pollId).emit('gameEnded', data.removePoll(pollId));
+  });
   socket.on('joinPoll', function (pollId) {
     socket.join(pollId);
   });
