@@ -2,7 +2,7 @@
     <div v-if="showMessage" class="right-answer-message">
       <h2>{{ uiLabels.rightAnswer }}</h2>
       <p>{{ uiLabels.rightAnswerMessage }}</p>
-      <div v-if="showMessageExtraPoint"> 
+      <div class="extrapoint" v-if="showMessageExtraPoint"> 
         <h2> {{ uiLabels.fastestAnswer }}</h2>
         {{uiLabels.extraPointText}} </div>
     </div>
@@ -34,10 +34,10 @@
 <style scoped>
 .right-answer-message {
     position: center;
-    padding: 10em auto 2em 2em;
-    font-size: 2vw;
+    padding: 5em auto 2em 2em;
+    font-size: 1.5vw;
     width: 50vw;
-    height: 15vw;
+    min-height: 15vw;
     background-size: cover;
     border-radius: 2vw;
     background-color: #8eff8e;
@@ -45,6 +45,9 @@
     margin-left: 25vw;
     margin-top: 3vw;
     text-align: center;
+}
+.extrapoint{
+  height: 10vw;
 }
 
 @media screen and (max-width: 800px) {
@@ -54,5 +57,9 @@
         width: 80vw;
         height: 40vw;
       }
+
+    /* .extrapoint{
+      height: 40vw;
+    } */
 }
 </style>

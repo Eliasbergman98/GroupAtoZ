@@ -12,8 +12,8 @@
     <div class="clueBox">
         <div v-if="cities && Object.values(cities).length > 0">
             <div v-if="showRightAnswer && rightAnswer && !wrongAnswer">
-                <right-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
-                    :rightAnswer="rightAnswer" :extraPoint="extraPoint"></right-answer-message>
+                <right-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked" :rightAnswer="rightAnswer"
+                    :extraPoint="extraPoint"></right-answer-message>
             </div>
             <div v-else-if="!showRightAnswer && !rightAnswer && wrongAnswer">
                 <wrong-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
@@ -42,12 +42,9 @@
                             <div v-if="!rightAnswer && !showRightAnswer">
                                 <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text">
                                 <button v-on:click="addPlayerAnswer" class="clueAnswer"
-                                    :class="{ 'green-button': isButtonGreen, 'no-hover': buttonClicked }">
-                                    <div v-if=!buttonClicked>
+                                    :class="{ 'green-button': answerClue !== '' }">
+                                    <div>
                                         {{ uiLabels.addAnswer }}
-                                    </div>
-                                    <div v-else=buttonClicked>
-                                        {{ uiLabels.thankYou }}
                                     </div>
                                 </button>
                             </div>
@@ -84,14 +81,12 @@ export default {
             pollId: "",
             quizName: '',
             questionNumber: 0,
-            data: {},
             uiLabels: {},
             fuseWidth: 98,
             answerClue: "",
             cities: {},
             clueNumber: 0,
             isMuted: false,
-            isRedirected: false,
             dataLoaded: false,
             buttonClicked: false,
             yourName: "",
@@ -107,22 +102,17 @@ export default {
         buttonImage() {
             return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
         },
-        isButtonGreen() {
-            return this.answerClue !== "" && !this.buttonClicked;// &&   //&& !this.buttonClicked
-        }
-        // Compute the image source based on the button state
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
         this.yourName = this.$route.params.yourName;
-        this.isRedirected = false;
+
         socket.emit("getPoll", this.pollId);
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
         socket.on("fullPole", (data) => {
-            this.data = data;
             this.cities = data.cities;
             this.quizName = data.quizName;
             this.questionNumber = data.currentQuestion;
@@ -131,17 +121,11 @@ export default {
             this.checkIfCreator();
         });
 
-        // socket.on("yourPoints", (data) => {
-        //     this.rightAnswer = data;
-        // });
     },
     methods: {
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;
-
-            // Toggle the muted attribute
             audioPlayer.muted = !audioPlayer.muted;
-
             this.isMuted = !this.isMuted;
         },
         addPlayerAnswer: function () {
@@ -185,7 +169,6 @@ export default {
             this.handleClues();
             this.answerClue = "";
             this.timesPressedButton = 0;
-
         },
         checkIfCreator() {
             if (this.yourName === this.quizName) {
@@ -193,81 +176,45 @@ export default {
             }
         },
         handleClues() {
-            if (!this.dataLoaded) {
-                // Data hasn't been loaded yet, do not attempt to redirect
-                return;
-            }
-            const lengthCities = Object.keys(this.cities).length;
-            //console.log(lengthCities);
+            if (!this.dataLoaded) return;
+            const lengthCities = Object.values(this.cities).length;
             if (this.cities && lengthCities > 0) {
                 this.clueNumber += 1;
-                for (const cityName in this.cities) {
-                    console.log(this.clueNumber + "detta är numret")
-                    const city = this.cities[cityName];
-                    for (const cityClues in city) {
-                        if (this.clueNumber === 1) {
-                            console.log(`${cityName}: ${city.clue1}`);
-                        }
-                        else if (this.clueNumber === 2) {
-                            console.log(`${cityName}: ${city.clue2}`);
-                        }
-                        else if (this.clueNumber === 3) {
-                            console.log(`${cityName}: ${city.clue3}`);
-                            clearInterval(sessionStorage.getItem("fuseTimer"));
-                            this.clueNumber == 0;
-                            console.log("nästa stad");
-                            console.log(this.isRedirected)
-
-                            if (Object.keys(this.cities).length === this.questionNumber) {
-                                this.$router.push('/lastresult/' + this.pollId);
-                            }
-                            else {
-                                this.$router.push('/afterclue/' + this.pollId + '/' + this.yourName);
-                            }
+                for (const [cityName, city] of Object.entries(this.cities)) {
+                    const clueNumber = this.clueNumber;
+                    if (clueNumber <= 3) {
+                        console.log(`${cityName}: ${city[`clue${clueNumber}`]}`);
+                    }
+                    if (clueNumber === 3) {
+                        clearInterval(sessionStorage.getItem("fuseTimer"));
+                        this.clueNumber = 0;
+                        if (lengthCities === this.questionNumber) {
+                            this.$router.push(`/lastresult/${this.pollId}`);
+                        } else {
+                            this.$router.push(`/afterclue/${this.pollId}/${this.yourName}`);
                         }
                     }
                 }
-                if (this.clueNumber === 3 && !this.isRedirected) {
-                    this.isRedirected = true;
-
-
-                }
             }
         },
-
-
-
         startFuseTimer: function () {
             clearInterval(sessionStorage.getItem("fuseTimer"));
-
-            // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
             sessionStorage.setItem("fuseTimer", setInterval(() => {
-                // Decrease the fuse width by a certain percentage
                 this.fuseWidth -= 0.07; // Adjust as needed
-
-                // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
-                    // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
-            }, timerInterval) );
-            
+            }, timerInterval));
         }
     }
 }
 </script>  
 
 <style scoped>
-/*Explosion och keyframes gör inget atm, ska fixa det sen. */
-
-
-
 .clueBox {
     display: grid;
-    background-color: rgb(163, 163, 243);
     background-size: cover;
-
 }
 
 .tester {
@@ -303,20 +250,15 @@ export default {
     padding: 1vh;
     text-align: center;
     margin-bottom: 1.5vh;
-}
-
-.clueAnswer:hover {
-    cursor: pointer;
-    background-color: green;
+    color: white;
 }
 
 .green-button {
     background-color: green;
 }
 
-.no-hover:hover {
-    cursor: default;
-    background-color: gray;
+.clueAnswer:hover {
+    cursor: pointer;
 }
 
 .labelSize {
@@ -353,7 +295,6 @@ h2 {
         width: 80vw;
         height: 40vw;
         background-size: cover;
-        background-color: rgb(201, 241, 244);
         border: 2px solid black;
         margin: 2vw auto 20vw auto;
         padding-bottom: 0vw;
@@ -379,7 +320,6 @@ h2 {
         margin-left: 5vw;
         margin-bottom: 10vw;
         padding-top: 0.8vw;
-
     }
 
     .labelSize {

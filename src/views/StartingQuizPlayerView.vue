@@ -42,7 +42,6 @@ export default {
         }
     },
     computed: {
-        // Compute the image source based on the button state
         buttonImage() {
             return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
         }
@@ -50,7 +49,6 @@ export default {
     created: function () {
         this.pollId = this.$route.params.pollId;
         this.yourName = this.$route.params.yourName;
-        
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
@@ -80,16 +78,13 @@ export default {
             audioPlayer.muted = !audioPlayer.muted;
             this.isMuted = !this.isMuted;
         },
-
         startFuseTimer: function () {
             clearInterval(sessionStorage.getItem("fuseTimer"));
             // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
-
             sessionStorage.setItem("fuseTimer", setInterval(() => {
                 // Decrease the fuse width by a certain percentage
                 this.fuseWidth -= 0.1; // Adjust as needed
-
                 // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
                     // Handle the event when the fuse is burned out

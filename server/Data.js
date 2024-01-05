@@ -82,6 +82,10 @@ Data.prototype.removePlayer = function (pollId, name) {
   }
 }
 
+Data.prototype.removePoll = function (pollId) {
+    delete this.polls[pollId];
+}
+
 Data.prototype.addParticipant = function (pollId, name, selectedAvatar, quizName) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {

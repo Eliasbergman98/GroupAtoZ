@@ -3,8 +3,9 @@
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </header>
 
-    <h1>{{ data.quizName }}</h1>
-    <h2>{{ uiLabels.waitingForPlayers }}</h2>
+    <h1>{{ quizName }}</h1>
+    <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
+    <h5>{{ uiLabels.waitingForPlayers }}</h5>
     <div class="poll">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
@@ -19,10 +20,9 @@
             </div>
         </div>
         <div class="button-container">
-            <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
             <button v-on:click="endGame" id="endGamebutton">{{ uiLabels.endGame }}</button>
-            <AlertComponent ref="alertComponent" :alertContentText="alertContentText"></AlertComponent>
             <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
+            <AlertComponent ref="alertComponent" :alertContentText="alertContentText"></AlertComponent>
             <button id="createbutton" v-on:click="stopMusicAndStartGame"> {{ uiLabels.startGame }}</button>
         </div>
     </div>
@@ -46,7 +46,6 @@ export default {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
             questionNumber: 0,
-            data: {},
             uiLabels: {},
             selectedAvatar: null,
             avatars: avatar,
@@ -82,16 +81,12 @@ export default {
         socket.on("participantsUpdate", (participants) => {
             this.participants = participants;
             this.getParticipantName(this.participants);
-            console.log("hej här kommer nya joinare i playerwaiting", this.participants)
         });
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
-        socket.on("pollCreated", (data) =>
-            this.data = data)
         socket.on("fullPole", (data) => {
-            this.data = data;
+            // this.data = data;
             this.quizName = data.quizName;
-            console.log("lyssnar på fullPole och detta ör quizname: ", this.quizName)
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
         // Check sessionStorage for muted state
@@ -103,12 +98,11 @@ export default {
     methods: {
 
         endGame() {
-            socket.emit("playerExited", { pollId: this.pollId, name: this.yourName })
+            socket.emit("creatorExited", this.pollId)
             this.$router.push('/');
             this.applyFunctionBasedOnMediaQuery();
         },
         sendInfo: function () {
-            console.log("så här många players", this.participants)
             if (this.participants != 0) {
                 socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber })
                 this.$router.push('/startingquiz/' + this.pollId + "/" + this.quizName)
@@ -161,7 +155,6 @@ export default {
             if (window.matchMedia("(max-width: 800px)").matches) {
                 this.playersPerColumn = 100;
                 this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
-                console.log("Media query matches! Run your function here.");
             } else {
                 this.playersPerColumn = 6;
                 this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
@@ -190,47 +183,34 @@ h1 {
     text-align: center;
 }
 
-h2 {
-    margin-top: -3vw;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 3vw;
-    color: green;
-    text-shadow:
-        -0.075vw -0.075vw 0 #000,
-        0.075vw -0.075vw 0 #000,
-        -0.075vw 0.075vw 0 #000,
-        0.075vw 0.075vw 0 #000;
-    padding: 10px;
+h5 {
     animation: flash 2.3s infinite;
 }
 
 #createbutton,
-#gameIDbutton,
 #playerJoinedbutton,
 #endGamebutton {
     font-size: 1.7vw;
     border: 0.2vw solid black;
     border-radius: 1.5vw;
     padding: 1.7vw;
-    width: 40em;
+    width: 12em;
     color: white;
-    margin: 10px;
-}
-
-#gameIDbutton {
-    background-color: blue;
 }
 
 #endGamebutton {
-    background-color: red;
-}
-
-#playerJoinedbutton {
+    order: 1;
     background-color: rgb(177, 27, 27);
 }
 
+#playerJoinedbutton {
+    order: 2;
+    background-color: rgba(4, 51, 192, 0.966);
+
+}
+
 #createbutton {
+    order: 3;
     background-color: green;
 }
 
@@ -239,17 +219,18 @@ h2 {
     color: black;
     position: center;
     font-weight: bold;
+    height: 15vw;
 }
 
 .button-container {
-    margin-top: 2vw;
+    margin-top: -2vw;
     position: relative;
     width: 80vw;
     display: flex;
     justify-content: space-between;
     padding: 1em;
-    margin-bottom: 2vw;
     margin-left: 8vw;
+    margin-bottom: -10vw;
 }
 
 .participants {
@@ -271,12 +252,12 @@ h2 {
     list-style: none;
     padding: 0;
     margin: 0;
-    align-items: center;
 }
 
 .columns-wrapper {
     display: flex;
     justify-content: space-around;
+    min-height: 13vw;
 }
 
 .column {
@@ -296,7 +277,7 @@ h2 {
 
     h1 {
         font-size: 10vw;
-        margin-top: 2vw;
+        margin-top: 1vw;
     }
 
     h2 {
@@ -314,39 +295,35 @@ h2 {
         align-items: center;
     }
 
-    #gameIDbutton {
-        width: 60vw;
-        height: 10vh;
-        font-size: 3.6vh;
-        margin-left: -10vw;
-        border-radius: 5vw;
-        margin-bottom: 20px;
-    }
-
     #endGamebutton {
+        order: 3;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom: 20px;
+
     }
 
     #createbutton {
+        order: 1;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom: 20px;
+        margin-bottom: 5vw;
+
     }
 
     #playerJoinedbutton {
+        order: 2;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
+        margin-bottom: 5vw;
     }
 
     .scroll-wrapper {

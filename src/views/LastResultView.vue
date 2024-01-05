@@ -2,12 +2,13 @@
     <div class="confetti-container">
         <header>
             <div class="arrow">
-    <router-link to="/"><img id="arrow" src="/img/arrow.png"> </router-link>
-  </div>
+                <router-link to="/"><img id="arrow" src="/img/arrow.png"> </router-link>
+            </div>
         </header>
         <main>
             <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto"
-                :style="{ left: confetto.left, animationDuration: confetto.animationDuration }"></div>
+                :style="{ left: confetto.left, animationDuration: confetto.animationDuration, backgroundColor: confetto.backgroundColor }">
+            </div>
             <h1>{{ uiLabels.resultScore }}</h1>
             <div id="pics">
                 <img class="podium" src="/img/Podium-removebg-preview1.png">
@@ -17,21 +18,12 @@
                     target="_blank">
                 <img v-if="participants[2]" class="emoji c" :src="participants[2].avatar" width="20" height="20"
                     target="_blank">
-                <!-- <div v-if="participants[1]" id="name1">
-                    <h2>{{ participants[1].name }}</h2>
-                </div>
-                <div v-if="participants[0]" id="name2">
-                    <h2>{{ participants[0].name }}</h2>
-                </div>
-                <div v-if="participants[2]" id="name3">
-                    <h2>{{ participants[2].name }}</h2>
-                </div> -->
             </div>
             <div class="score-board-component">
                 <h3>{{ uiLabels.scoreboard }}</h3>
                 <div class="participant-list">
                     <ol>
-                        <li v-for="(person, index) in participants" :key="person.name" class="participant-item">
+                        <li v-for="person in participants" :key="person.name" class="participant-item">
                             <div class="participant-info">
                                 <div class="name-avatar">
                                     {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank">
@@ -75,28 +67,22 @@ export default {
         })
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
-        socket.on("pollCreated", (data) =>
-            this.data = data)
         socket.on("fullPole", (data) => {
             console.log("in lastresult", this.pollId, this.participants)
-            this.data = data;
             this.participants = data.participants;
             this.playerWithMostPoints();
         });
     },
     methods: {
         playerWithMostPoints() {
-             this.participants = this.participants.sort((a, b) => {
-                // Only sort on age if not identical
+            this.participants = this.participants.sort((a, b) => {
                 if (a.points < b.points) return 1;
                 if (a.points > b.points) return -1;
                 console.log("participantlista i funken", this.participants)
-                 // Sort on name
-                 if (a.time > b.time) return -1;
-                 if (a.time < b.time) return 1;
-                 // Both idential, return 0
-                 return 0;
-             })
+                if (a.time > b.time) return -1;
+                if (a.time < b.time) return 1;
+                return 0;
+            })
 
         },
         backToStart() {
@@ -108,21 +94,24 @@ export default {
         },
         generateConfetti: function () {
             for (let i = 0; i < 50; i++) {
+                const color = Math.random() < 0.8 ? '#ffcc00' : '#ffffff'; 
                 this.confettiArray.push({
                     left: `${Math.random() * 100}vw`,
                     animationDuration: `${Math.random() * 2 + 1}s`,
-
+                    backgroundColor: color,
                 });
             }
-        }
+        },
+
     },
 }
 </script>
   
 <style scoped>
-h1{
+h1 {
     margin-top: auto;
 }
+
 .podium {
     position: absolute;
     height: 30vw;
@@ -131,10 +120,12 @@ h1{
     top: 10vw;
 
 }
-#arrow{
+
+#arrow {
     position: relative;
-    left:-22vw;
+    left: -22vw;
 }
+
 .emoji {
     position: absolute;
     height: 7vw;
@@ -175,7 +166,8 @@ h2 {
     padding: 0;
     font-size: 1.5vw;
 }
-h3{
+
+h3 {
     font-weight: bold;
 }
 
@@ -213,18 +205,11 @@ h3{
     position: absolute;
     width: 1vw;
     height: 1vw;
-    background-color: #ffcc00;
-    border-radius: 50%;
-    transform: rotate(45deg);
+    /* background-color: #ffcc00; */
+    /* border-radius: 50%; */
+    /* transform: rotate(45deg); */
     animation: fallAnimation linear infinite;
 }
-
-/* #backToStartButton {
-    position: absolute;
-    left: 75vw;
-    top: 35vw;
-    
-} */
 
 .participant-item {
     padding: 1vw;
@@ -248,7 +233,7 @@ h3{
     border-radius: 2vw;
     background-color: none;
     left: 50vw;
-    
+
 }
 
 .participant-list {
@@ -291,10 +276,11 @@ h3{
         font-size: 12vw;
     }
 
-    h3{
+    h3 {
         margin-left: 6vw;
         font-size: 5vw;
     }
+
     .podium {
         height: 80vw;
         width: 80vw;
@@ -348,50 +334,38 @@ h3{
         width: 100vw;
         height: 100vh;
     }
-
-    /* #backToStartButton {
-        position: absolute;
-        height: 10vh;
-        width: 50vw;
-        font-size: 3vh;
-        margin-top: 110vw;
-        margin-left: -25vw;
-
-    } */
     .score-board-component {
-    position: absolute;
-    padding: 10em auto 2em 2em;
-    font-size: 2vw;
-    width: 85vw;
-    height: 52vw;
-    border-radius: 2vw;
-    background-color: none;
-    top: 110vw;
-    left: 5vw;
-    
-}
+        position: absolute;
+        padding: 10em auto 2em 2em;
+        font-size: 2vw;
+        width: 85vw;
+        height: 52vw;
+        border-radius: 2vw;
+        background-color: none;
+        top: 110vw;
+        left: 5vw;
+    }
 
-.participant-list {
-    padding: 10em auto 2em 2em;
-    margin-left: 1vw;
-    margin-right: 4vw;
-    text-align: left;
-    max-height: 50vw;
-    overflow-y: auto;
-    font-size: large;
-    
-}
+    .participant-list {
+        padding: 10em auto 2em 2em;
+        margin-left: 1vw;
+        margin-right: 4vw;
+        text-align: left;
+        max-height: 50vw;
+        overflow-y: auto;
+        font-size: large;
+    }
 
-.participant-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .participant-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.emojies {
-    width: 4vw;
-    height: 4vw;
-}
+    .emojies {
+        width: 4vw;
+        height: 4vw;
+    }
 }
 </style>
   

@@ -41,7 +41,6 @@ export default {
             quizName: '',
             cities: {},
             questionNumber: 0,
-            data: {},
             uiLabels: {},
             fuseWidth: 98,
             yourName: "",
@@ -55,20 +54,11 @@ export default {
         this.yourName = this.$route.params.yourName;
         socket.emit("pageLoaded", this.lang);
         socket.emit("joinPoll", this.pollId);
-        socket.emit("getCity", this.pollId);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        // socket.on("dataUpdate", (data) => {
-        //     this.data = data;
-        // });
         socket.emit("getPoll", this.pollId);
-        socket.on("currentCity", (data) => {
-            this.questionNumber = data;
-            console.log("hämtar info från update number i currentcity", this.questionNumber)
-        });
         socket.on("fullPole", (data) => {
-            this.data = data;
             this.questionNumber = data.currentQuestion;
             this.cities = data.cities;
             this.quizName = data.quizName;
@@ -131,7 +121,6 @@ export default {
 </script>  
 
 <style scoped>
-/*Explosion och keyframes gör inget atm, ska fixa det sen. */
 
 h1 {
     position: center;
