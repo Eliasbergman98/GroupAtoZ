@@ -46,7 +46,7 @@ export default {
       this.visible = false;
     },
     continueGame() {
-      this.$router.push('/playerjoining/' + this.pollId);
+      this.$router.push('/creatorwaiting/' + this.pollId);
     }
   },
 };

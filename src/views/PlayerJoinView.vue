@@ -36,7 +36,7 @@ import pressToUnmuteImage from "/img/soundoff.png";
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
-  name: 'JoinView',
+  name: 'PlayerJoinView',
   components: {
     AlertComponent,
   },
@@ -102,7 +102,7 @@ export default {
           this.$refs.alertComponent.openAlert();
         } else {
           this.pollId = this.gamecode;
-          this.$router.push('/quiz/' + this.pollId);
+          this.$router.push('/playername/' + this.pollId);
         }
       } catch (error) {
         console.error('Error fetching data:', error);

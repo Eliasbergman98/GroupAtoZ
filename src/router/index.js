@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import StartView from '../views/StartView.vue'
-import JoinView from '../views/JoinView.vue'
-import QuizView from '../views/QuizView.vue'
+import PlayerJoinView from '../views/PlayerJoinView.vue'
+import PlayerNameView from '../views/PlayerNameView.vue'
 import CreateView from '../views/CreateView.vue'
 import CreateQuestionsView from '../views/CreateQuestionsView.vue'
 import HowToPlayView from '../views/HowToPlayView.vue'
-import PlayerJoiningView from '../views/PlayerJoiningView.vue'
-import StartingQuizView from '../views/StartingQuizView.vue'
+import CreatorWaitingView from '../views/CreatorWaitingView.vue'
+import StartingQuizCreatorView from '../views/StartingQuizCreatorView.vue'
 import ClueView from '../views/ClueView.vue'
 import AfterClueView from '../views/AfterClueView.vue'
 import PlayerWaitingView from '../views/PlayerWaitingView.vue'
@@ -25,14 +25,14 @@ const router = createRouter({
       component: StartView
     },
     {
-      path: '/join/',
-      name: 'JoinView',
-      component: JoinView
+      path: '/playerjoin/',
+      name: 'PlayerJoinView',
+      component: PlayerJoinView
     },
     {
-      path: '/quiz/:pollId',
-      name: 'QuizView',
-      component: QuizView
+      path: '/playername/:pollId',
+      name: 'PlayerNameView',
+      component: PlayerNameView
     },
     {
       path: '/create/',
@@ -50,14 +50,14 @@ const router = createRouter({
       component: HowToPlayView
     },
     {
-      path: '/playerjoining/:pollId',
-      name: 'PlayerJoiningView',
-      component: PlayerJoiningView
+      path: '/creatorwaiting/:pollId',
+      name: 'CreatorWaitingView',
+      component: CreatorWaitingView
     },
     {
-      path: '/startingquiz/:pollId/:yourName',
-      name: 'StartingQuizView',
-      component: StartingQuizView
+      path: '/startingquizcreator/:pollId/:yourName',
+      name: 'StartingQuizCreatorView',
+      component: StartingQuizCreatorView
     },
     {
       path: '/clue/:pollId/:yourName',

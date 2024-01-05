@@ -24,7 +24,7 @@
     <section class="button-container">
       <router-link to="/create/"><button id="createbutton"> {{ uiLabels.createGame }}</button></router-link>
       <router-link to="/howtoplay/"><button id="howtoplaybutton"> {{ uiLabels.about }}</button></router-link>
-      <router-link to="/join/"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
+      <router-link to="/playerjoin/"><button id="joinbutton"> {{ uiLabels.joinQuiz }}</button></router-link>
     </section>
   </main>
 </template>

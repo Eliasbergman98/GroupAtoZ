@@ -40,7 +40,8 @@ export default {
             participants: [],
             playerColumns: [],
             playersPerColumn: 6,
-            yourName: ""
+            yourName: "",
+            selectedAvatar: null,
         }
     },
 

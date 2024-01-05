@@ -37,7 +37,7 @@ import pressToUnmuteImage from "/img/soundoff.png";
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
-    name: 'PlayerJoiningView',
+    name: 'CreatorWaitingView',
     components: {
         AlertComponent,
     },
@@ -106,7 +106,7 @@ export default {
         sendInfo: function () {
             if (this.participants != 0) {
                 socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber })
-                this.$router.push('/startingquiz/' + this.pollId + "/" + this.quizName)
+                this.$router.push('/startingquizcreator/' + this.pollId + "/" + this.quizName)
             }
         },
         toggleMusic() {

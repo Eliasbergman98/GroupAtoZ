@@ -28,7 +28,7 @@ import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
 
 export default {
-    name: 'StartingQuizView',
+    name: 'StartingQuizCreatorView',
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
