@@ -156,6 +156,7 @@ h1 {
 h3 {
     font-weight: bold;
     color: rgba(4, 51, 192, 0.966);
+    margin-right: 4vw;
 }
 
 .confetti-container {
@@ -207,6 +208,18 @@ h3 {
     text-align: left;
     max-height: 20vw;
     overflow-y: auto;
+}
+
+.participant-list::-webkit-scrollbar {
+    width: 5vw;
+}
+
+.participant-list::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.participant-list::-webkit-scrollbar-track {
+    background-color: transparent;
 }
 
 .participant-item {
@@ -270,21 +283,6 @@ h3 {
     .c {
         top: 57.3vw;
         left: 66.7vw;
-    }
-
-    #name1 {
-        top: 132vw;
-        left: 20vw;
-    }
-
-    #name2 {
-        top: 130vw;
-        left: 45.5vw;
-    }
-
-    #name3 {
-        top: 132vw;
-        left: 70vw;
     }
 
     .confetti-container {
