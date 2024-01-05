@@ -134,7 +134,6 @@ Data.prototype.getNewCity = function (pollId) {
 Data.prototype.checkAnswerTime = function (pollId, answerTime) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined' && poll.participants.length > 1) {
-    console.log("i checkanswertime", poll, answerTime)
     if (poll.answerTime === 0) {
       poll.answerTime = answerTime;
       return true
@@ -146,7 +145,6 @@ Data.prototype.checkAnswerTime = function (pollId, answerTime) {
 }
 Data.prototype.resetAnswerTime = function (pollId) {
   const poll = this.polls[pollId];
-  console.log("I restetAnswerTime", poll.answerTime)
   if (poll.answerTime != 0) {
     poll.answerTime = 0;
   }
@@ -155,18 +153,14 @@ Data.prototype.resetAnswerTime = function (pollId) {
 Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAnswer, answerTime) {
   const poll = this.polls[pollId];
   if (typeof poll !== 'undefined') {
-    console.log("in CheckAnswer", pollId, answer, name, clueNumber, rightAnswer)
     let city = Object.keys(poll.cities)[poll.currentQuestion - 1].toLowerCase();
     answer = answer.toLowerCase();
-    console.log("city", city)
     let pointsWon = 0;
-    console.log("cities", poll.cities);
     if (answer != "") {
       if (clueNumber === 0 && answer === city) {
         pointsWon = 6;
         rightAnswer = true;
         if (this.checkAnswerTime(pollId)) {
-          console.log("I checkanswer och lägger till poäng", answerTime)
           pointsWon += 1;
         }
       }
@@ -191,9 +185,6 @@ Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAn
           if (rightAnswer) {
             poll.participants[i].time += answerTime;
           }
-          console.log("points", poll.participants[i].points);
-          console.log("participant", poll.participants[i]);
-          console.log("pointsWon", pointsWon);
         }
         if (pointsWon % 2 != 0) {
           extraPoint = true;

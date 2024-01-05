@@ -27,12 +27,10 @@ function sockets(io, socket, data) {
   });
 
   socket.on('creatorClick', function (pollId) {
-    console.log("jag har klickat dig vidare nu")
     io.to(pollId).emit('creatorClicked', pollId);
   });
 
   socket.on('cityUpdate', function (pollId) {
-    console.log("i socket och vill updaterar questionnumber")
     io.to(pollId).emit('updateQuestionNumber', data.getNewCity(pollId));
   })
 
@@ -68,7 +66,6 @@ function sockets(io, socket, data) {
   });
 
   socket.on("checkAnswer", function (d) {
-    console.log("Socket checkanswer")
     socket.emit("yourPoints", data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber, d.rightAnswer, d.answerTime));
   });
 
