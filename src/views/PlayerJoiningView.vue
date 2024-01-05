@@ -46,7 +46,6 @@ export default {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
             questionNumber: 0,
-            // data: {},
             uiLabels: {},
             selectedAvatar: null,
             avatars: avatar,
@@ -99,7 +98,7 @@ export default {
     methods: {
 
         endGame() {
-            socket.emit("playerExited", { pollId: this.pollId, name: this.yourName })
+            socket.emit("creatorExited", this.pollId)
             this.$router.push('/');
             this.applyFunctionBasedOnMediaQuery();
         },
