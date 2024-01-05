@@ -94,10 +94,11 @@ export default {
             console.log("lyssnar på fullPole och detta ör quizname: ", this.quizName)
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
-            // Check sessionStorage for muted state
+        // Check sessionStorage for muted state
         const isMuted = sessionStorage.getItem("isMuted");
-            if (isMuted) {
-                this.isMuted = JSON.parse(isMuted);}
+        if (isMuted) {
+            this.isMuted = JSON.parse(isMuted);
+        }
     },
     methods: {
 
@@ -284,8 +285,18 @@ h2 {
 }
 
 @media screen and (max-width:800px) {
+
+    .muteButton {
+        position: relative;
+        width: 5vw;
+        height: 5vw;
+        padding: 0.5vw 0 0 0.5vw;
+        margin-left: 88vw;
+    }
+
     h1 {
         font-size: 10vw;
+        margin-top: 2vw;
     }
 
     h2 {

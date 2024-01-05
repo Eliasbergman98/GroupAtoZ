@@ -8,7 +8,7 @@
         <main>
             <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto"
                 :style="{ left: confetto.left, animationDuration: confetto.animationDuration }"></div>
-            <h1>{{ uiLabels.theWinner }}</h1>
+            <h1>{{ uiLabels.resultScore }}</h1>
             <div id="pics">
                 <img class="podium" src="/img/Podium-removebg-preview1.png">
                 <img v-if="participants[0]" class="emoji a" :src="participants[0].avatar" width="20" height="20"
@@ -28,7 +28,7 @@
                 </div> -->
             </div>
             <div class="score-board-component">
-                <h3>{{ uiLabels.midScoreHeading }}</h3>
+                <h3>{{ uiLabels.scoreboard }}</h3>
                 <div class="participant-list">
                     <ol>
                         <li v-for="(person, index) in participants" :key="person.name" class="participant-item">
@@ -73,16 +73,12 @@ export default {
         socket.on("init", (labels) => {
             this.uiLabels = labels
         })
-        socket.on("participantsUpdate", (participants) =>
-            this.participants = participants,
-            console.log("hej här kommer nya joinare", this.participants)
-        )
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
         socket.on("pollCreated", (data) =>
             this.data = data)
         socket.on("fullPole", (data) => {
-            console.log("in joiningview", this.pollId)
+            console.log("in lastresult", this.pollId, this.participants)
             this.data = data;
             this.participants = data.participants;
             this.playerWithMostPoints();
@@ -92,36 +88,17 @@ export default {
         playerWithMostPoints() {
              this.participants = this.participants.sort((a, b) => {
                 // Only sort on age if not identical
-                if (a.points > b.points) return 1;
-                if (a.points < b.points) return -1;
+                if (a.points < b.points) return 1;
+                if (a.points > b.points) return -1;
+                console.log("participantlista i funken", this.participants)
                  // Sort on name
                  if (a.time > b.time) return -1;
                  if (a.time < b.time) return 1;
                  // Both idential, return 0
                  return 0;
              })
-            // // Sortera först efter poäng i fallande ordning
-            // this.participants.sort((a, b) => b.points - a.points);
-
-            // // Om poängen är lika, sortera efter tid i stigande ordning
-            // this.participants.sort((a, b) => (a.points === b.points) ? a.time - b.time : 0);
-
-            console.log("Nya participantslistan:", this.participants);
-
 
         },
-        // playerWithMostPoints() {
-        //     this.participants.sort((a, b) => {
-        //         if (b.points !== a.points) {
-        //             return b.points - a.points; // Sortera i fallande ordning baserat på poäng
-        //         }
-        //         return b.time - a.time; // Sortera i stigande ordning baserat på tid om poängen är lika
-        //     });
-
-        //     console.log("Nya participantslistan:", this.participants);
-        // },
-
-
         backToStart() {
             this.$router.push('/');
         },

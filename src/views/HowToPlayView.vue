@@ -8,7 +8,7 @@
     <router-link to="/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
   </div>
   <div>
-    <img id="brake" src="/img/brake.png" :style="{position: absolute}">
+    <img id="brake" src="/img/brake.png">
     <h1>
       {{ uiLabels.heading }}
     </h1>

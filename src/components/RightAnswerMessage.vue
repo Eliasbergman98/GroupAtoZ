@@ -2,6 +2,9 @@
     <div v-if="showMessage" class="right-answer-message">
       <h2>{{ uiLabels.rightAnswer }}</h2>
       <p>{{ uiLabels.rightAnswerMessage }}</p>
+      <div v-if="showMessageExtraPoint"> 
+        <h2> {{ uiLabels.fastestAnswer }}</h2>
+        {{uiLabels.extraPointText}} </div>
     </div>
   </template>
   
@@ -11,6 +14,7 @@
       uiLabels: Object,
       buttonClicked: Boolean,
       rightAnswer: Boolean,
+      extraPoint: Boolean
     },
     computed: {
       showMessage() {
@@ -18,6 +22,10 @@
         console.log('Right Answer:', this.rightAnswer);
         return this.buttonClicked && this.rightAnswer;
       },
+      showMessageExtraPoint() {
+        console.log("Extra Point: ", this.extraPoint);
+        return this.extraPoint;
+      }
     },
   };
   </script>

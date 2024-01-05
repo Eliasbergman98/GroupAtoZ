@@ -29,7 +29,7 @@
     </div>
     <div class="gameInfo f">
       <button class="addTown" v-on:click="addQuestion"
-        :class="{ 'green-button': cityname !== '' && clue1 !== '' && clue2 !== '' && clue2 !== '' && clue3 !== '' }"> {{
+        :class="{ 'green-button': city !== '' && clue1 !== '' && clue2 !== '' && clue2 !== '' && clue3 !== '' }"> {{
           uiLabels.addTown }} <img id="greentick" src="/img/greentick.png"></button>
     </div>
     <div class="right-section">
