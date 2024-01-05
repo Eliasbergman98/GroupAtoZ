@@ -5,8 +5,7 @@
         </div>
     </header>
     <div class="arrow">
-        <router-link to="/join/"><button id="goBack"> <img id="arrow" src="/img/arrow.png">
-            </button></router-link>
+        <router-link to="/join/"> <img id="arrow" src="/img/arrow.png"></router-link>
     </div>
     <main>
         <h1>
@@ -156,6 +155,8 @@ export default {
 
 <style scoped>
 h1 {
+    margin-top: 4vw;
+
     font-size: 5vw;
 }
 
@@ -164,7 +165,6 @@ h1 {
     display: grid;
     grid-template-columns: 50vw 35vw;
     grid-template-rows: 5vw 5vw;
-    background-color: rgb(163, 163, 243);
     grid-gap: 1vw;
     background-size: cover;
     margin-top: -3vw;
@@ -257,9 +257,19 @@ h1 {
     height:3vw;
     width: 3vw;
 }
+#arrow {
+  position: absolute;
+  top: -0.2vw;
+}
+.muteButton {
+  margin-top: -3vw;
+
+}
+
 
 @media screen and (max-width: 800px) {
     h1 {
+        margin-top: 12vw;
         font-size: 12vw;
     }
 
@@ -297,6 +307,11 @@ h1 {
         width: 4vw;
       
     }
+
+    .muteButton {
+    margin-top: -11vw;
+
+  }
 
     .c {
         margin-left: -40vw;
