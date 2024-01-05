@@ -339,7 +339,7 @@ h2 {
     margin-top: 10vw;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
 
     h1 {
         font-size: 12vw;
@@ -373,8 +373,8 @@ h2 {
 
     .clueAnswer {
         font-size: 1.5vw;
-        height: 5vw;
-        width: 10vw;
+        height: 5.5vw;
+        width: 10.5vw;
         position: center;
         margin-left: 5vw;
         margin-bottom: 10vw;

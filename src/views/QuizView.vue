@@ -15,7 +15,7 @@
         <section class="player">
             <div class="gameInfo a" id="name">
                 {{ uiLabels.yourName }}:
-                <input type="text" id="yourname" v-model="yourName" :placeholder="uiLabels.enterName">
+                <input type="text" id="yourname" v-model="yourName" :placeholder="uiLabels.enterName" maxlength="13">
             </div>
             <div class="gameInfo b">
                 {{ uiLabels.chooseAvatar }} <br>
