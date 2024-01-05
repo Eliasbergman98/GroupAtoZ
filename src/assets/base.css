@@ -22,6 +22,19 @@ h1 {
     0.075vw 0.075vw 0 #000;
 }
 
+h6 {
+  margin-top: -3vw;
+  font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+  font-size: 4vw;
+  color: rgb(177, 27, 27);
+  text-shadow:
+      -0.075vw -0.075vw 0 #000,
+      0.075vw -0.075vw 0 #000,
+      -0.075vw 0.075vw 0 #000,
+      0.075vw 0.075vw 0 #000;
+}
+
 #arrow {
   background-color: rgb(163, 163, 243);
   text-align: left;
@@ -132,6 +145,10 @@ img[id=sweimg]:hover,
 
 @media screen and (max-width:800px) {
 
+  h6 {
+    margin-top: -4vw;
+    font-size: 7vw;
+}
   .muteButton {
     position: absolute;
     width: 5vw;

@@ -4,6 +4,7 @@
     </header>
 
     <h1>{{ data.quizName }}</h1>
+    <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
     <h2>{{ uiLabels.waitingForPlayers }}</h2>
     <div class="poll">
         <div class="columns-wrapper">
@@ -19,10 +20,9 @@
             </div>
         </div>
         <div class="button-container">
-            <button id="gameIDbutton">{{ uiLabels.gameTag }} {{ pollId }}</button>
+            <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
             <button v-on:click="endGame" id="endGamebutton">{{ uiLabels.endGame }}</button>
             <AlertComponent ref="alertComponent" :alertContentText="alertContentText"></AlertComponent>
-            <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
             <button id="createbutton" v-on:click="stopMusicAndStartGame"> {{ uiLabels.startGame }}</button>
         </div>
     </div>
@@ -191,7 +191,7 @@ h1 {
 }
 
 h2 {
-    margin-top: -3vw;
+    margin-top: -8vw;
     text-align: center;
     text-transform: uppercase;
     font-size: 3vw;
@@ -206,20 +206,14 @@ h2 {
 }
 
 #createbutton,
-#gameIDbutton,
 #playerJoinedbutton,
 #endGamebutton {
     font-size: 1.7vw;
     border: 0.2vw solid black;
     border-radius: 1.5vw;
     padding: 1.7vw;
-    width: 40em;
+    width: 12em;
     color: white;
-    margin: 10px;
-}
-
-#gameIDbutton {
-    background-color: blue;
 }
 
 #endGamebutton {
@@ -242,14 +236,14 @@ h2 {
 }
 
 .button-container {
-    margin-top: 2vw;
+    margin-top: -2vw;
     position: relative;
     width: 80vw;
     display: flex;
     justify-content: space-between;
     padding: 1em;
-    margin-bottom: 2vw;
     margin-left: 8vw;
+    margin-bottom:-10vw;
 }
 
 .participants {
@@ -277,6 +271,7 @@ h2 {
 .columns-wrapper {
     display: flex;
     justify-content: space-around;
+    min-height: 13vw;
 }
 
 .column {
@@ -296,13 +291,12 @@ h2 {
 
     h1 {
         font-size: 10vw;
-        margin-top: 2vw;
+        margin-top: -6vw;
     }
 
     h2 {
         font-size: 7vw;
     }
-
     .poll {
         font-size: 8vw;
         font-weight: bold;
@@ -314,22 +308,14 @@ h2 {
         align-items: center;
     }
 
-    #gameIDbutton {
-        width: 60vw;
-        height: 10vh;
-        font-size: 3.6vh;
-        margin-left: -10vw;
-        border-radius: 5vw;
-        margin-bottom: 20px;
-    }
-
     #endGamebutton {
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        margin-top: 10px;
     }
 
     #createbutton {
@@ -338,7 +324,7 @@ h2 {
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom: 20px;
+        margin-bottom: -10px;
     }
 
     #playerJoinedbutton {
