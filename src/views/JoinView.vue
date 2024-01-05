@@ -60,16 +60,15 @@ export default {
   },
   created: function () {
     this.pollId = this.$route.params.id
-
     socket.emit('joinPoll', this.pollId);
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
     });
-    // Check sessionStorage for muted state
     const isMuted = sessionStorage.getItem("isMuted");
     if (isMuted) {
-        this.isMuted = JSON.parse(isMuted);}
+      this.isMuted = JSON.parse(isMuted);
+    }
   },
   methods: {
     toggleMusic() {
@@ -82,10 +81,8 @@ export default {
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
       sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
-
     },
     addGameCode: async function () {
-
       const fetchData = () => {
         return new Promise((resolve) => {
           socket.emit("getPoll", this.gamecode);
@@ -95,10 +92,8 @@ export default {
           });
         });
       };
-
       try {
         await fetchData();
-
         if (this.gamecode === '') {
           this.alertContentText = this.uiLabels.gameCodeAlert;
           this.$refs.alertComponent.openAlert();
@@ -147,6 +142,14 @@ export default {
 }
 
 @media screen and (max-width:800px) {
+
+  .muteButton {
+    margin-top: 3vw;
+  }
+
+  #arrow {
+    margin-top: 2vw;
+  }
 
   h1 {
     margin-top: 10vw;

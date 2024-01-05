@@ -236,7 +236,6 @@ export default {
 <style scoped>
 .clueBox {
     display: grid;
-    background-color: rgb(163, 163, 243);
     background-size: cover;
 
 }
@@ -311,7 +310,7 @@ h2 {
     margin-top: 10vw;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
 
     h1 {
         font-size: 12vw;
@@ -325,7 +324,6 @@ h2 {
         width: 80vw;
         height: 40vw;
         background-size: cover;
-        background-color: rgb(201, 241, 244);
         border: 2px solid black;
         margin: 2vw auto 20vw auto;
         padding-bottom: 0vw;
@@ -345,8 +343,8 @@ h2 {
 
     .clueAnswer {
         font-size: 1.5vw;
-        height: 5vw;
-        width: 10vw;
+        height: 5.5vw;
+        width: 10.5vw;
         position: center;
         margin-left: 5vw;
         margin-bottom: 10vw;
