@@ -28,7 +28,7 @@
       <textarea class="fillInfo" v-model="clue3" name="clue3" rows="2"></textarea>
     </div>
     <div class="gameInfo f">
-      <button class="addTown" v-on:click="addQuestion"
+      <button class="addTown" v-on:click="addCity"
         :class="{ 'green-button': city !== '' && clue1 !== '' && clue2 !== '' && clue2 !== '' && clue3 !== '' }"> {{
           uiLabels.addTown }} <img id="greentick" src="/img/greentick.png"></button>
     </div>
@@ -80,7 +80,7 @@ export default {
     return {
       lang: localStorage.getItem("lang") || "en",
       pollId: "",
-      data: {},
+      //data: {},
       uiLabels: {},
       city: "",
       clue1: "",
@@ -111,7 +111,6 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-    // socket.emit("getPoll", this.pollId);
     // Check sessionStorage for muted state
     const isMuted = sessionStorage.getItem("isMuted");
     if (isMuted) {
@@ -119,9 +118,6 @@ export default {
     }
   },
   methods: {
-    createPoll: function () {
-      socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, selectedAvatar: this.selectedAvatarUrl })
-    },
     toggleMusic() {
       // Access the audio player from the AppView component
       const audioPlayer = this.$root.$refs.audioPlayer;
@@ -147,7 +143,7 @@ export default {
         this.$refs.alertComponent.openAlert(this.inCreateQuestionsView, this.pollId, this.yesText, this.noText);
       }
     },
-    addQuestion: function () {
+    addCity: function () {
       for (let i = 0; i < Object.keys(this.submittedCities).length; i++) {
         if (this.city.toLowerCase() === Object.keys(this.submittedCities)[i].toLowerCase()) {
           this.alertContentText = this.uiLabels.sameCityAlert;
@@ -166,7 +162,7 @@ export default {
         return;
       }
       else {
-        socket.emit("addQuestion", {
+        socket.emit("addCity", {
           pollId: this.pollId,
           city: this.city,
           clue1: this.clue1,
@@ -174,7 +170,6 @@ export default {
           clue3: this.clue3
         });
       }
-      //kan typ göra om denna kanske, vet ej om den e onödig?
       if (!this.submittedCities[this.city]) {
         this.submittedCities[this.city] = [];
         this.submittedCities[this.city].push(
@@ -191,7 +186,6 @@ export default {
     removeCity: function (cityData) {
       this.city = cityData;
       socket.emit("removeCity", { pollId: this.pollId, city: this.city });
-      // Remove the city from the local submittedCities2 object
       delete this.submittedCities[cityData];
       this.city = "";
 
@@ -522,4 +516,5 @@ h1 {
   }
 
 
-}</style>
+}
+</style>

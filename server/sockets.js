@@ -36,25 +36,23 @@ function sockets(io, socket, data) {
     io.to(pollId).emit('updateQuestionNumber', data.getNewCity(pollId));
   })
 
-  socket.on('addQuestion', function (d) {
+  socket.on('addCity', function (d) {
     data.addCity(d.pollId, d.city, d.clue1, d.clue2, d.clue3);
-    socket.emit('dataUpdate', data.getCities(d.pollId));
   });
 
   socket.on('removeCity', function (d) {
     data.removeCity(d.pollId, d.city);
-    socket.emit('dataUpdate', data.getCities(d.pollId));
-
   });
 
   socket.on('playerExited', function (d) {
     data.removePlayer(d.pollId, d.name);
     io.to(d.pollId).emit('participantsUpdate', data.getParticipants(d.pollId));
   });
-  
+
   socket.on('creatorExited', function (pollId) {
     io.to(pollId).emit('gameEnded', data.removePoll(pollId));
   });
+
   socket.on('joinPoll', function (pollId) {
     socket.join(pollId);
   });
@@ -67,14 +65,16 @@ function sockets(io, socket, data) {
   socket.on('resetAll', () => {
     data = new Data();
     data.initializeData();
-  })
+  });
+
   socket.on("checkAnswer", function (d) {
     console.log("Socket checkanswer")
     socket.emit("yourPoints", data.checkAnswer(d.pollId, d.answer, d.name, d.clueNumber, d.rightAnswer, d.answerTime));
   });
-  socket.on("newClue", function(pollId){
+
+  socket.on("newClue", function (pollId) {
     data.resetAnswerTime(pollId);
-  })
+  });
 
 }
 
