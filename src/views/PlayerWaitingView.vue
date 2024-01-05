@@ -1,6 +1,6 @@
 <template>
     <h1>
-        {{ data.quizName }}
+        {{ quizName }}
     </h1>
     <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
     <h2>{{ uiLabels.waitingForHost }}</h2>
@@ -35,7 +35,8 @@ export default {
         return {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
-            data: {},
+            quizName: "",
+            // data: {},
             uiLabels: {},
             participants: [],
             playerColumns: [],
@@ -59,7 +60,7 @@ export default {
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
         socket.on("fullPole", (data) => {
-            this.data = data;
+            this.quizName = data.quizName;
         });
         socket.on("participantsUpdate", (participants) => {
             this.participants = participants;

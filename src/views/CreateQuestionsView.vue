@@ -111,11 +111,12 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-    socket.emit("getPoll", this.pollId);
+    // socket.emit("getPoll", this.pollId);
     // Check sessionStorage for muted state
-      const isMuted = sessionStorage.getItem("isMuted");
+    const isMuted = sessionStorage.getItem("isMuted");
     if (isMuted) {
-      this.isMuted = JSON.parse(isMuted);}
+      this.isMuted = JSON.parse(isMuted);
+    }
   },
   methods: {
     createPoll: function () {
@@ -208,7 +209,7 @@ h1 {
 }
 
 .fillInfo {
-  font-family: Helvetica, Arial, sans-serif; 
+  font-family: Helvetica, Arial, sans-serif;
   height: 2vw;
   width: 25vw;
   margin-top: 1.5vw;
@@ -299,7 +300,8 @@ h1 {
   margin-left: 4.5vw;
   width: 2vw;
 }
-.f{
+
+.f {
   grid-row-start: 5;
   grid-column-start: 1;
 }
@@ -383,6 +385,7 @@ h1 {
 #title {
   padding-top: 2vw;
 }
+
 .muteButton {
   margin-top: -1vw;
 
@@ -447,9 +450,10 @@ h1 {
     overflow: hidden;
   }
 
-  .f{
+  .f {
     margin-top: 5vw;
   }
+
   .fillInfo {
     height: 5vw;
     width: 35vw;
@@ -518,5 +522,4 @@ h1 {
   }
 
 
-}
-</style>
+}</style>

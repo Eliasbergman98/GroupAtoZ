@@ -3,7 +3,7 @@
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </header>
 
-    <h1>{{ data.quizName }}</h1>
+    <h1>{{ quizName }}</h1>
     <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
     <h2>{{ uiLabels.waitingForPlayers }}</h2>
     <div class="poll">
@@ -46,7 +46,7 @@ export default {
             lang: localStorage.getItem("lang") || "en",
             pollId: "",
             questionNumber: 0,
-            data: {},
+            // data: {},
             uiLabels: {},
             selectedAvatar: null,
             avatars: avatar,
@@ -86,10 +86,10 @@ export default {
         });
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
-        socket.on("pollCreated", (data) =>
-            this.data = data)
+        // socket.on("pollCreated", (data) =>
+        //     this.data = data)
         socket.on("fullPole", (data) => {
-            this.data = data;
+            // this.data = data;
             this.quizName = data.quizName;
             console.log("lyssnar på fullPole och detta ör quizname: ", this.quizName)
         });

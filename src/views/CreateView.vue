@@ -58,7 +58,7 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       pollId: "",
       quizName: '',
-      data: {},
+      // data: {},
       uiLabels: {},
       selectedAvatar: null,
       avatars: avatar,
