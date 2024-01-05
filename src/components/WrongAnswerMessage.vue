@@ -1,7 +1,9 @@
 <template>
     <div v-if="showWrongMessage" class="wrong-answer-message">
       <h2>{{ uiLabels.wrongAnswer }}</h2>
-      <p>{{ uiLabels.wrongAnswerMessage }}</p>
+      <p v-if="clueNumber === 2">{{ uiLabels.wrongAnswerMessage }}</p>
+      <div v-if="clueNumber === 0 || clueNumber === 1">
+      {{ uiLabels.wrongAnswerNextClue }}</div>
     </div>
   </template>
   
@@ -11,6 +13,7 @@
       uiLabels: Object,
       buttonClicked: Boolean,
       rightAnswer: Boolean,
+      clueNumber: Number
     },
     computed: {
       showWrongMessage() {

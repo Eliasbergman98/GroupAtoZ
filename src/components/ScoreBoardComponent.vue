@@ -35,14 +35,11 @@ export default {
             if (this.participants.length === 0) {
                 return [];
             }
-
             const highestPoints = this.participants.reduce((maxPoints, person) => Math.max(maxPoints, person.points), 0);
-
             return this.participants.filter(person => person.points === highestPoints);
         },
         topParticipantsText() {
             const topParticipants = this.topParticipants;
-
             if (topParticipants.length === 1) {
                 return `${this.uiLabels.midScoreText} ${topParticipants[0].name} ${this.uiLabels.midScoreText1} ${topParticipants[0].points} ${this.uiLabels.points}`;
             } else if (topParticipants.length > 1) {
@@ -59,7 +56,7 @@ export default {
 
 <style scoped>
 h2 {
-    color: rgb(72, 95, 224);
+    color: rgba(4, 51, 192, 0.966);
 }
 
 .right-answer,
@@ -71,14 +68,15 @@ h2 {
 .participant-item {
     padding: 1vw;
     margin-bottom: 0.5vw;
+    list-style-type: none;
 }
 
 .participant-item:nth-child(odd) {
-    background-color: rgb(140, 204, 140);
+    background-color:rgb(168, 89, 208);
 }
 
 .participant-item:nth-child(even) {
-    background-color: #e3a5d3;
+    background-color: #5567ce;
 }
 
 .score-board-component {
@@ -102,10 +100,6 @@ h2 {
     text-align: left;
     max-height: 15vw;
     overflow-y: auto;
-}
-
-.participant-item {
-    list-style-type: none;
 }
 
 .participant-info {

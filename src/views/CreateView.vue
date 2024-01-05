@@ -18,7 +18,7 @@
       <div id="gameName">
         {{ uiLabels.chooseName }} </div>
       <input v-model="quizName" class="addQuizName" name="quizname" type="text" :placeholder="uiLabels.enterGameName"
-        maxlength="13">
+        maxlength="15">
     </div>
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>

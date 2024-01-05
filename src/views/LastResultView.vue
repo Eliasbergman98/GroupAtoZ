@@ -9,9 +9,14 @@
             <div v-for="(confetto, index) in confettiArray" :key="index" class="confetto"
                 :style="{ left: confetto.left, animationDuration: confetto.animationDuration, backgroundColor: confetto.backgroundColor }">
             </div>
-            <h1>{{ uiLabels.resultScore }}</h1>
+            <h1>{{ uiLabels.resultScore }}  <br> {{ uiLabels.for }} {{ quizName }} </h1>
             <div id="pics">
-                <img class="podium" src="/img/Podium-removebg-preview1.png">
+                <img v-if="participants.length== 1" class="podium" src="/img/Podium-removebg-preview4 (2).png" 
+                    target="_blank">
+                <img v-if="participants.length== 2" class="podium" src="/img/Podium-removebg-preview3.png" 
+                    target="_blank">
+                <img v-if="participants.length >2" class="podium" src="/img/Podium-removebg-preview1.png" 
+                    target="_blank">
                 <img v-if="participants[0]" class="emoji a" :src="participants[0].avatar" width="20" height="20"
                     target="_blank">
                 <img v-if="participants[1]" class="emoji b" :src="participants[1].avatar" width="20" height="20"
@@ -57,6 +62,7 @@ export default {
             questionNumber: 0,
             uiLabels: {},
             participants: [],
+            quizName: ""
         }
     },
     created: function () {
@@ -68,8 +74,8 @@ export default {
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
         socket.on("fullPole", (data) => {
-            console.log("in lastresult", this.pollId, this.participants)
             this.participants = data.participants;
+            this.quizName = data.quizName;
             this.playerWithMostPoints();
         });
     },

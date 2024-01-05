@@ -76,5 +76,7 @@
 	"extraPoints": "Being fast is rewarded! The player who gets the right answer first on each clue will earn extra points. If several players have the same amount of points, the one with the fastest answering time will win.",
 	"scoreboard": "Scoreboard",
 	"extraPointText": "You answered the fastest and recieved an extra point!",
-	"fastestAnswer": "FASTEST ANSWER!"
+	"fastestAnswer": "FASTEST ANSWER!",
+	"wrongAnswerNextClue": "Sorry, the answer is not correct. But you get one more chance on the next clue!",
+	"for": "for"
 }
