@@ -18,7 +18,7 @@
       <div id="gameName">
         {{ uiLabels.chooseName }} </div>
       <input v-model="quizName" class="addQuizName" name="quizname" type="text" :placeholder="uiLabels.enterGameName"
-        maxlength="20">
+        maxlength="13">
     </div>
     <div class="gameInfo b">
       {{ uiLabels.chooseAvatar }} <br>
@@ -132,7 +132,6 @@ h1 {
   display: grid;
   grid-template-columns: 24vw 26vw 30vw;
   grid-template-rows: 5vw 5vw 10vw;
-  background-color: rgb(163, 163, 243);
   grid-gap: 1vw;
   background-size: cover;
   margin-top: -6vw;
@@ -265,8 +264,9 @@ h1 {
     display: grid;
     grid-template-columns: 24vw 16vw 10vw;
     grid-template-rows: 5vw 5vw 10vw;
-    background-color: rgb(163, 163, 243);
     grid-gap: 4vw;
+    background-color: rgb(115, 229, 255);
+
     background-size: cover;
     margin-top: 2vw;
   }

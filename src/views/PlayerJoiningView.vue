@@ -227,7 +227,8 @@ h2 {
 }
 
 #playerJoinedbutton {
-    background-color: rgb(177, 27, 27);
+    background-color: rgba(4, 51, 192, 0.966);
+
 }
 
 #createbutton {

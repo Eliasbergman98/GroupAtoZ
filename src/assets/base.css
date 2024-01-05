@@ -6,7 +6,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(163, 163, 243);
+  background-color: rgb(62, 152, 247);
 }
 
 h1 {
@@ -14,7 +14,7 @@ h1 {
   font-family: Courier, Trebuchet MS, Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
   font-size: 6vw;
-  color: rgb(177, 27, 27);
+  color: rgba(4, 51, 192, 0.966);
   text-shadow:
     -0.075vw -0.075vw 0 #000,
     0.075vw -0.075vw 0 #000,
@@ -23,7 +23,7 @@ h1 {
 }
 
 #arrow {
-  background-color: rgb(163, 163, 243);
+  background-color: rgb(62, 152, 247);
   text-align: left;
   width: 3vw;
   margin-left: -49vw;
@@ -31,8 +31,8 @@ h1 {
 }
 
 .arrow button {
-  background-color: rgb(163, 163, 243);
-  border: 1px solid rgb(163, 163, 243);
+  background-color: rgb(62, 152, 247);
+  background-color: rgb(62, 152, 247);
   text-align: left;
 }
 
@@ -119,7 +119,7 @@ img[id=sweimg]:hover,
 }
 
 #arrow {
-  background-color: rgb(163, 163, 243);
+  background-color: rgb(62, 152, 247);
   text-align: left;
   width: 3vw;
   margin-left: -49vw;
@@ -151,7 +151,7 @@ img[id=sweimg]:hover,
   
 
   #arrow {
-    background-color: rgb(163, 163, 243);
+    background-color: rgb(62, 152, 247);
     text-align: left;
     width: 8vw;
     height: 8vw;
@@ -160,8 +160,8 @@ img[id=sweimg]:hover,
   }
 
   .arrow button {
-    background-color: rgb(163, 163, 243);
-    border: 1px solid rgb(163, 163, 243);
+    background-color: rgb(62, 152, 247);
+    background-color: rgb(62, 152, 247);
     text-align: left;
   }
 }

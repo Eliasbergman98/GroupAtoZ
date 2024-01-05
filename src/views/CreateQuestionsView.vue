@@ -5,7 +5,7 @@
     </div>
   </header>
   <div class="arrow">
-    <router-link to="/create/"><button id="goBack"> <img id="arrow" src="/img/arrow.png"> </button></router-link>
+    <router-link to="/create/"> <img id="arrow" src="/img/arrow.png"></router-link>
   </div>
   <h1>
     {{ uiLabels.createYourGame }}
@@ -203,8 +203,8 @@ export default {
   
 <style scoped>
 h1 {
-  font-size: 4.9vw;
-  margin-top: -3vw;
+  font-size: 5vw;
+  margin-top: 2vw;
 }
 
 .fillInfo {
@@ -304,18 +304,6 @@ h1 {
   grid-column-start: 1;
 }
 
-/* 
-.f {
-  grid-row-start: 5;
-  grid-column-start: 1;
-  padding: 10vw auto 2vw 2vw;
-  text-align: center;
-  font-size: 3vw;
-  background-size: cover;
-  background-color: rgb(201, 241, 244);
-  margin-left: 10vw;
-} */
-
 #greentick {
   height: 1.2vw;
   width: 1.2vw;
@@ -357,6 +345,11 @@ h1 {
   margin-left: 8vw;
 }
 
+#arrow {
+  position: absolute;
+  top: -0.2vw;
+}
+
 #title {
   font-weight: bolder;
   font-size: larger;
@@ -390,6 +383,10 @@ h1 {
 #title {
   padding-top: 2vw;
 }
+.muteButton {
+  margin-top: -1vw;
+
+}
 
 @media screen and (max-width: 1000px) {
 
@@ -398,11 +395,11 @@ h1 {
     width: 5vw;
     height: 5vw;
     padding: 0.5vw 0 0 0.5vw;
+    margin-top: -9vw;
     margin-left: 40vw;
   }
 
   #arrow {
-    background-color: rgb(163, 163, 243);
     text-align: left;
     width: 7vw;
     height: 7vw;
@@ -411,7 +408,6 @@ h1 {
   }
 
   .arrow button {
-    background-color: rgb(163, 163, 243);
     border: 1px solid rgb(163, 163, 243);
     text-align: left;
   }
@@ -426,7 +422,6 @@ h1 {
     display: grid;
     grid-template-columns: 39vw 39vw 9.1vw;
     grid-template-rows: 17vw 17vw 17vw 17vw 5vw 50vw 14vw;
-    background-color: rgb(163, 163, 243);
     grid-gap: 6vw;
     margin-top: 5vw;
     background-size: cover;
@@ -445,7 +440,6 @@ h1 {
     width: 75vw;
     height: 15vw;
     background-size: cover;
-    background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 10vw;
     margin-top: 5vw;
@@ -456,29 +450,6 @@ h1 {
   .f{
     margin-top: 5vw;
   }
-
-  /* .addTown {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 1.7vw;
-  color: white;
-  background-color: gray;
-  border: 0.2vw solid black;
-  border-radius: 1.5vw;
-  padding: 1.7vw;
-  width: 9em;
-  } */
-
-  /* .f {
-    padding: 10vw auto 2vw 2vw;
-    text-align: center;
-    font-size: 4vw;
-    width: 80vw;
-    height: 10vw;
-    background-size: cover;
-    background-color: rgb(201, 241, 244);
-    margin-left: 10vw;
-  } */
-
   .fillInfo {
     height: 5vw;
     width: 35vw;
