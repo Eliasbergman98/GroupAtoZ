@@ -11,8 +11,6 @@ function sockets(io, socket, data) {
 
   socket.on('createPoll', function (d) {
     data.createPoll(d.pollId, d.lang, d.quizName, d.selectedAvatar);
-    console.log("Received poll on server:")
-    socket.emit('pollCreated', data.createPoll(d.pollId, d.lang, d.quizName, d.selectedAvatar));
   });
 
   socket.on('getPoll', function (pollId) {
