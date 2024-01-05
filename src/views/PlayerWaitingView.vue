@@ -1,6 +1,6 @@
 <template>
     <h1>
-        {{ quizName }}
+        {{ quizName }}<img class="selected-avatar" v-bind:src="selectedAvatar" alt="Selected Avatar" />
     </h1>
     <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
     <h5>{{ uiLabels.waitingForHost }}</h5>
@@ -20,8 +20,6 @@
         <div class="button-container">
             <button v-on:click="exitGame" id="exitGamebutton">{{ uiLabels.exitGame }}</button>
             <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
-
-
         </div>
     </div>
 </template>
@@ -42,7 +40,8 @@ export default {
             participants: [],
             playerColumns: [],
             playersPerColumn: 6,
-            yourName: ""
+            yourName: "",
+            selectedAvatar: null,
         }
     },
 
@@ -62,6 +61,7 @@ export default {
         socket.emit("getPoll", this.pollId);
         socket.on("fullPole", (data) => {
             this.quizName = data.quizName;
+            this.selectedAvatar = data.selectedAvatar;
         });
         socket.on("participantsUpdate", (participants) => {
             this.participants = participants;
@@ -185,6 +185,13 @@ h5 {
     margin-bottom: -0.4vw;
 }
 
+.selected-avatar {
+    width: 4vw;
+    height: 4vw;
+    margin-left: 2vw;
+    margin-bottom: -0.2vw;
+}
+
 .scroll-wrapper {
     overflow-y: auto;
     height: 15vw;
@@ -257,6 +264,13 @@ h5 {
         width: 7vw;
         height: 7vw;
         margin-bottom: -0.4vw;
+    }
+
+    .selected-avatar {
+        width: 7vw;
+        height: 7vw;
+        margin-left: 4vw;
+        margin-bottom: -0.5vw;
     }
 }
 </style>

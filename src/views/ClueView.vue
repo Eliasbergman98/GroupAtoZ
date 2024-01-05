@@ -17,7 +17,7 @@
             </div>
             <div v-else-if="!showRightAnswer && !rightAnswer && wrongAnswer">
                 <wrong-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
-                    :rightAnswer="rightAnswer"></wrong-answer-message>
+                    :rightAnswer="rightAnswer" :clueNumber="clueNumber"></wrong-answer-message>
             </div>
             <div v-else>
                 <div class="clueBox">
@@ -100,13 +100,12 @@ export default {
     },
     computed: {
         buttonImage() {
-            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
         },
     },
     created: function () {
         this.pollId = this.$route.params.pollId;
         this.yourName = this.$route.params.yourName;
-
         socket.emit("getPoll", this.pollId);
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
@@ -120,7 +119,6 @@ export default {
             this.startFuseTimer();
             this.checkIfCreator();
         });
-
     },
     methods: {
         toggleMute() {
@@ -152,9 +150,7 @@ export default {
                 });
                 this.timesPressedButton = + 1;
                 this.answerClue = "";
-
             }
-
         },
         handleFuseBurnout() {
             if (this.rightAnswer) {

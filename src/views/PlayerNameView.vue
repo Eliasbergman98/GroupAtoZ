@@ -5,7 +5,7 @@
         </div>
     </header>
     <div class="arrow">
-        <router-link to="/join/"> <img id="arrow" src="/img/arrow.png"></router-link>
+        <router-link to="/playerjoin/"> <img id="arrow" src="/img/arrow.png"></router-link>
     </div>
     <main>
         <h1>
@@ -47,7 +47,7 @@ import pressToUnmuteImage from "/img/soundoff.png";
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
-    name: 'QuizView',
+    name: 'PlayerNameView',
     components: {
         AlertComponent
     },
@@ -68,7 +68,7 @@ export default {
     },
     computed: {
         buttonImage() {
-            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
         }
     },
     created: function () {

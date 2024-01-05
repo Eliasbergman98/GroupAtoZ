@@ -3,7 +3,7 @@
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </header>
 
-    <h1>{{ quizName }}</h1>
+    <h1>{{ quizName }} <img class="selected-avatar" v-bind:src="selectedAvatar" alt="Selected Avatar" /></h1>
     <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
     <h5>{{ uiLabels.waitingForPlayers }}</h5>
     <div class="poll">
@@ -37,7 +37,7 @@ import pressToUnmuteImage from "/img/soundoff.png";
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
-    name: 'PlayerJoiningView',
+    name: 'CreatorWaitingView',
     components: {
         AlertComponent,
     },
@@ -63,7 +63,7 @@ export default {
     },
     computed: {
         buttonImage() {
-            return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
         }
     },
 
@@ -87,6 +87,7 @@ export default {
         socket.on("fullPole", (data) => {
             // this.data = data;
             this.quizName = data.quizName;
+            this.selectedAvatar = data.selectedAvatar;
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
         // Check sessionStorage for muted state
@@ -105,7 +106,7 @@ export default {
         sendInfo: function () {
             if (this.participants != 0) {
                 socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber })
-                this.$router.push('/startingquiz/' + this.pollId + "/" + this.quizName)
+                this.$router.push('/startingquizcreator/' + this.pollId + "/" + this.quizName)
             }
         },
         toggleMusic() {
@@ -243,6 +244,13 @@ h5 {
     margin-bottom: -0.4vw;
 }
 
+.selected-avatar {
+    width: 4vw;
+    height: 4vw;
+    margin-left: -1.55vw;
+    margin-bottom: -0.2vw;
+}
+
 .scroll-wrapper {
     overflow-y: auto;
     height: 15vw;
@@ -277,7 +285,7 @@ h5 {
 
     h1 {
         font-size: 10vw;
-        margin-top: 1vw;
+        margin-top: -6vw;
     }
 
     h2 {
@@ -335,6 +343,13 @@ h5 {
         width: 7vw;
         height: 7vw;
         margin-bottom: -0.4vw;
+    }
+
+    .selected-avatar {
+        width: 7vw;
+        height: 7vw;
+        margin-left: -4vw;
+        margin-bottom: -0.5vw;
     }
 }
 </style>

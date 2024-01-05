@@ -99,7 +99,7 @@ export default {
       return this.city && this.clue1 && this.clue2 && this.clue3;
     },
     buttonImage() {
-      return this.isMuted ? pressToMuteImage : pressToUnmuteImage;
+      return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
     }
   },
 
