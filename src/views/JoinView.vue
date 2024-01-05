@@ -148,6 +148,14 @@ export default {
 
 @media screen and (max-width:800px) {
 
+  .muteButton {
+    margin-top: 3vw;
+  }
+
+  #arrow{
+    margin-top: 2vw;
+  }
+
   h1 {
     margin-top: 10vw;
   }
