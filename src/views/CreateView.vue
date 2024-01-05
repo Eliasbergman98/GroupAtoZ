@@ -265,8 +265,6 @@ h1 {
     grid-template-columns: 24vw 16vw 10vw;
     grid-template-rows: 5vw 5vw 10vw;
     grid-gap: 4vw;
-    background-color: rgb(115, 229, 255);
-
     background-size: cover;
     margin-top: 2vw;
   }

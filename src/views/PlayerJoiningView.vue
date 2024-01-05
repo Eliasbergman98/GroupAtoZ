@@ -20,8 +20,8 @@
             </div>
         </div>
         <div class="button-container">
-            <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
             <button v-on:click="endGame" id="endGamebutton">{{ uiLabels.endGame }}</button>
+            <button id="playerJoinedbutton">{{ participants.length }} {{ uiLabels.participantCount }} </button>
             <AlertComponent ref="alertComponent" :alertContentText="alertContentText"></AlertComponent>
             <button id="createbutton" v-on:click="stopMusicAndStartGame"> {{ uiLabels.startGame }}</button>
         </div>
@@ -82,16 +82,12 @@ export default {
         socket.on("participantsUpdate", (participants) => {
             this.participants = participants;
             this.getParticipantName(this.participants);
-            console.log("hej här kommer nya joinare i playerwaiting", this.participants)
         });
         socket.emit("joinPoll", this.pollId);
         socket.emit("getPoll", this.pollId);
-        // socket.on("pollCreated", (data) =>
-        //     this.data = data)
         socket.on("fullPole", (data) => {
             // this.data = data;
             this.quizName = data.quizName;
-            console.log("lyssnar på fullPole och detta ör quizname: ", this.quizName)
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
         // Check sessionStorage for muted state
@@ -108,7 +104,6 @@ export default {
             this.applyFunctionBasedOnMediaQuery();
         },
         sendInfo: function () {
-            console.log("så här många players", this.participants)
             if (this.participants != 0) {
                 socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber })
                 this.$router.push('/startingquiz/' + this.pollId + "/" + this.quizName)
@@ -161,7 +156,6 @@ export default {
             if (window.matchMedia("(max-width: 800px)").matches) {
                 this.playersPerColumn = 100;
                 this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
-                console.log("Media query matches! Run your function here.");
             } else {
                 this.playersPerColumn = 6;
                 this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
@@ -217,15 +211,18 @@ h2 {
 }
 
 #endGamebutton {
-    background-color: red;
+    order:1;
+    background-color: rgb(177, 27, 27);
 }
 
 #playerJoinedbutton {
+    order:2;
     background-color: rgba(4, 51, 192, 0.966);
 
 }
 
 #createbutton {
+    order:3;
     background-color: green;
 }
 
@@ -234,6 +231,7 @@ h2 {
     color: black;
     position: center;
     font-weight: bold;
+    height:15vw;
 }
 
 .button-container {
@@ -266,7 +264,6 @@ h2 {
     list-style: none;
     padding: 0;
     margin: 0;
-    align-items: center;
 }
 
 .columns-wrapper {
@@ -292,7 +289,7 @@ h2 {
 
     h1 {
         font-size: 10vw;
-        margin-top: -6vw;
+        margin-top: 1vw;
     }
 
     h2 {
@@ -310,30 +307,34 @@ h2 {
     }
 
     #endGamebutton {
+        order:3;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom: 10px;
-        margin-top: 10px;
+        
     }
 
     #createbutton {
+        order:1;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-        margin-bottom: -10px;
+        margin-bottom:5vw;
+        
     }
 
     #playerJoinedbutton {
+        order:2;
         width: 60vw;
         height: 10vh;
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
+        margin-bottom:5vw;
     }
 
     .scroll-wrapper {

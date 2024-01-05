@@ -265,7 +265,6 @@ export default {
 
 .clueBox {
     display: grid;
-    background-color: rgb(163, 163, 243);
     background-size: cover;
 
 }
@@ -353,7 +352,6 @@ h2 {
         width: 80vw;
         height: 40vw;
         background-size: cover;
-        background-color: rgb(201, 241, 244);
         border: 2px solid black;
         margin: 2vw auto 20vw auto;
         padding-bottom: 0vw;

@@ -205,7 +205,7 @@ export default {
 <style scoped>
 h1 {
   font-size: 5vw;
-  margin-top: 2vw;
+  margin-top: 1.5vw;
 }
 
 .fillInfo {
