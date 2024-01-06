@@ -32,7 +32,7 @@ export default {
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
-            pollId: "",
+            gameId: "",
             questionNumber: 0,
             uiLabels: {},
             fuseWidth: 98,
@@ -48,19 +48,19 @@ export default {
         }
     },
     created: function () {
-        this.pollId = this.$route.params.pollId;
+        this.gameId = this.$route.params.gameId;
         this.yourName = this.$route.params.yourName;
-        socket.emit("cityUpdate", this.pollId);
+        socket.emit("cityUpdate", this.gameId);
         socket.emit("pageLoaded", this.lang);
-        socket.emit("getPoll", this.pollId)
-        socket.emit("getCity", this.pollId);
+        socket.emit("getGame", this.gameId)
+        socket.emit("getCity", this.gameId);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
         });
-        socket.on("fullPole", (data) => {
+        socket.on("fullGame", (data) => {
             console.log(data);
             this.cities = data.cities;
         });
@@ -71,7 +71,7 @@ export default {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             clearInterval(sessionStorage.getItem("fuseTimer"));
-            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
+            this.$router.push('/clue/' + this.gameId + '/' + this.yourName);
         },
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;

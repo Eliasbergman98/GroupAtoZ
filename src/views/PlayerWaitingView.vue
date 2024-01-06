@@ -2,7 +2,7 @@
     <h1>
         {{ quizName }}<img class="selected-avatar" v-bind:src="selectedAvatar" alt="Selected Avatar" />
     </h1>
-    <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
+    <h6>{{ uiLabels.gameTag }} {{ gameId }}</h6>
     <h5>{{ uiLabels.waitingForHost }}</h5>
     <div class="poll">
         <div class="columns-wrapper">
@@ -33,9 +33,8 @@ export default {
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
-            pollId: "",
+            gameId: "",
             quizName: "",
-            // data: {},
             uiLabels: {},
             participants: [],
             playerColumns: [],
@@ -51,15 +50,15 @@ export default {
         },
     },
     created: function () {
-        this.pollId = this.$route.params.pollId;
+        this.gameId = this.$route.params.gameId;
 
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.emit("joinPoll", this.pollId);
-        socket.emit("getPoll", this.pollId);
-        socket.on("fullPole", (data) => {
+        socket.emit("joinGame", this.gameId);
+        socket.emit("getGame", this.gameId);
+        socket.on("fullGame", (data) => {
             this.quizName = data.quizName;
             this.selectedAvatar = data.selectedAvatar;
         });
@@ -68,11 +67,11 @@ export default {
             this.getParticipantName(this.participants);
             console.log("hej här kommer nya joinare i playerwaiting", this.participants)
         });
-        socket.on("creatorStarting", (pollId) => {
-            this.$router.push('/startingquizplayer/' + this.pollId + '/' + this.yourName);
+        socket.on("creatorStarting", (gameId) => {
+            this.$router.push('/startingquizplayer/' + this.gameId + '/' + this.yourName);
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
-        socket.on("gameEnded", (pollId) => {
+        socket.on("gameEnded", (gameId) => {
             this.$router.push('/');
         })
     },
@@ -80,7 +79,7 @@ export default {
     methods: {
 
         exitGame() {
-            socket.emit("playerExited", { pollId: this.pollId, name: this.yourName })
+            socket.emit("playerExited", { gameId: this.gameId, name: this.yourName })
             this.$router.push('/');
             this.applyFunctionBasedOnMediaQuery();
         },
