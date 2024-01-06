@@ -11,7 +11,6 @@
 
     </div>
   </header>
-<!-- sessionstorage, i createdhooken på efterföljande sidor, spara state, -->
   <main>
     <section id="section1">
       <img id="brake" src="/img/brake.png">
