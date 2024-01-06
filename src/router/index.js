@@ -30,7 +30,7 @@ const router = createRouter({
       component: PlayerJoinView
     },
     {
-      path: '/playername/:pollId',
+      path: '/playername/:gameId',
       name: 'PlayerNameView',
       component: PlayerNameView
     },
@@ -40,7 +40,7 @@ const router = createRouter({
       component: CreateView
     },
     {
-      path: '/createquestions/:pollId',
+      path: '/createquestions/:gameId',
       name: 'CreateQuestionsView',
       component: CreateQuestionsView
     },
@@ -50,37 +50,37 @@ const router = createRouter({
       component: HowToPlayView
     },
     {
-      path: '/creatorwaiting/:pollId',
+      path: '/creatorwaiting/:gameId',
       name: 'CreatorWaitingView',
       component: CreatorWaitingView
     },
     {
-      path: '/startingquizcreator/:pollId/:yourName',
+      path: '/startingquizcreator/:gameId/:yourName',
       name: 'StartingQuizCreatorView',
       component: StartingQuizCreatorView
     },
     {
-      path: '/clue/:pollId/:yourName',
+      path: '/clue/:gameId/:yourName',
       name: 'ClueView',
       component: ClueView
     },
     {
-      path: '/afterclue/:pollId/:yourName',
+      path: '/afterclue/:gameId/:yourName',
       name: 'AfterClueView',
       component: AfterClueView
     },
     {
-      path: '/playerwaiting/:pollId',
+      path: '/playerwaiting/:gameId',
       name: 'PlayerWaitingView',
       component: PlayerWaitingView
     },
     {
-      path: '/startingquizplayer/:pollId/:yourName',
+      path: '/startingquizplayer/:gameId/:yourName',
       name: 'StartingQuizPlayerView',
       component: StartingQuizPlayerView
     },
     {
-      path: '/lastresult/:pollId',
+      path: '/lastresult/:gameId',
       name: 'LastResultView',
       component: LastResultView
     },

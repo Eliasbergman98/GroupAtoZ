@@ -10,7 +10,7 @@
   <h1>
     {{ uiLabels.createYourGame }}
   </h1>
-  <div class="poll">
+  <div class="game">
     <div class="gameInfo a">
       <div id="title"> {{ uiLabels.city1 }} </div>
       <input class="fillInfo" v-model="city" name="cityname" type="text" />
@@ -79,8 +79,7 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      pollId: "",
-      //data: {},
+      gameId: "",
       uiLabels: {},
       city: "",
       clue1: "",
@@ -104,7 +103,7 @@ export default {
   },
 
   created: function () {
-    this.pollId = this.$route.params.pollId;
+    this.gameId = this.$route.params.gameId;
     this.selectedAvatarUrl = this.avatarUrl;
 
     socket.emit("pageLoaded", this.lang);
@@ -140,7 +139,7 @@ export default {
         this.alertContentText = this.uiLabels.createGameAlert;
         this.yesText = this.uiLabels.yesHeading;
         this.noText = this.uiLabels.noHeading;
-        this.$refs.alertComponent.openAlert(this.inCreateQuestionsView, this.pollId, this.yesText, this.noText);
+        this.$refs.alertComponent.openAlert(this.inCreateQuestionsView, this.gameId, this.yesText, this.noText);
       }
     },
     addCity: function () {
@@ -163,7 +162,7 @@ export default {
       }
       else {
         socket.emit("addCity", {
-          pollId: this.pollId,
+          gameId: this.gameId,
           city: this.city,
           clue1: this.clue1,
           clue2: this.clue2,
@@ -185,7 +184,7 @@ export default {
     },
     removeCity: function (cityData) {
       this.city = cityData;
-      socket.emit("removeCity", { pollId: this.pollId, city: this.city });
+      socket.emit("removeCity", { gameId: this.gameId, city: this.city });
       delete this.submittedCities[cityData];
       this.city = "";
 
@@ -218,7 +217,7 @@ h1 {
   background-color: rgb(201, 241, 244);
 }
 
-.poll {
+.game {
   margin-top: 2vw;
   position: relative;
   display: grid;
@@ -414,7 +413,7 @@ h1 {
     font-size: 8vw;
   }
 
-  .poll {
+  .game {
     position: relative;
     display: grid;
     grid-template-columns: 39vw 39vw 9.1vw;

@@ -1,5 +1,5 @@
 {
-	"sales-pitch2": "Unlock the door to knowledge and follow the tracks to victory",
+	"sales-pitch2": "Unlock the door to knowledge and follow the rails to victory",
 	"about": "How to play",
 	"createGame": "Create game",
 	"createYourGame":  "Create your game",
@@ -15,7 +15,7 @@
 	"createGame1": "How To Create A Game",
 	"information3": "1. Fill in the city and then provide your clues.",
 	"information4": "2. Add the city to the game and create more cities with clues.",
-	"information5": "3. Click on 'Create Game' and invite your friends using your unique Poll ID.",
+	"information5": "3. Click on 'Create Game' and invite your friends using your unique game ID.",
 	"information6": "4. Done! Now you can start the game and compete with your friends.",
 	"enterCode": "Enter your game code here",
 	"chooseName": "Game name:",
@@ -77,6 +77,5 @@
 	"scoreboard": "Scoreboard",
 	"extraPointText": "You answered the fastest and recieved an extra point!",
 	"fastestAnswer": "FASTEST ANSWER!",
-	"wrongAnswerNextClue": "Sorry, the answer is not correct. But you get one more chance on the next clue!",
-	"for": "for"
+	"wrongAnswerNextClue": "Sorry, the answer is not correct. But you get one more chance on the next clue!"
 }

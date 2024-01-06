@@ -12,8 +12,8 @@
   <h1>
     {{ uiLabels.createYourGame }}
   </h1>
-  {{ pollId }}
-  <div class="poll">
+  {{ gameId }}
+  <div class="game">
     <div class="gameInfo a">
       <div id="gameName">
         {{ uiLabels.chooseName }} </div>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="gameInfo c">
-      <button id="createbutton" v-on:click="createPoll" :class="{ 'green-button': quizName !== '' && selectedAvatar !== null }"> {{ uiLabels.next }}</button>
+      <button id="createbutton" v-on:click="createGame" :class="{ 'green-button': quizName !== '' && selectedAvatar !== null }"> {{ uiLabels.next }}</button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
       </AlertComponent>
     </div>
@@ -56,7 +56,7 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      pollId: "",
+      gameId: "",
       quizName: '',
       // data: {},
       uiLabels: {},
@@ -79,23 +79,21 @@ export default {
       this.uiLabels = labels
     })
     socket.emit("pageLoaded", this.lang);
-    //socket.on("pollCreated", (data) => console.log("pollId created in createview:", data))     TA INTE BORT DENNA
-    // Check sessionStorage for muted state
     const isMuted = sessionStorage.getItem("isMuted");
     if (isMuted) {
       this.isMuted = JSON.parse(isMuted);
     }
   },
   methods: {
-    createPoll: function () {
+    createGame: function () {
       if (this.quizName === '' || this.selectedAvatar === null) {
         this.alertContentText = this.uiLabels.nameAvatarAlert;
         this.$refs.alertComponent.openAlert();
       }
       else {
-        this.pollId = Math.floor(Math.random() * 100000);
-        socket.emit("createPoll", { pollId: this.pollId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatarUrl })
-        this.$router.push('/createquestions/' + this.pollId);
+        this.gameId = Math.floor(Math.random() * 100000);
+        socket.emit("createGame", { gameId: this.gameId, lang: this.lang, quizName: this.quizName, selectedAvatar: this.selectedAvatarUrl })
+        this.$router.push('/createquestions/' + this.gameId);
       }
     },
     selectAvatar(index) {
@@ -126,7 +124,7 @@ h1 {
   font-size: 5vw;
 }
 
-.poll {
+.game {
   top: 5vw;
   position: relative;
   display: grid;
@@ -259,7 +257,7 @@ h1 {
 
   }
 
-  .poll {
+  .game {
     position: relative;
     display: grid;
     grid-template-columns: 24vw 16vw 10vw;

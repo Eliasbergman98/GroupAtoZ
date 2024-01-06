@@ -43,7 +43,7 @@ export default {
   data: function () {
     return {
       gamecode: "",
-      pollId: "inactive poll",
+      gameId: "inactive game",
       uiLabels: {},
       data: {},
       lang: localStorage.getItem("lang") || "en",
@@ -59,8 +59,8 @@ export default {
     }
   },
   created: function () {
-    this.pollId = this.$route.params.id
-    socket.emit('joinPoll', this.pollId);
+    this.gameId = this.$route.params.id
+    socket.emit('joinGame', this.gameId);
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
@@ -85,8 +85,8 @@ export default {
     addGameCode: async function () {
       const fetchData = () => {
         return new Promise((resolve) => {
-          socket.emit("getPoll", this.gamecode);
-          socket.on("fullPole", (data) => {
+          socket.emit("getGame", this.gamecode);
+          socket.on("fullGame", (data) => {
             this.data = data;
             resolve();
           });
@@ -101,8 +101,8 @@ export default {
           this.alertContentText = this.uiLabels.gameCodeAlert;
           this.$refs.alertComponent.openAlert();
         } else {
-          this.pollId = this.gamecode;
-          this.$router.push('/playername/' + this.pollId);
+          this.gameId = this.gamecode;
+          this.$router.push('/playername/' + this.gameId);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -171,7 +171,7 @@ export default {
     border: 2px solid black;
     padding: 5vw;
     margin: 5vw;
-    margin-top: 20vw;
+    margin-top: 7vw;
   }
 
   #gamecode {

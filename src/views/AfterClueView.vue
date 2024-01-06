@@ -37,7 +37,7 @@ export default {
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
-            pollId: "",
+            gameId: "",
             quizName: '',
             cities: {},
             questionNumber: 0,
@@ -50,15 +50,15 @@ export default {
         }
     },
     created: function () {
-        this.pollId = this.$route.params.pollId;
+        this.gameId = this.$route.params.gameId;
         this.yourName = this.$route.params.yourName;
         socket.emit("pageLoaded", this.lang);
-        socket.emit("joinPoll", this.pollId);
+        socket.emit("joinGame", this.gameId);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.emit("getPoll", this.pollId);
-        socket.on("fullPole", (data) => {
+        socket.emit("getGame", this.gameId);
+        socket.on("fullGame", (data) => {
             this.questionNumber = data.currentQuestion;
             this.cities = data.cities;
             this.quizName = data.quizName;
@@ -71,21 +71,20 @@ export default {
         socket.on("creatorClicked", (data) => {
             this.nextCity = true;
             this.startFuseTimer();
-            console.log("CREATORCLICKED THE BUTTON", this.pollId)
         });
     },
     methods: {
         movingToNextCity() {
             clearInterval(sessionStorage.getItem("fuseTimer"));
             this.nextCity = true;
-            socket.emit("creatorClick", this.pollId);
-            socket.emit("cityUpdate", this.pollId);
+            socket.emit("creatorClick", this.gameId);
+            socket.emit("cityUpdate", this.gameId);
             this.startFuseTimer();
         },
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
-            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
+            this.$router.push('/clue/' + this.gameId + '/' + this.yourName);
             clearInterval(sessionStorage.getItem("fuseTimer"));
         },
         checkIfCreator() {
