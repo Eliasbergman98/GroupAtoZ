@@ -13,7 +13,7 @@
     {{ uiLabels.createYourGame }}
   </h1>
   {{ gameId }}
-  <div class="poll">
+  <div class="game">
     <div class="gameInfo a">
       <div id="gameName">
         {{ uiLabels.chooseName }} </div>
@@ -124,7 +124,7 @@ h1 {
   font-size: 5vw;
 }
 
-.poll {
+.game {
   top: 5vw;
   position: relative;
   display: grid;
@@ -257,7 +257,7 @@ h1 {
 
   }
 
-  .poll {
+  .game {
     position: relative;
     display: grid;
     grid-template-columns: 24vw 16vw 10vw;
