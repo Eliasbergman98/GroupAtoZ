@@ -40,7 +40,6 @@ export default {
       this.yesText = yesText;
       this.noText = noText;
       this.inCreateQuestionsView = inCreateQuestionsView;
-      console.log(this.inCreateQuestionsView)
     },
     closeAlert() {
       this.visible = false;

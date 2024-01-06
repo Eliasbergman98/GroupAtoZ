@@ -18,12 +18,9 @@
     },
     computed: {
       showMessage() {
-        console.log('Button Clicked:', this.buttonClicked);
-        console.log('Right Answer:', this.rightAnswer);
         return this.buttonClicked && this.rightAnswer;
       },
       showMessageExtraPoint() {
-        console.log("Extra Point: ", this.extraPoint);
         return this.extraPoint;
       }
     },
@@ -57,9 +54,5 @@
         width: 80vw;
         height: 40vw;
       }
-
-    /* .extrapoint{
-      height: 40vw;
-    } */
 }
 </style>
