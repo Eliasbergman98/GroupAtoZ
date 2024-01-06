@@ -1,5 +1,5 @@
 <template>
-    <div class="custom-alert" v-if="showLastCityAnswer" :class="{ 'showLastCityAnswer': showLastCityAnswer }">
+    <div class="custom-alert" v-if="showLastCityAnswer" :class="{'showLastCityAnswer': showLastCityAnswer}">
         <div class="overlay"></div>
         <div class="alert-box">
             <div class="alert-content">
@@ -23,13 +23,11 @@ export default {
     data() {
         return {
             showLastCityAnswer: true
-
         };
     },
     methods: {
         toFinalResult() {
             this.showLastCityAnswer = false;
-            console.log("to Scoreboard", this.showLastCityAnswer)
         }
     }
 };

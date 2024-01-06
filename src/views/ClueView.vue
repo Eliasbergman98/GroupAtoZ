@@ -174,7 +174,6 @@ export default {
                 for (const [cityName, city] of Object.entries(this.cities)) {
                     const clueNumber = this.clueNumber;
                     if (clueNumber <= 3) {
-                        console.log(`${cityName}: ${city[`clue${clueNumber}`]}`);
                     }
                     if (clueNumber === 3) {
                         clearInterval(sessionStorage.getItem("fuseTimer"));
