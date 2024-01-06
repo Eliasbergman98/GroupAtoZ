@@ -72,7 +72,7 @@ h2 {
 }
 
 .participant-item:nth-child(odd) {
-    background-color:rgb(168, 89, 208);
+    background-color: rgb(168, 89, 208);
 }
 
 .participant-item:nth-child(even) {

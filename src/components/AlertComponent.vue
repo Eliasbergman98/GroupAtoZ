@@ -82,8 +82,9 @@ export default {
   background: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
+
 .alert-box {
-  background-color:rgb(184, 187, 237);
+  background-color: rgb(184, 187, 237);
   padding: 5vw;
   border: 2px solid black;
   border-radius: 20px;
@@ -137,27 +138,29 @@ export default {
 }
 
 @media screen and (max-width: 800px) {
-.custom-alert{
-  font-size: 6vw;
+  .custom-alert {
+    font-size: 6vw;
   }
-.alert-box {
-  width: 50vw;
-  height: auto;
-}
-#yesbutton {
-  font-size: 2.5vw;
-  margin-top: 2vw;
-  margin-left: 9vw;
-  margin-right: 6vw;
-  width: 12vw;
-}
 
-#nobutton {
-  font-size: 2.5vw;
-  margin-top: 3vw;
-  margin-left: 2vw;
-  width: 12vw;
-}
+  .alert-box {
+    width: 50vw;
+    height: auto;
+  }
+
+  #yesbutton {
+    font-size: 2.5vw;
+    margin-top: 2vw;
+    margin-left: 9vw;
+    margin-right: 6vw;
+    width: 12vw;
+  }
+
+  #nobutton {
+    font-size: 2.5vw;
+    margin-top: 3vw;
+    margin-left: 2vw;
+    width: 12vw;
+  }
 }
 </style>
   
