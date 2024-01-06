@@ -33,10 +33,10 @@
 import io from 'socket.io-client';
 import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
-//sessionStorage.setItem("localhost","localhost:3000");
+sessionStorage.setItem("localhost","localhost:3000");
 //sessionStorage.setItem("localhost","192.168.0.33:3000"); //Alicias Wifi
 //sessionStorage.setItem("localhost", "192.168.43.232:3000"); //Elias mobilnät
-sessionStorage.setItem("localhost", "104.28.150.41:3000"); //Villes mobilnät
+//sessionStorage.setItem("localhost", "104.28.150.41:3000"); //Villes mobilnät
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
