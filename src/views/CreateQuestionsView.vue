@@ -17,15 +17,15 @@
     </div>
     <div class="gameInfo b">
       <div id="title"> {{ uiLabels.clue1 }} </div>
-      <textarea class="fillInfo" v-model="clue1" name="clue1" rows="2"></textarea>
+      <textarea class="fillInfo" v-model="clue1" name="clue1" rows="2" maxlength="260"></textarea>
     </div>
     <div class="gameInfo c">
       <div id="title"> {{ uiLabels.clue2 }} </div>
-      <textarea class="fillInfo" v-model="clue2" name="clue2" rows="2"></textarea>
+      <textarea class="fillInfo" v-model="clue2" name="clue2" rows="2" maxlength="260"></textarea>
     </div>
     <div class="gameInfo d">
       <div id="title"> {{ uiLabels.clue3 }} </div>
-      <textarea class="fillInfo" v-model="clue3" name="clue3" rows="2"></textarea>
+      <textarea class="fillInfo" v-model="clue3" name="clue3" rows="2" maxlength="260"></textarea>
     </div>
     <div class="gameInfo f">
       <button class="addTown" v-on:click="addCity"

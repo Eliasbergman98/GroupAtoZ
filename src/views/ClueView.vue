@@ -35,12 +35,12 @@
                         <div class="labelSize">{{ Object.values(cities)[questionNumber - 1].clue3 }}</div> <br>
                         </p>
                         <p v-else-if="clueNumber > 2"></p>
-                        <div v-if="creator">
+                        <div class="creatormode" v-if="creator">
                             {{ uiLabels.waitingForAnswers }}
                         </div>
                         <div v-else>
                             <div v-if="!rightAnswer && !showRightAnswer">
-                                <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text">
+                                <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text" @keyup.enter="addPlayerAnswer">
                                 <button v-on:click="addPlayerAnswer" class="clueAnswer"
                                     :class="{ 'green-button': answerClue !== '' }">
                                     <div>
@@ -56,7 +56,7 @@
     </div>
     <footer>
         <div class="fuse-container">
-            <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '15vw' }">
+            <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
         </div>
     </footer>
 </template>
@@ -129,7 +129,6 @@ export default {
         addPlayerAnswer: function () {
             this.buttonClicked = true;
             if (this.answerClue === "" && this.timesPressedButton < 1) {
-                console.log("här borde det komma in")
                 this.buttonClicked = false;
                 return;
             }
@@ -138,11 +137,8 @@ export default {
                 socket.on("yourPoints", (data) => {
                     this.rightAnswer = data[0];
                     this.extraPoint = data[1];
-                    console.log("var det rätt svar? ", this.rightAnswer)
-                    console.log("var det ett extrapoäng? ", this.extraPoint)
                     if (this.rightAnswer) {
                         this.showRightAnswer = true;
-                        console.log("showRightAnswer: ", this.showRightAnswer)
                     }
                     else {
                         this.wrongAnswer = true;
@@ -160,7 +156,6 @@ export default {
                 this.wrongAnswer = false;
             }
             this.fuseWidth = 98;
-            socket.emit("newClue", this.gameId)
             this.buttonClicked = false;
             this.handleClues();
             this.answerClue = "";
@@ -187,6 +182,7 @@ export default {
                         if (lengthCities === this.questionNumber) {
                             this.$router.push(`/lastresult/${this.gameId}`);
                         } else {
+                            socket.emit("newClue", this.gameId)
                             this.$router.push(`/afterclue/${this.gameId}/${this.yourName}`);
                         }
                     }
@@ -235,6 +231,9 @@ export default {
 .tester input {
     font-size: 1.5vw;
     height: 2vw;
+}
+.creatormode{
+    margin-top: 2vw;
 }
 
 .clueAnswer {
@@ -313,6 +312,12 @@ h2 {
     p {
         height: 10vw;
     }
+
+    .creatormode{
+    font-size: 4vw;
+
+    margin-top: 20vw;
+}
 
     .clueAnswer {
         font-size: 1.5vw;

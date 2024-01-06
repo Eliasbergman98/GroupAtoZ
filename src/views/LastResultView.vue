@@ -308,13 +308,12 @@ h3 {
         border-radius: 2vw;
         background-color: none;
         top: 110vw;
-        left: 5vw;
+        left: 7vw;
     }
 
     .participant-list {
-        padding: 10em auto 2em 2em;
-        margin-left: 1vw;
-        margin-right: 4vw;
+        padding: 10em auto 2em auto;
+       margin-left: -1vw;
         text-align: left;
         max-height: 50vw;
         overflow-y: auto;

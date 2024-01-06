@@ -61,7 +61,6 @@ export default {
             this.questionNumber = data;
         });
         socket.on("fullGame", (data) => {
-            console.log(data);
             this.cities = data.cities;
         });
         this.startFuseTimer();
