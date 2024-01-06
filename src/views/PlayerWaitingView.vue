@@ -65,7 +65,6 @@ export default {
         socket.on("participantsUpdate", (participants) => {
             this.participants = participants;
             this.getParticipantName(this.participants);
-            console.log("hej här kommer nya joinare i playerwaiting", this.participants)
         });
         socket.on("creatorStarting", (gameId) => {
             this.$router.push('/startingquizplayer/' + this.gameId + '/' + this.yourName);
@@ -104,7 +103,6 @@ export default {
             if (window.matchMedia("(max-width: 800px)").matches) {
                 this.playersPerColumn = 100;
                 this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
-                console.log("Media query matches! Run your function here.");
             } else {
                 this.playersPerColumn = 6;
                 this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
