@@ -43,7 +43,6 @@ export default {
             selectedAvatar: null,
         }
     },
-
     watch: {
         participants: function () {
             this.updatePlayerColumns();
@@ -51,7 +50,6 @@ export default {
     },
     created: function () {
         this.gameId = this.$route.params.gameId;
-
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
@@ -74,17 +72,13 @@ export default {
             this.$router.push('/');
         })
     },
-
     methods: {
-
         exitGame() {
             socket.emit("playerExited", { gameId: this.gameId, name: this.yourName })
             this.$router.push('/');
             this.applyFunctionBasedOnMediaQuery();
         },
-
         updatePlayerColumns() {
-            //this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
             this.applyFunctionBasedOnMediaQuery();
         },
         chunkArray(array, size) {
@@ -192,7 +186,6 @@ h5 {
 .scroll-wrapper {
     overflow-y: auto;
     height: 15vw;
-
 }
 
 .scroll-wrapper ul {
@@ -239,7 +232,6 @@ h5 {
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-
     }
 
     #playerJoinedbutton {

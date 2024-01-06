@@ -29,8 +29,9 @@
                 </div>
             </div>
             <div class="gameInfo c">
-                <button id="donebutton" v-on:click="stopMusicAndStartGame" :class="{ 'green-button': yourName !== '' && selectedAvatar !== null}"> {{
-                    uiLabels.doneButton }}</button>
+                <button id="donebutton" v-on:click="stopMusicAndStartGame"
+                    :class="{ 'green-button': yourName !== '' && selectedAvatar !== null }"> {{
+                        uiLabels.doneButton }}</button>
                 <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
                 </AlertComponent>
             </div>
@@ -68,7 +69,7 @@ export default {
     },
     computed: {
         buttonImage() {
-            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
+            return this.isMuted ? pressToUnmuteImage : pressToMuteImage;
         }
     },
     created: function () {
@@ -82,11 +83,10 @@ export default {
         socket.on("fullGame", (data) => {
             this.quizName = data.quizName;
         });
-            // Check sessionStorage for muted state
         const isMuted = sessionStorage.getItem("isMuted");
-            if (isMuted) {
-                this.isMuted = JSON.parse(isMuted);}
-
+        if (isMuted) {
+            this.isMuted = JSON.parse(isMuted);
+        }
     },
     methods: {
         selectAvatar(index) {
@@ -103,16 +103,13 @@ export default {
             audioPlayer.muted = !audioPlayer.muted;
             this.isMuted = !this.isMuted;
             sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
-
         },
         stopMusicAndStartGame() {
             const audioPlayer = this.$root.$refs.audioPlayer;
-
             if (!audioPlayer.paused) {
                 audioPlayer.pause();
                 audioPlayer.currentTime = 0;
             }
-
             this.addParticipant();
         },
         addParticipant: async function () {
@@ -121,13 +118,11 @@ export default {
                 this.$refs.alertComponent.openAlert();
                 return;
             }
-
             if (this.selectedAvatarUrl === null) {
                 this.alertContentText = this.uiLabels.nameAvatarAlert;
                 this.$refs.alertComponent.openAlert();
                 return;
             }
-
             try {
                 const addParticipantResult = await new Promise((resolve) => {
                     socket.emit("addParticipant", { gameId: this.gameId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl, quizName: this.quizName });
@@ -136,7 +131,6 @@ export default {
                     });
                 });
                 this.checkName = addParticipantResult;
-
                 if (this.checkName === "invalidName") {
                     this.alertContentText = this.uiLabels.nameTakenAlert;
                     this.$refs.alertComponent.openAlert();
@@ -155,7 +149,6 @@ export default {
 <style scoped>
 h1 {
     margin-top: 4vw;
-
     font-size: 5vw;
 }
 
@@ -181,7 +174,6 @@ h1 {
 .a {
     grid-row-start: 1;
     grid-column-start: 1;
-    /* padding: 10em auto 2em 2em; */
     text-align: center;
     font-size: 2vw;
     width: 50vw;
@@ -190,8 +182,6 @@ h1 {
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 25vw;
-    /* margin-top: 3px; */
-
 }
 
 .b {
@@ -205,7 +195,6 @@ h1 {
     background-color: rgb(201, 241, 244);
     border: 2px solid black;
     margin-left: 25vw;
-    /* margin-top: 2vh; */
     padding-top: 2vw;
     padding-bottom: 4vw;
 }
@@ -245,24 +234,27 @@ h1 {
     color: gray;
 }
 
-#name, .b {
-  font-weight: bold;
+#name,
+.b {
+    font-weight: bold;
 }
 
 .selected {
     background-color: green;
 }
-.emojis{
-    height:3vw;
+
+.emojis {
+    height: 3vw;
     width: 3vw;
 }
-#arrow {
-  position: absolute;
-  top: -0.2vw;
-}
-.muteButton {
-  margin-top: -3vw;
 
+#arrow {
+    position: absolute;
+    top: -0.2vw;
+}
+
+.muteButton {
+    margin-top: -3vw;
 }
 
 
@@ -281,8 +273,6 @@ h1 {
 
     .a {
         margin-left: 0vw;
-        /* padding-top: 1vh;
-        padding-left: 2vw; */
         font-size: 5vw;
         width: 90vw;
         height: 10vw;
@@ -293,6 +283,7 @@ h1 {
         padding-top: 3vw;
         margin-bottom: 3vw;
     }
+
     .b {
         width: 90vw;
         height: 30vw;
@@ -304,13 +295,11 @@ h1 {
     .emojis {
         height: 4vw;
         width: 4vw;
-      
     }
 
     .muteButton {
-    margin-top: -11vw;
-
-  }
+        margin-top: -11vw;
+    }
 
     .c {
         margin-left: -40vw;
@@ -328,7 +317,8 @@ h1 {
         width: 91vw;
         margin-left: -10vw;
     }
-    #avatarZone{
+
+    #avatarZone {
         margin-left: 10vw;
     }
 }

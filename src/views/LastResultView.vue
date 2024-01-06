@@ -1,7 +1,7 @@
 <template>
     <div class="confetti-container">
         <header>
-            <div class="arrow">
+            <div>
                 <router-link to="/"><img id="arrow" src="/img/arrow.png"> </router-link>
             </div>
         </header>
@@ -37,7 +37,8 @@
                     </ol>
                 </div>
             </div>
-            <last-city-answer-component v-if="showLastCityAnswer" :ui-labels="uiLabels" :cities="cities"></last-city-answer-component>
+            <last-city-answer-component v-if="showLastCityAnswer" :ui-labels="uiLabels"
+                :cities="cities"></last-city-answer-component>
         </main>
     </div>
 </template>
@@ -93,7 +94,6 @@ export default {
                 if (a.time < b.time) return 1;
                 return 0;
             })
-
         },
         backToStart() {
             this.$router.push('/');
@@ -112,7 +112,6 @@ export default {
                 });
             }
         },
-
     },
 }
 </script>
@@ -129,7 +128,6 @@ h1 {
     width: 30vw;
     left: 7.5vw;
     top: 15vw;
-
 }
 
 #arrow {
@@ -313,7 +311,7 @@ h3 {
 
     .participant-list {
         padding: 10em auto 2em auto;
-       margin-left: -1vw;
+        margin-left: -1vw;
         text-align: left;
         max-height: 50vw;
         overflow-y: auto;
@@ -332,4 +330,3 @@ h3 {
     }
 }
 </style>
-  

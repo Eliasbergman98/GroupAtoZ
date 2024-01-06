@@ -7,7 +7,6 @@
   <div class="arrow">
     <router-link to="/"> <img id="arrow" src="/img/arrow.png"></router-link>
   </div>
-
   <main>
     <section>
       <img id="brake" src="/img/brake.png">
@@ -28,7 +27,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import AlertComponent from '@/components/AlertComponent.vue';
 import io from 'socket.io-client';
 import pressToMuteImage from "/img/soundon.png";
@@ -51,11 +49,10 @@ export default {
       isMuted: false,
       showMysteryButton: true,
     }
-
   },
   computed: {
     buttonImage() {
-      return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
+      return this.isMuted ? pressToUnmuteImage : pressToMuteImage;
     }
   },
   created: function () {
@@ -117,10 +114,11 @@ export default {
   margin-top: -5.15vw;
   width: 15vw;
 }
+
 #arrow {
-    margin-left: -94vw;
-    margin-top: 2vw;
-  }
+  margin-left: -94vw;
+  margin-top: 2vw;
+}
 
 #joinbutton {
   margin: -8vw;

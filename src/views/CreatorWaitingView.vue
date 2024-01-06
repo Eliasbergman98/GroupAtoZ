@@ -2,7 +2,6 @@
     <header>
         <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </header>
-
     <h1>{{ quizName }} <img class="selected-avatar" v-bind:src="selectedAvatar" alt="Selected Avatar" /></h1>
     <h6>{{ uiLabels.gameTag }} {{ gameId }}</h6>
     <h5>{{ uiLabels.waitingForPlayers }}</h5>
@@ -58,15 +57,13 @@ export default {
             playerColumns: [],
             playersPerColumn: 6,
             yourName: ""
-
         }
     },
     computed: {
         buttonImage() {
-            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
+            return this.isMuted ? pressToUnmuteImage : pressToMuteImage;
         }
     },
-
     watch: {
         participants: function () {
             this.updatePlayerColumns();
@@ -89,14 +86,12 @@ export default {
             this.selectedAvatar = data.selectedAvatar;
         });
         window.addEventListener('resize', this.applyFunctionBasedOnMediaQuery);
-        // Check sessionStorage for muted state
         const isMuted = sessionStorage.getItem("isMuted");
         if (isMuted) {
             this.isMuted = JSON.parse(isMuted);
         }
     },
     methods: {
-
         endGame() {
             socket.emit("creatorExited", this.gameId)
             this.$router.push('/');
@@ -121,22 +116,18 @@ export default {
         },
         stopMusicAndStartGame() {
             const audioPlayer = this.$root.$refs.audioPlayer;
-
             if (this.participants.length === 0) {
                 this.alertContentText = this.uiLabels.noPlayersJoined;
                 this.$refs.alertComponent.openAlert();
                 return;
             }
-
             if (!audioPlayer.paused) {
                 audioPlayer.pause();
                 audioPlayer.currentTime = 0;
             }
-
             this.sendInfo();
         },
         updatePlayerColumns() {
-            //this.playerColumns = this.chunkArray(this.participants, this.playersPerColumn);
             this.applyFunctionBasedOnMediaQuery();
         },
         chunkArray(array, size) {
@@ -206,7 +197,6 @@ h5 {
 #playerJoinedbutton {
     order: 2;
     background-color: rgba(4, 51, 192, 0.966);
-
 }
 
 #createbutton {
@@ -309,7 +299,6 @@ h5 {
         font-size: 3.6vh;
         margin-left: -10vw;
         border-radius: 5vw;
-
     }
 
     #createbutton {
@@ -320,7 +309,6 @@ h5 {
         margin-left: -10vw;
         border-radius: 5vw;
         margin-bottom: 5vw;
-
     }
 
     #playerJoinedbutton {

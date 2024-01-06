@@ -8,7 +8,6 @@
       <img v-if="showMysteryButton" class="mysteryButton" @click="toggleMusic" src="/img/playbutton.png"
         alt="Toggle Mute" />
       <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
-
     </div>
   </header>
   <main>
@@ -36,7 +35,8 @@ import pressToUnmuteImage from "/img/soundoff.png";
 //sessionStorage.setItem("localhost","192.168.0.33:3000"); //Alicias Wifi
 //sessionStorage.setItem("localhost", "94.191.152.228:3000"); //Elias mobilnät
 //sessionStorage.setItem("localhost", "172.225.69.147"); //Villes mobilnät
-sessionStorage.setItem("localhost","localhost:3000");
+// sessionStorage.setItem("localhost","172.20.10.2:3000"); //Alles wifi
+sessionStorage.setItem("localhost", "localhost:3000");
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
@@ -52,22 +52,19 @@ export default {
     }
   },
   computed: {
-    // Compute the image source based on the button state
     buttonImage() {
-      return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
+      return this.isMuted ? pressToUnmuteImage : pressToMuteImage;
     }
   },
-
   created: function () {
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
     });
-
-    // Check sessionStorage for muted state
     const isMuted = sessionStorage.getItem("isMuted");
-      if (isMuted) {
-        this.isMuted = JSON.parse(isMuted);}
+    if (isMuted) {
+      this.isMuted = JSON.parse(isMuted);
+    }
   },
   methods: {
     switchLanguage: function (lang) {
@@ -76,17 +73,15 @@ export default {
       socket.emit("switchLanguage", this.lang)
     },
     toggleMusic() {
-      // Access the audio player from the AppView component
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.play();
-      this.showMysteryButton = false; // Hide the mysteryButton
+      this.showMysteryButton = false;
     },
     toggleMute() {
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
       sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
-
     },
   }
 }

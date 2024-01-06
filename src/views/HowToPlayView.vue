@@ -1,7 +1,7 @@
 <template>
   <header>
     <div>
-      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute"/>
+      <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </div>
   </header>
   <div class="arrow">
@@ -15,25 +15,25 @@
     </h1>
   </div>
   <section id="box-container">
-  <section id="aboutus" class="text">
-    <h2>{{ uiLabels.aboutText }}</h2>
-    <p>{{ uiLabels.information1 }}</p>
-    <p style="margin-bottom:1em">{{ uiLabels.information15 }}</p>
+    <section id="aboutus" class="text">
+      <h2>{{ uiLabels.aboutText }}</h2>
+      <p>{{ uiLabels.information1 }}</p>
+      <p style="margin-bottom:1em">{{ uiLabels.information15 }}</p>
+    </section>
+    <section id="howtoplay" class="text">
+      <h2>{{ uiLabels.aboutText2 }}</h2>
+      <p>{{ uiLabels.information2 }}</p>
+      <p>{{ uiLabels.information25 }}</p>
+      <p style="margin-bottom:1em">{{ uiLabels.extraPoints }}</p>
+    </section>
+    <section id="howtocreate" class="text">
+      <h2> {{ uiLabels.createGame1 }} </h2>
+      <p>{{ uiLabels.information3 }}</p>
+      <p>{{ uiLabels.information4 }}</p>
+      <p>{{ uiLabels.information5 }}</p>
+      <p>{{ uiLabels.information6 }}</p>
+    </section>
   </section>
-  <section id="howtoplay" class="text">
-    <h2>{{ uiLabels.aboutText2 }}</h2>
-    <p>{{ uiLabels.information2 }}</p>
-    <p>{{ uiLabels.information25 }}</p>
-    <p style="margin-bottom:1em">{{ uiLabels.extraPoints }}</p>
-  </section>
-  <section id="howtocreate" class="text">
-    <h2> {{ uiLabels.createGame1 }} </h2>
-    <p>{{ uiLabels.information3 }}</p>
-    <p>{{ uiLabels.information4 }}</p>
-    <p>{{ uiLabels.information5 }}</p>
-    <p>{{ uiLabels.information6 }}</p>
-  </section>
-</section>
 </template>
 
 <script>
@@ -53,20 +53,19 @@ export default {
     }
   },
   computed: {
-        buttonImage() {
-            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
-        }
+    buttonImage() {
+      return this.isMuted ? pressToUnmuteImage : pressToMuteImage;
+    }
   },
   created: function () {
     socket.emit("pageLoaded", this.lang);
     socket.on("init", (labels) => {
       this.uiLabels = labels
     })
-    // Check sessionStorage for muted state
     const isMuted = sessionStorage.getItem("isMuted");
-      if (isMuted) {
-        this.isMuted = JSON.parse(isMuted);
-      }
+    if (isMuted) {
+      this.isMuted = JSON.parse(isMuted);
+    }
   },
   methods: {
     switchLanguage: function (lang) {
@@ -84,26 +83,25 @@ export default {
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
       sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
-
-      },
+    },
   }
 }
 </script>
 
 
 <style scoped>
-
-
 #brake {
-  margin-top:-1vw;
+  margin-top: -1vw;
   width: 15vw;
 }
 
-#box-container{
-  display:inline-flex;
+#box-container {
+  display: inline-flex;
 }
 
-#aboutus, #howtoplay, #howtocreate {
+#aboutus,
+#howtoplay,
+#howtocreate {
   border: 0.2vw solid black;
   color: white;
   background-color: green;
@@ -116,13 +114,14 @@ export default {
 }
 
 .text {
-	text-shadow:
-		-0.05vw -0.05vw 0 #000,
-		0.05vw -0.05vw 0 #000,
-		-0.05vw 0.05vw 0 #000,
-		0.05vw 0.05vw 0 #000;
-    font-size: 1.15vw;
+  text-shadow:
+    -0.05vw -0.05vw 0 #000,
+    0.05vw -0.05vw 0 #000,
+    -0.05vw 0.05vw 0 #000,
+    0.05vw 0.05vw 0 #000;
+  font-size: 1.15vw;
 }
+
 #arrow {
   position: absolute;
   top: -0.2vw;
@@ -130,35 +129,36 @@ export default {
 
 @media screen and (max-width: 800px) {
 
-h1{
-  font-size: 10vw;
-}
+  h1 {
+    font-size: 10vw;
+  }
 
-#box-container{
- display: flex;
- flex-direction: column;
- align-items: center;
+  #box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-}
+  #aboutus,
+  #howtoplay,
+  #howtocreate {
+    border: 0.2vw solid black;
+    color: white;
+    background-color: green;
+    margin: 1vw;
+    margin-bottom: 5vh;
+    padding: 1vw;
+    height: auto;
+    width: 80vw;
+    border-radius: 1.5vw;
+  }
 
-#aboutus, #howtoplay, #howtocreate {
-  border: 0.2vw solid black;
-  color: white;
-  background-color: green;
-  margin: 1vw;
-  margin-bottom: 5vh;
-  padding: 1vw;
-  height: auto;
-  width: 80vw;
-  border-radius: 1.5vw;
-}
-.text {
-	text-shadow:
-		-0.05vw -0.05vw 0 #000,
-		0.05vw -0.05vw 0 #000,
-		-0.05vw 0.05vw 0 #000,
-		0.05vw 0.05vw 0 #000;
+  .text {
+    text-shadow:
+      -0.05vw -0.05vw 0 #000,
+      0.05vw -0.05vw 0 #000,
+      -0.05vw 0.05vw 0 #000,
+      0.05vw 0.05vw 0 #000;
     font-size: 3vw;
-}
-}
-</style>
+  }
+}</style>

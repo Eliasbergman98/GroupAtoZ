@@ -16,8 +16,8 @@
                     :extraPoint="extraPoint"></right-answer-message>
             </div>
             <div v-else-if="!showRightAnswer && !rightAnswer && wrongAnswer">
-                <wrong-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked"
-                    :rightAnswer="rightAnswer" :clueNumber="clueNumber"></wrong-answer-message>
+                <wrong-answer-message :uiLabels="uiLabels" :buttonClicked="buttonClicked" :rightAnswer="rightAnswer"
+                    :clueNumber="clueNumber"></wrong-answer-message>
             </div>
             <div v-else>
                 <div class="clueBox">
@@ -40,7 +40,8 @@
                         </div>
                         <div v-else>
                             <div v-if="!rightAnswer && !showRightAnswer">
-                                <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text" @keyup.enter="addPlayerAnswer">
+                                <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text"
+                                    @keyup.enter="addPlayerAnswer">
                                 <button v-on:click="addPlayerAnswer" class="clueAnswer"
                                     :class="{ 'green-button': answerClue !== '' }">
                                     <div>
@@ -100,7 +101,7 @@ export default {
     },
     computed: {
         buttonImage() {
-            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
+            return this.isMuted ? pressToUnmuteImage : pressToMuteImage;
         },
     },
     created: function () {
@@ -207,7 +208,8 @@ export default {
     display: grid;
     background-size: cover;
 }
-#addPlayerAnswer{
+
+#addPlayerAnswer {
     margin-top: 3vw;
 }
 
@@ -231,7 +233,8 @@ export default {
     font-size: 1.5vw;
     height: 2vw;
 }
-.creatormode{
+
+.creatormode {
     margin-top: 2vw;
 }
 
@@ -284,9 +287,10 @@ h2 {
         font-size: 12vw;
         margin-top: 10vw;
     }
-    #addPlayerAnswer{
-    margin-top: 10vw;
-}
+
+    #addPlayerAnswer {
+        margin-top: 10vw;
+    }
 
     .tester {
         border-radius: 20px;
@@ -312,15 +316,15 @@ h2 {
         height: 10vw;
     }
 
-    .creatormode{
-    font-size: 4vw;
+    .creatormode {
+        font-size: 4vw;
 
-    margin-top: 20vw;
-}
+        margin-top: 20vw;
+    }
 
     .clueAnswer {
         font-size: 1.5vw;
-        height: 5.5vw;
+        height: 6vw;
         width: 10.5vw;
         position: center;
         margin-left: 5vw;
@@ -340,5 +344,4 @@ h2 {
         margin-left: 42vw;
         margin-top: 2vw;
     }
-}
-</style>
+}</style>

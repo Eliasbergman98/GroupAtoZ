@@ -4,7 +4,6 @@
       <img class="muteButton" @click="toggleMute" :src="buttonImage" alt="Toggle Mute" />
     </div>
   </header>
-
   <div class="arrow">
     <router-link to="/"> <img id="arrow" src="/img/arrow.png">
     </router-link>
@@ -33,7 +32,8 @@
       </div>
     </div>
     <div class="gameInfo c">
-      <button id="createbutton" v-on:click="createGame" :class="{ 'green-button': quizName !== '' && selectedAvatar !== null }"> {{ uiLabels.next }}</button>
+      <button id="createbutton" v-on:click="createGame"
+        :class="{ 'green-button': quizName !== '' && selectedAvatar !== null }"> {{ uiLabels.next }}</button>
       <AlertComponent ref="alertComponent" :alertContentText="alertContentText">
       </AlertComponent>
     </div>
@@ -58,7 +58,6 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       gameId: "",
       quizName: '',
-      // data: {},
       uiLabels: {},
       selectedAvatar: null,
       avatars: avatar,
@@ -69,7 +68,7 @@ export default {
   },
   computed: {
     buttonImage() {
-      return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
+      return this.isMuted ? pressToUnmuteImage : pressToMuteImage;
     }
   },
   created: function () {
@@ -111,10 +110,8 @@ export default {
       audioPlayer.muted = !audioPlayer.muted;
       this.isMuted = !this.isMuted;
       sessionStorage.setItem("isMuted", JSON.stringify(this.isMuted));
-
     },
   }
-
 }
 </script>
 
@@ -155,7 +152,6 @@ h1 {
   border: 2px solid black;
   margin-left: 25vw;
   display: flex;
-
 }
 
 .b {
@@ -196,7 +192,6 @@ h1 {
 .emojis {
   width: 3vw;
   height: 3vw;
-
 }
 
 #gameName {
@@ -219,7 +214,6 @@ h1 {
 
 .muteButton {
   margin-top: -1vw;
-
 }
 
 #createbutton {
@@ -248,13 +242,11 @@ h1 {
 
   .muteButton {
     margin-top: -3vw;
-
   }
 
   h1 {
     font-size: 11.5vw;
     margin-top: 5vw;
-
   }
 
   .game {
@@ -296,7 +288,6 @@ h1 {
     margin-left: 5vw;
     font-size: 5vw;
     height: 30vw;
-
   }
 
   .c {
@@ -319,7 +310,6 @@ h1 {
   }
 
   .avatar-row {
-    /* margin-top: -1vh; */
     width: 90vw;
     margin-left: -10vw;
   }
@@ -327,4 +317,5 @@ h1 {
   #avatarZone {
     margin-left: 10vw;
   }
-}</style>
+}
+</style>

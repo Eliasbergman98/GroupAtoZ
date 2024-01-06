@@ -87,7 +87,6 @@ export default {
       clue3: "",
       alertContentText: "",
       inCreateQuestionsView: true,
-      // Separate variables to hold submitted data
       submittedCities: {},
       isMuted: false,
       showMysteryButton: true,
@@ -98,10 +97,9 @@ export default {
       return this.city && this.clue1 && this.clue2 && this.clue3;
     },
     buttonImage() {
-      return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
+      return this.isMuted ? pressToUnmuteImage : pressToMuteImage;
     }
   },
-
   created: function () {
     this.gameId = this.$route.params.gameId;
     this.selectedAvatarUrl = this.avatarUrl;
@@ -110,7 +108,6 @@ export default {
     socket.on("init", (labels) => {
       this.uiLabels = labels;
     });
-    // Check sessionStorage for muted state
     const isMuted = sessionStorage.getItem("isMuted");
     if (isMuted) {
       this.isMuted = JSON.parse(isMuted);
@@ -118,10 +115,9 @@ export default {
   },
   methods: {
     toggleMusic() {
-      // Access the audio player from the AppView component
       const audioPlayer = this.$root.$refs.audioPlayer;
       audioPlayer.play();
-      this.showMysteryButton = false; // Hide the mysteryButton
+      this.showMysteryButton = false;
     },
     toggleMute() {
       const audioPlayer = this.$root.$refs.audioPlayer;
@@ -187,10 +183,7 @@ export default {
       socket.emit("removeCity", { gameId: this.gameId, city: this.city });
       delete this.submittedCities[cityData];
       this.city = "";
-
     }
-
-
   },
 }
 </script>
@@ -233,7 +226,6 @@ h1 {
   text-align: left;
   position: left;
   border-radius: 2vw;
-
 }
 
 .a {
@@ -330,7 +322,6 @@ h1 {
 .addTown {
   grid-row-start: 5;
   grid-column-start: 1;
-  /* margin-top: 60vh; */
   margin-left: 34vw;
   width: 10em;
 
@@ -356,7 +347,6 @@ h1 {
 
 #clue {
   font-weight: bolder;
-
 }
 
 .right-section p {
@@ -421,7 +411,6 @@ h1 {
     grid-gap: 6vw;
     margin-top: 5vw;
     background-size: cover;
-
   }
 
   .a,
@@ -513,7 +502,6 @@ h1 {
     top: 1vw;
     right: -38vw;
   }
-
 
 }
 </style>

@@ -9,14 +9,14 @@
         <h1>
             {{ uiLabels.whereTo }}
         </h1>
-    </div>  
+    </div>
     <audio ref="audioPlayer" autoplay loop>
         <source src="/img/train1.mp3" type="audio/mp3" />
         Your browser does not support the audio element.
     </audio>
     <footer>
         <div class="fuse-container">
-            <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '15vw' }">
+            <img id="fuseLine" src="/img/redbar1.png" :style="{ width: fuseWidth + 'vw', height: '10vw' }">
         </div>
     </footer>
 </template>
@@ -42,9 +42,8 @@ export default {
         }
     },
     computed: {
-        // Compute the image source based on the button state
         buttonImage() {
-            return this.isMuted ? pressToUnmuteImage : pressToMuteImage; 
+            return this.isMuted ? pressToUnmuteImage : pressToMuteImage;
         }
     },
     created: function () {
@@ -67,66 +66,53 @@ export default {
     },
     methods: {
         handleFuseBurnout() {
-            // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             clearInterval(sessionStorage.getItem("fuseTimer"));
             this.$router.push('/clue/' + this.gameId + '/' + this.yourName);
         },
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;
-
-            // Toggle the muted attribute
             audioPlayer.muted = !audioPlayer.muted;
-
             this.isMuted = !this.isMuted;
         },
-
         startFuseTimer: function () {
             clearInterval(sessionStorage.getItem("fuseTimer"));
-
-            // Adjust the timer interval based on your preference
             const timerInterval = 10; // 1 second
             sessionStorage.setItem("fuseTimer", setInterval(() => {
-                // Decrease the fuse width by a certain percentage
                 this.fuseWidth -= 0.1; // Adjust as needed
-
-                // Check if the fuse is completely burned
                 if (this.fuseWidth <= 0) {
-                    // Handle the event when the fuse is burned out
                     this.handleFuseBurnout();
                 }
             }, timerInterval));
-
         }
     }
 }
 </script>  
 
 <style scoped>
-footer{
+footer {
     height: 10vw;
     margin-bottom: auto;
 }
 
-.titelClass{
-     margin-top: 5vw;
+.titelClass {
+    margin-top: 5vw;
 }
+
 h1 {
     position: center;
-    /* margin-top: 10vw; */
 }
+
 .muteButton {
     position: relative;
-  width: 2.5vw;
-  height: 2.5vw;
-  padding: 0.5vw 0 0 0.5vw;
-  margin-left: 92vw;
-  /* margin-top: -8vh; */
+    width: 2.5vw;
+    height: 2.5vw;
+    padding: 0.5vw 0 0 0.5vw;
+    margin-left: 92vw;
 }
 
 h2 {
     position: center;
-    /* margin-top: 10vw; */
 }
 
 @media screen and (max-width: 800px) {
@@ -135,6 +121,7 @@ h2 {
         margin-top: 20VW;
         font-size: 7.7vh;
     }
+
     .muteButton {
         position: absolute;
         width: 4vw;
@@ -143,6 +130,4 @@ h2 {
         margin-left: 42vw;
         margin-top: -2vw;
     }
-
-}
-</style>
+}</style>
