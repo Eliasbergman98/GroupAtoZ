@@ -40,7 +40,7 @@
                         </div>
                         <div v-else>
                             <div v-if="!rightAnswer && !showRightAnswer">
-                                <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text">
+                                <input v-model="answerClue" id="addPlayerAnswer" name="addPlayerAnswer" type="text" @keyup.enter="addPlayerAnswer">
                                 <button v-on:click="addPlayerAnswer" class="clueAnswer"
                                     :class="{ 'green-button': answerClue !== '' }">
                                     <div>
