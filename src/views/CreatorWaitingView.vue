@@ -283,8 +283,8 @@ h5 {
     }
 
     h1 {
-        font-size: 10vw;
-        margin-top: -6vw;
+        font-size: 8vw;
+        margin-top: 2vw;
     }
 
     h2 {
