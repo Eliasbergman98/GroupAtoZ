@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 
 // Store data in an object to keep the global namespace clean
 function Data() {
-  this.polls = {};
+  this.games = {};
 
 }
 
@@ -20,27 +20,27 @@ Data.prototype.getUILabels = function (lang = "en") {
 }
 
 Data.prototype.createGame = function (gameId, lang = "en", quizName, selectedAvatar) {
-  if (typeof this.polls[gameId] === "undefined") {
-    let poll = {};
-    poll.selectedAvatar = selectedAvatar;
-    poll.quizName = quizName;
-    poll.cities = {};
-    poll.lang = lang;
-    poll.questions = [];
-    poll.answers = [];
-    poll.answerTime = 0;
-    poll.currentQuestion = 0;
-    this.polls[gameId] = poll;
-    poll.participants = [];
+  if (typeof this.games[gameId] === "undefined") {
+    let game = {};
+    game.selectedAvatar = selectedAvatar;
+    game.quizName = quizName;
+    game.cities = {};
+    game.lang = lang;
+    game.questions = [];
+    game.answers = [];
+    game.answerTime = 0;
+    game.currentQuestion = 0;
+    this.games[gameId] = game;
+    game.participants = [];
   }
-  return this.polls[gameId];
+  return this.games[gameId];
 }
 
 Data.prototype.createParticipant = function (gameId, name) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined') {
-    for (let i = 0; i < poll.participants.length; i++) {
-      if (poll.participants[i].name === name) {
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
+    for (let i = 0; i < game.participants.length; i++) {
+      if (game.participants[i].name === name) {
       }
     }
   }
@@ -48,13 +48,13 @@ Data.prototype.createParticipant = function (gameId, name) {
 }
 
 Data.prototype.getGame = function (gameId) {
-  return this.polls[gameId] || {};
+  return this.games[gameId] || {};
 }
 
 Data.prototype.addCity = function (gameId, city, clue1, clue2, clue3) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined') {
-    poll.cities[city] = {
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
+    game.cities[city] = {
       clue1: clue1,
       clue2: clue2,
       clue3: clue3,
@@ -63,36 +63,36 @@ Data.prototype.addCity = function (gameId, city, clue1, clue2, clue3) {
 }
 
 Data.prototype.removeCity = function (gameId, city) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined') {
-    delete poll.cities[city];
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
+    delete game.cities[city];
   }
 }
 
 Data.prototype.removePlayer = function (gameId, name) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined') {
-    for (let i = 0; i < poll.participants.length; i++) {
-      if (poll.participants[i].name === name) {
-        poll.participants.splice(i, 1);
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
+    for (let i = 0; i < game.participants.length; i++) {
+      if (game.participants[i].name === name) {
+        game.participants.splice(i, 1);
 
       }
     }
   }
 }
 
-Data.prototype.removePoll = function (gameId) {
-  delete this.polls[gameId];
+Data.prototype.removeGame = function (gameId) {
+  delete this.games[gameId];
 }
 
 Data.prototype.addParticipant = function (gameId, name, selectedAvatar, quizName) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined') {
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
     if (quizName === name) {
       return "invalidName"
     }
-    for (let i = 0; i < poll.participants.length; i++) {
-      if (poll.participants[i].name === name) {
+    for (let i = 0; i < game.participants.length; i++) {
+      if (game.participants[i].name === name) {
         return "invalidName"
       }
     }
@@ -102,40 +102,40 @@ Data.prototype.addParticipant = function (gameId, name, selectedAvatar, quizName
       points: 0,
       time: 0
     }
-    poll.participants.push(participant);
+    game.participants.push(participant);
   }
   return "validName"
 }
 
 Data.prototype.getParticipants = function (gameId) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined') {
-    return poll.participants;
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
+    return game.participants;
   }
   return []
 }
 
 Data.prototype.getCurrentCity = function (gameId) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined') {
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
 
-    return poll.currentQuestion;
+    return game.currentQuestion;
   }
   return null
 }
 Data.prototype.getNewCity = function (gameId) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined') {
-    poll.currentQuestion += 1;
-    return poll.currentQuestion;
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
+    game.currentQuestion += 1;
+    return game.currentQuestion;
   }
   return null
 }
 Data.prototype.checkAnswerTime = function (gameId, answerTime) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined' && poll.participants.length > 1) {
-    if (poll.answerTime === 0) {
-      poll.answerTime = answerTime;
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined' && game.participants.length > 1) {
+    if (game.answerTime === 0) {
+      game.answerTime = answerTime;
       return true
     }
     return false
@@ -144,16 +144,16 @@ Data.prototype.checkAnswerTime = function (gameId, answerTime) {
 
 }
 Data.prototype.resetAnswerTime = function (gameId) {
-  const poll = this.polls[gameId];
-  if (poll.answerTime != 0) {
-    poll.answerTime = 0;
+  const game = this.games[gameId];
+  if (game.answerTime != 0) {
+    game.answerTime = 0;
   }
 }
 
 Data.prototype.checkAnswer = function (gameId, answer, name, clueNumber, rightAnswer, answerTime) {
-  const poll = this.polls[gameId];
-  if (typeof poll !== 'undefined') {
-    let city = Object.keys(poll.cities)[poll.currentQuestion - 1].toLowerCase();
+  const game = this.games[gameId];
+  if (typeof game !== 'undefined') {
+    let city = Object.keys(game.cities)[game.currentQuestion - 1].toLowerCase();
     answer = answer.toLowerCase();
     let pointsWon = 0;
     if (answer != "") {
@@ -179,11 +179,11 @@ Data.prototype.checkAnswer = function (gameId, answer, name, clueNumber, rightAn
         }
       }
       let extraPoint = false
-      for (let i = 0; i < poll.participants.length; i++) {
-        if (poll.participants[i].name === name) {
-          poll.participants[i].points += pointsWon;
+      for (let i = 0; i < game.participants.length; i++) {
+        if (game.participants[i].name === name) {
+          game.participants[i].points += pointsWon;
           if (rightAnswer) {
-            poll.participants[i].time += answerTime;
+            game.participants[i].time += answerTime;
           }
         }
         if (pointsWon % 2 != 0) {

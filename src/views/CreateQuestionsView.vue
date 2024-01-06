@@ -10,7 +10,7 @@
   <h1>
     {{ uiLabels.createYourGame }}
   </h1>
-  <div class="poll">
+  <div class="game">
     <div class="gameInfo a">
       <div id="title"> {{ uiLabels.city1 }} </div>
       <input class="fillInfo" v-model="city" name="cityname" type="text" />
@@ -217,7 +217,7 @@ h1 {
   background-color: rgb(201, 241, 244);
 }
 
-.poll {
+.game {
   margin-top: 2vw;
   position: relative;
   display: grid;
@@ -413,7 +413,7 @@ h1 {
     font-size: 8vw;
   }
 
-  .poll {
+  .game {
     position: relative;
     display: grid;
     grid-template-columns: 39vw 39vw 9.1vw;

@@ -4,7 +4,7 @@
     </h1>
     <h6>{{ uiLabels.gameTag }} {{ gameId }}</h6>
     <h5>{{ uiLabels.waitingForHost }}</h5>
-    <div class="poll">
+    <div class="game">
         <div class="columns-wrapper">
             <div v-for="(column, index) in playerColumns" :key="index" class="column">
                 <div class="scroll-wrapper">
@@ -155,7 +155,7 @@ h5 {
     background-color: rgba(4, 51, 192, 0.966)
 }
 
-.poll {
+.game {
     font-size: 1.7vw;
     color: black;
     position: center;
@@ -223,7 +223,7 @@ h5 {
         font-size: 7vw;
     }
 
-    .poll {
+    .game {
         font-size: 8vw;
         font-weight: bold;
     }

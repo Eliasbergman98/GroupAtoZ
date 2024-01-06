@@ -48,7 +48,7 @@ function sockets(io, socket, data) {
   });
 
   socket.on('creatorExited', function (gameId) {
-    io.to(gameId).emit('gameEnded', data.removePoll(gameId));
+    io.to(gameId).emit('gameEnded', data.removeGame(gameId));
   });
 
   socket.on('joinGame', function (gameId) {

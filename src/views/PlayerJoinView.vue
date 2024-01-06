@@ -43,7 +43,7 @@ export default {
   data: function () {
     return {
       gamecode: "",
-      gameId: "inactive poll",
+      gameId: "inactive game",
       uiLabels: {},
       data: {},
       lang: localStorage.getItem("lang") || "en",
