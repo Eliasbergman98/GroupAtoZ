@@ -129,7 +129,6 @@ export default {
         addPlayerAnswer: function () {
             this.buttonClicked = true;
             if (this.answerClue === "" && this.timesPressedButton < 1) {
-                console.log("här borde det komma in")
                 this.buttonClicked = false;
                 return;
             }
@@ -138,11 +137,8 @@ export default {
                 socket.on("yourPoints", (data) => {
                     this.rightAnswer = data[0];
                     this.extraPoint = data[1];
-                    console.log("var det rätt svar? ", this.rightAnswer)
-                    console.log("var det ett extrapoäng? ", this.extraPoint)
                     if (this.rightAnswer) {
                         this.showRightAnswer = true;
-                        console.log("showRightAnswer: ", this.showRightAnswer)
                     }
                     else {
                         this.wrongAnswer = true;

@@ -84,7 +84,7 @@ h2 {
     padding: 10em auto 2em 2em;
     font-size: 2vw;
     width: 50vw;
-    height: 37vw;
+    height: 36vw;
     background-size: cover;
     border-radius: 2vw;
     background-color: rgb(201, 241, 244);
@@ -120,7 +120,7 @@ h2 {
 @media screen and (max-width:900px) {
     .score-board-component {
         width: 80vw;
-        height: 50vw;
+        height: 65vw;
         margin-left: 10vw;
         margin-top: 10vh;
     }
