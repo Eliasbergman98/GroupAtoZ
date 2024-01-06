@@ -17,8 +17,6 @@
     },
     computed: {
       showWrongMessage() {
-        console.log('Button Clicked:', this.buttonClicked);
-        console.log('Right Answer:', this.rightAnswer);
         return this.buttonClicked && !this.rightAnswer;
       },
     },

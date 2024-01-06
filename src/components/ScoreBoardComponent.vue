@@ -7,7 +7,7 @@
                 <li v-for="(person, index) in participants" :key="person.name" class="participant-item">
                     <div class="participant-info">
                         <div class="name-avatar">
-                            {{ person.name }} <img class="emojies" v-bind:src="person.avatar" target="_blank">
+                            {{ person.name }} <img class="emojis" v-bind:src="person.avatar" target="_blank">
                         </div>
                         <span class="points">{{ person.points }}</span>
                     </div>
@@ -108,7 +108,7 @@ h2 {
     align-items: center;
 }
 
-.emojies {
+.emojis {
     width: 2vw;
     height: 2vw;
 }

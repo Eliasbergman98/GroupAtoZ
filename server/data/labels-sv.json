@@ -77,6 +77,5 @@
 	"scoreboard": "Poängtavla",
 	"extraPointText": "Du svarade snabbast och fick ett extrapoäng!",
 	"fastestAnswer": "SNABBAST SVAR!",
-	"wrongAnswerNextClue": "Tyvärr svarade du fel. Men du får en till chans på nästa ledtråd!",
-	"for": "för"
+	"wrongAnswerNextClue": "Tyvärr svarade du fel. Men du får en till chans på nästa ledtråd!"
 }
