@@ -77,5 +77,6 @@
 	"scoreboard": "Scoreboard",
 	"extraPointText": "You answered the fastest and recieved an extra point!",
 	"fastestAnswer": "FASTEST ANSWER!",
-	"wrongAnswerNextClue": "Sorry, the answer is not correct. But you get one more chance on the next clue!"
+	"wrongAnswerNextClue": "Sorry, the answer is not correct. But you get one more chance on the next clue!",
+	"toFinalResult": "To Final Results"
 }

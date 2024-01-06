@@ -150,11 +150,16 @@ Data.prototype.resetAnswerTime = function (gameId) {
   }
 }
 
+Data.prototype.cleanUpString = function (str) {
+  return str.toLowerCase().replace(/[^a-z]/g, '');
+}
+
 Data.prototype.checkAnswer = function (gameId, answer, name, clueNumber, rightAnswer, answerTime) {
   const game = this.games[gameId];
   if (typeof game !== 'undefined') {
-    let city = Object.keys(game.cities)[game.currentQuestion - 1].toLowerCase();
-    answer = answer.toLowerCase();
+    let city = Object.keys(game.cities)[game.currentQuestion - 1];
+    city = this.cleanUpString(city);
+    answer = this.cleanUpString(answer);
     let pointsWon = 0;
     if (answer != "") {
       if (clueNumber === 0 && answer === city) {

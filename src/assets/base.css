@@ -81,14 +81,16 @@ img[id=sweimg]:hover,
 #addQuizNameBtn:hover,
 .addTown:hover,
 #backToStartButton:hover,
-#endGamebutton {
+#endGamebutton,
+#finalresultbutton {
   cursor: pointer;
 }
 
 #joinbutton.green-button,
 #createbutton.green-button,
 .addTown.green-button,
-#donebutton.green-button {
+#donebutton.green-button,
+#finalresultbutton {
   background-color: green;
 }
 
@@ -106,7 +108,8 @@ img[id=sweimg]:hover,
 #exitGamebutton,
 #gameIDbutton,
 #playerJoinedbutton,
-#endGamebutton {
+#endGamebutton,
+#finalresultbutton {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
 }

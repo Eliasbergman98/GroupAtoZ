@@ -5,12 +5,12 @@
       <div class="alert-header" v-if=!inCreateQuestionsView>
         <button id="xbutton" @click="closeAlert">X</button>
       </div>
-      <div class="alert-content">
+      <div>
         {{ alertContentText }}
       </div>
       <div v-if="inCreateQuestionsView">
-        <button id="yesbutton" @click="continueGame"> {{ yesText }} </button>
         <button id="nobutton" @click="closeAlert"> {{ noText }} </button>
+        <button id="yesbutton" @click="continueGame"> {{ yesText }} </button>
       </div>
     </div>
   </div>
@@ -79,8 +79,8 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Adjust the opacity here (0 to 1) */
-  z-index: -1; /* Place the overlay behind the alert */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 .alert-box {
   background-color:rgb(184, 187, 237);
@@ -97,7 +97,6 @@ export default {
   justify-content: flex-end;
   align-items: flex-start;
   position: relative;
-  /* Add position relative to allow absolute positioning of the close button */
 }
 
 #xbutton {
@@ -106,17 +105,14 @@ export default {
   cursor: pointer;
   font-size: 18px;
   position: absolute;
-  /* Position the button absolutely */
   top: -4vw;
-  /* Adjust the top position as needed */
   right: -4vw;
-  /* Adjust the right position as needed */
 }
 
-#yesbutton {
+#nobutton {
   font-size: 1.5vw;
   position: left;
-  background-color: green;
+  background-color: red;
   color: white;
   padding: 1vw;
   border-radius: 1vw;
@@ -127,10 +123,10 @@ export default {
   width: 6vw;
 }
 
-#nobutton {
+#yesbutton {
   font-size: 1.5vw;
   position: right;
-  background-color: red;
+  background-color: green;
   color: white;
   padding: 1vw;
   border: 1 px solid black;

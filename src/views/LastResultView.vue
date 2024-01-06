@@ -37,17 +37,20 @@
                     </ol>
                 </div>
             </div>
+            <last-city-answer-component v-if="showLastCityAnswer" :ui-labels="uiLabels" :cities="cities"></last-city-answer-component>
         </main>
     </div>
 </template>
   
 <script>
+import LastCityAnswerComponent from '@/components/LastCityAnswerComponent.vue';
 import io from 'socket.io-client';
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {
     name: 'LastResult',
     components: {
+        LastCityAnswerComponent,
     },
     mounted() {
         this.generateConfetti();
@@ -60,7 +63,9 @@ export default {
             questionNumber: 0,
             uiLabels: {},
             participants: [],
-            quizName: ""
+            quizName: "",
+            showLastCityAnswer: true,
+            cities: {}
         }
     },
     created: function () {
@@ -75,6 +80,8 @@ export default {
             this.participants = data.participants;
             this.quizName = data.quizName;
             this.playerWithMostPoints();
+            this.showLastCityAnswer = true;
+            this.cities = data.cities;
         });
     },
     methods: {
@@ -82,7 +89,6 @@ export default {
             this.participants = this.participants.sort((a, b) => {
                 if (a.points < b.points) return 1;
                 if (a.points > b.points) return -1;
-                console.log("participantlista i funken", this.participants)
                 if (a.time > b.time) return -1;
                 if (a.time < b.time) return 1;
                 return 0;
