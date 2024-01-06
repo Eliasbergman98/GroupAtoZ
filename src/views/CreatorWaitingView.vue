@@ -4,7 +4,7 @@
     </header>
 
     <h1>{{ quizName }} <img class="selected-avatar" v-bind:src="selectedAvatar" alt="Selected Avatar" /></h1>
-    <h6>{{ uiLabels.gameTag }} {{ pollId }}</h6>
+    <h6>{{ uiLabels.gameTag }} {{ gameId }}</h6>
     <h5>{{ uiLabels.waitingForPlayers }}</h5>
     <div class="poll">
         <div class="columns-wrapper">
@@ -44,7 +44,7 @@ export default {
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
-            pollId: "",
+            gameId: "",
             questionNumber: 0,
             uiLabels: {},
             selectedAvatar: null,
@@ -73,7 +73,7 @@ export default {
         },
     },
     created: function () {
-        this.pollId = this.$route.params.pollId;
+        this.gameId = this.$route.params.gameId;
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels
@@ -82,10 +82,9 @@ export default {
             this.participants = participants;
             this.getParticipantName(this.participants);
         });
-        socket.emit("joinPoll", this.pollId);
-        socket.emit("getPoll", this.pollId);
-        socket.on("fullPole", (data) => {
-            // this.data = data;
+        socket.emit("joinGame", this.gameId);
+        socket.emit("getGame", this.gameId);
+        socket.on("fullGame", (data) => {
             this.quizName = data.quizName;
             this.selectedAvatar = data.selectedAvatar;
         });
@@ -99,14 +98,14 @@ export default {
     methods: {
 
         endGame() {
-            socket.emit("creatorExited", this.pollId)
+            socket.emit("creatorExited", this.gameId)
             this.$router.push('/');
             this.applyFunctionBasedOnMediaQuery();
         },
         sendInfo: function () {
             if (this.participants != 0) {
-                socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber })
-                this.$router.push('/startingquizcreator/' + this.pollId + "/" + this.quizName)
+                socket.emit("startingGame", { gameId: this.gameId, questionNumber: this.questionNumber })
+                this.$router.push('/startingquizcreator/' + this.gameId + "/" + this.quizName)
             }
         },
         toggleMusic() {

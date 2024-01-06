@@ -59,7 +59,7 @@ export default {
             lang: localStorage.getItem("lang") || "en",
             quizName: '',
             yourName: '',
-            pollId: "",
+            gameId: "",
             alertContentText: "",
             checkName: "",
             isMuted: false,
@@ -72,14 +72,14 @@ export default {
         }
     },
     created: function () {
-        this.pollId = this.$route.params.pollId
-        socket.emit('joinPoll', this.pollId)
+        this.gameId = this.$route.params.gameId
+        socket.emit('joinGame', this.gameId)
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels
         })
-        socket.emit("getPoll", this.pollId);
-        socket.on("fullPole", (data) => {
+        socket.emit("getGame", this.gameId);
+        socket.on("fullGame", (data) => {
             this.quizName = data.quizName;
         });
             // Check sessionStorage for muted state
@@ -130,7 +130,7 @@ export default {
 
             try {
                 const addParticipantResult = await new Promise((resolve) => {
-                    socket.emit("addParticipant", { pollId: this.pollId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl, quizName: this.quizName });
+                    socket.emit("addParticipant", { gameId: this.gameId, name: this.yourName, selectedAvatar: this.selectedAvatarUrl, quizName: this.quizName });
                     socket.on("checkPlayer", (data) => {
                         resolve(data);
                     });
@@ -142,7 +142,7 @@ export default {
                     this.$refs.alertComponent.openAlert();
                     this.checkName = "";
                 } else {
-                    this.$router.push('/playerwaiting/' + this.pollId);
+                    this.$router.push('/playerwaiting/' + this.gameId);
                 }
             } catch (error) {
                 console.error("Error adding participant:", error);

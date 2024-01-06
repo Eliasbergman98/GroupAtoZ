@@ -78,7 +78,7 @@ export default {
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
-            pollId: "",
+            gameId: "",
             quizName: '',
             questionNumber: 0,
             uiLabels: {},
@@ -104,14 +104,14 @@ export default {
         },
     },
     created: function () {
-        this.pollId = this.$route.params.pollId;
+        this.gameId = this.$route.params.gameId;
         this.yourName = this.$route.params.yourName;
-        socket.emit("getPoll", this.pollId);
+        socket.emit("getGame", this.gameId);
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.on("fullPole", (data) => {
+        socket.on("fullGame", (data) => {
             this.cities = data.cities;
             this.quizName = data.quizName;
             this.questionNumber = data.currentQuestion;
@@ -134,7 +134,7 @@ export default {
                 return;
             }
             else if (this.rightAnswer != true && this.timesPressedButton < 1) {
-                socket.emit("checkAnswer", { pollId: this.pollId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber, rightAnswer: this.rightAnswer, answerTime: this.fuseWidth })
+                socket.emit("checkAnswer", { gameId: this.gameId, answer: this.answerClue, name: this.yourName, clueNumber: this.clueNumber, rightAnswer: this.rightAnswer, answerTime: this.fuseWidth })
                 socket.on("yourPoints", (data) => {
                     this.rightAnswer = data[0];
                     this.extraPoint = data[1];
@@ -160,7 +160,7 @@ export default {
                 this.wrongAnswer = false;
             }
             this.fuseWidth = 98;
-            socket.emit("newClue", this.pollId)
+            socket.emit("newClue", this.gameId)
             this.buttonClicked = false;
             this.handleClues();
             this.answerClue = "";
@@ -185,9 +185,9 @@ export default {
                         clearInterval(sessionStorage.getItem("fuseTimer"));
                         this.clueNumber = 0;
                         if (lengthCities === this.questionNumber) {
-                            this.$router.push(`/lastresult/${this.pollId}`);
+                            this.$router.push(`/lastresult/${this.gameId}`);
                         } else {
-                            this.$router.push(`/afterclue/${this.pollId}/${this.yourName}`);
+                            this.$router.push(`/afterclue/${this.gameId}/${this.yourName}`);
                         }
                     }
                 }

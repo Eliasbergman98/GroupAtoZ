@@ -32,7 +32,7 @@ export default {
     data: function () {
         return {
             lang: localStorage.getItem("lang") || "en",
-            pollId: "",
+            gameId: "",
             questionNumber: 0,
             uiLabels: {},
             fuseWidth: 98,
@@ -47,30 +47,30 @@ export default {
         }
     },
     created: function () {
-        this.pollId = this.$route.params.pollId;
+        this.gameId = this.$route.params.gameId;
         this.yourName = this.$route.params.yourName;
         socket.on("init", (labels) => {
             this.uiLabels = labels;
         });
-        socket.emit("joinPoll", this.pollId);
+        socket.emit("joinGame", this.gameId);
         this.startFuseTimer();
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
             console.log("hämtar info från update number i currentcity ", this.questionNumber)
         });
-        socket.on("fullPole", (data) => {
+        socket.on("fullGame", (data) => {
             this.cities = data.cities;
         });
         socket.emit("pageLoaded", this.lang);
-        socket.emit("getCity", this.pollId);
-        socket.emit("getPoll", this.pollId);
+        socket.emit("getCity", this.gameId);
+        socket.emit("getGame", this.gameId);
     },
     methods: {
         handleFuseBurnout() {
             // Add logic to handle what should happen when the fuse is burned out
             console.log('The fuse is burned out!');
             clearInterval(sessionStorage.getItem("fuseTimer"));
-            this.$router.push('/clue/' + this.pollId + '/' + this.yourName);
+            this.$router.push('/clue/' + this.gameId + '/' + this.yourName);
         },
         toggleMute() {
             const audioPlayer = this.$refs.audioPlayer;

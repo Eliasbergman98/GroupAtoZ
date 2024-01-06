@@ -19,8 +19,8 @@ Data.prototype.getUILabels = function (lang = "en") {
   return JSON.parse(labels);
 }
 
-Data.prototype.createPoll = function (pollId, lang = "en", quizName, selectedAvatar) {
-  if (typeof this.polls[pollId] === "undefined") {
+Data.prototype.createGame = function (gameId, lang = "en", quizName, selectedAvatar) {
+  if (typeof this.polls[gameId] === "undefined") {
     let poll = {};
     poll.selectedAvatar = selectedAvatar;
     poll.quizName = quizName;
@@ -30,14 +30,14 @@ Data.prototype.createPoll = function (pollId, lang = "en", quizName, selectedAva
     poll.answers = [];
     poll.answerTime = 0;
     poll.currentQuestion = 0;
-    this.polls[pollId] = poll;
+    this.polls[gameId] = poll;
     poll.participants = [];
   }
-  return this.polls[pollId];
+  return this.polls[gameId];
 }
 
-Data.prototype.createParticipant = function (pollId, name) {
-  const poll = this.polls[pollId];
+Data.prototype.createParticipant = function (gameId, name) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     for (let i = 0; i < poll.participants.length; i++) {
       if (poll.participants[i].name === name) {
@@ -47,12 +47,12 @@ Data.prototype.createParticipant = function (pollId, name) {
   return name;
 }
 
-Data.prototype.getPoll = function (pollId) {
-  return this.polls[pollId] || {};
+Data.prototype.getGame = function (gameId) {
+  return this.polls[gameId] || {};
 }
 
-Data.prototype.addCity = function (pollId, city, clue1, clue2, clue3) {
-  const poll = this.polls[pollId];
+Data.prototype.addCity = function (gameId, city, clue1, clue2, clue3) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     poll.cities[city] = {
       clue1: clue1,
@@ -62,15 +62,15 @@ Data.prototype.addCity = function (pollId, city, clue1, clue2, clue3) {
   }
 }
 
-Data.prototype.removeCity = function (pollId, city) {
-  const poll = this.polls[pollId];
+Data.prototype.removeCity = function (gameId, city) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     delete poll.cities[city];
   }
 }
 
-Data.prototype.removePlayer = function (pollId, name) {
-  const poll = this.polls[pollId];
+Data.prototype.removePlayer = function (gameId, name) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     for (let i = 0; i < poll.participants.length; i++) {
       if (poll.participants[i].name === name) {
@@ -81,12 +81,12 @@ Data.prototype.removePlayer = function (pollId, name) {
   }
 }
 
-Data.prototype.removePoll = function (pollId) {
-  delete this.polls[pollId];
+Data.prototype.removePoll = function (gameId) {
+  delete this.polls[gameId];
 }
 
-Data.prototype.addParticipant = function (pollId, name, selectedAvatar, quizName) {
-  const poll = this.polls[pollId];
+Data.prototype.addParticipant = function (gameId, name, selectedAvatar, quizName) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     if (quizName === name) {
       return "invalidName"
@@ -107,32 +107,32 @@ Data.prototype.addParticipant = function (pollId, name, selectedAvatar, quizName
   return "validName"
 }
 
-Data.prototype.getParticipants = function (pollId) {
-  const poll = this.polls[pollId];
+Data.prototype.getParticipants = function (gameId) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     return poll.participants;
   }
   return []
 }
 
-Data.prototype.getCurrentCity = function (pollId) {
-  const poll = this.polls[pollId];
+Data.prototype.getCurrentCity = function (gameId) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
 
     return poll.currentQuestion;
   }
   return null
 }
-Data.prototype.getNewCity = function (pollId) {
-  const poll = this.polls[pollId];
+Data.prototype.getNewCity = function (gameId) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     poll.currentQuestion += 1;
     return poll.currentQuestion;
   }
   return null
 }
-Data.prototype.checkAnswerTime = function (pollId, answerTime) {
-  const poll = this.polls[pollId];
+Data.prototype.checkAnswerTime = function (gameId, answerTime) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined' && poll.participants.length > 1) {
     if (poll.answerTime === 0) {
       poll.answerTime = answerTime;
@@ -143,15 +143,15 @@ Data.prototype.checkAnswerTime = function (pollId, answerTime) {
 
 
 }
-Data.prototype.resetAnswerTime = function (pollId) {
-  const poll = this.polls[pollId];
+Data.prototype.resetAnswerTime = function (gameId) {
+  const poll = this.polls[gameId];
   if (poll.answerTime != 0) {
     poll.answerTime = 0;
   }
 }
 
-Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAnswer, answerTime) {
-  const poll = this.polls[pollId];
+Data.prototype.checkAnswer = function (gameId, answer, name, clueNumber, rightAnswer, answerTime) {
+  const poll = this.polls[gameId];
   if (typeof poll !== 'undefined') {
     let city = Object.keys(poll.cities)[poll.currentQuestion - 1].toLowerCase();
     answer = answer.toLowerCase();
@@ -160,21 +160,21 @@ Data.prototype.checkAnswer = function (pollId, answer, name, clueNumber, rightAn
       if (clueNumber === 0 && answer === city) {
         pointsWon = 6;
         rightAnswer = true;
-        if (this.checkAnswerTime(pollId)) {
+        if (this.checkAnswerTime(gameId)) {
           pointsWon += 1;
         }
       }
       if (clueNumber === 1 && answer === city) {
         pointsWon = 4;
         rightAnswer = true;
-        if (this.checkAnswerTime(pollId)) {
+        if (this.checkAnswerTime(gameId)) {
           pointsWon += 1;
         }
       }
       if (clueNumber === 2 && answer === city) {
         pointsWon = 2;
         rightAnswer = true;
-        if (this.checkAnswerTime(pollId)) {
+        if (this.checkAnswerTime(gameId)) {
           pointsWon += 1;
         }
       }

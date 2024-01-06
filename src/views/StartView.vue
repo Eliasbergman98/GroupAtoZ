@@ -35,8 +35,13 @@ import pressToMuteImage from "/img/soundon.png";
 import pressToUnmuteImage from "/img/soundoff.png";
 sessionStorage.setItem("localhost","localhost:3000");
 //sessionStorage.setItem("localhost","192.168.0.33:3000"); //Alicias Wifi
+<<<<<<< HEAD
 //sessionStorage.setItem("localhost", "192.168.43.232:3000"); //Elias mobilnät
 //sessionStorage.setItem("localhost", "104.28.150.41:3000"); //Villes mobilnät
+=======
+//sessionStorage.setItem("localhost", "94.191.152.228:3000"); //Elias mobilnät
+//sessionStorage.setItem("localhost", "172.225.69.147"); //Villes mobilnät
+>>>>>>> 9e922d37d350ec97542d78bbdb47044b10cea3c2
 const socket = io(sessionStorage.getItem("localhost"));
 
 export default {

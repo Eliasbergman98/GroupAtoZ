@@ -28,25 +28,24 @@ export default {
     return {
       visible: false,
       inCreateQuestionsView: false,
-      pollId: "",
+      gameId: "",
       noText: "",
       yesText: ""
     };
   },
   methods: {
-    openAlert(inCreateQuestionsView, pollId, yesText, noText) {
-      this.pollId = pollId
+    openAlert(inCreateQuestionsView, gameId, yesText, noText) {
+      this.gameId = gameId
       this.visible = true;
       this.yesText = yesText;
       this.noText = noText;
       this.inCreateQuestionsView = inCreateQuestionsView;
-      console.log(this.inCreateQuestionsView)
     },
     closeAlert() {
       this.visible = false;
     },
     continueGame() {
-      this.$router.push('/creatorwaiting/' + this.pollId);
+      this.$router.push('/creatorwaiting/' + this.gameId);
     }
   },
 };

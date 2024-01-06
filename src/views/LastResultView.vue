@@ -56,7 +56,7 @@ export default {
         return {
             confettiArray: [],
             lang: localStorage.getItem("lang") || "en",
-            pollId: "",
+            gameId: "",
             questionNumber: 0,
             uiLabels: {},
             participants: [],
@@ -64,14 +64,14 @@ export default {
         }
     },
     created: function () {
-        this.pollId = this.$route.params.pollId;
+        this.gameId = this.$route.params.gameId;
         socket.emit("pageLoaded", this.lang);
         socket.on("init", (labels) => {
             this.uiLabels = labels
         })
-        socket.emit("joinPoll", this.pollId);
-        socket.emit("getPoll", this.pollId);
-        socket.on("fullPole", (data) => {
+        socket.emit("joinGame", this.gameId);
+        socket.emit("getGame", this.gameId);
+        socket.on("fullGame", (data) => {
             this.participants = data.participants;
             this.quizName = data.quizName;
             this.playerWithMostPoints();
@@ -93,8 +93,8 @@ export default {
             this.$router.push('/');
         },
         sendInfo: function () {
-            socket.emit("startingGame", { pollId: this.pollId, questionNumber: this.questionNumber });
-            this.$router.push('/startingquiz/' + this.pollId);
+            socket.emit("startingGame", { gameId: this.gameId, questionNumber: this.questionNumber });
+            this.$router.push('/startingquiz/' + this.gameId);
         },
         generateConfetti: function () {
             for (let i = 0; i < 50; i++) {
@@ -156,6 +156,7 @@ h1 {
 h3 {
     font-weight: bold;
     color: rgba(4, 51, 192, 0.966);
+    margin-right: 4vw;
 }
 
 .confetti-container {
@@ -207,6 +208,18 @@ h3 {
     text-align: left;
     max-height: 20vw;
     overflow-y: auto;
+}
+
+.participant-list::-webkit-scrollbar {
+    width: 5vw;
+}
+
+.participant-list::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.participant-list::-webkit-scrollbar-track {
+    background-color: transparent;
 }
 
 .participant-item {
@@ -270,21 +283,6 @@ h3 {
     .c {
         top: 57.3vw;
         left: 66.7vw;
-    }
-
-    #name1 {
-        top: 132vw;
-        left: 20vw;
-    }
-
-    #name2 {
-        top: 130vw;
-        left: 45.5vw;
-    }
-
-    #name3 {
-        top: 132vw;
-        left: 70vw;
     }
 
     .confetti-container {
