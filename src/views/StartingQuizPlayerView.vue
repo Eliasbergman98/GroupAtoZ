@@ -56,7 +56,6 @@ export default {
         this.startFuseTimer();
         socket.on("currentCity", (data) => {
             this.questionNumber = data;
-            console.log("hämtar info från update number i currentcity ", this.questionNumber)
         });
         socket.on("fullGame", (data) => {
             this.cities = data.cities;
